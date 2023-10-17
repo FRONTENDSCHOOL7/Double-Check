@@ -1,0 +1,13 @@
+{
+  "extends": ["prettier", "eslint:recommended","react-app", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "no-var": "error",
+    "require-await": "error",
+    "eqeqeq": "warn",
+    "react/prop-types": 0,
+    "no-unused-vars": "off",
+    "prettier/prettier": "error"
+  }
+}
