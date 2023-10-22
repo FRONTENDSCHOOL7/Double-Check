@@ -22,8 +22,6 @@ function LoginPage({ handlePage }) {
     };
 
     try {
-      // fetch에서 POST, 명시 안하면 기본값이 GET
-      // 로그인해서 token 꺼내기
       const res = await axios.post(reqUrl, {
         loginData,
         headers: {
@@ -32,13 +30,8 @@ function LoginPage({ handlePage }) {
       });
       const json = await res.json();
       console.log(json);
-      // 객체에 user가 없는 경우 == 로그인 실패 했을 때
-      // if(!json.user) {
-      //     return
-      // }
       const token = json.user.token;
       console.log(token);
-      // 로컬스토리지에 토큰 저장하기
       localStorage.setItem("token", token);
     } catch (error) {
       alert("로그인에 실패했습니다.");
@@ -56,6 +49,10 @@ function LoginPage({ handlePage }) {
   const submitLogin = (e) => {
     e.preventDefault();
     login(email, password);
+  };
+
+  const logOut = () => {
+    localStorage.setItem("token", "");
   };
 
   return (
@@ -77,7 +74,10 @@ function LoginPage({ handlePage }) {
             value={password}
           />
           <button type="button" onClick={handlePage}>
-            회원가입
+            로그인하기
+          </button>
+          <button type="button" onClick={logOut}>
+            로그아웃하기
           </button>
         </form>
       </section>
