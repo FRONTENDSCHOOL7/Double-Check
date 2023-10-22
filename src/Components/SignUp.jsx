@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 // import { useState } from "react";
@@ -6,6 +8,7 @@ import axios from "axios";
 import {
   accountnameState,
   emailState,
+  emailValidState,
   introState,
   passwordState,
   usernameState,
@@ -17,11 +20,38 @@ const SignUpPage = ({ handlePage }) => {
   const [password, setPassword] = useRecoilState(passwordState);
   const [accountname, setAccountname] = useRecoilState(accountnameState);
   const [intro, setIntro] = useRecoilState(introState);
+  const [emailValid, setEmailValid] = useRecoilState(emailValidState);
 
+  // 이메일 중복 체크 (값이 바뀔때마다 api 실행됨)
+  // const emailCheked = async (email) => {
+  //   try {
+  //     const reqUrl = "https://api.mandarin.weniv.co.kr/user/emailvalid";
+  //     const res = await axios.post(
+  //       reqUrl,
+  //       {
+  //         user: {
+  //           email: email,
+  //         },
+  //       },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       },
+  //     );
+  //   } catch (error) {
+  //     setEmailValid(true);
+  //     console.log(error.response);
+  //   }
+  // };
+  // emailCheked(email);
   const signUp = async (signUpData) => {
-    console.log(signUpData);
-
     const reqUrl = "https://api.mandarin.weniv.co.kr/user";
+    console.log(signUpData);
+    emailValid(email);
+    if (!emailValid) {
+      return;
+    }
     try {
       const res = await axios.post(
         reqUrl,
@@ -32,9 +62,9 @@ const SignUpPage = ({ handlePage }) => {
           },
         },
       );
-      console.log(res);
+      console.log(res.data.message);
     } catch (error) {
-      console.log(error.response);
+      console.log(error.response.data.message);
     }
   };
 
@@ -54,7 +84,7 @@ const SignUpPage = ({ handlePage }) => {
     setAccountname(e.target.value);
   };
 
-  const inputIntro = (e) => {
+  const inputIntro = async (e) => {
     setIntro(e.target.value);
   };
 
@@ -102,41 +132,41 @@ const SignUpPage = ({ handlePage }) => {
       </section>
 
       <section>
-        <div>
-          <label htmlFor="userNameInput">사용자 이름</label>
-          <input
-            type="text"
-            id="userNameInput"
-            name="username"
-            placeholder="2~10자 이내여야 합니다."
-            onChange={inputUserName}
-            value={username}
-          />
-        </div>
-        <div>
-          <label htmlFor="userIdInput">계정 ID</label>
-          <input
-            type="text"
-            id="userIdInput"
-            name="accountname"
-            placeholder="영문, 숫자, 특수문자(,), (_)만 사용 가능합니다."
-            onChange={inputAccountname}
-            value={accountname}
-          />
-        </div>
-        <div>
-          <label htmlFor="userIntroInput">소개</label>
-          <input
-            type="text"
-            id="userIntroInput"
-            name="intro"
-            placeholder="자신과 판매할 상품에 대해 소개해 주세요."
-            onChange={inputIntro}
-          />
-        </div>
-        <button type="button" onClick={submitSignUp}>
-          감귤마켓 시작하기
-        </button>
+        <form onSubmit={submitSignUp}>
+          <div>
+            <label htmlFor="userNameInput">사용자 이름</label>
+            <input
+              type="text"
+              id="userNameInput"
+              name="username"
+              placeholder="2~10자 이내여야 합니다."
+              onChange={inputUserName}
+              value={username}
+            />
+          </div>
+          <div>
+            <label htmlFor="userIdInput">계정 ID</label>
+            <input
+              type="text"
+              id="userIdInput"
+              name="accountname"
+              placeholder="영문, 숫자, 특수문자(,), (_)만 사용 가능합니다."
+              onChange={inputAccountname}
+              value={accountname}
+            />
+          </div>
+          <div>
+            <label htmlFor="userIntroInput">소개</label>
+            <input
+              type="text"
+              id="userIntroInput"
+              name="intro"
+              placeholder="자신과 판매할 상품에 대해 소개해 주세요."
+              onChange={inputIntro}
+            />
+          </div>
+          <button>감귤마켓 시작하기</button>
+        </form>
       </section>
     </>
   );

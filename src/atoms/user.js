@@ -39,3 +39,8 @@ export const infoState = atom({
   key: "info",
   default: "",
 });
+
+export const emailValidState = atom({
+  key: "emailValid",
+  default: false,
+});

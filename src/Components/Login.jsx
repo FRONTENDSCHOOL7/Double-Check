@@ -74,7 +74,7 @@ function LoginPage({ handlePage }) {
             value={password}
           />
           <button type="button" onClick={handlePage}>
-            로그인하기
+            로그인하기
           </button>
           <button type="button" onClick={logOut}>
             로그아웃하기
