@@ -24,12 +24,11 @@ function LoginPage({ handlePage }) {
     try {
       // fetch에서 POST, 명시 안하면 기본값이 GET
       // 로그인해서 token 꺼내기
-      const res = await axios(reqUrl, {
-        method: "POST", // 대문자로!
+      const res = await axios.post(reqUrl, {
+        loginData,
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(loginData), // 문자열로 만들어줘야함
       });
       const json = await res.json();
       console.log(json);

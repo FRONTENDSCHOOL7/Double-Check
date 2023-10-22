@@ -26,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint" : "eslint .",
+    "lint": "eslint .",
     "serve": "serve -s build",
     "build-and-serve": "npm run build && npm run serve"
   },

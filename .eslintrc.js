@@ -26,7 +26,15 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "jsx-a11y"],
-  rules: {},
+  rules: {
+    // eslintConfig - rules에 다음과 같이 추가
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
+  },
   settings: {
     react: { version: "detect" },
   },
