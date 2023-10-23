@@ -1,5 +1,11 @@
 {
-  "extends": ["prettier", "eslint:recommended","react-app", "plugin:prettier/recommended"],
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "react-app",
+    "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
   "plugins": ["prettier"],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
