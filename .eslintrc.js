@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true,
   },
   extends: [
     "eslint:recommended",
@@ -26,9 +27,7 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "jsx-a11y"],
-  rules: {
-    "prettier/prettier": ["error", { endOfLine: "auto" }],
-  },
+  rules: { "prettier/prettier": ["error", { endOfLine: "auto" }] },
   settings: {
     react: { version: "detect" },
   },

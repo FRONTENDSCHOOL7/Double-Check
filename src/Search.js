@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 function Test2() {
@@ -47,7 +47,7 @@ function Test2() {
           searchBookList.map((item, index) => (
             <li key={index}>
               <button onClick={() => getBookInfoDetail(item.isbn)}>
-                <img src={item.image} />
+                <img src={item.image} alt="" />
                 <h3>{item.title}</h3>
                 <span>{item.author}</span>
               </button>
