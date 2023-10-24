@@ -5,8 +5,7 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { accountnameValid, signUpAPI } from "API/User";
-import { emailValid } from "API/User";
+import { signUpAPI } from "API/User";
 import axios from "axios";
 
 export default function SignUpPage() {
@@ -34,39 +33,7 @@ export default function SignUpPage() {
         [name]: value,
       },
     }));
-    // setCheckEmail((prevState) => ({
-    //   ...prevState,
-    //   user: {
-    //     ...prevState.user,
-    //     email: signUpData.user.email,
-    //   },
-    // }));
   };
-
-  // const emailAvailable = async () => {
-  //   try {
-  //     const checkEmail = {
-  //       user: {
-  //         email: signUpData.user.email,
-  //       },
-  //     };
-  //     const response = await emailValid(checkEmail);
-
-  //     if (response.status === 200) {
-  //       // API 요청이 성공한 경우의 처리
-  //       console.log("Email is valid");
-  //     } else {
-  //       // API 요청은 성공했지만 응답이 다른 상태 코드를 가지는 경우의 처리
-  //       console.log("Email is not valid");
-  //     }
-  //   } catch (error) {
-  //     // API 요청이 실패한 경우의 처리
-  //     console.error("API 요청 중 오류 발생:", error);
-
-  //     // 에러 메시지를 사용자에게 알림
-  //     // 예를 들어, 모달 팝업 또는 오류 메시지를 표시할 수 있습니다.
-  //   }
-  // };
 
   const emailAvailable = async () => {
     const reqUrl = "https://api.mandarin.weniv.co.kr/user/emailvalid";
@@ -84,8 +51,6 @@ export default function SignUpPage() {
       const message = response.data.message;
       if (message === "사용 가능한 이메일 입니다.") {
         setEmailDuplicate(false);
-      } else {
-        setEmailDuplicate(true);
       }
     } catch (error) {
       console.error(error);
@@ -96,7 +61,7 @@ export default function SignUpPage() {
     const reqUrl = "https://api.mandarin.weniv.co.kr/user/accountnamevalid";
     const data = {
       user: {
-        email: signUpData.user.accountname,
+        accountname: signUpData.user.accountname,
       },
     };
     try {
@@ -106,10 +71,9 @@ export default function SignUpPage() {
         },
       });
       const message = response.data.message;
+      console.log(response.data.message);
       if (message === "사용 가능한 계정ID 입니다.") {
         setAccountnameDuplicate(false);
-      } else {
-        setAccountnameDuplicate(true);
       }
     } catch (error) {
       console.error(error);
@@ -128,7 +92,7 @@ export default function SignUpPage() {
     await accountnameAvailable();
 
     if (email === "") {
-      errors.push("유효한 이메일을 입력해주세요.");
+      errors.push("이메일을 입력해주세요.");
     } else if (!emailRegex.test(email)) {
       errors.push("이메일 형식이 올바르지 않습니다.");
     } else if (emailDuplicate) {
@@ -175,7 +139,7 @@ export default function SignUpPage() {
             onChange={handleInputChange}
             value={signUpData.user.email}
           />
-          {userErrorMessage.includes("유효한 이메일을 입력해주세요") && (
+          {userErrorMessage.includes("이메일을 입력해주세요.") && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
           )}
           {userErrorMessage.includes("이메일 형식이 올바르지 않습니다.") && (
