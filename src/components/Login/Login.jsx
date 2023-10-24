@@ -3,7 +3,7 @@
 // import React, { useState } from "react";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { emailState, passwordState } from "../atoms/user";
+import { emailState, passwordState } from "../Recoil/User";
 
 function LoginPage({ handlePage }) {
   const [email, setEmail] = useRecoilState(emailState);

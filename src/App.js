@@ -1,45 +1,35 @@
-/* eslint-disable react/react-in-jsx-scope */
-import axios from "axios";
-import LoginPage from "./Components/Login";
-import SignUpPage from "./Components/SignUp";
-import { infoState, pageState } from "./atoms/user";
-import { useRecoilState } from "recoil";
+/* eslint-disable no-unused-vars */
+import React from "react";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import GlobalStyles from "Styles/GlobalStyle";
+// import SplashPage from 'Pages/SplashPage';
+// import ErrorPage from 'Pages/ErrorPage';
+import TopBar from "Components/Common/TopBar";
+import BottomBar from "Components/Common/BottomBar";
+import MainPage from "Pages/MainPage";
+import BookRoutes from "Route/BookRoutes";
+import SearchPage from "Pages/SearchPage";
+import SignupPage from "Pages/SignupPage";
+import LoginPage from "Pages/LoginPage";
 
 function App() {
-  const [page, setPage] = useRecoilState(pageState);
-  const [info, setInfo] = useRecoilState(infoState);
-  const handlePage = () => {
-    setPage((prevPage) => {
-      return !prevPage;
-    });
-  };
-  const getMyinfo = async () => {
-    const token = localStorage.getItem("token");
-    const reqUrl = "https://api.mandarin.weniv.co.kr/user/myinfo";
-    try {
-      const res = await axios.get(reqUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(res);
-      setInfo(JSON.stringify(res));
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
-    <div>
-      <button type="button" onClick={getMyinfo}>
-        내 정보 불러오기
-      </button>
-      {info}
-      {page ? (
-        <LoginPage handlePage={handlePage} />
-      ) : (
-        <SignUpPage handlePage={handlePage} />
-      )}
-    </div>
+    <BrowserRouter>
+      <GlobalStyles />
+      {/*  라우터에 영향을 받지않는 컴포넌트들*/}
+      <TopBar />
+      <Routes>
+        {/* <Route path='/*' element={<ErrorPage />} /> */}
+        {/* <Route path='/' element={<SplashPage />} /> */}
+        <Route path="/mainpage" element={<MainPage />} />
+        <Route path="/bookpage/*" element={<BookRoutes />} />
+        <Route path="/loginpage" element={<LoginPage />} />
+        <Route path="/signupPage" element={<SignupPage />} />
+        <Route path="/searchPage" element={<SearchPage />} />
+      </Routes>
+      <BottomBar />
+    </BrowserRouter>
   );
 }
 export default App;
