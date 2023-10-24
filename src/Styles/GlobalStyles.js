@@ -1,11 +1,12 @@
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+import './fonts.css';
 
 const GlobalStyles = createGlobalStyle` 
   ${reset}
   
   *{
-    font-family: "Pretendard-Regular", sans-serif
+    font-family: "Pretendard-Medium", sans-serif
   }
 
     html{
