@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import BookList from "Components/Book/BookList";
-import Loading from "Components/Common/Loading";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import BookList from 'Components/Book/BookList';
+import Loading from 'Components/Common/Loading';
 
 const LIST_INFO_MAP = {
-  bestseller: { endpoint: "bestseller", title: "베스트 셀러" },
-  newBooks: { endpoint: "newBooks", title: "신작 전체 리스트" },
+  bestseller: { endpoint: 'bestseller', title: '베스트 셀러' },
+  newBooks: { endpoint: 'newBooks', title: '신작 전체 리스트' },
   NewBookSpecial: {
-    endpoint: "NewBookSpecial",
-    title: "주목할 만한 신간 리스트",
+    endpoint: 'NewBookSpecial',
+    title: '주목할 만한 신간 리스트',
   },
 };
-
 const getListInfo = (listType) => {
-  return LIST_INFO_MAP[listType] || { title: "", endpoint: "" };
+  return LIST_INFO_MAP[listType] || { title: '', endpoint: '' };
 };
 
 // eslint-disable-next-line react/prop-types

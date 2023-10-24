@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-catch */
 // 인증이 필요없는 요청(ex. 로그인이 필요 없는 경우)
-import axios from "axios";
-import { authInstance, unauthInstance } from "./Instance";
+import axios from 'axios';
+import { authInstance, unauthInstance } from './Instance';
 
 // 인증이 필요없는 요청
 export const signUpAPI = async (signUpData) => {
-  const response = await unauthInstance.post("/user", signUpData);
+  const response = await unauthInstance.post('/user', signUpData);
   try {
     return response.data;
   } catch (error) {
@@ -17,7 +17,7 @@ export const signUpAPI = async (signUpData) => {
 };
 
 export const loginAPI = async (loginData) => {
-  const response = await unauthInstance.post("/user/login");
+  const response = await unauthInstance.post('/user/login');
   try {
     return response.data;
   } catch (error) {
@@ -27,7 +27,7 @@ export const loginAPI = async (loginData) => {
 
 // 인증이 필요한 요청(토큰)
 export const myInfo = async (token) => {
-  const response = await authInstance.get("/user/myinfo");
+  const response = await authInstance.get('/user/myinfo');
   try {
     response.data;
   } catch (error) {
@@ -36,7 +36,7 @@ export const myInfo = async (token) => {
 };
 
 export const emailValid = async (email) => {
-  const response = await unauthInstance.post("/user/emailvalid");
+  const response = await unauthInstance.post('/user/emailvalid');
   try {
     response.data;
     console.log(response.data);
@@ -46,7 +46,7 @@ export const emailValid = async (email) => {
 };
 
 export const accountnameValid = async (accountname) => {
-  const response = await unauthInstance.post("/user/accountnamevalid");
+  const response = await unauthInstance.post('/user/accountnamevalid');
   try {
     response.data;
     console.log(response.data);
