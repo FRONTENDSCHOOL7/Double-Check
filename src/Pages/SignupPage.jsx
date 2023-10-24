@@ -7,12 +7,15 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { accountnameValid, signUpAPI } from "API/User";
 import { emailValid } from "API/User";
+import axios from "axios";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState([]);
   const [userErrorMessage, setUserErrorMessage] = useState([]); // "errorMessage"를 제거하고 "userErrorMessage"로 변경
   const [checkPassword, setCheckPassword] = useState("");
+  const [emailDuplicate, setEmailDuplicate] = useState(true);
+  const [accountnameDuplicate, setAccountnameDuplicate] = useState(true);
   const [signUpData, setSignUpData] = useState({
     user: {
       username: "",
@@ -65,6 +68,54 @@ export default function SignUpPage() {
   //   }
   // };
 
+  const emailAvailable = async () => {
+    const reqUrl = "https://api.mandarin.weniv.co.kr/user/emailvalid";
+    const data = {
+      user: {
+        email: signUpData.user.email,
+      },
+    };
+    try {
+      const response = await axios.post(reqUrl, data, {
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      const message = response.data.message;
+      if (message === "사용 가능한 이메일 입니다.") {
+        setEmailDuplicate(false);
+      } else {
+        setEmailDuplicate(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const accountnameAvailable = async () => {
+    const reqUrl = "https://api.mandarin.weniv.co.kr/user/accountnamevalid";
+    const data = {
+      user: {
+        email: signUpData.user.accountname,
+      },
+    };
+    try {
+      const response = await axios.post(reqUrl, data, {
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      const message = response.data.message;
+      if (message === "사용 가능한 계정ID 입니다.") {
+        setAccountnameDuplicate(false);
+      } else {
+        setAccountnameDuplicate(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleError = async () => {
     const emailRegex =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -73,12 +124,15 @@ export default function SignUpPage() {
     const username = signUpData.user.username;
     const accountname = signUpData.user.accountname;
     const errors = [];
-    // await emailAvailable();
+    await emailAvailable();
+    await accountnameAvailable();
 
     if (email === "") {
-      errors.push("유효한 이메일을 입력해주세요");
+      errors.push("유효한 이메일을 입력해주세요.");
     } else if (!emailRegex.test(email)) {
       errors.push("이메일 형식이 올바르지 않습니다.");
+    } else if (emailDuplicate) {
+      errors.push("이미 가입된 이메일 입니다.");
     } else if (passwordLength < 6) {
       errors.push("비밀번호를 6자리 이상 입력해주세요");
     } else if (signUpData.user.password !== checkPassword) {
@@ -87,6 +141,8 @@ export default function SignUpPage() {
       errors.push("사용자 이름을 입력해 주세요");
     } else if (accountname === "") {
       errors.push("계정ID를 입력해 주세요.");
+    } else if (accountnameDuplicate) {
+      errors.push("중복된 계정ID 입니다.");
     } else {
       errors.push("");
       handleSubmitBtn();
@@ -125,7 +181,7 @@ export default function SignUpPage() {
           {userErrorMessage.includes("이메일 형식이 올바르지 않습니다.") && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
           )}
-          {userErrorMessage.includes("이미 가입된 이메일입니다.") && (
+          {userErrorMessage.includes("이미 가입된 이메일 입니다.") && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
           )}
         </InputDiv>
@@ -185,6 +241,9 @@ export default function SignUpPage() {
             value={signUpData.user.accountname}
           />
           {userErrorMessage.includes("계정ID를 입력해 주세요.") && (
+            <ErrorMassage>{userErrorMessage}</ErrorMassage>
+          )}
+          {userErrorMessage.includes("중복된 계정ID 입니다.") && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
           )}
         </InputDiv>
