@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function BookList({ product }) {
   // `product` 객체에서 도서 정보 추출
