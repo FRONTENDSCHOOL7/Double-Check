@@ -1,0 +1,49 @@
+/* 웹폰트 최적화 */
+/* woff / woff2: 웹페이지에서 사용하기 위한 글꼴 */
+/* otf: 확장 가능한 컴퓨터 글꼴 */
+/* font-display 속성을 사용한 최적화 */
+/* swap - FOUT 방식, 폴백 폰트를 먼저 렌더링하고, 로딩이 완료되면 적용 */
+
+@font-face {
+  font-family: "Pretendard-Regular";
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Pretendard Regular"),
+    url("../assets/fonts/Pretendard/Pretendard-Regular.woff") format("woff"),
+    url("../assets/fonts/Pretendard/Pretendard-Regular.woff2") format("woff2"),
+    url("../assets/fonts/Pretendard/Pretendard-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Pretendard-Medium";
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Pretendard Medium"),
+    url("../assets/fonts/Pretendard/Pretendard-Medium.woff") format("woff"),
+    url("../assets/fonts/Pretendard/Pretendard-Medium.woff2") format("woff2"),
+    url("../assets/fonts/Pretendard/Pretendard-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Pretendard-SemiBold";
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local("Pretendard SemiBold"),
+    url("../assets/fonts/Pretendard/Pretendard-SemiBold.woff") format("woff"),
+    url("../assets/fonts/Pretendard/Pretendard-SemiBold.woff2") format("woff2"),
+    url("../assets/fonts/Pretendard/Pretendard-SemiBold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Pretendard-Bold";
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Pretendard Bold"),
+    url("../assets/fonts/Pretendard/Pretendard-Bold.woff") format("woff"),
+    url("../assets/fonts/Pretendard/Pretendard-Bold.woff2") format("woff2"),
+    url("../assets/fonts/Pretendard/Pretendard-Bold.otf") format("opentype");
+}
