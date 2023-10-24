@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true,
   },
   extends: [
     "eslint:recommended",
@@ -26,15 +27,7 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "jsx-a11y"],
-  rules: {
-    // eslintConfig - rules에 다음과 같이 추가
-    "prettier/prettier": [
-      "error",
-      {
-        endOfLine: "auto",
-      },
-    ],
-  },
+  rules: {},
   settings: {
     react: { version: "detect" },
   },
