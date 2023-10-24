@@ -21,19 +21,21 @@ export const loginAPI = async (loginData) => {
   try {
     return response.data;
   } catch (error) {
-    throw error;
+    if (axios.isAxiosError(error)) {
+      console.log(error);
+    }
   }
 };
 
 // 인증이 필요한 요청(토큰)
-export const myInfo = async (token) => {
-  const response = await authInstance.get('/user/myinfo');
-  try {
-    response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+// export const myInfo = async (token) => {
+//   const response = await authInstance.get('/user/myinfo');
+//   try {
+//     response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 export const emailValid = async (email) => {
   const response = await unauthInstance.post('/user/emailvalid');

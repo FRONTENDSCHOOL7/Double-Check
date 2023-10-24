@@ -71,7 +71,7 @@ export default function SignUpPage() {
         },
       });
       const message = response.data.message;
-      console.log(response.data.message);
+      // console.log(response.data.message);
       if (message === '사용 가능한 계정ID 입니다.') {
         setAccountnameDuplicate(false);
       }
@@ -117,7 +117,7 @@ export default function SignUpPage() {
   const handleSubmitBtn = async () => {
     console.log(signUpData); // api data 확인
     const response = await signUpAPI(signUpData);
-    if (response && response.hasOwnProperty('user')) navigate('/');
+    if (response && response.hasOwnProperty('user')) navigate('/mainpage');
     else {
       const errorMessage = response && response.message ? response.message : handleError();
       setErrorMessage(errorMessage);
