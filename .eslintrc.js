@@ -28,7 +28,8 @@ module.exports = {
   },
 
   plugins: ['react', 'jsx-a11y'],
-  rules: { 'prettier/prettier': ['error', { endOfLine: 'auto' }], 'react/prop-types': 0 },
+
+  rules: { 'prettier/prettier': ['error', { endOfLine: 'auto' }], 'react/prop-types': 'off' },
   settings: {
     react: { version: 'detect' },
   },
