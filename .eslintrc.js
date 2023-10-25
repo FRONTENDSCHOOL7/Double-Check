@@ -26,8 +26,9 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+
   plugins: ['react', 'jsx-a11y'],
-  rules: {},
+  rules: { 'prettier/prettier': ['error', { endOfLine: 'auto' }], 'react/prop-types': 0 },
   settings: {
     react: { version: 'detect' },
   },

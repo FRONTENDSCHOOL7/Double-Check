@@ -9,7 +9,11 @@ const GlobalStyles = createGlobalStyle`
     }
     *{
         box-sizing: border-box;
+      
+        font-family: "Pretendard-Medium", sans-serif;
+
     }
+    
     input, textarea { 
       -moz-user-select: auto;
       -webkit-user-select: auto;
