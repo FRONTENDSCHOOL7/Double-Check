@@ -14,17 +14,8 @@ export const signUpAPI = async (signUpData) => {
 
 export const loginAPI = async (loginData) => {
   try {
-    const response = await unauthInstance.post('/user/login');
+    const response = await unauthInstance.post('/user/login', loginData);
     return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const myInfo = async (token) => {
-  try {
-    const response = await authInstance.get('/user/myinfo');
-    response.data;
   } catch (error) {
     throw error;
   }
@@ -32,10 +23,9 @@ export const myInfo = async (token) => {
 
 // 이메일 중복 검사
 export const emailValid = async (email) => {
-  const response = await unauthInstance.post('/user/emailvalid');
+  const response = await unauthInstance.post('/user/emailvalid', email);
   try {
-    response.data;
-    console.log(response.data);
+    return response.data;
   } catch (error) {
     throw error;
   }
@@ -43,10 +33,9 @@ export const emailValid = async (email) => {
 
 // 계정 ID 중복 검사
 export const accountnameValid = async (accountname) => {
-  const response = await unauthInstance.post('/user/accountnamevalid');
+  const response = await unauthInstance.post('/user/accountnamevalid', accountname);
   try {
-    response.data;
-    console.log(response.data);
+    return response.data;
   } catch (error) {
     throw error;
   }
