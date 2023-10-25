@@ -59,38 +59,39 @@ export default function LoginPage() {
   };
 
   const handleLogin = async () => {
-    try {
-      const reqUrl = 'https://api.mandarin.weniv.co.kr/user/login';
-      const response = await axios.post(reqUrl, loginData, {
-        headers: {
-          'Content-type': 'application/json',
-        },
-      });
+    //   try {
+    //     const reqUrl = 'https://api.mandarin.weniv.co.kr/user/login';
+    //     const response = await axios.post(reqUrl, loginData, {
+    //       headers: {
+    //         'Content-type': 'application/json',
+    //       },
+    //     });
 
-      if (response.data && response.data.user && response.data.user.token) {
-        const newToken = response.data.user.token;
-        setIsLoginCheck(true);
-        setToken(newToken);
-        localStorage.setItem('userToken', newToken);
-      } else {
-        setErrorMessage('이메일 또는 비밀번호가 일치하지 않습니다.');
-      }
-    } catch (error) {
-      console.log(error);
+    //     if (response.data && response.data.user && response.data.user.token) {
+    //       const newToken = response.data.user.token;
+    //       setIsLoginCheck(true);
+    //       setToken(newToken);
+    //       localStorage.setItem('userToken', newToken);
+    //     } else {
+    //       setErrorMessage('이메일 또는 비밀번호가 일치하지 않습니다.');
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+
+    const response = await loginAPI(loginData);
+    if (response && response.hasOwnProperty('user')) {
+      const newToken = response.user.token;
+      setIsLoginCheck(true);
+      setToken(newToken);
+      localStorage.setItem('userToken', newToken);
+      navigate('/mainpage');
+    } else if (response.status === 422) {
+      setErrorMessage('이메일또는 비밀번호가 일치하지 않습니다.');
+    } else {
+      const errorMessage = response && response.message ? response.message : handleError();
+      setErrorMessage(errorMessage);
     }
-
-    // const response = await loginAPI(loginData);
-    // if (response && response.hasOwnProperty('user')) {
-    //   console.log(response);
-    //   const newToken = response.data.user.token;
-    //   localStorage.setItem('userToken', newToken);
-    //   navigate('/mainpage');
-    // } else if (response.status === 422) {
-    //   setErrorMessage('이메일또는 비밀번호가 일치하지 않습니다.');
-    // } else {
-    //   const errorMessage = response && response.message ? response.message : handleError();
-    //   setErrorMessage(errorMessage);
-    // }
   };
 
   useEffect(() => {
