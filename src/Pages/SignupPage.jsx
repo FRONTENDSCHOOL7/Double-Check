@@ -5,7 +5,7 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { signUpAPI } from 'API/User';
+import { accountnameValid, emailValid, signUpAPI } from 'API/User';
 import axios from 'axios';
 
 export default function SignUpPage() {
@@ -36,47 +36,27 @@ export default function SignUpPage() {
   };
 
   const emailAvailable = async () => {
-    const reqUrl = 'https://api.mandarin.weniv.co.kr/user/emailvalid';
     const data = {
       user: {
         email: signUpData.user.email,
       },
     };
-    try {
-      const response = await axios.post(reqUrl, data, {
-        headers: {
-          'Content-type': 'application/json',
-        },
-      });
-      const message = response.data.message;
-      if (message === '사용 가능한 이메일 입니다.') {
-        setEmailDuplicate(false);
-      }
-    } catch (error) {
-      console.error(error);
+
+    const response = await emailValid(data);
+    if (response.message === '사용 가능한 이메일 입니다.') {
+      setEmailDuplicate(false);
     }
   };
 
   const accountnameAvailable = async () => {
-    const reqUrl = 'https://api.mandarin.weniv.co.kr/user/accountnamevalid';
     const data = {
       user: {
         accountname: signUpData.user.accountname,
       },
     };
-    try {
-      const response = await axios.post(reqUrl, data, {
-        headers: {
-          'Content-type': 'application/json',
-        },
-      });
-      const message = response.data.message;
-      // console.log(response.data.message);
-      if (message === '사용 가능한 계정ID 입니다.') {
-        setAccountnameDuplicate(false);
-      }
-    } catch (error) {
-      console.error(error);
+    const response = await accountnameValid(data);
+    if (response.message === '사용 가능한 계정ID 입니다.') {
+      setAccountnameDuplicate(false);
     }
   };
 
@@ -117,7 +97,7 @@ export default function SignUpPage() {
   const handleSubmitBtn = async () => {
     console.log(signUpData); // api data 확인
     const response = await signUpAPI(signUpData);
-    if (response && response.hasOwnProperty('user')) navigate('/mainpage');
+    if (response && response.hasOwnProperty('user')) navigate('/loginpage');
     else {
       const errorMessage = response && response.message ? response.message : handleError();
       setErrorMessage(errorMessage);

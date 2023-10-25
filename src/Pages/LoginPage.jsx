@@ -4,11 +4,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 import { loginAPI } from 'API/User';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilStoreID, useRecoilValue } from 'recoil';
-import accountname from 'Recoil/Accountname';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
 import { styled } from 'styled-components';
@@ -18,67 +16,33 @@ export default function LoginPage() {
   const [userErrorMessage, setUserErrorMessage] = useState([]);
   const [errorMessage, setErrorMessage] = useState([]);
   const [isLoginCheck, setIsLoginCheck] = useRecoilState(loginCheck);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [token, setToken] = useRecoilState(loginToken);
-  // const [token, setToken] = useRecoilState(loginToken);
 
-  // const [loginData, setLoginData] = useState({
-  //   user: {
-  //     email: '',
-  //     password: '',
-  //   },
-  // });
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setLoginData((prevState) => ({
-  //     ...prevState,
-  //     user: {
-  //       ...prevState.user,
-  //       [name]: value,
-  //     },
-  //   }));
-  // };
-
-  const emailInputChange = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
-
-  const passwordInputChange = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-
-  const loginData = {
+  const [loginData, setLoginData] = useState({
     user: {
-      email: email,
-      password: password,
+      email: '',
+      password: '',
     },
+  });
+
+  useEffect(() => {
+    if (isLoginCheck) {
+      navigate('/mainpage');
+    }
+  }, [token]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((prevState) => ({
+      ...prevState,
+      user: {
+        ...prevState.user,
+        [name]: value,
+      },
+    }));
   };
 
   const handleLogin = async () => {
-    //   try {
-    //     const reqUrl = 'https://api.mandarin.weniv.co.kr/user/login';
-    //     const response = await axios.post(reqUrl, loginData, {
-    //       headers: {
-    //         'Content-type': 'application/json',
-    //       },
-    //     });
-
-    //     if (response.data && response.data.user && response.data.user.token) {
-    //       const newToken = response.data.user.token;
-    //       setIsLoginCheck(true);
-    //       setToken(newToken);
-    //       localStorage.setItem('userToken', newToken);
-    //     } else {
-    //       setErrorMessage('이메일 또는 비밀번호가 일치하지 않습니다.');
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-
     const response = await loginAPI(loginData);
     if (response && response.hasOwnProperty('user')) {
       const newToken = response.user.token;
@@ -91,20 +55,15 @@ export default function LoginPage() {
     } else {
       const errorMessage = response && response.message ? response.message : handleError();
       setErrorMessage(errorMessage);
+      console.log(response);
     }
   };
 
-  useEffect(() => {
-    if (isLoginCheck) {
-      navigate('/mainpage');
-    }
-  }, [token]);
-
   const handleError = () => {
     const errors = [];
-    if (email === '') {
+    if (loginData.user.email === '') {
       errors.push('이메일을 입력해주세요');
-    } else if (password === '') {
+    } else if (loginData.user.password === '') {
       errors.push('비밀번호를 입력해주세요');
     } else {
       errors.push('');
@@ -123,7 +82,7 @@ export default function LoginPage() {
           id='emailInput'
           name='email'
           placeholder='이메일 입력'
-          onChange={emailInputChange}
+          onChange={handleInputChange}
           value={loginData.user.email}
         />
         {userErrorMessage.includes('이메일을 입력해주세요') && (
@@ -140,7 +99,7 @@ export default function LoginPage() {
           name='password'
           id='passwordInput'
           placeholder='비밀번호를 설정해 주세요.'
-          onChange={passwordInputChange}
+          onChange={handleInputChange}
           value={loginData.user.password}
         />
         {userErrorMessage.includes('비밀번호를 입력해주세요') && (
