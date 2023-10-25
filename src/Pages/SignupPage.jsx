@@ -6,7 +6,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { accountnameValid, emailValid, signUpAPI } from 'API/User';
-import axios from 'axios';
 
 export default function SignUpPage() {
   const navigate = useNavigate();
