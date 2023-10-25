@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import useToast from '../../../Hook/useToast';
+import useToast from '../../../Hooks/useToast';
 
 function Toast(props) {
   const handleShowToast = (success) => {
