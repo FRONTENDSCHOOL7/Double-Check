@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -6,7 +7,7 @@ import { loginAPI } from 'API/User';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilStoreID, useRecoilValue } from 'recoil';
 import accountname from 'Recoil/Accountname';
 import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
@@ -16,9 +17,11 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [userErrorMessage, setUserErrorMessage] = useState([]);
   const [errorMessage, setErrorMessage] = useState([]);
+  const [isLoginCheck, setIsLoginCheck] = useRecoilState(loginCheck);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useRecoilState(loginToken);
+  // const [token, setToken] = useRecoilState(loginToken);
 
   // const [loginData, setLoginData] = useState({
   //   user: {
@@ -66,16 +69,16 @@ export default function LoginPage() {
 
       if (response.data && response.data.user && response.data.user.token) {
         const newToken = response.data.user.token;
-        localStorage.setItem('userToken', newToken);
+        setIsLoginCheck(true);
         setToken(newToken);
-        console.log(newToken);
-        navigate('/mainpage');
+        localStorage.setItem('userToken', newToken);
       } else {
         setErrorMessage('이메일 또는 비밀번호가 일치하지 않습니다.');
       }
     } catch (error) {
       console.log(error);
     }
+
     // const response = await loginAPI(loginData);
     // if (response && response.hasOwnProperty('user')) {
     //   console.log(response);
@@ -89,6 +92,12 @@ export default function LoginPage() {
     //   setErrorMessage(errorMessage);
     // }
   };
+
+  useEffect(() => {
+    if (isLoginCheck) {
+      navigate('/mainpage');
+    }
+  }, [token]);
 
   const handleError = () => {
     const errors = [];
@@ -105,7 +114,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <h2>이메일로 회원가입</h2>
+      <h2>로그인페이지</h2>
       <InputDiv>
         <Label htmlFor='emailInput'>이메일</Label>
         <InputBox
