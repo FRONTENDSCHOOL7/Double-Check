@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 
@@ -18,3 +19,20 @@ export const authInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+const getToken = () => {
+  return localStorage.getItem('userToken');
+};
+
+authInstance.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    throw error;
+  },
+);
