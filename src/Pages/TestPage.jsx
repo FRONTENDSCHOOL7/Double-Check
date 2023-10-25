@@ -7,7 +7,6 @@ import { useRecoilState } from 'recoil';
 import { modalIsOpenAtom } from 'atoms/modal';
 
 import Toast from 'components/Common/Toast/Toast';
-// import RemoveButton from 'components/Common/Toast/Buttons/RemoveButton';
 
 function TestPage() {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenAtom);
