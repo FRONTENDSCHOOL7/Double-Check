@@ -11,8 +11,8 @@ const GlobalStyles = createGlobalStyle`
   }
   
   a{
-        text-decoration: none;
-        color: inherit;
+      text-decoration: none;
+      color: inherit;
     }
 
 
@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
       -webkit-user-select: auto;
       -ms-user-select: auto;
       user-select: auto;
+      border: none;
     }
 
     input:focus {
