@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import { modalIsOpenAtom } from 'atoms/modal';
 
 import Toast from 'components/Common/Toast/Toast';
+import EditPhrase from 'components/EditPhrase/EditPhrase';
 
 function TestPage() {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenAtom);
@@ -48,6 +49,7 @@ function TestPage() {
           취소
         </Button>
       </section>
+      <EditPhrase />
     </div>
   );
 }

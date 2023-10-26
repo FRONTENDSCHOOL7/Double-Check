@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import GlobalStyles from 'Styles/GlobalStyle';
+import GlobalStyle from 'Styles/GlobalStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
 import TopBar from 'components/Common/TopBar';
@@ -17,7 +17,7 @@ import NavBar from 'components/Common/NavBar/NavBar';
 function App() {
   return (
     <BrowserRouter>
-      <GlobalStyles />
+      <GlobalStyle />
       {/*  라우터에 영향을 받지않는 컴포넌트들*/}
       <TopBar />
       <TestPage />
