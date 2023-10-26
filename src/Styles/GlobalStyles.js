@@ -64,7 +64,7 @@ const GlobalStyles = createGlobalStyle`
   --gray-500: #646464;
   --white: #FFFFFF;
   --black: #000000;
-
+  --font-xxs-size:0.8rem;
   --font-xs-size:1.0rem;
   --font-sm-size:1.2rem;
   --font-base-size:1.3rem;
