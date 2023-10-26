@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { StyledButton, WhiteButton } from "./ButtonStyle";
+import { StyledButton, WhiteButton } from './ButtonStyle';
 
 function Button({
   shape,
@@ -8,7 +8,7 @@ function Button({
   category,
   disabled = false,
   children,
-  type = "button",
+  type = 'button',
   txt = [],
 }) {
   const button = {
@@ -18,12 +18,7 @@ function Button({
       </StyledButton>
     ),
     white: (
-      <WhiteButton
-        type={type}
-        color={color}
-        disabled={disabled}
-        danger={danger}
-      >
+      <WhiteButton type={type} color={color} disabled={disabled} danger={danger}>
         {children}
       </WhiteButton>
     ),
@@ -32,9 +27,7 @@ function Button({
         <ul>
           {txt.map((item, index) => (
             <li key={index}>
-              <WhiteButton
-                danger={item.includes("삭제") || item.includes("종료")}
-              >
+              <WhiteButton danger={item.includes('삭제') || item.includes('종료')}>
                 {item}
               </WhiteButton>
             </li>
