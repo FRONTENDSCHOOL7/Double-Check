@@ -5,13 +5,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import GlobalStyles from 'Styles/GlobalStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
-import TopBar from 'Components/Common/TopBar';
-import BottomBar from 'Components/Common/BottomBar';
+import TopBar from 'components/Common/TopBar';
+// import BottomBar from 'components/Common/BottomBar';
 import MainPage from 'Pages/MainPage';
 import BookRoutes from 'Route/BookRoutes';
 import SearchPage from 'Pages/SearchPage';
 import SignupPage from 'Pages/SignupPage';
 import LoginPage from 'Pages/LoginPage';
+import TestPage from 'Pages/TestPage';
+import NavBar from 'components/Common/NavBar/NavBar';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       <GlobalStyles />
       {/*  라우터에 영향을 받지않는 컴포넌트들*/}
       <TopBar />
+      <TestPage />
       <Routes>
         {/* <Route path='/*' element={<ErrorPage />} /> */}
         {/* <Route path='/' element={<SplashPage />} /> */}
@@ -28,7 +31,7 @@ function App() {
         <Route path='/signupPage' element={<SignupPage />} />
         <Route path='/searchPage' element={<SearchPage />} />
       </Routes>
-      <BottomBar />
+      <NavBar />
     </BrowserRouter>
   );
 }
