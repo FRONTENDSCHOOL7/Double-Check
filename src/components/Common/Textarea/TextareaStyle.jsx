@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 
 const StyledTextarea = styled.textarea`
-  overflow: hidden;
-  border: none;
   padding: 10px;
   outline: none;
   resize: none;
   line-height: 1.5;
   font-size: var(--font-xs-size);
-  height: ${({ text }) => `${20 * (text.split('\n').length + 1)}px`};
+  min-height: ${(props) => props.height};
 `;
 
 export default StyledTextarea;
