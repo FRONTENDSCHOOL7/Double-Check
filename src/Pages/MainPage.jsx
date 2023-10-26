@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import Button from 'Components/Common/Button/Button';
+import Button from 'components/Common/Button/Button';
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
@@ -8,7 +7,6 @@ import { useRecoilState } from 'recoil';
 import { modalIsOpenAtom } from 'atoms/modal';
 
 import Toast from 'components/Common/Toast/Toast';
-
 
 function TestPage() {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenAtom);
