@@ -4,27 +4,17 @@ import './fonts.css';
 
 const GlobalStyles = createGlobalStyle` 
   ${reset}
+
+  *{
+    font-family: "Pretendard-Medium", sans-serif;
+    box-sizing: border-box;
   }
-
-    html{
-    background-color: aliceblue;
-    }
-
-    p {
-    font-family: "Pretendard-Regular", sans-serif;
-  }
-
-    #root{
-    width: 390px;
-    margin: 0 auto;
-    min-height: 100vh;
-    background-color: var(--gray-100);
-    }
-
-    a{
+  
+  a{
         text-decoration: none;
         color: inherit;
     }
+
 
     input, textarea { 
       -moz-user-select: auto;
@@ -37,6 +27,40 @@ const GlobalStyles = createGlobalStyle`
       outline: none;
     }
 
+    button {
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    html{
+    background-color: aliceblue;
+    }
+
+    #root{
+    width: 390px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: var(--gray-100);
+    }
+
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+    *{
+        box-sizing: border-box;
+    }
+    input, textarea { 
+      -moz-user-select: auto;
+      -webkit-user-select: auto;
+      -ms-user-select: auto;
+      user-select: auto;
+    }
+    input:focus {
+      outline: none;
+    }
     button {
       border: none;
       background: none;
