@@ -1,25 +1,26 @@
-/* eslint-disable no-unused-vars */
-import Button from 'Components/Common/Button/Button';
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { loginCheck } from 'Recoil/LoginCheck';
-import loginToken from 'Recoil/LoginToken';
+import BannerSlideShow from 'components/\bBanner/BannerSlideEffect';
+import BookSlide from 'components/\bBookSlide/BookSlide';
 
+import { Suspense } from 'react';
 export default function MainPage() {
-  const [isLogin, setIsLogin] = useRecoilState(loginCheck);
-  const [token, setToken] = useRecoilState(loginToken);
-  console.log(isLogin);
-  console.log(token);
-
-  const logOut = () => {
-    setIsLogin(false);
-    setToken(null);
-  };
-
   return (
-    <>
-      <h2>MainPage</h2>
-      <button onClick={logOut}>로그아웃</button>
-    </>
+    <section>
+      <BannerSlideShow />
+      <Suspense fallback={<div>loading...</div>}>
+        <BookSlide
+          title='베스트 셀러'
+          dataType='bestsellers'
+          desc=' 
+최근 1주 동안 많은 고객들이 찾은 도서 순위!!'
+        />
+        <BookSlide title='신간 도서 리스트' dataType='newBooks' />
+        <BookSlide
+          title='이번달 주목할 만한 도서'
+          dataType='newBookSpecial'
+          desc='독서 트렌드 따라잡기'
+        />
+      </Suspense>
+    </section>
   );
 }
