@@ -14,6 +14,8 @@ import SignupPage from 'Pages/SignupPage';
 import LoginPage from 'Pages/LoginPage';
 import TestPage from 'Pages/TestPage';
 import NavBar from 'components/Common/NavBar/NavBar';
+import SetMyInfo from 'Pages/SetMyInfo';
+import EditPhrase from 'Pages/EditPhrase';
 
 function App() {
   return (
@@ -21,7 +23,6 @@ function App() {
       <GlobalStyles />
       {/*  라우터에 영향을 받지않는 컴포넌트들*/}
       <TopBar />
-      <TestPage />
       <Routes>
         {/* <Route path='/*' element={<ErrorPage />} /> */}
         {/* <Route path='/' element={<SplashPage />} /> */}
@@ -29,7 +30,9 @@ function App() {
         <Route path='/bookpage/*' element={<BookRoutes />} />
         <Route path='/loginpage' element={<LoginPage />} />
         <Route path='/signupPage' element={<SignupPage />} />
+        <Route path='/myprofilepage' element={<SetMyInfo />} />
         <Route path='/searchPage' element={<SearchPage />} />
+        <Route path='/productpage' element={<EditPhrase />} />
       </Routes>
       <NavBar />
     </BrowserRouter>

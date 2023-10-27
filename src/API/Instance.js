@@ -21,7 +21,7 @@ export const authInstance = axios.create({
 });
 
 const getToken = () => {
-  return localStorage.getItem('userToken');
+  return localStorage.getItem('token');
 };
 
 authInstance.interceptors.request.use(

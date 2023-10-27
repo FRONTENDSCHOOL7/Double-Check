@@ -47,8 +47,8 @@ export default function LoginPage() {
     if (response && response.hasOwnProperty('user')) {
       const newToken = response.user.token;
       setIsLoginCheck(true);
+      localStorage.setItem('token', newToken);
       setToken(newToken);
-      localStorage.setItem('userToken', newToken);
       navigate('/mainpage');
     } else if (response.status === 422) {
       setErrorMessage('이메일또는 비밀번호가 일치하지 않습니다.');

@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-prototype-builtins */
 import { profileAPI } from 'API/Profile';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
@@ -15,12 +16,14 @@ export default function SetMyInfo() {
 
   const getMyProfile = async () => {
     const response = await profileAPI(token);
-    if (response && response.hasOwnProperty('user')) {
-      setMyInfo(response.user);
-      console.log(response.user);
-    }
-    console.log(myInfo);
+    setMyInfo(response.user);
   };
+
+  useEffect(() => {
+    if (myInfo) {
+      console.log(myInfo);
+    }
+  }, [myInfo]);
 
   const logOut = () => {
     setIsLogin(false);
