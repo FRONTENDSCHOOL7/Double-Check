@@ -3,6 +3,7 @@ import React from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import GlobalStyles from 'Styles/GlobalStyle';
+import LayoutStyle from 'Styles/LayoutStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
 import TopBar from 'components/Common/TopBar';
@@ -20,18 +21,19 @@ function App() {
     <BrowserRouter>
       <GlobalStyles />
       {/*  라우터에 영향을 받지않는 컴포넌트들*/}
-      <TopBar />
-      <TestPage />
-      <Routes>
-        {/* <Route path='/*' element={<ErrorPage />} /> */}
-        {/* <Route path='/' element={<SplashPage />} /> */}
-        <Route path='/mainpage' element={<MainPage />} />
-        <Route path='/bookpage/*' element={<BookRoutes />} />
-        <Route path='/loginpage' element={<LoginPage />} />
-        <Route path='/signupPage' element={<SignupPage />} />
-        <Route path='/searchPage' element={<SearchPage />} />
-      </Routes>
-      <NavBar />
+      <LayoutStyle>
+        <TopBar />
+        <Routes>
+          {/* <Route path='/*' element={<ErrorPage />} /> */}
+          {/* <Route path='/' element={<SplashPage />} /> */}
+          <Route path='/' element={<MainPage />} />
+          <Route path='/book/*' element={<BookRoutes />} />
+          <Route path='/loginpage' element={<LoginPage />} />
+          <Route path='/signupPage' element={<SignupPage />} />
+          <Route path='/searchPage' element={<SearchPage />} />
+        </Routes>
+        <NavBar />
+      </LayoutStyle>
     </BrowserRouter>
   );
 }
