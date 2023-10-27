@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import StyledTextarea from './TextareaStyle';
+import { useRecoilState } from 'recoil';
+import { ContentState } from 'Recoil/ContentState';
 
 const Textarea = () => {
-  const [text, setText] = useState('');
+  const [content, setContent] = useRecoilState(ContentState);
   const [height, setHeight] = useState('50px');
   const textareaRef = useRef(null);
 
@@ -15,14 +17,14 @@ const Textarea = () => {
   };
 
   const handleInputChange = (event) => {
-    setText(event.target.value);
+    setContent(event.target.value);
     autoResizeTextarea();
   };
 
   return (
     <StyledTextarea
       style={{ height: height }}
-      value={text}
+      value={content}
       onChange={handleInputChange}
       onKeyDown={autoResizeTextarea}
       ref={textareaRef}

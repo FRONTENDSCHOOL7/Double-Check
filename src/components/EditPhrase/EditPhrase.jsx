@@ -1,34 +1,90 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
+import loginToken from 'Recoil/LoginToken';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { productAPI } from 'API/product';
 import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './EditPhraseStyle';
 import Textarea from 'components/Common/Textarea/Textarea';
+import { ContentState } from 'Recoil/ContentState';
+import { useNavigate } from 'react-router-dom';
+import Button from 'components/Common/Button/Button';
+import useToast from 'Hooks/useToast';
+import Modal from 'components/Common/Modal/Modal';
 
-function EditPhrase() {
+const EditPhrase = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [content, setContent] = useRecoilState(ContentState);
+  const token = useRecoilValue(loginToken);
 
-  console.log('title: ' + title);
+  const handlePhraseUpload = async () => {
+    const productData = {
+      product: {
+        itemName: title,
+        price: 100,
+        link: author,
+        itemImage: content,
+      },
+    };
+
+    const response = await productAPI(productData, token);
+    console.log(productData);
+    console.log(response.product.id);
+    setShowModal(false); // Close modal after API call is made
+    if (response) {
+      navigate('/phraselist');
+    }
+  };
+
+  const confirmUpload = (e) => {
+    e.preventDefault();
+
+    if (title === '' || title.length < 1) {
+      return useToast('제목을 입력해주세요.');
+    } else if (author === '' || author.length < 1) {
+      return useToast('저자를 입력해주세요.');
+    } else if (content === '' || author.length < 1) {
+      return useToast('내용을 입력해주세요.');
+    }
+
+    setShowModal(true); // Display modal for confirmation
+  };
 
   return (
-    <EditPhraseWrapper>
-      <EditPhraseForm>
-        <EditPhraseInput
-          type='text'
-          name='title'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder='제목을 입력해주세요.'
-        />
-        <EditPhraseInput
-          type='text'
-          name='author'
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          placeholder='저자를 입력해주세요.'
-        />
-        <Textarea placeholder='내용을 입력해주세요.' />
-      </EditPhraseForm>
-    </EditPhraseWrapper>
+    <>
+      <EditPhraseWrapper>
+        <EditPhraseForm>
+          <EditPhraseInput
+            type='text'
+            name='title'
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder='제목을 입력해주세요.'
+          />
+          <EditPhraseInput
+            type='text'
+            name='author'
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            placeholder='저자를 입력해주세요.'
+          />
+          <Textarea value={content} onChange={(e) => setContent(e.target.value)} />
+        </EditPhraseForm>
+      </EditPhraseWrapper>
+      <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+        등록
+      </Button>
+      <Modal
+        content='글귀를 등록하시겠습니까?'
+        btnTxt='예'
+        isVisible={showModal}
+        onConfirm={handlePhraseUpload}
+        onCancel={() => setShowModal(false)}
+      />
+    </>
   );
-}
+};
 
 export default EditPhrase;
