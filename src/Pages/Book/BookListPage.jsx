@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BookList from 'Components/Book/BookList';
-import Loading from 'Components/Common/Loading';
+import BookList from 'components/Book/BookList';
+import Loading from 'components/Common/Loading';
 
 const LIST_INFO_MAP = {
   bestseller: { endpoint: 'bestseller', title: '베스트 셀러' },
