@@ -12,10 +12,8 @@ import BookRoutes from 'Route/BookRoutes';
 import SearchPage from 'Pages/SearchPage';
 import SignupPage from 'Pages/SignupPage';
 import LoginPage from 'Pages/LoginPage';
-import TestPage from 'Pages/TestPage';
 import NavBar from 'components/Common/NavBar/NavBar';
 import SetMyInfo from 'Pages/SetMyInfo';
-import EditPhrase from 'Pages/EditPhrase';
 
 function App() {
   return (
@@ -32,7 +30,6 @@ function App() {
         <Route path='/signupPage' element={<SignupPage />} />
         <Route path='/myprofilepage' element={<SetMyInfo />} />
         <Route path='/searchPage' element={<SearchPage />} />
-        <Route path='/productpage' element={<EditPhrase />} />
       </Routes>
       <NavBar />
     </BrowserRouter>
