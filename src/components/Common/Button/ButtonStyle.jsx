@@ -56,6 +56,18 @@ const StyledButton = styled(Button)`
         width: 80px;
         border-radius: 30px;
       `;
+    } else if (props.shape === 'none') {
+      return css`
+        font-size: var(--font-xxs-size);
+        background: none;
+        color: var(--black);
+        height: 27px;
+        &:active,
+        &:hover,
+        &:focus {
+          background-color: var(--white);
+        }
+      `;
     }
   }}
 `;
