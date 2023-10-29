@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { productAPI } from 'API/product';
+import { phraseAPI } from 'API/phrase';
 import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './EditPhraseStyle';
 import Textarea from 'components/Common/Textarea/Textarea';
 import { ContentState } from 'Recoil/ContentState';
@@ -22,17 +22,17 @@ const EditPhrase = () => {
   const handlePhraseUpload = async () => {
     const productData = {
       product: {
-        itemName: title,
+        itemName: title + '@cc@',
         price: 100,
         link: author,
         itemImage: content,
       },
     };
 
-    const response = await productAPI(productData, token);
+    const response = await phraseAPI(productData, token);
     console.log(productData);
     console.log(response.product.id);
-    setShowModal(false); // Close modal after API call is made
+    setShowModal(false);
     if (response) {
       navigate('/phraselist');
     }
@@ -40,6 +40,7 @@ const EditPhrase = () => {
 
   const confirmUpload = (e) => {
     e.preventDefault();
+    console.log('confirmUpload 함수 실행');
 
     if (title === '' || title.length < 1) {
       return useToast('제목을 입력해주세요.');
@@ -49,7 +50,7 @@ const EditPhrase = () => {
       return useToast('내용을 입력해주세요.');
     }
 
-    setShowModal(true); // Display modal for confirmation
+    setShowModal(true);
   };
 
   return (
