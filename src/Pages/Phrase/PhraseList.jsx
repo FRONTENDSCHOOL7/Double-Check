@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { getPhraseListAPI } from 'API/phrase';
