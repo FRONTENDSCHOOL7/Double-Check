@@ -1,6 +1,6 @@
 import React from 'react';
-import BannerSlideShow from 'components/\bBanner/BannerSlideEffect';
-import BookSlide from 'components/\bBookSlide/BookSlide';
+import BannerSlideShow from 'components/Banner/BannerSlideEffect';
+import BookSlide from 'components/BookSlide/BookSlide';
 
 import { Suspense } from 'react';
 export default function MainPage() {

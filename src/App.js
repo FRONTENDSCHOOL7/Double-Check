@@ -13,13 +13,14 @@ import BookRoutes from 'Route/BookRoutes';
 import SearchPage from 'Pages/SearchPage';
 import SignupPage from 'Pages/SignupPage';
 import LoginPage from 'Pages/LoginPage';
-import TestPage from 'Pages/TestPage';
+// import TestPage from 'Pages/TestPage';
 import NavBar from 'components/Common/NavBar/NavBar';
 
 function App() {
   return (
     <BrowserRouter>
       <GlobalStyles />
+      {/* <TestPage /> */}
       {/*  라우터에 영향을 받지않는 컴포넌트들*/}
       <LayoutStyle>
         <TopBar />

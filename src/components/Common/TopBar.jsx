@@ -1,18 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import { BiSearchAlt } from 'react-icons/bi';
 import { ReactComponent as Doblechaek } from '../../assets/images/logo/doblechaek.svg';
+// import HamSideNoLogin from './HamSideBar/HamSideNoLogin';
+import HamSideYesLogin from './HamSideBar/HamSideYesLogin';
+
 export default function Topbar() {
-  const onClinkOpenNavbar = () => {
-    console.log('누르면 너비게이션 바 나오게');
-  };
   return (
     <SHeader>
-      <SButton onClick={onClinkOpenNavbar}>
-        <GiHamburgerMenu />
-      </SButton>
+      {/* 요기 로그인 됐을 때 안됐을 때 진짜 모르겠음 ㅠ.ㅠ */}
+      <HamSideYesLogin />
       <Sh1>
         <SLink home to='/'>
           <SDoblechaek />
@@ -40,15 +38,6 @@ const SHeader = styled.header`
   z-index: 100;
 `;
 
-const SButton = styled.button`
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-
-  svg {
-    font-size: 25px;
-  }
-`;
 const Sh1 = styled.h1``;
 
 const SLink = styled(Link)`
