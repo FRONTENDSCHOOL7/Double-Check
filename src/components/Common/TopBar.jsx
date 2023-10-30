@@ -5,23 +5,20 @@ import { Link } from 'react-router-dom';
 import { BiSearchAlt } from 'react-icons/bi';
 import { VscChevronLeft } from 'react-icons/vsc';
 import { ReactComponent as Doblechaek } from '../../assets/images/logo/doblechaek.svg';
-<<<<<<<<< Temporary merge branch 1
 import TopBarBtn from './TopBarBtn';
+import HamSideNoLogin from './HamSideBar/HamSideNoLogin';
 
-export default function Topbar({ leftEl, centerEl, rightEl }) {
-    // 왼쪽 요소 : 미입력시 기본 값 < 뒤로가기
+// 왼쪽 요소 : 미입력시 기본 값 < 뒤로가기
 const LeftEl = ({ leftEl }) => {
   // 뒤로가기 기능
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(-1);
   };
-  const onClinkOpenNavbar = () => {
-    console.log('누르면 네비게이션 바 나오게');
-  };
+
   if (leftEl === 'navbar') {
     // 햄버거 바 일때
-    return <TopBarBtn icon={GiHamburgerMenu} onClick={onClinkOpenNavbar} />;
+    return <TopBarBtn icon={HamSideNoLogin} />;
   } else {
     return <TopBarBtn icon={VscChevronLeft} onClick={handleClick} />;
   }
@@ -66,10 +63,10 @@ const RightEl = ({ rightEl }) => {
     return <TopBarBtn />;
   }
 };
+export default function Topbar({ leftEl, centerEl, rightEl }) {
   return (
     <SHeader>
       {/* 요기 로그인 됐을 때 안됐을 때 진짜 모르겠음 ㅠ.ㅠ */}
-      <HamSideYesLogin />
       <LeftEl leftEl={leftEl} />
       <CenterEl centerEl={centerEl} />
       <RightEl rightEl={rightEl} />
@@ -104,7 +101,6 @@ const SHeader = styled.header`
   z-index: 100;
 `;
 
-<<<<<<<<< Temporary merge branch 1
 const Sh1 = styled.h1`
   text-align: center;
   font-size: large;
