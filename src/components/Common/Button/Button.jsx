@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { StyledButton, WhiteButton } from './ButtonStyle';
+import { SideLoginBtn, StyledButton, WhiteButton } from './ButtonStyle';
 
 function Button({
   shape,
@@ -40,6 +40,7 @@ function Button({
         <WhiteButton onClick={onClick}>{children}</WhiteButton>
       </div>
     ),
+    sidebarBtn: <SideLoginBtn onClick={onClick}>{children}</SideLoginBtn>,
   };
 
   return button[category];

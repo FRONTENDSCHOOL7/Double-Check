@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { getPhraseListAPI } from 'API/phrase';

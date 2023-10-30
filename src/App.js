@@ -45,6 +45,7 @@ function App() {
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
+            <Route path='/search' element={<SearchPage />} />
             <Route path='/phrasewrite' element={<PhraseWritePage />} />
             <Route path='/phraselist' element={<PhraseList />} />
             <Route path='/search' element={<SearchPage />} />
