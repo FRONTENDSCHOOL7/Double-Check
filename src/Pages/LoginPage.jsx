@@ -27,7 +27,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isLoginCheck) {
-      navigate('/mainpage');
+      navigate('/');
     }
   }, [token]);
 
@@ -49,7 +49,7 @@ export default function LoginPage() {
       setIsLoginCheck(true);
       localStorage.setItem('token', newToken);
       setToken(newToken);
-      navigate('/mainpage');
+      navigate('/');
     } else if (response.status === 422) {
       setErrorMessage('이메일또는 비밀번호가 일치하지 않습니다.');
     } else {

@@ -9,7 +9,7 @@ export default function BookDetailPage() {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/search/book?isbn=${isbn}`);
+        const response = await axios.get(`http://localhost:8080/search/?isbn=${isbn}`);
         setDetailInfo(response.data.items);
       } catch (error) {
         console.error(error);

@@ -49,6 +49,25 @@ const StyledButton = styled(Button)`
         padding: 12px 40px;
         border-radius: 10px;
       `;
+    } else if (props.shape === 'xsmall') {
+      return css`
+        font-size: var(--font-xxs-size);
+        font-weight: 300;
+        width: 80px;
+        border-radius: 30px;
+      `;
+    } else if (props.shape === 'none') {
+      return css`
+        font-size: var(--font-xxs-size);
+        background: none;
+        color: var(--black);
+        height: 27px;
+        &:active,
+        &:hover,
+        &:focus {
+          background-color: var(--white);
+        }
+      `;
     }
   }}
 `;

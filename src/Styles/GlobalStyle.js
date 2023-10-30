@@ -5,14 +5,17 @@ import './fonts.css';
 const GlobalStyles = createGlobalStyle` 
   ${reset}
 
+  body{
+    font-family: "Pretendard-Medium", sans-serif;
+  }
   *{
     font-family: "Pretendard-Medium", sans-serif;
     box-sizing: border-box;
   }
   
   a{
-        text-decoration: none;
-        color: inherit;
+      text-decoration: none;
+      color: inherit;
     }
 
 
@@ -21,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
       -webkit-user-select: auto;
       -ms-user-select: auto;
       user-select: auto;
+      border: none;
     }
 
     input:focus {
@@ -89,7 +93,7 @@ const GlobalStyles = createGlobalStyle`
   --gray-500: #646464;
   --white: #FFFFFF;
   --black: #000000;
-
+  --font-xxs-size:0.8rem;
   --font-xs-size:1.0rem;
   --font-sm-size:1.2rem;
   --font-base-size:1.3rem;
