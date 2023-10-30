@@ -3,6 +3,7 @@ import BannerSlideShow from 'components/Banner/BannerSlideEffect';
 import BookSlide from 'components/BookSlide/BookSlide';
 import TopBar from 'components/Common/TopBar';
 import { Suspense } from 'react';
+
 export default function MainPage() {
   return (
     <>
