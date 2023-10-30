@@ -48,7 +48,9 @@ const GlobalStyles = createGlobalStyle`
     min-height: 100vh;
     background-color: var(--gray-100);
     }
-
+    img{
+      vertical-align: bottom;
+    }
     a{
         text-decoration: none;
         color: inherit;
