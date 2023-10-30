@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ImageCheck from '../Common/ImageCheck';
 export default function SearchContent({ data, bookdata, filter, keyword }) {
+  console.log(data);
   const HighlightSpan = styled.span`
     color: var(--dark-purple);
   `;
@@ -26,9 +27,9 @@ export default function SearchContent({ data, bookdata, filter, keyword }) {
       {filter === 'user'
         ? data.map((item) => (
             <SLi key={item._id}>
-              <SLink to={`/user/${item.username}`} className='user-link'>
+              <SLink to={`/profile/${item.accountname}`} className='user-link'>
                 <SImgWrapper>
-                  <img src={ImageCheck(item.image, 'profile')} alt='' />
+                  <img src={ImageCheck(item.image, 'profile')} alt='유저 프로필 사진' />
                 </SImgWrapper>
                 <SDiv>
                   <strong>{highlightKeyword(item.username)}</strong>
@@ -47,8 +48,10 @@ export default function SearchContent({ data, bookdata, filter, keyword }) {
                 </BookimgWrapper>
                 <SBookDesBox>
                   <strong>{highlightKeyword(item.title)}</strong>
-                  <p>{highlightKeyword(item.author)}</p>
-                  <p>{highlightKeyword(item.publisher)}</p>
+                  <div>
+                    <p>{highlightKeyword(item.author)}</p>
+                    <p>{highlightKeyword(item.publisher)}</p>
+                  </div>
                 </SBookDesBox>
               </SBook>
             </SLi>
@@ -60,6 +63,21 @@ export default function SearchContent({ data, bookdata, filter, keyword }) {
 
 const SUl = styled.ul`
   margin-top: 10px;
+  strong,
+  p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  strong {
+    font-size: medium;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  p {
+    font-size: small;
+    color: var(--gray-500);
+  }
 `;
 
 const SLi = styled.li`
@@ -81,20 +99,12 @@ const SDiv = styled.div`
   margin-left: 15px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  strong {
-    font-size: medium;
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  p {
-    font-size: small;
-    color: var(--gray-500);
-  }
+  width: 280px;
 `;
 
 const SLink = styled(Link)`
   display: flex;
+  align-items: center;
 `;
 
 const SBook = styled(Link)`
@@ -107,21 +117,23 @@ const BookimgWrapper = styled.div`
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   img {
     border-radius: 0;
-    width: 150px;
+    width: 90px;
     object-fit: cover;
   }
 `;
 
 const SBookDesBox = styled.div`
+  width: 250px;
   display: flex;
   flex-direction: column;
-  padding: 20px 0px 0px 15px;
-  gap: 5px;
+  justify-content: space-between;
+  padding: 16px 20px;
   strong {
     margin-bottom: 10px;
   }
   p {
     font-size: small;
     color: var(--gray-500);
+    margin-top: 7px;
   }
 `;
