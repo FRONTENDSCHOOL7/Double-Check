@@ -7,7 +7,6 @@ import { useRecoilState } from 'recoil';
 import { modalIsOpenAtom } from 'atoms/modal';
 
 import Toast from 'components/Common/Toast/Toast';
-import HamSideYesLogin from 'components/Common/HamSideBar/HamSideYesLogin';
 
 function TestPage() {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenAtom);

@@ -5,6 +5,9 @@ import './fonts.css';
 const GlobalStyles = createGlobalStyle` 
   ${reset}
 
+  body{
+    font-family: "Pretendard-Medium", sans-serif;
+  }
   *{
     font-family: "Pretendard-Medium", sans-serif;
     box-sizing: border-box;
