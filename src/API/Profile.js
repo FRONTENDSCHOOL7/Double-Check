@@ -11,3 +11,14 @@ export const profileAPI = async (token) => {
     throw error;
   }
 };
+
+// 내 프로필 수정
+export const setProfileAPI = async (profileData, token) => {
+  try {
+    const response = await authInstance.put(`/user`, profileData);
+    return response.data;
+  } catch (error) {
+    console.error('프로필 수정 오류:', error);
+    throw error;
+  }
+};

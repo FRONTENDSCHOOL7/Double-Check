@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookList from 'components/Book/BookList';
 import Loading from 'components/Common/Loading';
-
+import Topbar from 'components/Common/TopBar';
 const LIST_INFO_MAP = {
   bestseller: { endpoint: 'bestseller', title: '베스트 셀러' },
   newBooks: { endpoint: 'newBooks', title: '신작 전체 리스트' },
@@ -38,18 +38,21 @@ const BookListPage = ({ listType }) => {
   }, [listType, endpoint]);
 
   return (
-    <div>
-      <h1>{title}</h1>
-      {loading ? ( // 로딩 중일 때 Loading 컴포넌트 표시
-        <Loading />
-      ) : (
-        <ul>
-          {productList.map((product) => (
-            <BookList key={product.isbn13} product={product} />
-          ))}
-        </ul>
-      )}
-    </div>
+    <>
+      <Topbar centerEl={title} />
+      <section>
+        <h1>{title}</h1>
+        {loading ? ( // 로딩 중일 때 Loading 컴포넌트 표시
+          <Loading />
+        ) : (
+          <ul>
+            {productList.map((product) => (
+              <BookList key={product.isbn13} product={product} />
+            ))}
+          </ul>
+        )}
+      </section>
+    </>
   );
 };
 

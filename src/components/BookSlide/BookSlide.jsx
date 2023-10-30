@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { fetchBestsellersData, fetchNewBooksData, fetchNewBookSpecialData } from 'Recoil/BookData';
 
-export default function BookSlide({ title, dataType, desc }) {
+export default function BookSlide({ title, dataType, desc, path }) {
   let bookData;
 
   if (dataType === 'bestsellers') {
@@ -64,7 +64,7 @@ export default function BookSlide({ title, dataType, desc }) {
       <STitleBox>
         <STitleWrapper>
           <h2>{title}</h2>
-          <Link>
+          <Link to={path}>
             <IoIosArrowForward />
           </Link>
         </STitleWrapper>
@@ -111,6 +111,7 @@ const STitleBox = styled.div`
   p {
     font-size: small;
     color: var(--gray-500);
+    margin-top: 10px;
   }
 `;
 
@@ -122,4 +123,5 @@ const SCarousal = styled.div`
   white-space: nowrap;
   display: flex;
   cursor: grab;
+  margin-top: 10px;
 `;
