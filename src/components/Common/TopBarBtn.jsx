@@ -12,11 +12,11 @@ const TopBarBtn = ({ icon, onClick, txt }) => {
 export default TopBarBtn;
 
 const SButton = styled.button`
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
 
   svg {
-    font-size: 25px;
+    font-size: 30px;
   }
 `;

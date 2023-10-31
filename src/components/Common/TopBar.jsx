@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 import { BiSearchAlt } from 'react-icons/bi';
 import { VscChevronLeft } from 'react-icons/vsc';
 import { CiMenuKebab } from 'react-icons/ci';
+import Star from './Button/StarButton';
 import { ReactComponent as Doblechaek } from '../../assets/images/logo/doblechaek.svg';
 import TopBarBtn from './TopBarBtn';
 import Button from 'components/Common/Button/Button';
 import HamSideNoLogin from './HamSideBar/HamSideNoLogin';
+
 // 왼쪽 요소 : 미입력시 기본 값 < 뒤로가기
 const LeftEl = ({ leftEl }) => {
   // 뒤로가기 기능
@@ -60,11 +62,16 @@ const RightEl = ({ rightEl, onButtonClick }) => {
   // const onButtonClick = () => {
   //   console.log('d');
   // };
+  const onStarClick = () => {
+    console.log('d');
+  };
   if (rightEl === 'searchicon') {
     //검색아이콘
     return <TopBarBtn icon={BiSearchAlt} onClick={handleClick} />;
   } else if (rightEl === 'writelist') {
     return <TopBarBtn icon={CiMenuKebab} />;
+  } else if (rightEl === 'star') {
+    return <TopBarBtn icon={Star} onClick={onStarClick} />;
   } else if (rightEl === 'write') {
     return (
       <Button category='basic' shape='primary' type='button' onClick={onButtonClick}>
