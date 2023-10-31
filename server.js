@@ -13,7 +13,7 @@ app.use(morgan('dev'));
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 const aladinApiBaseUrl = 'https://www.aladin.co.kr/ttb/api/ItemList.aspx';
-const naverApiBaseUrl = 'https://openapi.naver.com/v1/search/book_adv.json';
+const naverApiBaseUrl = 'https://openapi.naver.com/v1/search/book.json';
 
 // 공통 함수로 API 요청을 처리하는 함수
 const fetchData = async (url, headers = {}) => {
@@ -63,15 +63,26 @@ app.get('/NewBookSpecial', async (req, res) => {
   }
 });
 
-// ISBN 정보를 이용해 도서 정보 가져오기
-app.get('/search/book', async (req, res) => {
-  const isbn = req.query.isbn;
-  const naverApiUrl = `${naverApiBaseUrl}?d_isbn=${isbn}`;
+//도서 검색기능
+app.get('/search', async (req, res) => {
+  const isbn = req.query.isbn; // ISBN 정보
+  const searchQuery = req.query.searchQuery; // 사용자 검색 정보
+
+  let naverApiUrl = '';
+  if (isbn) {
+    // ISBN 정보를 이용해 도서 정보 가져오기
+    naverApiUrl = `${naverApiBaseUrl}?query=${isbn}`;
+  } else if (searchQuery) {
+    // 사용자 검색 정보를 이용해 도서 정보 가져오기
+    naverApiUrl = `${naverApiBaseUrl}?query=${encodeURIComponent(searchQuery)}`;
+  } else {
+    res.status(400).json({ error: 'ISBN 정보 또는 검색어가 필요합니다.' });
+    return;
+  }
   const headers = {
     'X-Naver-Client-Id': naverClientId,
     'X-Naver-Client-Secret': naverClientSecret,
   };
-
   try {
     const data = await fetchData(naverApiUrl, headers);
     res.json(data);

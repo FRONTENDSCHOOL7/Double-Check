@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookList from 'components/Book/BookList';
 import Loading from 'components/Common/Loading';
-
+import Topbar from 'components/Common/TopBar';
+import styled from 'styled-components';
 const LIST_INFO_MAP = {
   bestseller: { endpoint: 'bestseller', title: '베스트 셀러' },
   newBooks: { endpoint: 'newBooks', title: '신작 전체 리스트' },
@@ -38,19 +39,39 @@ const BookListPage = ({ listType }) => {
   }, [listType, endpoint]);
 
   return (
-    <div>
-      <h1>{title}</h1>
-      {loading ? ( // 로딩 중일 때 Loading 컴포넌트 표시
-        <Loading />
-      ) : (
-        <ul>
-          {productList.map((product) => (
-            <BookList key={product.isbn13} product={product} />
-          ))}
-        </ul>
-      )}
-    </div>
+    <>
+      <Topbar centerEl={title} />
+      <SSection>
+        <h1>{title}</h1>
+        {loading ? ( // 로딩 중일 때 Loading 컴포넌트 표시
+          <Loading />
+        ) : (
+          <SBookList>
+            {productList.map((product) => (
+              <BookList key={product.isbn13} product={product} />
+            ))}
+          </SBookList>
+        )}
+      </SSection>
+    </>
   );
 };
 
+const SSection = styled.section`
+  h1 {
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+  }
+`;
+const SBookList = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 12px 18px;
+`;
 export default BookListPage;
