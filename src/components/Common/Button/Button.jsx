@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
-import { StyledButton, WhiteButton } from './ButtonStyle';
+import { StyledButton, WhiteButton, ListButton } from './ButtonStyle';
 
 function Button({
   shape,
@@ -9,7 +10,7 @@ function Button({
   disabled = false,
   children,
   type = 'button',
-  txt = [],
+  text = [],
   onClick,
 }) {
   const button = {
@@ -26,7 +27,7 @@ function Button({
     list: (
       <div>
         <ul>
-          {txt.map((item, index) => (
+          {text.map((item, index) => (
             <li key={index}>
               <WhiteButton
                 danger={item.includes('삭제') || item.includes('종료')}

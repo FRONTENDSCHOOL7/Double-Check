@@ -62,6 +62,7 @@ const StyledButton = styled(Button)`
         background: none;
         color: var(--black);
         height: 27px;
+        padding: 6px;
         &:active,
         &:hover,
         &:focus {
@@ -81,6 +82,11 @@ const WhiteButton = styled(Button)`
   color: ${(props) => (props.danger ? 'var(--danger-color)' : 'var(--black)')};
   background-color: var(--white);
   margin: 2px 0;
+  &:active,
+  &:hover,
+  &:focus {
+    background-color: var(--gray-200);
+  }
 `;
 
 export { StyledButton, WhiteButton };
