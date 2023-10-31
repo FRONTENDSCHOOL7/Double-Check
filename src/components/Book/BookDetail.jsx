@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Topbar from 'components/Common/TopBar';
+
 const MaxDescriptionLength = 200;
 
 const BookDetail = ({ book }) => {
+  console.log(book);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpansion = () => {
@@ -30,7 +32,7 @@ const BookDetail = ({ book }) => {
 
   return (
     <Ssection>
-      <Topbar customStyle={true} />
+      <Topbar customStyle={true} rightEl='star' />
       <SBookDetail>
         <h1>도서 상세 정보</h1>
         <SBookImg>
@@ -78,8 +80,6 @@ const Ssection = styled.section`
     margin-top: 10px;
   }
 `;
-
-// 나머지 스타일 컴포넌트 정의는 여기에 있습니다.
 
 const SBookDetail = styled.div`
   padding: 30px 30px 45px 30px;
