@@ -1,23 +1,25 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { phraseAPI } from 'API/phrase';
-import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './EditPhraseStyle';
+import { phraseUpload } from 'API/phrase';
+import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './PhraseEditStyle';
 import Textarea from 'components/Common/Textarea/Textarea';
 import { ContentState } from 'Recoil/ContentState';
 import { useNavigate } from 'react-router-dom';
 import Button from 'components/Common/Button/Button';
-import useToast from 'Hooks/useToast';
 import Modal from 'components/Common/Modal/Modal';
+import useCustomToast from 'Hooks/useCustomToast';
 
-const EditPhrase = () => {
+const PhraseEdit = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useRecoilState(ContentState);
+  const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
+  const showToast = useCustomToast();
 
   const handlePhraseUpload = async () => {
     const productData = {
@@ -29,13 +31,14 @@ const EditPhrase = () => {
       },
     };
 
-    const response = await phraseAPI(productData, token);
+    const response = await phraseUpload(productData, token);
     console.log(productData);
     console.log(response.product.id);
     setShowModal(false);
     if (response) {
       navigate('/phraselist');
     }
+    showToast('작성한 글귀가 등록되었습니다.');
   };
 
   const confirmUpload = (e) => {
@@ -43,11 +46,11 @@ const EditPhrase = () => {
     console.log('confirmUpload 함수 실행');
 
     if (title === '' || title.length < 1) {
-      return useToast('제목을 입력해주세요.');
+      return showToast('제목을 입력해주세요.');
     } else if (author === '' || author.length < 1) {
-      return useToast('저자를 입력해주세요.');
-    } else if (content === '' || author.length < 1) {
-      return useToast('내용을 입력해주세요.');
+      return showToast('저자를 입력해주세요.');
+    } else if (content === '' || content.length < 1) {
+      return showToast('내용을 입력해주세요.');
     }
 
     setShowModal(true);
@@ -57,6 +60,11 @@ const EditPhrase = () => {
     <>
       <EditPhraseWrapper>
         <EditPhraseForm>
+          <Textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder='좋아하는 글귀나 문학적 표현을 공유해보세요.'
+          />
           <EditPhraseInput
             type='text'
             name='title'
@@ -71,9 +79,9 @@ const EditPhrase = () => {
             onChange={(e) => setAuthor(e.target.value)}
             placeholder='저자를 입력해주세요.'
           />
-          <Textarea value={content} onChange={(e) => setContent(e.target.value)} />
         </EditPhraseForm>
       </EditPhraseWrapper>
+
       <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
         등록
       </Button>
@@ -88,4 +96,4 @@ const EditPhrase = () => {
   );
 };
 
-export default EditPhrase;
+export default PhraseEdit;

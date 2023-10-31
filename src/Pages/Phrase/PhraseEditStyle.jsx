@@ -12,7 +12,7 @@ const EditPhraseForm = styled.form`
 
 const EditPhraseInput = styled.input`
   padding: 14px 10px;
-  font-size: ${({ name }) => (name === 'author' ? 'var(--font-xs-size)' : 'var(--font-sm-size)')};
+  font-size: var(--font-sm-size);
   border-bottom: 1px solid var(--gray-200);
 `;
 

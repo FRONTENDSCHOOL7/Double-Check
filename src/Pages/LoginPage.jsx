@@ -49,6 +49,10 @@ export default function LoginPage() {
       setIsLoginCheck(true);
       setToken(newToken);
       localStorage.setItem('userToken', newToken);
+
+      const userId = response.user._id;
+      localStorage.setItem('userId', userId);
+
       navigate('/mainpage');
     } else if (response.status === 422) {
       setErrorMessage('이메일또는 비밀번호가 일치하지 않습니다.');
