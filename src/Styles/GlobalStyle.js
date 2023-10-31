@@ -5,6 +5,9 @@ import './fonts.css';
 const GlobalStyles = createGlobalStyle` 
   ${reset}
 
+  body{
+    font-family: "Pretendard-Medium", sans-serif;
+  }
   *{
     font-family: "Pretendard-Medium", sans-serif;
     box-sizing: border-box;
@@ -45,7 +48,9 @@ const GlobalStyles = createGlobalStyle`
     min-height: 100vh;
     background-color: var(--gray-100);
     }
-
+    img{
+      vertical-align: bottom;
+    }
     a{
         text-decoration: none;
         color: inherit;

@@ -1,16 +1,97 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import { BiSearchAlt } from 'react-icons/bi';
+import { VscChevronLeft } from 'react-icons/vsc';
+import { CiMenuKebab } from 'react-icons/ci';
+import Star from './Button/StarButton';
 import { ReactComponent as Doblechaek } from '../../assets/images/logo/doblechaek.svg';
-export default function Topbar() {
-  const onClinkOpenNavbar = () => {
-    console.log('누르면 너비게이션 바 나오게');
+import TopBarBtn from './TopBarBtn';
+import Button from 'components/Common/Button/Button';
+import HamSideNoLogin from './HamSideBar/HamSideNoLogin';
+
+// 왼쪽 요소 : 미입력시 기본 값 < 뒤로가기
+const LeftEl = ({ leftEl }) => {
+  // 뒤로가기 기능
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(-1);
   };
+
+  if (leftEl === 'navbar') {
+    // 햄버거 바 일때
+    return <TopBarBtn icon={HamSideNoLogin} />;
+  } else {
+    return <TopBarBtn icon={VscChevronLeft} onClick={handleClick} />;
+  }
+};
+
+// 가운데 요소 : 기본값 로고
+const CenterEl = ({ centerEl }) => {
+  if (centerEl === 'search') {
+    return <Sh1>검색하기</Sh1>;
+  } else if (centerEl === 'profile') {
+    return <Sh1>내 프로필</Sh1>;
+  } else if (centerEl === 'writelist') {
+    return <Sh1>내 글귀 목록</Sh1>;
+  } else if (centerEl === 'write') {
+    return <Sh1> &nbsp;&nbsp; 글귀 </Sh1>;
+  } else if (centerEl === 'feed') {
+    return <Sh1>피드</Sh1>;
+  } else if (centerEl === 'home') {
+    return (
+      <h1>
+        <SLink home to='/'>
+          <SDoblechaek />
+        </SLink>
+      </h1>
+    );
+  } else {
+    return <Sh1>{centerEl}</Sh1>;
+  }
+};
+
+// 오른쪽 요소
+const RightEl = ({ rightEl, onButtonClick }) => {
+  // 뒤로가기 기능
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/search');
+  };
+  // const onButtonClick = () => {
+  //   console.log('d');
+  // };
+  const onStarClick = () => {
+    console.log('d');
+  };
+  if (rightEl === 'searchicon') {
+    //검색아이콘
+    return <TopBarBtn icon={BiSearchAlt} onClick={handleClick} />;
+  } else if (rightEl === 'writelist') {
+    return <TopBarBtn icon={CiMenuKebab} />;
+  } else if (rightEl === 'star') {
+    return <TopBarBtn icon={Star} onClick={onStarClick} />;
+  } else if (rightEl === 'write') {
+    return (
+      <Button category='basic' shape='primary' type='button' onClick={onButtonClick}>
+        등록
+      </Button>
+    );
+  }
+  {
+    return <TopBarBtn />;
+  }
+};
+
+export default function Topbar({ leftEl, centerEl, rightEl, onButtonClick, customStyle }) {
   return (
-    <SHeader>
-      <SButton onClick={onClinkOpenNavbar}>
+    <SHeader customStyle={customStyle}>
+      <LeftEl leftEl={leftEl} />
+      <CenterEl centerEl={centerEl} />
+      <RightEl rightEl={rightEl} onButtonClick={onButtonClick} />
+
+      {/* <SButton>
         <GiHamburgerMenu />
       </SButton>
       <Sh1>
@@ -20,7 +101,7 @@ export default function Topbar() {
       </Sh1>
       <SLink to='/search'>
         <BiSearchAlt />
-      </SLink>
+      </SLink> */}
     </SHeader>
   );
 }
@@ -32,24 +113,20 @@ const SHeader = styled.header`
   width: 390px;
   height: 70px;
   padding: 0 16px;
-  border-bottom: solid 1px #e4e4e4;
+  border-bottom: ${(props) => (props.customStyle ? 'none' : 'solid 1px #e4e4e4')};
+
   box-sizing: border-box;
   position: fixed;
   top: 0;
-  background-color: #fff;
+  background-color: ${(props) => (props.customStyle ? 'var(--light-blue)' : '#fff')};
   z-index: 100;
 `;
 
-const SButton = styled.button`
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-
-  svg {
-    font-size: 25px;
-  }
+const Sh1 = styled.h1`
+  text-align: center;
+  font-size: large;
+  font-weight: 600;
 `;
-const Sh1 = styled.h1``;
 
 const SLink = styled(Link)`
   text-decoration: none;

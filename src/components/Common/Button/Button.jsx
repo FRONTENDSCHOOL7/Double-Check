@@ -41,6 +41,7 @@ function Button({
         <WhiteButton onClick={onClick}>{children}</WhiteButton>
       </div>
     ),
+    sidebarBtn: <SideLoginBtn onClick={onClick}>{children}</SideLoginBtn>,
   };
 
   return button[category];
