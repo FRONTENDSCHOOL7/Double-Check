@@ -9,14 +9,17 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
+import { navBar } from 'Recoil/Navbar';
 import { styled } from 'styled-components';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   const [userErrorMessage, setUserErrorMessage] = useState([]);
   const [errorMessage, setErrorMessage] = useState([]);
   const [isLoginCheck, setIsLoginCheck] = useRecoilState(loginCheck);
   const [token, setToken] = useRecoilState(loginToken);
+  setShowNavBar(false);
 
   const [loginData, setLoginData] = useState({
     user: {
@@ -74,46 +77,45 @@ export default function LoginPage() {
 
   return (
     <>
-      <h2>로그인페이지</h2>
-      <InputDiv>
-        <Label htmlFor='emailInput'>이메일</Label>
-        <InputBox
-          type='email'
-          id='emailInput'
-          name='email'
-          placeholder='이메일 입력'
-          onChange={handleInputChange}
-          value={loginData.user.email}
-        />
-        {userErrorMessage.includes('이메일을 입력해주세요') && (
-          <ErrorMassage>{userErrorMessage}</ErrorMassage>
+      <LoginBox>
+        <InputDiv>
+          <Label htmlFor='emailInput'>이메일</Label>
+          <InputBox
+            type='email'
+            id='emailInput'
+            name='email'
+            placeholder='이메일 입력'
+            onChange={handleInputChange}
+            value={loginData.user.email}
+          />
+          {userErrorMessage.includes('이메일을 입력해주세요') && (
+            <ErrorMassage>{userErrorMessage}</ErrorMassage>
+          )}
+          {userErrorMessage.includes('이메일 형식이 올바르지 않습니다.') && (
+            <ErrorMassage>{userErrorMessage}</ErrorMassage>
+          )}
+        </InputDiv>
+        <InputDiv>
+          <Label htmlFor='passwordInput'>비밀번호</Label>
+          <InputBox
+            type='password'
+            name='password'
+            id='passwordInput'
+            placeholder='비밀번호를 설정해 주세요.'
+            onChange={handleInputChange}
+            value={loginData.user.password}
+          />
+          {userErrorMessage.includes('비밀번호를 입력해주세요') && (
+            <ErrorMassage>{userErrorMessage}</ErrorMassage>
+          )}
+        </InputDiv>
+        {errorMessage && loginData.user.email && loginData.user.password && (
+          <ErrorMassage>{errorMessage}</ErrorMassage>
         )}
-        {userErrorMessage.includes('이메일 형식이 올바르지 않습니다.') && (
-          <ErrorMassage>{userErrorMessage}</ErrorMassage>
-        )}
-      </InputDiv>
-      <InputDiv>
-        <Label htmlFor='passwordInput'>비밀번호</Label>
-        <InputBox
-          type='password'
-          name='password'
-          id='passwordInput'
-          placeholder='비밀번호를 설정해 주세요.'
-          onChange={handleInputChange}
-          value={loginData.user.password}
-        />
-        {userErrorMessage.includes('비밀번호를 입력해주세요') && (
-          <ErrorMassage>{userErrorMessage}</ErrorMassage>
-        )}
-      </InputDiv>
-      {errorMessage && loginData.user.email && loginData.user.password && (
-        <ErrorMassage>{errorMessage}</ErrorMassage>
-      )}
-      <ButtonDiv>
-        <Button type='button' onClick={handleError}>
+        <Button type='submit' onClick={handleError}>
           로그인
         </Button>
-      </ButtonDiv>
+      </LoginBox>
     </>
   );
 }
@@ -122,6 +124,10 @@ const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 32px;
+`;
+
+const LoginBox = styled.div`
+  padding: 0 49px;
 `;
 
 const H1 = styled.h1`
@@ -135,20 +141,14 @@ const H1 = styled.h1`
   position: absolute;
 `;
 
-const H2 = styled.div`
-  img {
-    height: 76px;
-  }
-`;
-
 const Label = styled.label`
-  font-family: var(--font--Bold);
   margin-bottom: 9px;
-  font-weight: 700;
-`;
-
-const ButtonDiv = styled.div`
-  margin-top: 166px;
+  color: #471bb2;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px; /* 100% */
 `;
 
 const ErrorMassage = styled.div`
@@ -158,10 +158,16 @@ const ErrorMassage = styled.div`
 `;
 
 const Button = styled.button`
-  width: 200px;
-  border: 1px solid black;
+  height: 49px;
+  color: #fff;
+  border-radius: 17px;
+  background: #b29aff;
+  margin-top: 33px;
+  width: 100%;
 `;
 
 const InputBox = styled.input`
-  width: 300px;
+  height: 40px;
+  border-radius: 25px;
+  border: 1px solid #d2d8fa;
 `;
