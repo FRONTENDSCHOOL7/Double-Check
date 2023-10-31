@@ -19,7 +19,7 @@ import NavBar from 'components/Common/NavBar/NavBar';
 
 import { QueryClient } from 'react-query';
 import { QueryClientProvider } from 'react-query';
-import OthersPage from 'Pages/ OthersPage';
+import OthersPage from 'Pages/OthersPage';
 
 function App() {
   const queryClient = new QueryClient({
@@ -49,7 +49,7 @@ function App() {
             <Route path='/phrasewrite' element={<PhraseWritePage />} />
             <Route path='/phraselist' element={<PhraseList />} />
             <Route path='/search' element={<SearchPage />} />
-            <Route path='/profile/:accountname' element={<OthersPage />} />
+            {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           <NavBar />
         </LayoutStyle>
