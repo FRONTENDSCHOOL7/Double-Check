@@ -43,13 +43,16 @@ function App() {
           <Routes>
             {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
-            <Route path='/' element={<MainPage />} />
+            {/* <Route path='/' element={<MainPage />} /> */}
+            <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/search' element={<SearchPage />} />
             <Route path='/phrasewrite' element={<PhraseWritePage />} />
             <Route path='/phraselist' element={<PhraseList />} />
+            <Route path='/search' element={<SearchPage />} />
+            {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           {showNavBar && <NavBar />}
         </LayoutStyle>

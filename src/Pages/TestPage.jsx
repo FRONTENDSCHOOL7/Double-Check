@@ -48,6 +48,7 @@ function TestPage() {
           취소
         </Button>
       </section>
+      <HamSideYesLogin />
     </div>
   );
 }

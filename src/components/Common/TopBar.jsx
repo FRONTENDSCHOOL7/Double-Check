@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import { BiSearchAlt } from 'react-icons/bi';
 import { VscChevronLeft } from 'react-icons/vsc';
+import { CiMenuKebab } from 'react-icons/ci';
 import { ReactComponent as Doblechaek } from '../../assets/images/logo/doblechaek.svg';
 import TopBarBtn from './TopBarBtn';
-
+import Button from 'components/Common/Button/Button';
+import HamSideNoLogin from './HamSideBar/HamSideNoLogin';
 // 왼쪽 요소 : 미입력시 기본 값 < 뒤로가기
 const LeftEl = ({ leftEl }) => {
   // 뒤로가기 기능
@@ -15,12 +16,10 @@ const LeftEl = ({ leftEl }) => {
   const handleClick = () => {
     navigate(-1);
   };
-  const onClinkOpenNavbar = () => {
-    console.log('누르면 네비게이션 바 나오게');
-  };
+
   if (leftEl === 'navbar') {
     // 햄버거 바 일때
-    return <TopBarBtn icon={GiHamburgerMenu} onClick={onClinkOpenNavbar} />;
+    return <TopBarBtn icon={HamSideNoLogin} />;
   } else {
     return <TopBarBtn icon={VscChevronLeft} onClick={handleClick} />;
   }
@@ -35,7 +34,7 @@ const CenterEl = ({ centerEl }) => {
   } else if (centerEl === 'writelist') {
     return <Sh1>내 글귀 목록</Sh1>;
   } else if (centerEl === 'write') {
-    return <Sh1>글귀</Sh1>;
+    return <Sh1> &nbsp;&nbsp; 글귀 </Sh1>;
   } else if (centerEl === 'feed') {
     return <Sh1>피드</Sh1>;
   } else if (centerEl === 'home') {
@@ -52,26 +51,38 @@ const CenterEl = ({ centerEl }) => {
 };
 
 // 오른쪽 요소
-const RightEl = ({ rightEl }) => {
+const RightEl = ({ rightEl, onButtonClick }) => {
   // 뒤로가기 기능
   const navigate = useNavigate();
   const handleClick = () => {
     navigate('/search');
   };
+  // const onButtonClick = () => {
+  //   console.log('d');
+  // };
   if (rightEl === 'searchicon') {
     //검색아이콘
     return <TopBarBtn icon={BiSearchAlt} onClick={handleClick} />;
-  } else {
+  } else if (rightEl === 'writelist') {
+    return <TopBarBtn icon={CiMenuKebab} />;
+  } else if (rightEl === 'write') {
+    return (
+      <Button category='basic' shape='primary' type='button' onClick={onButtonClick}>
+        등록
+      </Button>
+    );
+  }
+  {
     return <TopBarBtn />;
   }
 };
 
-export default function Topbar({ leftEl, centerEl, rightEl }) {
+export default function Topbar({ leftEl, centerEl, rightEl, onButtonClick, customStyle }) {
   return (
-    <SHeader>
+    <SHeader customStyle={customStyle}>
       <LeftEl leftEl={leftEl} />
       <CenterEl centerEl={centerEl} />
-      <RightEl rightEl={rightEl} />
+      <RightEl rightEl={rightEl} onButtonClick={onButtonClick} />
 
       {/* <SButton>
         <GiHamburgerMenu />
@@ -95,11 +106,12 @@ const SHeader = styled.header`
   width: 390px;
   height: 70px;
   padding: 0 16px;
-  border-bottom: solid 1px #e4e4e4;
+  border-bottom: ${(props) => (props.customStyle ? 'none' : 'solid 1px #e4e4e4')};
+
   box-sizing: border-box;
   position: fixed;
   top: 0;
-  background-color: #fff;
+  background-color: ${(props) => (props.customStyle ? 'var(--light-blue)' : '#fff')};
   z-index: 100;
 `;
 

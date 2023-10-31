@@ -2,7 +2,11 @@ import EditPhrase from 'components/EditPhrase/EditPhrase';
 import React from 'react';
 
 function PhraseWritePage() {
-  return <EditPhrase />;
+  return (
+    <>
+      <EditPhrase />
+    </>
+  );
 }
 
 export default PhraseWritePage;

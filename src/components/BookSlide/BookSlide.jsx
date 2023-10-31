@@ -99,14 +99,12 @@ const STitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
 `;
 
 const STitleBox = styled.div`
-  margin: 0px 10px;
+  margin: 0px 15px;
   h2 {
     font-size: medium;
-    font-weight: bold;
   }
   p {
     font-size: small;
@@ -123,5 +121,5 @@ const SCarousal = styled.div`
   white-space: nowrap;
   display: flex;
   cursor: grab;
-  margin-top: 10px;
+  margin-left: 10px;
 `;

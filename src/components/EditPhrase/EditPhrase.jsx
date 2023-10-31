@@ -7,9 +7,10 @@ import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './EditPhrase
 import Textarea from 'components/Common/Textarea/Textarea';
 import { ContentState } from 'Recoil/ContentState';
 import { useNavigate } from 'react-router-dom';
-import Button from 'components/Common/Button/Button';
+// import Button from 'components/Common/Button/Button';
 import useToast from 'Hooks/useToast';
 import Modal from 'components/Common/Modal/Modal';
+import Topbar from 'components/Common/TopBar';
 
 const EditPhrase = () => {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ const EditPhrase = () => {
 
   return (
     <>
+      <Topbar centerEl='write' rightEl='write' onButtonClick={confirmUpload} />
       <EditPhraseWrapper>
         <EditPhraseForm>
           <EditPhraseInput
@@ -74,9 +76,9 @@ const EditPhrase = () => {
           <Textarea value={content} onChange={(e) => setContent(e.target.value)} />
         </EditPhraseForm>
       </EditPhraseWrapper>
-      <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+      {/* <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
         등록
-      </Button>
+      </Button> */}
       <Modal
         content='글귀를 등록하시겠습니까?'
         btnTxt='예'

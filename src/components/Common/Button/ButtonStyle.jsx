@@ -82,5 +82,19 @@ const WhiteButton = styled(Button)`
   background-color: var(--white);
   margin: 2px 0;
 `;
+const SideLoginBtn = styled(Button)`
+  display: block;
+  height: 48px;
+  margin: 81px auto 0;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-xm-size);
+  padding: 14px 17px;
+  line-height: 1;
+  background-color: var(--main-purple);
+  color: var(--white);
+  border-radius: 25px;
+  text-align: center;
+`;
 
-export { StyledButton, WhiteButton };
+export { StyledButton, WhiteButton, SideLoginBtn };

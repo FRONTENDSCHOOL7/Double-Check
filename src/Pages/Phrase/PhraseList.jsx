@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { getPhraseListAPI } from 'API/phrase';
 import styled from 'styled-components';
 import Button from 'components/Common/Button/Button';
-
+import Topbar from 'components/Common/TopBar';
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
   ['#E2FFFB', '#AFEEE3'],
@@ -35,6 +34,7 @@ const PhraseList = () => {
     }));
   };
 
+  // eslint-disable-next-line no-unused-vars
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
     'productData',
     getPhraseListAPI,
@@ -87,38 +87,45 @@ const PhraseList = () => {
   }, [hasNextPage, fetchNextPage]);
 
   return (
-    <PhraseContainer>
-      {filteredProducts.length > 0 ? (
-        <PhraseListUl>
-          {filteredProducts.map((product, index) => {
-            const [bgColor, colorBox] = getColorPairByIndex(index);
-            return (
-              <PhraseListItem key={index} bgcolor={bgColor} onClick={() => toggleExpandItem(index)}>
-                <PhraseContents>
-                  <PhraseItemBox colorbox={colorBox} />
-                  <PhraseArticle>
-                    <PhraseTxt {...(expandedItem[index] ? { expanded: 'true' } : {})}>
-                      {product.itemImage}
-                    </PhraseTxt>
-                  </PhraseArticle>
-                </PhraseContents>
-                <Options>
-                  <PhraseInfo>
-                    <p>{product.itemName.replace('@cc@', '')}</p>
-                    <p>{product.link}</p>
-                  </PhraseInfo>
-                  <Button category='basic' shape='none'>
-                    저장
-                  </Button>
-                </Options>
-              </PhraseListItem>
-            );
-          })}
-        </PhraseListUl>
-      ) : (
-        <p>글귀가 없습니다.</p>
-      )}
-    </PhraseContainer>
+    <>
+      <Topbar centerEl='writelist' leftEl='writelist' rightEl='writelist' />
+      <PhraseContainer>
+        {filteredProducts.length > 0 ? (
+          <PhraseListUl>
+            {filteredProducts.map((product, index) => {
+              const [bgColor, colorBox] = getColorPairByIndex(index);
+              return (
+                <PhraseListItem
+                  key={index}
+                  bgcolor={bgColor}
+                  onClick={() => toggleExpandItem(index)}
+                >
+                  <PhraseContents>
+                    <PhraseItemBox colorbox={colorBox} />
+                    <PhraseArticle>
+                      <PhraseTxt {...(expandedItem[index] ? { expanded: 'true' } : {})}>
+                        {product.itemImage}
+                      </PhraseTxt>
+                    </PhraseArticle>
+                  </PhraseContents>
+                  <Options>
+                    <PhraseInfo>
+                      <p>{product.itemName.replace('@cc@', '')}</p>
+                      <p>{product.link}</p>
+                    </PhraseInfo>
+                    <Button category='basic' shape='none'>
+                      저장
+                    </Button>
+                  </Options>
+                </PhraseListItem>
+              );
+            })}
+          </PhraseListUl>
+        ) : (
+          <p>글귀가 없습니다.</p>
+        )}
+      </PhraseContainer>
+    </>
   );
 };
 
@@ -197,7 +204,7 @@ const PhraseTxt = styled.p`
   `}
 `;
 
-const SaveButton = styled(Button)`
-  font-size: var(--font-xs-size);
-  font-family: 'Pretendard-Regular', sans-serif;
-`;
+// const SaveButton = styled(Button)`
+//   font-size: var(--font-xs-size);
+//   font-family: 'Pretendard-Regular', sans-serif;
+// `;
