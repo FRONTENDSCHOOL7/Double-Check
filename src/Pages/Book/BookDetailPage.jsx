@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import Loading from 'components/Common/Loading';
 import BookDetail from 'components/Book/BookDetail';
 
@@ -9,14 +8,14 @@ export default function BookDetailPage() {
   const location = useLocation();
   const { isbn } = useParams();
   const [detailInfo, setDetailInfo] = useState([]);
-  console.log(location.state.product);
+
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/search/?isbn=${isbn}`);
         let bookData = response.data.items || [];
 
-        if (bookData.length === 0 && location.state.product) {
+        if (bookData.length === 0 && location.state && location.state.product) {
           bookData = [location.state.product];
         }
 

@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 export const FeatureBanner = styled.div`
-  position: relative;
   margin: 20px;
 
   ${(props) =>
@@ -10,8 +9,8 @@ export const FeatureBanner = styled.div`
       &:before {
         content: '${props.bestDuration}';
         position: absolute;
-        top: 22px;
-        left: -28px;
+        top: 1px;
+        left: -8px;
         padding-right: 10px;
         color: #fff;
         font-weight: bold;
@@ -28,8 +27,8 @@ export const FeatureBanner = styled.div`
   &:after {
     content: '';
     position: absolute;
-    top: 46px;
-    left: -28px;
+    top: 25px;
+    left: -8px;
     border: 4px solid #311a68;
     border-left-color: transparent;
     border-bottom-color: transparent;
