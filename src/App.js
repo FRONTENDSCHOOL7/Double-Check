@@ -6,7 +6,7 @@ import LayoutStyle from 'Styles/LayoutStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
 // import BottomBar from 'components/Common/BottomBar';
-// import MainPage from 'Pages/MainPage';
+import MainPage from 'Pages/MainPage';
 import BookRoutes from 'Route/BookRoutes';
 import SearchPage from 'Pages/SearchPage';
 import SignupPage from 'Pages/SignupPage';
@@ -19,8 +19,11 @@ import NavBar from 'components/Common/NavBar/NavBar';
 
 import { QueryClient } from 'react-query';
 import { QueryClientProvider } from 'react-query';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { navBar } from 'Recoil/Navbar';
 
 function App() {
+  const showNavBar = useRecoilValue(navBar);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -40,15 +43,15 @@ function App() {
           <Routes>
             {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
-            {/* <Route path='/' element={<MainPage />} /> */}
-            <Route path='/book/*' element={<BookRoutes />} />
+            <Route path='/' element={<MainPage />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
+            <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/search' element={<SearchPage />} />
             <Route path='/phrasewrite' element={<PhraseWritePage />} />
             <Route path='/phraselist' element={<PhraseList />} />
           </Routes>
-          <NavBar />
+          {showNavBar && <NavBar />}
         </LayoutStyle>
       </BrowserRouter>
     </QueryClientProvider>
