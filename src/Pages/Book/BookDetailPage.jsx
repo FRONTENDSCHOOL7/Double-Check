@@ -9,7 +9,7 @@ export default function BookDetailPage() {
   const location = useLocation();
   const { isbn } = useParams();
   const [detailInfo, setDetailInfo] = useState([]);
-
+  console.log(location.state.product);
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
