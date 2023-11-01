@@ -1,6 +1,5 @@
-<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Group 18821">
-<path id="union-1" d="M1 6C1 3.23858 3.3132 1 6.16667 1H19.0833C21.9368 1 24.25 3.23858 24.25 6V18.5C24.25 21.2614 21.9368 23.5 19.0833 23.5H6.16667C3.3132 23.5 1 21.2614 1 18.5V6Z" stroke="#AAAAAA" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="union-2" d="M7.14453 12.2501H12.6246M12.6246 12.2501H18.1047M12.6246 12.2501V17.5534M12.6246 12.2501V6.94678" stroke="#AAAAAA" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
+<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 6.33333C1 3.38781 3.38781 1 6.33333 1H19.6667C22.6122 1 25 3.38781 25 6.33333V19.6667C25 22.6122 22.6122 25 19.6667 25H6.33333C3.38781 25 1 22.6122 1 19.6667V6.33333Z" stroke="#AAAAAA" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.21777 11H19.3087" stroke="#AAAAAA" stroke-linecap="round"/>
+<path d="M6.21777 16.2173H19.3087" stroke="#AAAAAA" stroke-linecap="round"/>
 </svg>
