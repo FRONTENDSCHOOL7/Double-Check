@@ -9,11 +9,6 @@ import { useRecoilState } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 
 export default function MainPage() {
-  const [token, setToken] = useRecoilState(loginToken);
-  const [isLogin, setIsLogin] = useRecoilState(loginCheck);
-  console.log(token);
-  console.log(isLogin);
-
   return (
     <>
       <TopBar leftEl='navbar' centerEl='home' rightEl='searchicon' />
