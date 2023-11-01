@@ -19,7 +19,7 @@ const navItem = [
     icon: iconLookArround,
     iconFill: iconLookAroundFill,
   },
-  { id: 2, name: '피드작성', to: '/upload', icon: iconUpload, iconFill: iconUploadFill },
+  { id: 2, name: '피드작성', to: '/phraselist', icon: iconUpload, iconFill: iconUploadFill },
   { id: 3, name: '프로필', to: '/profile', icon: iconProfile, iconFill: iconProfileFill },
 ];
 
