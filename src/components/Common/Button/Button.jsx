@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
-import { StyledButton, WhiteButton, ListButton } from './ButtonStyle';
+import { StyledButton, WhiteButton, SideLoginBtn } from './ButtonStyle';
 
 function Button({
   shape,

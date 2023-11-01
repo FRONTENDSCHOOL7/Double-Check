@@ -5,7 +5,6 @@ import { getPhraseListAPI } from 'API/phrase';
 import styled from 'styled-components';
 import Button from 'components/Common/Button/Button';
 import { useGetInfinitePhrase, useDeletePhrase } from 'Hooks/usePhrase';
-import useScrollBottom from 'Hooks/useScrollBottom';
 import { useNavigate } from 'react-router-dom';
 import showMore from '../../assets/images/icon/show-more.svg';
 import ModalButton from 'components/Common/Modal/ModalButton';
@@ -14,6 +13,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
 import loginToken from 'Recoil/LoginToken';
 import useCustomToast from 'Hooks/useCustomToast';
+import Topbar from 'components/Common/Topbar/Topbar';
+import TopBarBtn from 'components/Common/TopBarBtn';
+import HamSideNoLogin from 'components/Common/HamSideBar/HamSideNoLogin';
 
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
@@ -35,8 +37,8 @@ const getColorPairByIndex = (index) => {
 
 export default function PhraseList() {
   const [expandedItem, setExpandedItem] = useState({});
-  const [showButton, setShowButton] = useState({});
-  const [currentVisibleButton, setCurrentVisibleButton] = useState(null);
+  // const [showButton, setShowButton] = useState({});
+  // const [currentVisibleButton, setCurrentVisibleButton] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
@@ -83,6 +85,20 @@ export default function PhraseList() {
 
   return (
     <>
+      <Topbar
+        // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
+        title='글귀 목록'
+        rightButton={
+          <Button
+            category='basic'
+            shape='primary'
+            type='button'
+            onClick={() => navigate('/phraseupload')}
+          >
+            작성
+          </Button>
+        }
+      />
       <PhraseContainer>
         {allPhrase.length > 0 ? (
           <PhraseListUl>
