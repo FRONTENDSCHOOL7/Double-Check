@@ -8,6 +8,7 @@ const NavBarWrapper = styled.div`
   align-items: center;
   border-top: 1px solid var(--gray-200);
   background-color: var(--white);
+  z-index: 100;
 `;
 
 const NavBarContents = styled.div`

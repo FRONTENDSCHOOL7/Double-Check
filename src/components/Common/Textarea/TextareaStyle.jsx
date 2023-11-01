@@ -5,8 +5,9 @@ const StyledTextarea = styled.textarea`
   outline: none;
   resize: none;
   line-height: 1.5;
-  font-size: var(--font-xs-size);
-  min-height: ${(props) => props.height};
+  font-size: var(--font-sm-size);
+  /* min-height: ${(props) => props.height}; */
+  border-bottom: 1px solid var(--gray-200);
 `;
 
 export default StyledTextarea;

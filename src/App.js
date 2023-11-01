@@ -12,15 +12,17 @@ import SearchPage from 'Pages/SearchPage';
 import SignupPage from 'Pages/SignupPage';
 import LoginPage from 'Pages/LoginPage';
 import PhraseList from 'Pages/Phrase/PhraseList';
-import PhraseWritePage from 'Pages/Phrase/PhraseWrite';
 
 // import TestPage from 'Pages/TestPage';
 import NavBar from 'components/Common/NavBar/NavBar';
-
 import { QueryClient } from 'react-query';
 import { QueryClientProvider } from 'react-query';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { navBar } from 'Recoil/Navbar';
+import PhraseUpdate from 'Pages/Phrase/PhraseUpdate';
+import PhraseUpload from 'Pages/Phrase/PhraseUpload';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import OthersPage from 'Pages/OthersPage';
+
 
 function App() {
   const showNavBar = useRecoilValue(navBar);
@@ -36,6 +38,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ToastContainer />
       <BrowserRouter>
         <GlobalStyles />
         {/*  라우터에 영향을 받지않는 컴포넌트들*/}
@@ -49,7 +52,8 @@ function App() {
             <Route path='/signupPage' element={<SignupPage />} />
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/search' element={<SearchPage />} />
-            <Route path='/phrasewrite' element={<PhraseWritePage />} />
+            <Route path='/phraseupdate/:id' element={<PhraseUpdate />} />
+            <Route path='/phraseupload/' element={<PhraseUpload />} />
             <Route path='/phraselist' element={<PhraseList />} />
             <Route path='/search' element={<SearchPage />} />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
