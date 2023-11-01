@@ -25,6 +25,7 @@ import OthersPage from 'Pages/OthersPage';
 
 
 function App() {
+  const showNavBar = useRecoilValue(navBar);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -45,10 +46,11 @@ function App() {
           <Routes>
             {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
-            <Route path='/' element={<MainPage />} />
+            {/* <Route path='/' element={<MainPage />} /> */}
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
+            <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/search' element={<SearchPage />} />
             <Route path='/phraseupdate/:id' element={<PhraseUpdate />} />
             <Route path='/phraseupload/' element={<PhraseUpload />} />
@@ -56,7 +58,7 @@ function App() {
             <Route path='/search' element={<SearchPage />} />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
-          <NavBar />
+          {showNavBar && <NavBar />}
         </LayoutStyle>
       </BrowserRouter>
     </QueryClientProvider>

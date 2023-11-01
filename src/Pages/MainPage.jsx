@@ -1,8 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import BannerSlideShow from 'components/Banner/BannerSlideEffect';
 import BookSlide from 'components/BookSlide/BookSlide';
 import TopBar from 'components/Common/TopBar';
 import { Suspense } from 'react';
+import loginToken from 'Recoil/LoginToken';
+import { useRecoilState } from 'recoil';
+import { loginCheck } from 'Recoil/LoginCheck';
 
 export default function MainPage() {
   return (

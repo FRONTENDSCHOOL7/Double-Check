@@ -9,13 +9,18 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
+import { navBar } from 'Recoil/Navbar';
 import { styled } from 'styled-components';
+import { ReactComponent as Doublechaek } from '../assets/images/logo/doblechaek.svg';
+import Bg from '../assets/images/bg.png';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   const [userErrorMessage, setUserErrorMessage] = useState([]);
   const [errorMessage, setErrorMessage] = useState([]);
   const [isLoginCheck, setIsLoginCheck] = useRecoilState(loginCheck);
+  const [errorCheck, setErrorCheck] = useState(false);
   const [token, setToken] = useRecoilState(loginToken);
 
   const [loginData, setLoginData] = useState({
@@ -42,6 +47,12 @@ export default function LoginPage() {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    handleError();
+    await handleLogin();
+  };
+
   const handleLogin = async () => {
     const response = await loginAPI(loginData);
     if (response && response.hasOwnProperty('user')) {
@@ -66,6 +77,7 @@ export default function LoginPage() {
     } else if (loginData.user.password === '') {
       errors.push('비밀번호를 입력해주세요');
     } else {
+      setErrorCheck(true);
       errors.push('');
       handleLogin();
     }
@@ -74,46 +86,51 @@ export default function LoginPage() {
 
   return (
     <>
-      <h2>로그인페이지</h2>
-      <InputDiv>
-        <Label htmlFor='emailInput'>이메일</Label>
-        <InputBox
-          type='email'
-          id='emailInput'
-          name='email'
-          placeholder='이메일 입력'
-          onChange={handleInputChange}
-          value={loginData.user.email}
-        />
-        {userErrorMessage.includes('이메일을 입력해주세요') && (
-          <ErrorMassage>{userErrorMessage}</ErrorMassage>
-        )}
-        {userErrorMessage.includes('이메일 형식이 올바르지 않습니다.') && (
-          <ErrorMassage>{userErrorMessage}</ErrorMassage>
-        )}
-      </InputDiv>
-      <InputDiv>
-        <Label htmlFor='passwordInput'>비밀번호</Label>
-        <InputBox
-          type='password'
-          name='password'
-          id='passwordInput'
-          placeholder='비밀번호를 설정해 주세요.'
-          onChange={handleInputChange}
-          value={loginData.user.password}
-        />
-        {userErrorMessage.includes('비밀번호를 입력해주세요') && (
-          <ErrorMassage>{userErrorMessage}</ErrorMassage>
-        )}
-      </InputDiv>
-      {errorMessage && loginData.user.email && loginData.user.password && (
-        <ErrorMassage>{errorMessage}</ErrorMassage>
-      )}
-      <ButtonDiv>
-        <Button type='button' onClick={handleError}>
-          로그인
-        </Button>
-      </ButtonDiv>
+      <BgImg></BgImg>
+      <LogoBox>
+        <Logo />
+      </LogoBox>
+      <LoginBox>
+        <form onSubmit={handleSubmit}>
+          <InputDiv>
+            <Label htmlFor='emailInput'>이메일</Label>
+            <InputBox
+              type='email'
+              id='emailInput'
+              name='email'
+              placeholder='이메일 입력'
+              onChange={handleInputChange}
+              value={loginData.user.email}
+            />
+            {userErrorMessage.includes('이메일을 입력해주세요') && (
+              <ErrorMassage>{userErrorMessage}</ErrorMassage>
+            )}
+            {userErrorMessage.includes('이메일 형식이 올바르지 않습니다.') && (
+              <ErrorMassage>{userErrorMessage}</ErrorMassage>
+            )}
+          </InputDiv>
+          <InputDiv>
+            <Label htmlFor='passwordInput'>비밀번호</Label>
+            <InputBox
+              type='password'
+              name='password'
+              id='passwordInput'
+              placeholder='비밀번호를 설정해 주세요.'
+              onChange={handleInputChange}
+              value={loginData.user.password}
+            />
+            {userErrorMessage.includes('비밀번호를 입력해주세요') && (
+              <ErrorMassage>{userErrorMessage}</ErrorMassage>
+            )}
+          </InputDiv>
+          {errorMessage && loginData.user.email && loginData.user.password && (
+            <ErrorMassage>{errorMessage}</ErrorMassage>
+          )}
+          <Button type='submit' onClick={handleError}>
+            로그인
+          </Button>
+        </form>
+      </LoginBox>
     </>
   );
 }
@@ -124,31 +141,19 @@ const InputDiv = styled.div`
   margin-top: 32px;
 `;
 
-const H1 = styled.h1`
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-`;
-
-const H2 = styled.div`
-  img {
-    height: 76px;
-  }
+const LoginBox = styled.div`
+  margin-top: 43px;
+  padding: 0 49px;
 `;
 
 const Label = styled.label`
-  font-family: var(--font--Bold);
   margin-bottom: 9px;
-  font-weight: 700;
-`;
-
-const ButtonDiv = styled.div`
-  margin-top: 166px;
+  color: #471bb2;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px; /* 100% */
 `;
 
 const ErrorMassage = styled.div`
@@ -158,10 +163,50 @@ const ErrorMassage = styled.div`
 `;
 
 const Button = styled.button`
-  width: 200px;
-  border: 1px solid black;
+  height: 49px;
+  width: 100%;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 17px;
+  background: #b29aff;
+  margin-top: 33px;
+`;
+
+const DisabledButton = styled.button`
+  height: 49px;
+  width: 100%;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 17px;
+  background: #b29aff;
+  margin-top: 33px;
+  opacity: 0.6;
 `;
 
 const InputBox = styled.input`
-  width: 300px;
+  height: 40px;
+  border-radius: 25px;
+  border: 1px solid #d2d8fa;
+`;
+
+const Logo = styled(Doublechaek)`
+  width: 200px;
+  margin-top: 200px;
+`;
+
+const LogoBox = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const BgImg = styled.div`
+  position: absolute;
+  top: 0;
+  width: 390px;
+  height: 200px;
+  background-image: url(${Bg});
+  overflow: hidden;
+  transform: rotate(-10deg);
+  background-size: cover;
+  background-position: center;
 `;
