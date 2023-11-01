@@ -19,6 +19,7 @@ import NavBar from 'components/Common/NavBar/NavBar';
 
 import { QueryClient } from 'react-query';
 import { QueryClientProvider } from 'react-query';
+import MyProfilePage from 'Pages/MyProfilePage';
 
 function App() {
   const queryClient = new QueryClient({
@@ -47,6 +48,7 @@ function App() {
             <Route path='/search' element={<SearchPage />} />
             <Route path='/phrasewrite' element={<PhraseWritePage />} />
             <Route path='/phraselist' element={<PhraseList />} />
+            <Route path='/myprofile' element={<MyProfilePage />} />
           </Routes>
           <NavBar />
         </LayoutStyle>
