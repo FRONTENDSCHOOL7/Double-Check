@@ -5,13 +5,6 @@ import Topbar from 'components/Common/TopBar';
 const MaxDescriptionLength = 200;
 
 const BookDetail = ({ book }) => {
-  console.log(book);
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const toggleExpansion = () => {
-    setIsExpanded(!isExpanded);
-  };
-
   const {
     title,
     image,
@@ -25,6 +18,12 @@ const BookDetail = ({ book }) => {
     description,
   } = book;
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpansion = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   const bookImage = image || cover;
   const pubdates = pubdate || pubDate;
   const categoryNameSplit = categoryName ? categoryName.split('>') : [];
@@ -32,7 +31,8 @@ const BookDetail = ({ book }) => {
 
   return (
     <Ssection>
-      <Topbar customStyle={true} rightEl='star' />
+      <Topbar customStyle={true} rightEl='review' book={book} />
+
       <SBookDetail>
         <h1>도서 상세 정보</h1>
         <SBookImg>
@@ -46,19 +46,19 @@ const BookDetail = ({ book }) => {
         </Stitle>
 
         <SInfoBox>
-          <span>
+          <div>
             카테고리 <p>{lastCategory}</p>
-          </span>
-          <span>
+          </div>
+          <div>
             출간일
             <p>{pubdates}</p>
-          </span>
-          <span>
+          </div>
+          <div>
             ISBN<p>{isbn}</p>
-          </span>
-          <span>
+          </div>
+          <div>
             출판사 <p> {publisher}</p>
-          </span>
+          </div>
         </SInfoBox>
         <SDescWraaper>
           <Description>
@@ -71,8 +71,28 @@ const BookDetail = ({ book }) => {
     </Ssection>
   );
 };
-
+// const SPostLink = styled(Link)`
+//   width: 50px;
+//   height: 50px;
+//   position: absolute;
+//   right: 0px;
+//   bottom: 120px;
+//   cursor: pointer;
+//   border-radius: 50%;
+//   display: flex;
+//   align-items: center;
+//   background-color: var(--dark-purple);
+//   opacity: 0.7;
+//   z-index: 100;
+//   svg {
+//     width: 100%;
+//     height: 50%;
+//     color: #ffffff;
+//   }
+// `;
 const Ssection = styled.section`
+  position: relative;
+
   p {
     color: var(--gray-500);
     font-size: small;
