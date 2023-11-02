@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { VscChevronLeft } from 'react-icons/vsc';
-import { ReactComponent as Doblechaek } from '../../../assets/images/doublechaeklogo.svg';
+import { ReactComponent as Doblechaek } from '../../../assets/images/logo/doblechaek.svg';
 import TopBarBtn from '../TopBarBtn';
 
 const Topbar = ({ leftButton, title, rightButton }) => {
   const navigate = useNavigate();
   const defaultLeftButton = <TopBarBtn icon={VscChevronLeft} onClick={() => navigate(-1)} />;
-
+  console.log(title);
   const defaultTitle = (
     <SLink home to='/'>
       <SDoblechaek />
@@ -17,9 +17,9 @@ const Topbar = ({ leftButton, title, rightButton }) => {
 
   return (
     <SHeader>
-      {leftButton || defaultLeftButton}
+      <SDiv>{leftButton || defaultLeftButton}</SDiv>
       <Sh1>{title || defaultTitle}</Sh1>
-      {rightButton || null}
+      <SDiv>{rightButton || null}</SDiv>
     </SHeader>
   );
 };
@@ -40,6 +40,8 @@ const SHeader = styled.header`
   background-color: ${(props) => (props.customStyle ? 'var(--light-blue)' : '#fff')};
   z-index: 100;
 `;
+
+const SDiv = styled.div``;
 
 const Sh1 = styled.h1`
   text-align: center;
