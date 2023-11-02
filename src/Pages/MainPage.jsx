@@ -5,10 +5,16 @@ import BookSlide from 'components/BookSlide/BookSlide';
 import TopBar from 'components/Common/TopBar';
 import { Suspense } from 'react';
 import loginToken from 'Recoil/LoginToken';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 
 export default function MainPage() {
+  const [isLogin, setIsLogin] = useRecoilState(loginCheck);
+  const [token, setToken] = useRecoilState(loginToken);
+  // setToken(localStorage.removeItem('token'));
+  // setIsLogin(false);
+  console.log(isLogin);
+  console.log(token);
   return (
     <>
       <TopBar leftEl='navbar' centerEl='home' rightEl='searchicon' />

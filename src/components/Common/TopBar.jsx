@@ -37,6 +37,8 @@ const CenterEl = ({ centerEl }) => {
     return <Sh1> &nbsp;&nbsp; 글귀 </Sh1>;
   } else if (centerEl === 'feed') {
     return <Sh1>피드</Sh1>;
+  } else if (centerEl === 'setprofile') {
+    return <Sh1>프로필 수정</Sh1>;
   } else if (centerEl === 'home') {
     return (
       <h1>
