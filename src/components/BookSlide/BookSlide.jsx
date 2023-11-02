@@ -79,10 +79,8 @@ const SCarousal = styled.div`
   overflow: scroll hidden;
   white-space: nowrap;
   display: flex;
-  cursor: grab;
   margin-left: 10px;
   overflow-x: auto;
-  white-space: nowrap;
   font-size: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;

@@ -17,7 +17,7 @@ const BookDetail = ({ book }) => {
     pubdate,
     description,
   } = book;
-
+  console.log(book);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpansion = () => {
@@ -28,7 +28,7 @@ const BookDetail = ({ book }) => {
   const pubdates = pubdate || pubDate;
   const categoryNameSplit = categoryName ? categoryName.split('>') : [];
   const lastCategory = categoryNameSplit.length > 0 ? categoryNameSplit.pop().trim() : '';
-
+  const modifiedAuthor = author.replace(/\^/g, ', ');
   return (
     <Ssection>
       <Topbar customStyle={true} rightEl='review' book={book} />
@@ -42,54 +42,48 @@ const BookDetail = ({ book }) => {
       <SDescContainer>
         <Stitle>
           <h2>{title}</h2>
-          <p> {author}</p>
+          <p> {modifiedAuthor}</p>
         </Stitle>
 
         <SInfoBox>
-          <div>
-            카테고리 <p>{lastCategory}</p>
-          </div>
-          <div>
+          {categoryName && (
+            <li>
+              카테고리 <p>{lastCategory}</p>
+            </li>
+          )}
+          <li>
+            출판사 <p> {publisher}</p>
+          </li>
+          <li>
+            ISBN<p>{isbn}</p>
+          </li>
+          <li>
             출간일
             <p>{pubdates}</p>
-          </div>
-          <div>
-            ISBN<p>{isbn}</p>
-          </div>
-          <div>
-            출판사 <p> {publisher}</p>
-          </div>
+          </li>
         </SInfoBox>
+
         <SDescWraaper>
-          <Description>
-            책 소개
-            <p>{isExpanded ? description : description.slice(0, MaxDescriptionLength)}</p>
-          </Description>
-          <MoreButton onClick={toggleExpansion}>{isExpanded ? '접어보기' : '더보기'}</MoreButton>
+          {!description ? (
+            <Description>업데이트 중입니다. 조금만 기다려 주세요 : )</Description>
+          ) : (
+            <Description>
+              책 소개
+              <p>{isExpanded ? description : description.slice(0, MaxDescriptionLength)}</p>
+            </Description>
+          )}
+          {description && description.length >= 300 && (
+            <MoreButton onClick={toggleExpansion}>{isExpanded ? '접어보기' : '더보기'}</MoreButton>
+          )}
         </SDescWraaper>
       </SDescContainer>
     </Ssection>
   );
 };
-// const SPostLink = styled(Link)`
-//   width: 50px;
-//   height: 50px;
-//   position: absolute;
-//   right: 0px;
-//   bottom: 120px;
-//   cursor: pointer;
-//   border-radius: 50%;
-//   display: flex;
-//   align-items: center;
-//   background-color: var(--dark-purple);
-//   opacity: 0.7;
-//   z-index: 100;
-//   svg {
-//     width: 100%;
-//     height: 50%;
-//     color: #ffffff;
-//   }
-// `;
+
+const Description = styled.span`
+  display: block;
+`;
 const Ssection = styled.section`
   position: relative;
 
@@ -138,12 +132,12 @@ const SBookImg = styled.div`
   }
 `;
 
-const SInfoBox = styled.div`
+const SInfoBox = styled.ul`
   background-color: var(--light-orange);
   text-align: center;
   padding: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   span {
     font-size: medium;
   }
@@ -152,10 +146,10 @@ const SInfoBox = styled.div`
 const SDescWraaper = styled.div`
   padding: 20px;
   position: relative;
-`;
-
-const Description = styled.span`
-  display: block;
+  width: 390px;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis; // 말줄임표를 표시
 `;
 
 const MoreButton = styled.button`

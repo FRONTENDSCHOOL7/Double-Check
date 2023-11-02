@@ -11,7 +11,7 @@ export const BannerData = [
         인상깊었던 책의 글귀를 적고 <br /> 공유해보세요!
       </>
     ),
-    linkTo: '/phrasewrite',
+    linkTo: '/phraseupload',
   },
   {
     img: Logo1,
