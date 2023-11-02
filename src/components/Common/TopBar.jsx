@@ -149,12 +149,19 @@ const Sh1 = styled.h1`
 
 const SLink = styled(Link)`
   text-decoration: none;
+  border-radius: 50%;
+  background-color: #e5daff;
   cursor: pointer;
   display: block;
-  width: ${(props) => (props.home ? '200px' : '25px')};
-  height: ${(props) => (props.home ? '' : '25px')};
+  width: ${(props) => (props.home ? '200px' : '50px')};
+  height: ${(props) => (props.home ? '' : '50px')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
   svg {
-    font-size: 25px;
+    font-size: 28px;
   }
 `;
 const SDoblechaek = styled(Doblechaek)`
