@@ -5,7 +5,8 @@ import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
-// import BottomBar from 'components/Common/BottomBar';
+import FeedPage from 'Pages/FeedPage';
+import PostPage from 'Pages/PostPage';
 import MainPage from 'Pages/MainPage';
 import BookRoutes from 'Route/BookRoutes';
 import SearchPage from 'Pages/SearchPage';
@@ -58,7 +59,6 @@ function App() {
             <Route path='/phraselist' element={<PhraseList />} />
             <Route path='/search' element={<SearchPage />} />
             <Route path='post' element={<PostMain />} />
-
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           {showNavBar && <NavBar />}

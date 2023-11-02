@@ -2,16 +2,26 @@
 import React from 'react';
 import BannerSlideShow from 'components/Banner/BannerSlideEffect';
 import BookSlide from 'components/BookSlide/BookSlide';
-import TopBar from 'components/Common/TopBar';
+import Topbar from 'components/Common/Topbar/Topbar';
+import TopBarBtn from 'components/Common/TopBarBtn';
+import HamSideNoLogin from 'components/Common/HamSideBar/HamSideNoLogin';
+import { useNavigate } from 'react-router-dom';
+import { BiSearchAlt } from 'react-icons/bi';
+import Button from 'components/Common/Button/Button';
 import { Suspense } from 'react';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 
 export default function MainPage() {
+  const navigate = useNavigate();
+
   return (
     <>
-      <TopBar leftEl='navbar' centerEl='home' rightEl='searchicon' />
+      <Topbar
+        leftButton={<TopBarBtn icon={HamSideNoLogin} />}
+        rightButton={<TopBarBtn icon={BiSearchAlt} onClick={() => navigate('/search')} />}
+      />
       <BannerSlideShow />
       <Suspense fallback={<div>loading...</div>}>
         <BookSlide

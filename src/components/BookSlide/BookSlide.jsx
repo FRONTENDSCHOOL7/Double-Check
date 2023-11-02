@@ -20,7 +20,8 @@ export default function BookSlide({ title, dataType, desc, path }) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     bookData = useRecoilValue(fetchNewBookSpecialData);
   }
-
+  // bookData가 null 또는 undefined인 경우 초기화
+  bookData = bookData || { item: [] };
   return (
     <SSliderContainer>
       <STitleBox>

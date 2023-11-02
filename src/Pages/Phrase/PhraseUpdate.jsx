@@ -11,6 +11,8 @@ import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import Textarea from 'components/Common/Textarea/Textarea';
 import useCustomToast from 'Hooks/useCustomToast';
+import Topbar from 'components/Common/Topbar/Topbar';
+import { useNavigate } from 'react-router-dom';
 
 const PhraseUpdate = () => {
   const { id } = useParams();
@@ -67,6 +69,15 @@ const PhraseUpdate = () => {
 
   return (
     <>
+      <Topbar
+        // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
+        title='글귀 목록'
+        rightButton={
+          <Button category='basic' shape='primary' type='button' onClick={() => useNavigate('/')}>
+            작성
+          </Button>
+        }
+      />
       <EditPhraseWrapper>
         <EditPhraseForm>
           <Textarea

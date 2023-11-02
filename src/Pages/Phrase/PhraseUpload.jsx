@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import useCustomToast from 'Hooks/useCustomToast';
+import Topbar from 'components/Common/Topbar/Topbar';
 
 const PhraseEdit = () => {
   const navigate = useNavigate();
@@ -58,6 +59,14 @@ const PhraseEdit = () => {
 
   return (
     <>
+      <Topbar
+        title='글귀 작성'
+        rightButton={
+          <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+            등록
+          </Button>
+        }
+      />
       <EditPhraseWrapper>
         <EditPhraseForm>
           <Textarea
@@ -82,9 +91,9 @@ const PhraseEdit = () => {
         </EditPhraseForm>
       </EditPhraseWrapper>
 
-      <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+      {/* <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
         등록
-      </Button>
+      </Button> */}
       <Modal
         content='글귀를 등록하시겠습니까?'
         btnTxt='예'
