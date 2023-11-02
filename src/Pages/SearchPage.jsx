@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Topbar from 'components/Common/TopBar';
+import Topbar from 'components/Common/Topbar/Topbar';
 import axios from 'axios';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState } from 'recoil';
@@ -81,7 +81,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <Topbar centerEl='search' />
+      <Topbar title='검색하기' />
 
       <Ssection>
         <SDiv>

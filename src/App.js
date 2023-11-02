@@ -15,6 +15,7 @@ import SearchPage from 'Pages/SearchPage';
 import SignupPage from 'Pages/SignupPage';
 import LoginPage from 'Pages/LoginPage';
 import PhraseList from 'Pages/Phrase/PhraseList';
+import PostMain from 'Pages/Post/PostMain';
 
 // import TestPage from 'Pages/TestPage';
 import NavBar from 'components/Common/NavBar/NavBar';
@@ -24,9 +25,14 @@ import PhraseUpdate from 'Pages/Phrase/PhraseUpdate';
 import PhraseUpload from 'Pages/Phrase/PhraseUpload';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRecoilValue } from 'recoil';
+import { navBar } from './Recoil/Navbar';
 import OthersPage from 'Pages/OthersPage';
 import { useRecoilValue } from 'recoil';
 import { navBar } from 'Recoil/Navbar';
+
+
+
 function App() {
   const showNavBar = useRecoilValue(navBar);
   const queryClient = new QueryClient({
@@ -53,13 +59,17 @@ function App() {
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
+            <Route path='/search' element={<SearchPage />} />
+
             <Route path='/phraseupdate/:id' element={<PhraseUpdate />} />
             <Route path='/phraseupload/' element={<PhraseUpload />} />
             <Route path='/phraselist' element={<PhraseList />} />
-            <Route path='/search' element={<SearchPage />} />
+          
             <Route path='/post' element={<PostPage />} />
             <Route path='/post/:post_id' element={<PostDetailPage />} />
             <Route path='/post/:post_id/edit' element={<PostEditPage />} />
+
+            <Route path='post' element={<PostMain />} />
 
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
