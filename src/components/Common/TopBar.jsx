@@ -76,7 +76,7 @@ const RightEl = ({ rightEl, onButtonClick, handleSaveBook, book }) => {
     return <TopBarBtn icon={Star} onClick={handleSaveBook} />;
   } else if (rightEl === 'review') {
     return (
-      <SLink to='/post' state={book}>
+      <SLink to='/post/upload' state={book}>
         <BsPencilSquare />
       </SLink>
     );

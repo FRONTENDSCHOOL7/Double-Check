@@ -28,6 +28,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
 import OthersPage from 'Pages/OthersPage';
+
 // import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
 import SplashPage from 'Pages/SplashPage';
@@ -66,12 +67,10 @@ function App() {
             <Route path='/phraseupdate/:id' element={<PhraseUpdate />} />
             <Route path='/phraseupload/' element={<PhraseUpload />} />
             <Route path='/phraselist' element={<PhraseList />} />
-
-            <Route path='/post' element={<PostPage />} />
+            <Route path='/post/upload/' element={<PostPage />} />
             <Route path='/post/:post_id' element={<PostDetailPage />} />
             <Route path='/post/:post_id/edit' element={<PostEditPage />} />
-
-            <Route path='post' element={<PostMain />} />
+            <Route path='/post' element={<PostMain />} />
 
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>

@@ -42,6 +42,9 @@ const SHeader = styled.header`
 `;
 
 const SDiv = styled.div`
+  svg {
+    font-size: 30px;
+  }
   flex-shrink: 0;
 `;
 
@@ -57,9 +60,6 @@ const SLink = styled(Link)`
   display: block;
   width: ${(props) => (props.home ? '200px' : '25px')};
   height: ${(props) => (props.home ? '' : '25px')};
-  svg {
-    font-size: 25px;
-  }
 `;
 
 const SDoblechaek = styled(Doblechaek)`

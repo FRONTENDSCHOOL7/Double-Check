@@ -1,36 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { postGetUpdateAPI, postDeleteAPI } from 'API/Post';
+import { useParams, useNavigate } from 'react-router-dom';
+import { postGetUpdateAPI } from 'API/Post';
 import { useRecoilState } from 'recoil';
 import { postDetailsState, postDetailUser, postDetailInfo } from '../../Recoil/PostDetail';
-import { useNavigate } from 'react-router-dom';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
 import Topbar from 'components/Common/Topbar/Topbar';
-import Modal from 'components/Common/Modal/Modal';
+
+import PostDetail from 'components/Post/PostDetail';
+import ModalButton from 'components/Common/Modal/ModalButton';
 
 export default function PostDetailPage() {
-  const navigate = useNavigate();
   const { post_id } = useParams();
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
-  const [showModal, setShowModal] = useState(false);
-  const [postlUser, setPostlUser] = useRecoilState(postDetailUser);
+  const [postUser, setPostUser] = useRecoilState(postDetailUser);
   const [postInfo, setPostInfo] = useRecoilState(postDetailInfo);
-  console.log(postlUser);
-  console.log(postInfo);
-
-  const confirmDelete = (e) => {
-    e.preventDefault();
-    console.log('confirmDelete 함수 실행');
-    setShowModal(true);
-  };
+  const [showEditDeleteModal, setShowEditDeleteModal] = useState(false); // Added showEditDeleteModal state
+  const [currentItemId, setCurrentItemId] = useState(null); // Added currentItemId state
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 게시물의 상세 정보 가져오기
         const response = await postGetUpdateAPI(post_id);
         const content = JSON.parse(response.post.content);
 
-        // 게시물 책, 리뷰 정보 설정
         setPostDetails({
           title: content.title,
           author: content.author,
@@ -38,63 +31,59 @@ export default function PostDetailPage() {
           image: response.post.image,
         });
 
-        // 게시물 정보 설정
         setPostInfo({
           updatedAt: response.post.updatedAt,
           createdAt: response.post.createdAt,
           heartCount: response.post.heartCount,
+          hearted: response.post.hearted,
           commentCount: response.post.commentCount,
-          comments: response.post.comments,
         });
 
-        // 게시물 작성자 설정
-        setPostlUser(response.post.author);
+        setPostUser(response.post.author);
       } catch (error) {
-        console.log('에러 발생: ' + error);
+        console.error('Error:', error);
       }
     };
 
     fetchData();
-  }, [post_id, setPostDetails, setPostInfo, setPostlUser]);
+  }, [post_id, setPostDetails, setPostInfo, setPostUser]);
+
+  const LogoutButton = (
+    <button onClick={() => setShowEditDeleteModal(true)}>
+      <HiOutlineDotsVertical />
+    </button>
+  );
+
+  const handleCancel = () => {
+    setShowEditDeleteModal(false);
+  };
 
   const navigateToEditPage = () => {
-    // 수정 페이지로 이동
     navigate(`/post/${post_id}/edit`);
   };
 
-  const handleDeletePost = async () => {
-    try {
-      await postDeleteAPI(post_id);
-      console.log('삭제');
-      navigate(`/`);
-    } catch (error) {
-      console.error('Delete error:', error);
-    }
-  };
-
   return (
-    <section>
-      <Topbar title='Post Detail' />
-      {postDetails ? (
-        <div>
-          <h1>{postDetails.title}</h1>
-          <p>Author: {postDetails.author}</p>
-          <p>내 리뷰: {postDetails.review}</p>
-          <img src={postDetails.image} alt='' />
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-
-      <Modal
-        content='리뷰를 삭제하시겠습니까?'
-        btnTxt='예'
-        isVisible={showModal}
-        onConfirm={handleDeletePost}
-        onCancel={() => setShowModal(false)}
+    <>
+      <Topbar title rightButton={LogoutButton} />
+      <PostDetail
+        authorInfo={postUser}
+        postInfo={postInfo}
+        postDetails={postDetails}
+        postid={post_id}
+        hearted={postInfo.hearted}
+        heartCount={postInfo.heartCount}
+        showEditDeleteModal={showEditDeleteModal} // Pass the showEditDeleteModal state
+        currentItemId={currentItemId} // Pass the currentItemId state
+        setCurrentItemId={setCurrentItemId} // Pass the function to update currentItemId
       />
-      <button onClick={navigateToEditPage}>수정</button>
-      <button onClick={confirmDelete}>삭제</button>
-    </section>
+      {showEditDeleteModal && (
+        <ModalButton
+          itemId={currentItemId}
+          text={['리뷰 수정', '리뷰 삭제']}
+          onClick={[navigateToEditPage, () => setShowEditDeleteModal(false)]}
+          onCancel={handleCancel}
+        />
+      )}
+    </>
   );
 }
