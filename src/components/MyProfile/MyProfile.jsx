@@ -26,14 +26,13 @@ export default function MyProfile() {
         });
         const data = await response.json();
         console.log(data);
-
+        
         setProfile({
           username: data.user.username,
           followerCount: data.user.followerCount,
           followingCount: data.user.followingCount,
           imageUrl: data.userimageUrl,
         });
-        console.log(data);
       } catch (error) {
         console.error('API 요청 중 에러 발생:', error);
       }
@@ -41,11 +40,11 @@ export default function MyProfile() {
 
     fetchProfileData();
   }, []);
-
+  
   return (
     <div>
       <ProfileContainer>
-        <ProfileFollow>
+        <ProfileFollow accountName = {profile.username}>
           <p>{profile.followerCount}</p>
           <p>팔로워</p>
         </ProfileFollow>
@@ -53,7 +52,7 @@ export default function MyProfile() {
           <ProfileImage src={profile.imageUrl} alt='Profile' />
           <ProfileName>{profile.username} 님</ProfileName>
         </ProfileDetails>
-        <ProfileFollow>
+        <ProfileFollow >
           <p>{profile.followingCount}</p>
           <p>팔로잉</p>
         </ProfileFollow>
