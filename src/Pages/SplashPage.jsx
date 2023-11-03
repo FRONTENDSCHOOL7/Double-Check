@@ -34,7 +34,7 @@ const moveBackground = keyframes`
 const Root = styled.div`
   position: relative;
   height: 100vh;
-  background-image: url(${bgStart});
+  background-image: url(${bgSpace});
   background-size: auto 100%;
   animation: ${moveBackground} 30s linear infinite;
 `;
@@ -52,13 +52,13 @@ const Logo = styled.div`
 `;
 
 const Character = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   background-image: url(${dbc3});
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
 `;
