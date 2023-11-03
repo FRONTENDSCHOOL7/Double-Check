@@ -8,7 +8,7 @@ import { CiMenuKebab } from 'react-icons/ci';
 import Star from './Button/StarButton';
 import { ReactComponent as Doblechaek } from '../../assets/images/logo/doblechaek.svg';
 import { BsPencilSquare } from 'react-icons/bs';
-import TopBarBtn from './TopBarBtn';
+import TopBarBtn from './Topbar/TopBarBtn';
 import Button from 'components/Common/Button/Button';
 import HamSideNoLogin from './HamSideBar/HamSideNoLogin';
 
