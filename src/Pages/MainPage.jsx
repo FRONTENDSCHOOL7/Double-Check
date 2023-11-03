@@ -12,14 +12,22 @@ import { Suspense } from 'react';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
+import HamSideYesLogin from 'components/Common/HamSideBar/HamSideYesLogin';
 
 export default function MainPage() {
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   return (
     <>
       <Topbar
-        leftButton={<TopBarBtn icon={HamSideNoLogin} />}
+        leftButton={
+          <TopBarBtn
+            // 로그아웃 버튼을 눌렀을 때 token 상태가 변경됨을 인지하지 못해 key값으로 언마운트 마운트를 통해 새로 렌더링하게 함
+            key={token ? 'loggedIn' : 'loggedOut'} // key prop 추가
+            icon={token ? HamSideYesLogin : HamSideNoLogin}
+          />
+        }
         rightButton={<TopBarBtn icon={BiSearchAlt} onClick={() => navigate('/search')} />}
       />
       <BannerSlideShow />

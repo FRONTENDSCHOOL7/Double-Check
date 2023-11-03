@@ -91,7 +91,7 @@ const WhiteButton = styled(Button)`
 const SideLoginBtn = styled(Button)`
   display: block;
   height: 48px;
-  margin: 81px auto 0;
+  margin: 38px auto 0;
   border: none;
   cursor: pointer;
   font-size: var(--font-xm-size);

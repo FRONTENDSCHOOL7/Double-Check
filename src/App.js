@@ -6,9 +6,9 @@ import LayoutStyle from 'Styles/LayoutStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
 
-import PostPage from 'Pages/post/PostPage';
-import PostDetailPage from 'Pages/post/PostDetailPage';
-import PostEditPage from 'Pages/post/PostEditPage';
+import PostPage from 'Pages/Post/PostPage';
+import PostDetailPage from 'Pages/Post/PostDetailPage';
+import PostEditPage from 'Pages/Post/PostEditPage';
 import MainPage from 'Pages/MainPage';
 import BookRoutes from 'Route/BookRoutes';
 import SearchPage from 'Pages/SearchPage';
@@ -28,12 +28,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
 import OthersPage from 'Pages/OthersPage';
-import StartLoginPage from 'Pages/StartLoginPage';
+// import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
 
-
 function App() {
-  // const showNavBar = useRecoilValue(navBar);
+  const showNavBar = useRecoilValue(navBar);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -54,7 +53,7 @@ function App() {
           <Routes>
             {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
-            <Route path='/*' element={<StartLoginPage />} />
+            {/* <Route path='/*' element={<StartLoginPage />} /> */}
             <Route path='/' element={<MainPage />} />
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
@@ -70,7 +69,7 @@ function App() {
             <Route path='/post/:post_id/edit' element={<PostEditPage />} />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
-          {/* {showNavBar && <NavBar />} */}
+          {showNavBar && <NavBar />}
         </LayoutStyle>
       </BrowserRouter>
     </QueryClientProvider>
