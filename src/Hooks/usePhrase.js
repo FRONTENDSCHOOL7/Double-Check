@@ -44,6 +44,7 @@ export const useGetInfinitePhrase = () => {
     queryKey: 'phrase',
     queryFn: async ({ pageParam = 0 }) => {
       const response = await getInfinitePhrase(pageParam);
+      console.log(response.product);
       return response.product.filter((item) => item.itemName.includes('@cc@'));
     },
     getNextPageParam: (lastPage, allPages) => {

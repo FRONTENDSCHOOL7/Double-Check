@@ -1,6 +1,5 @@
-// PostPage.js
 import React from 'react';
-import { useInfinitePosts } from 'API/post1';
+import { useInfinitePosts, useGetInfiniteFollowingPosts } from 'API/post1';
 import Post from 'components/Post/Post';
 import Topbar from 'components/Common/Topbar/Topbar';
 
@@ -16,8 +15,10 @@ const colors = [
   '#f0f8ff',
 ];
 
-export default function PostPage() {
+export default function PostMain() {
   const { allPosts } = useInfinitePosts();
+  const { allFollowingPosts } = useGetInfiniteFollowingPosts();
+  console.log(allFollowingPosts);
 
   const validPosts = allPosts.filter((post) => {
     if (typeof post.content !== 'string') {
@@ -40,11 +41,10 @@ export default function PostPage() {
 
   return (
     <div>
-      <Topbar title='전체 리뷰' />
+      <Topbar title='전체 피드' />
       {validPosts.map((post, index) => {
         const colorIndex = index % colors.length;
         const color = colors[colorIndex];
-
         return <Post key={post._id} post={post} color={color} />;
       })}
     </div>
