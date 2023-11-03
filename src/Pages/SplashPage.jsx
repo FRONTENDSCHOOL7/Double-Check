@@ -14,7 +14,6 @@ import bgSpace from 'assets/images/bg/bg-space.jpeg';
 export default function SplashPage() {
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   setShowNavBar(false);
-
   return (
     <Root>
       <Logo />
