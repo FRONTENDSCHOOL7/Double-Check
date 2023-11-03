@@ -5,8 +5,10 @@ import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
-import FeedPage from 'Pages/FeedPage';
-import PostPage from 'Pages/PostPage';
+
+import PostPage from 'Pages/post/PostPage';
+import PostDetailPage from 'Pages/post/PostDetailPage';
+import PostEditPage from 'Pages/post/PostEditPage';
 import MainPage from 'Pages/MainPage';
 import BookRoutes from 'Route/BookRoutes';
 import SearchPage from 'Pages/SearchPage';
@@ -61,6 +63,8 @@ function App() {
             <Route path='/search' element={<SearchPage />} />
             <Route path='/post' element={<PostMain />} />
             <Route path='/profile/:accountname/' element={<UserPost />} />
+            <Route path='/post/:post_id' element={<PostDetailPage />} />
+            <Route path='/post/:post_id/edit' element={<PostEditPage />} />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           {showNavBar && <NavBar />}
