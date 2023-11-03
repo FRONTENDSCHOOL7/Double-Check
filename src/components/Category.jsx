@@ -24,12 +24,14 @@ const CategoryButton = styled.button`
 
 // 부모 컴포넌트에서 카테고리 버튼을 렌더링합니다.
 export function CategoryList({ categories, initialClickedCategories, onCategoryClick }) {
+  const [clickedCategories, setClickedCategories] = useState(initialClickedCategories);
   useEffect(() => {
     setClickedCategories(initialClickedCategories);
   }, [initialClickedCategories]);
 
-  const [clickedCategories, setClickedCategories] = useState(initialClickedCategories);
-  console.log(clickedCategories);
+  useEffect(() => {
+    console.log(clickedCategories); // 상태 업데이트 후의 값을 확인
+  }, [clickedCategories]);
 
   const handleButtonClick = (category) => {
     const isClicked = clickedCategories.includes(category);

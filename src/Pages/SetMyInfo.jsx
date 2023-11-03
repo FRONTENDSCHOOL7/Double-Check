@@ -11,7 +11,6 @@ import Topbar from 'components/Common/TopBar';
 import { navBar } from 'Recoil/Navbar';
 import imgBtn from 'assets/images/icon/icon-img.png';
 import { CategoryList } from 'components/Category';
-import useCustomToast from 'Hooks/useCustomToast';
 
 export default function SetMyInfo() {
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
@@ -19,8 +18,8 @@ export default function SetMyInfo() {
   const [token, setToken] = useRecoilState(loginToken);
   const [profileImage, setProfileImage] = useState('');
   const [categories, setCategories] = useState([]);
-  const [intro, setIntro] = useState(null);
-  const showToast = useCustomToast();
+  const isFirstRender = useRef(true); // 랜더링 컨트롤
+  const [intro, setIntro] = useState('');
   const [profileData, setProfileData] = useState({
     user: {
       username: '',
@@ -29,11 +28,12 @@ export default function SetMyInfo() {
       image: '',
     },
   });
-  setShowNavBar(false);
 
+  // 프로필 정보 요청
   const getMyProfile = async () => {
     try {
       const response = await profileAPI(token);
+      console.log(response);
       setProfileData(response);
 
       const parts = response.user.intro.split('@cc@');
@@ -44,25 +44,14 @@ export default function SetMyInfo() {
     } catch (error) {
       console.error('Profile fetch error:', error);
     }
+    isFirstRender.current = false;
   };
 
-  console.log(profileData);
-
+  // 페이지 로딩 될때 먼저 프로필 정보 가져오기
   useEffect(() => {
+    setShowNavBar(false);
     getMyProfile();
   }, [token]);
-
-  // 입력값 변경 처리 함수
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setProfileData((prevState) => ({
-  //     ...prevState,
-  //     user: {
-  //       ...prevState.user,
-  //       [name]: value,
-  //     },
-  //   }));
-  // };
 
   const inputRef = useRef();
 
@@ -113,26 +102,36 @@ export default function SetMyInfo() {
       if (categories.length < maxCategories) {
         setCategories([...categories, category]);
       } else {
-        showToast('최대 개수에 도달했습니다.');
+        alert('최대 개수에 도달했습니다.');
       }
     }
+    handleIntroChange();
+    isFirstRender.current = false;
   };
 
   const handleIntroChange = (e) => {
-    setIntro(e.target.value);
-    const updatedIntroValue = intro + '@cc@' + categories.join(',');
-    setProfileData({
-      ...profileData,
-      user: {
-        ...profileData.user,
-        intro: updatedIntroValue,
-      },
-    });
+    setIntro(e ? e.target.value : intro);
+    isFirstRender.current = true;
   };
 
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      return;
+    }
+    setProfileData((prevProfileData) => ({
+      ...prevProfileData,
+      user: {
+        ...prevProfileData.user,
+        intro: intro + (categories.length > 0 ? '@cc@' + categories.join(',') : ''),
+      },
+    }));
+  }, [categories, intro]);
+
   const updateProfile = async () => {
+    console.log('Updating profile with data:', profileData);
     const response = await setProfileAPI(profileData, token);
     console.log(response);
+    location.reload();
   };
 
   return (
@@ -173,10 +172,14 @@ export default function SetMyInfo() {
               <Label htmlFor='intro'>소개</Label>
               <Textarea
                 type='text'
-                placeholder={profileData.user.intro.split('@cc@')[0]}
+                placeholder={
+                  profileData.user.intro.includes('@cc@')
+                    ? profileData.user.intro.split('@cc@')[0]
+                    : profileData.user.intro || ''
+                }
                 id='intro'
                 name='intro'
-                value={intro}
+                value={intro || ''}
                 onChange={handleIntroChange}
               />
             </InputDiv>
