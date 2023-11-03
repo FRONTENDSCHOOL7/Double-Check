@@ -22,6 +22,7 @@ const PhraseUpdate = () => {
   const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
   const showToast = useCustomToast();
+  const navigate = useNavigate();
 
   // 상세 페이지
   // id가 있을 때만 상세페이지 데이터를 불러오는 로직을 실행
@@ -49,6 +50,10 @@ const PhraseUpdate = () => {
     showToast('해당 글귀가 수정되었습니다.');
   };
 
+  const handleGoToHome = () => {
+    navigate('/');
+  };
+
   const confirmUpdate = (e) => {
     e.preventDefault();
     console.log('confirmUpload 함수 실행');
@@ -71,10 +76,10 @@ const PhraseUpdate = () => {
     <>
       <Topbar
         // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
-        title='글귀 목록'
+        title='글귀 수정'
         rightButton={
-          <Button category='basic' shape='primary' type='button' onClick={() => useNavigate('/')}>
-            작성
+          <Button category='basic' shape='primary' type='button' onClick={confirmUpdate}>
+            수정
           </Button>
         }
       />
@@ -101,11 +106,6 @@ const PhraseUpdate = () => {
           />
         </EditPhraseForm>
       </EditPhraseWrapper>
-
-      <Button category='basic' shape='primary' type='button' onClick={confirmUpdate}>
-        수정
-      </Button>
-
       <Modal
         content={'글귀를 수정하시겠습니까?'}
         btnTxt='예'
