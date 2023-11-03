@@ -3,18 +3,20 @@ import styled from 'styled-components';
 const NavBarWrapper = styled.div`
   position: fixed;
   bottom: 0;
-  padding: 20px 0 11px 0;
+  padding: 20px 0 15px 0;
   width: inherit;
   align-items: center;
   border-top: 1px solid var(--gray-200);
   background-color: var(--white);
+  z-index: 30;
 `;
 
 const NavBarContents = styled.div`
   width: 100%;
   display: flex;
-  gap: 38px;
+  gap: 65px;
   justify-content: center;
+  align-items: center;
 `;
 
 const NavItem = styled.li`
@@ -27,7 +29,7 @@ const NavItem = styled.li`
 `;
 
 const NavItemImg = styled.img`
-  height: ${({ to }) => (to === '/profile' ? '27px' : '24px')};
+  height: ${({ to }) => (to === '/profile' ? '36px' : '31px')};
 `;
 
 const NavItemTxt = styled.p`

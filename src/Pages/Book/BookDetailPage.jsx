@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import Loading from 'Components/Common/Loading'; // 로딩 상태 처리 컴포넌트
-import BookDetail from 'Components/Book/BookDetail';
+import { useParams, useLocation } from 'react-router-dom';
+import Loading from 'components/Common/Loading';
+import BookDetail from 'components/Book/BookDetail';
+
 export default function BookDetailPage() {
-  const [detailInfo, setDetailInfo] = useState([]);
+  const location = useLocation();
   const { isbn } = useParams();
+  const [detailInfo, setDetailInfo] = useState([]);
+
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/search/book?isbn=${isbn}`);
-        setDetailInfo(response.data.items);
+        const response = await axios.get(`http://localhost:8080/search/?isbn=${isbn}`);
+        let bookData = response.data.items || [];
+
+        if (bookData.length === 0 && location.state && location.state.product) {
+          bookData = [location.state.product];
+        }
+
+        setDetailInfo(bookData);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchBookDetails();
-  }, [isbn]);
 
-  return <div>{detailInfo.length === 0 ? <Loading /> : <BookDetail book={detailInfo[0]} />}</div>;
+    fetchBookDetails();
+  }, [isbn, location.state]);
+
+  return <>{detailInfo.length === 0 ? <Loading /> : <BookDetail book={detailInfo[0]} />}</>;
 }

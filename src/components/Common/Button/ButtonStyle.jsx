@@ -49,6 +49,26 @@ const StyledButton = styled(Button)`
         padding: 12px 40px;
         border-radius: 10px;
       `;
+    } else if (props.shape === 'xsmall') {
+      return css`
+        font-size: var(--font-xxs-size);
+        font-weight: 300;
+        width: 80px;
+        border-radius: 30px;
+      `;
+    } else if (props.shape === 'none') {
+      return css`
+        font-size: var(--font-xxs-size);
+        background: none;
+        color: var(--black);
+        height: 27px;
+        padding: 6px;
+        &:active,
+        &:hover,
+        &:focus {
+          background-color: var(--white);
+        }
+      `;
     }
   }}
 `;
@@ -62,6 +82,25 @@ const WhiteButton = styled(Button)`
   color: ${(props) => (props.danger ? 'var(--danger-color)' : 'var(--black)')};
   background-color: var(--white);
   margin: 2px 0;
+  &:active,
+  &:hover,
+  &:focus {
+    background-color: var(--gray-200);
+  }
+`;
+const SideLoginBtn = styled(Button)`
+  display: block;
+  height: 48px;
+  margin: 81px auto 0;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-xm-size);
+  padding: 14px 17px;
+  line-height: 1;
+  background-color: var(--main-purple);
+  color: var(--white);
+  border-radius: 25px;
+  text-align: center;
 `;
 
-export { StyledButton, WhiteButton };
+export { StyledButton, WhiteButton, SideLoginBtn };

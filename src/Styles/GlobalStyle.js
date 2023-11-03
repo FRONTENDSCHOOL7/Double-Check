@@ -4,15 +4,43 @@ import './fonts.css';
 
 const GlobalStyles = createGlobalStyle` 
   ${reset}
+
+  body{
+    font-family: "Pretendard-Medium", sans-serif;
   }
+  *{
+    font-family: "Pretendard-Medium", sans-serif;
+    box-sizing: border-box;
+  }
+  
+  a{
+      text-decoration: none;
+      color: inherit;
+    }
+
+
+    input, textarea { 
+      -moz-user-select: auto;
+      -webkit-user-select: auto;
+      -ms-user-select: auto;
+      user-select: auto;
+      border: none;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    button {
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+    }
 
     html{
     background-color: aliceblue;
     }
-
-    p {
-    font-family: "Pretendard-Regular", sans-serif;
-  }
 
     #root{
     width: 390px;
@@ -20,23 +48,25 @@ const GlobalStyles = createGlobalStyle`
     min-height: 100vh;
     background-color: var(--gray-100);
     }
-
+    img{
+      vertical-align: bottom;
+    }
     a{
         text-decoration: none;
         color: inherit;
     }
-
+    *{
+        box-sizing: border-box;
+    }
     input, textarea { 
       -moz-user-select: auto;
       -webkit-user-select: auto;
       -ms-user-select: auto;
       user-select: auto;
     }
-
     input:focus {
       outline: none;
     }
-
     button {
       border: none;
       background: none;
@@ -59,13 +89,13 @@ const GlobalStyles = createGlobalStyle`
   --dark-orange: #FF6C6C;
   --danger-color: #FF7474;
   --gray-100: #F8F8F8;
-  --gray-200: #D9D9D9;
-  --gray-300: #FFFFFF;
-  --gray-400: #EFEFEF;
+  --gray-200: #EFEFEF;
+  --gray-300: #D9D9D9;
+  --gray-400: #AEAEAE;
   --gray-500: #646464;
   --white: #FFFFFF;
   --black: #000000;
-
+  --font-xxs-size:0.8rem;
   --font-xs-size:1.0rem;
   --font-sm-size:1.2rem;
   --font-base-size:1.3rem;

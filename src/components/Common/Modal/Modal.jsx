@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { modalIsOpenAtom } from 'atoms/modal';
+import { modalIsOpenAtom } from 'Recoil/Modal';
 import {
   ModalBackDrop,
   ModalLayout,
@@ -9,25 +9,25 @@ import {
   ModalButton,
 } from './ModalStyle';
 
-const Modal = ({ content, caution, btnTxt }) => {
+const Modal = ({ content, caution, btnTxt, isVisible, onConfirm, onCancel }) => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenAtom);
 
-  const handleModalClose = () => {
-    setModalIsOpen(false);
-  };
+  useEffect(() => {
+    setModalIsOpen(isVisible);
+  }, [isVisible]);
 
   return (
     <>
       {modalIsOpen && (
         <>
-          <ModalBackDrop onClick={handleModalClose} role='presentation' />
+          <ModalBackDrop onClick={onCancel} role='presentation' />
           <ModalLayout>
             <ModalContent>
               {content}
               <ModalCautionTxt>{caution}</ModalCautionTxt>
             </ModalContent>
-            <ModalButton onClick={() => setModalIsOpen(false)}>취소</ModalButton>
-            <ModalButton>{btnTxt}</ModalButton>
+            <ModalButton onClick={onCancel}>취소</ModalButton>
+            <ModalButton onClick={onConfirm}>{btnTxt}</ModalButton>
           </ModalLayout>
         </>
       )}

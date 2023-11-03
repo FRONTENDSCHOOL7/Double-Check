@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavBarWrapper, NavBarContents, NavItem, NavItemImg, NavItemTxt } from './NabBarStyle';
+import { NavBarWrapper, NavBarContents, NavItem, NavItemImg } from './NabBarStyle';
 import { useLocation, Link } from 'react-router-dom';
 import iconHome from '../../../assets/images/icon/icon-home.svg';
 import iconHomeFill from '../../../assets/images/icon/icon-fill-home.svg';
@@ -19,7 +19,7 @@ const navItem = [
     icon: iconLookArround,
     iconFill: iconLookAroundFill,
   },
-  { id: 2, name: '피드작성', to: '/upload', icon: iconUpload, iconFill: iconUploadFill },
+  { id: 2, name: '피드작성', to: '/phraselist', icon: iconUpload, iconFill: iconUploadFill },
   { id: 3, name: '프로필', to: '/profile', icon: iconProfile, iconFill: iconProfileFill },
 ];
 
@@ -50,7 +50,6 @@ function NavBar() {
               alt='네비게이션 아이콘'
               to={item.to}
             />
-            <NavItemTxt>{item.name}</NavItemTxt>
           </NavBarItem>
         ))}
       </NavBarContents>
