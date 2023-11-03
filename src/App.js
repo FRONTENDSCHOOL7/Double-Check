@@ -23,10 +23,10 @@ import PhraseUpload from 'Pages/Phrase/PhraseUpload';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import OthersPage from 'Pages/OthersPage';
-
+import StartLoginPage from 'Pages/StartLoginPage';
 
 function App() {
-  const showNavBar = useRecoilValue(navBar);
+  // const showNavBar = useRecoilValue(navBar);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -48,6 +48,7 @@ function App() {
             {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
             {/* <Route path='/' element={<MainPage />} /> */}
+            <Route path='/*' element={<StartLoginPage />} />
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
@@ -61,7 +62,7 @@ function App() {
             <Route path='/feed' element={<FeedPage />} />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
-          {showNavBar && <NavBar />}
+          {/* {showNavBar && <NavBar />} */}
         </LayoutStyle>
       </BrowserRouter>
     </QueryClientProvider>
