@@ -29,6 +29,10 @@ import { useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
 import OthersPage from 'Pages/OthersPage';
 
+// import StartLoginPage from 'Pages/StartLoginPage';
+import UserPost from 'components/Post/UserPost';
+import SplashPage from 'Pages/SplashPage';
+
 function App() {
   const showNavBar = useRecoilValue(navBar);
   const queryClient = new QueryClient({
@@ -47,10 +51,14 @@ function App() {
       <BrowserRouter>
         <GlobalStyles />
         {/*  라우터에 영향을 받지않는 컴포넌트들*/}
+        <Routes>
+          <Route path='/splash' element={<SplashPage />} />
+        </Routes>
         <LayoutStyle>
           <Routes>
             {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
+            {/* <Route path='/*' element={<StartLoginPage />} /> */}
             <Route path='/' element={<MainPage />} />
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />

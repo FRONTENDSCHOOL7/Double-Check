@@ -5,10 +5,15 @@ import { ModalBackDrop } from 'components/Common/Modal/ModalStyle';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import ToggleMenu from './ToggleMenu';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { loginCheck } from 'Recoil/LoginCheck';
+import { BiLogOut } from 'react-icons/bi';
+import ImageCheck from 'components/Common/ImageCheck';
 
 export default function HamSideYesLogin() {
   // 햄버거버튼 열기 false -> true = opensidebar
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [, setLoginCheck] = useRecoilState(loginCheck);
   const navigate = useNavigate();
 
   // 햄버거 버튼 눌렀을 때 사이드바 열기 핸들링
@@ -25,6 +30,19 @@ export default function HamSideYesLogin() {
   const handleMenuItemClick = (path) => {
     navigate(path);
     setSidebarOpen(false);
+  };
+
+  // 로그아웃 처리를 위한 함수
+  const handleLogout = () => {
+    // 로컬 스토리지에서 토큰 삭제
+    localStorage.removeItem('token');
+    localStorage.removeItem('recoil-persist');
+    setLoginCheck(false);
+
+    // 사이드바 닫기
+    setSidebarOpen(false);
+    // 사용자를 홈으로 리디렉션
+    navigate('/');
   };
 
   // 토글 메뉴에 meneitems props로 전달하기
@@ -65,18 +83,23 @@ export default function HamSideYesLogin() {
       const data = await response.json();
       console.log(data);
       // 여기서 data에서 원하는 정보만 추출
-      setUserInfo({
-        name: data.user.username,
-        id: data.user._id,
-        image: data.user.image,
-        // 다른 필요한 데이터
-      });
-      console.log(userInfo);
+      if (data && data.user) {
+        const checkedImage = ImageCheck(data.user.image, 'profile'); // 'profile'은 기본 이미지 위치에 대한 힌트입니다.
+        setUserInfo({
+          name: data.user.username,
+          id: data.user._id,
+          image: checkedImage,
+          // 다른 필요한 데이터
+        });
+        console.log(userInfo);
+      }
     } catch (error) {
       console.error('Error fetching user info:', error);
     }
   };
 
+  // userInfo가 있으면 이미지를 ImageCheck를 통해 검사하고, 그 결과를 사용합니다.
+  const userImage = userInfo ? ImageCheck(userInfo.image, 'profile') : null;
   return (
     <Container>
       <SButton onClick={toggleSidebar}>
@@ -90,18 +113,24 @@ export default function HamSideYesLogin() {
             <MyAccount>
               {userInfo ? (
                 <>
-                  <img src='{userInfo.image}' alt='userprofileimage' />
-                  <p>`{userInfo.name}님, 환영합니다!`</p>
-                  <p>`{userInfo.id}</p>
+                  <UserImage src={userImage} alt='userprofileimage' />
+                  <UserName>
+                    {userInfo.name}님<br /> 환영합니다!
+                  </UserName>
+                  {/* <p>{userInfo.id}</p> */}
                 </>
               ) : (
                 '계정 정보를 불러오는 중...'
               )}
             </MyAccount>
+
             {/* 토글 */}
             <ToggleMenu title='책 목록' menuItems={bookMenuItems} />
             <ToggleMenu title='글귀' menuItems={quotesMenuItems} />
-            <LogoutBtn onClick={() => handleMenuItemClick('/')}>로그아웃</LogoutBtn>
+            <LogoutBtn onClick={handleLogout}>
+              <StyledIcon />
+              로그아웃
+            </LogoutBtn>
           </Sidebar>
         </>
       )}
@@ -143,7 +172,7 @@ const Sidebar = styled.div`
   width: 244px;
   height: 100vh;
   background-color: white;
-  z-index: 20;
+  z-index: 250;
   left: -16px;
   top: -21px;
 `;
@@ -158,10 +187,22 @@ const Logo = styled.img`
 `;
 
 const MyAccount = styled.button`
-  background-color: lightgray;
+  background-color: var(--gray-200);
   width: 100%;
-  height: 178px;
+  padding: 27px 0;
   margin-top: 39px;
+`;
+
+const UserImage = styled.img`
+  width: 80px; // 이미지의 너비를 80px로 설정
+  height: 80px; // 이미지의 높이를 80px로 설정
+  border-radius: 50%; // 이미지를 원형으로 만듭니다
+  object-fit: cover; // 이미지 비율을 유지하면서 요소에 맞춥니다
+`;
+
+const UserName = styled.p`
+  margin-top: 15px;
+  font-size: var(--font-xs-size);
 `;
 
 const LogoutBtn = styled.button`
@@ -170,6 +211,17 @@ const LogoutBtn = styled.button`
   width: 60%; // 버튼 너비를 사이드바에 맞춤
   font-size: 20px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+`;
+
+// 부모요소(선택자점수)때문에 이미지 사이즈 줄이려고 이렇게함
+const StyledIcon = styled(BiLogOut)`
+  && {
+    font-size: 23px;
+  }
 `;
 
 const SideBarBackDrop = styled(ModalBackDrop)`

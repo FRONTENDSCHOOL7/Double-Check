@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import character from 'assets/images/character.svg';
+import Pigcharacter from 'assets/images/PigCharacter.png';
 import logo from 'assets/images/doublechaeklogo.svg';
 import Button from 'components/Common/Button/Button';
 import { ModalBackDrop } from 'components/Common/Modal/ModalStyle';
@@ -40,7 +40,7 @@ export default function HamSideNoLogin() {
             <LoginBtn category='sidebarBtn' onClick={handleButtonClick}>
               로그인/회원가입 하러 가기
             </LoginBtn>
-            <Character src={character} alt='character' />
+            <Character src={Pigcharacter} alt='character' />
           </Sidebar>
         </>
       )}
@@ -92,7 +92,7 @@ const Sidebar = styled.div`
   width: 244px;
   height: 100vh;
   background-color: white;
-  z-index: 20;
+  z-index: 250;
   left: -16px;
   top: -21px;
 `;
@@ -100,9 +100,9 @@ const Sidebar = styled.div`
 const Logo = styled.img`
   /* image2.png에 대한 스타일 */
   display: block;
-  width: 153px;
-  height: 57px;
-  margin-top: 49px;
+  width: 165px;
+  height: 65px;
+  margin-top: 60px;
   margin-left: 27px;
 `;
 
@@ -111,14 +111,14 @@ const Character = styled.img`
   display: block;
   width: 166px;
   height: 153px;
-  margin: 113px auto 0;
+  margin: 107px auto;
 `;
 
 const LoginBtn = styled(Button)`
   display: block;
   width: 191px;
   height: 48px;
-  margin-top: 81px auto;
+  margin: 38px auto 0;
 `;
 
 const SideBarBackDrop = styled(ModalBackDrop)`

@@ -91,8 +91,7 @@ export default function PostDetail({
           </SPostSection>
           <SPostFooter>
             <SButtonGroup>
-              <LikeButton postId={postid} liked={hearted} heartCount={heartCount}></LikeButton>
-
+              <LikeButton postId={postid} liked={hearted} heartCount={heartCount}></LikeButton>ㅎ
               <button>
                 <img src={comment} alt='댓글 버튼' />
                 <span>1</span>

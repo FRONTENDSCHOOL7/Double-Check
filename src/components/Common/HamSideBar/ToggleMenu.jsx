@@ -26,16 +26,22 @@ export default function ToggleMenu({ title, menuItems }) {
 }
 
 // 버튼 클릭 시 회전 스타일
-const RotatingIcon = styled(BiSolidRightArrow)`
-  margin-right: 3px;
-  font-size: 15px;
+const RotatingIcon = styled(BiSolidRightArrow).attrs({
+  className: 'rotating-icon',
+})`
+  &.rotating-icon {
+    font-size: 18px;
+  }
+  margin-right: 5px;
+  font-size: 20px;
   transition: transform 0.3s ease;
   transform: ${({ isOpen }) => (isOpen ? 'rotate(90deg)' : 'rotate(0deg)')};
 `;
 
 const TitleWrapper = styled.div`
   margin-top: 35px;
-  margin-left: 20px;
+  text-align: left;
+  padding-left: 13px;
 `;
 
 const Title = styled.button`
@@ -44,6 +50,6 @@ const Title = styled.button`
 `;
 
 const SubTitle = styled.button`
-  margin-left: 23px;
+  margin-left: 25px;
   margin-bottom: 7px;
 `;

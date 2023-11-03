@@ -185,6 +185,7 @@ const DisabledButton = styled.button`
 
 const InputBox = styled.input`
   height: 40px;
+  padding-left: 15px;
   border-radius: 25px;
   border: 1px solid #d2d8fa;
 `;
