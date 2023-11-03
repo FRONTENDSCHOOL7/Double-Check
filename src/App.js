@@ -28,10 +28,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
 import OthersPage from 'Pages/OthersPage';
+import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
 
+
 function App() {
-  const showNavBar = useRecoilValue(navBar);
+  // const showNavBar = useRecoilValue(navBar);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -52,6 +54,7 @@ function App() {
           <Routes>
             {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
+            <Route path='/*' element={<StartLoginPage />} />
             <Route path='/' element={<MainPage />} />
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
@@ -67,7 +70,7 @@ function App() {
             <Route path='/post/:post_id/edit' element={<PostEditPage />} />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
-          {showNavBar && <NavBar />}
+          {/* {showNavBar && <NavBar />} */}
         </LayoutStyle>
       </BrowserRouter>
     </QueryClientProvider>
