@@ -48,6 +48,14 @@ export default function SignUpPage() {
     if (name === 'accountname') {
       accountnameAvailable(value);
     }
+
+    if (name === 'username') {
+      handleError();
+    }
+
+    if (name === 'password') {
+      handleError();
+    }
   };
 
   const emailAvailable = async (value) => {
@@ -279,12 +287,9 @@ const H1 = styled.h1`
   margin-left: 38px;
   margin-bottom: 63px;
   color: #000;
-  font-family: Inter;
+  font-family: Pretendard-SemiBold;
   font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
   line-height: normal;
-  text-transform: capitalize;
 `;
 
 const Label = styled.label`
@@ -330,6 +335,7 @@ const DisabledButton = styled.button`
 
 const InputBox = styled.input`
   height: 52px;
-  border-radius: 4px;
+  border-radius: 12px;
+  padding-left: 15px;
   background: #f8f8f8;
 `;
