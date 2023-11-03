@@ -10,7 +10,7 @@ import { BiSearchAlt } from 'react-icons/bi';
 import Button from 'components/Common/Button/Button';
 import { Suspense } from 'react';
 import loginToken from 'Recoil/LoginToken';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 
 export default function MainPage() {
