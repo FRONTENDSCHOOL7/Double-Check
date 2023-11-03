@@ -48,7 +48,8 @@ export default function PostPage() {
       setShowModal(true);
       console.log(response.post.id);
       // 리뷰등록하면 상세페이지로 이동! postDetailPage
-      navigate(`/post/${response.post.id}`);
+      // navigate(`/post/${response.post.id}`);
+      navigate('/post');
     } catch (error) {
       console.error('업로드 에러:', error);
     }
