@@ -39,13 +39,22 @@ export default function SignUpPage() {
         [name]: value,
       },
     }));
+    // 이메일이 변경되었을 때 emailAvailable 함수 호출
+    if (name === 'email') {
+      emailAvailable(value);
+    }
+
+    // 계정명이 변경되었을 때 accountnameAvailable 함수 호출
+    if (name === 'accountname') {
+      accountnameAvailable(value);
+    }
   };
 
-  const emailAvailable = async () => {
+  const emailAvailable = async (value) => {
     const errors = [];
     const emailRegex =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/g;
-    const email = signUpData.user.email;
+    const email = value;
     const data = {
       user: {
         email: email,
@@ -72,15 +81,14 @@ export default function SignUpPage() {
         console.log(error);
       }
     }
-
     setUserErrorMessage(errors);
   };
 
-  const accountnameAvailable = async () => {
+  const accountnameAvailable = async (value) => {
     const errors = [];
     // eslint-disable-next-line no-useless-escape
-    const accountnameRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
-    const accountname = signUpData.user.accountname;
+    // const accountnameRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+    const accountname = value;
     const data = {
       user: {
         accountname: accountname,
@@ -90,15 +98,14 @@ export default function SignUpPage() {
     if (accountname === '') {
       errors.push('계정ID를 입력해 주세요.');
       setSignUpCheck(false);
-    } else if (!accountnameRegex.test(accountname)) {
-      errors.push('특수문자를 사용할 수 없습니다.');
-      setSignUpCheck(false);
+      // } else if (!accountnameRegex.test(accountname)) {
+      //   errors.push('특수문자를 사용할 수 없습니다.');
+      //   setSignUpCheck(false);
     } else {
       try {
         const response = await accountnameValid(data);
         if (response.message === '이미 가입된 계정ID 입니다.') {
           errors.push('이미 가입된 계정ID 입니다.');
-          // setAccountnameDuplicate(true);
           setSignUpCheck(false);
         } else {
           setSignUpCheck(true);
@@ -124,8 +131,6 @@ export default function SignUpPage() {
     } else if (username === '') {
       errors.push('사용자 이름을 입력해 주세요');
       setSignUpCheck(false);
-    } else if (accountnameDuplicate) {
-      errors.push('이미 가입된 계정ID 입니다.');
     } else {
       errors.push('');
       setSignUpCheck(true);
@@ -157,7 +162,6 @@ export default function SignUpPage() {
             placeholder='이메일 주소를 알려주세요.'
             onChange={handleInputChange}
             value={signUpData.user.email}
-            onBlur={emailAvailable}
           />
           {userErrorMessage.includes('이메일을 입력해주세요.') && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
@@ -229,7 +233,6 @@ export default function SignUpPage() {
             placeholder='영문, 숫자, 특수문자(,), (_)만 사용 가능합니다.'
             onChange={handleInputChange}
             value={signUpData.user.accountname}
-            onBlur={accountnameAvailable}
           />
           {userErrorMessage.includes('계정ID를 입력해 주세요.') && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
@@ -242,14 +245,14 @@ export default function SignUpPage() {
           ) : null}
         </InputDiv>
         <ButtonDiv>
-          {!signUpCheck ? (
-            <DisabledButton type='button' disabled={true}>
-              가입하기
-            </DisabledButton>
-          ) : (
+          {signUpCheck ? (
             <Button type='button' onClick={handleSubmitBtn}>
               가입하기
             </Button>
+          ) : (
+            <DisabledButton type='button' disabled={true}>
+              가입하기
+            </DisabledButton>
           )}
         </ButtonDiv>
       </section>
