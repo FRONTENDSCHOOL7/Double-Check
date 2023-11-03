@@ -52,10 +52,9 @@ const StitleBox = styled.div`
     line-height: 1.3;
   }
   h2 {
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 14px;
     -webkit-line-clamp: 2;
-    height: 36px;
   }
 
   p {

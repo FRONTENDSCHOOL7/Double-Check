@@ -5,8 +5,10 @@ import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
-import FeedPage from 'Pages/FeedPage';
-import PostPage from 'Pages/PostPage';
+
+import PostPage from 'Pages/post/PostPage';
+import PostDetailPage from 'Pages/post/PostDetailPage';
+import PostEditPage from 'Pages/post/PostEditPage';
 import MainPage from 'Pages/MainPage';
 import BookRoutes from 'Route/BookRoutes';
 import SearchPage from 'Pages/SearchPage';
@@ -26,6 +28,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
 import OthersPage from 'Pages/OthersPage';
+import { useRecoilValue } from 'recoil';
+import { navBar } from 'Recoil/Navbar';
+
+
 
 function App() {
   const showNavBar = useRecoilValue(navBar);
@@ -54,11 +60,17 @@ function App() {
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
             <Route path='/search' element={<SearchPage />} />
+
             <Route path='/phraseupdate/:id' element={<PhraseUpdate />} />
             <Route path='/phraseupload/' element={<PhraseUpload />} />
             <Route path='/phraselist' element={<PhraseList />} />
-            <Route path='/search' element={<SearchPage />} />
+          
+            <Route path='/post' element={<PostPage />} />
+            <Route path='/post/:post_id' element={<PostDetailPage />} />
+            <Route path='/post/:post_id/edit' element={<PostEditPage />} />
+
             <Route path='post' element={<PostMain />} />
+
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           {showNavBar && <NavBar />}

@@ -15,7 +15,6 @@ export default function BookSlideItem({ title, author, cover, desc }) {
 }
 const SDiv = styled.div`
   width: 110px;
-  cursor: pointer;
   margin: 5px;
   img {
     width: 100%;
@@ -26,7 +25,6 @@ const SDiv = styled.div`
   }
   div {
     margin-top: 20px;
-    width: 100%;
   }
   strong,
   p {

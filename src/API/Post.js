@@ -23,7 +23,7 @@ export const postListAPI = async ({ accountname }) => {
 };
 
 //게시글 수정
-export const postPutAPI = async (token, id, putData) => {
+export const postPutAPI = async (id, putData) => {
   // eslint-disable-next-line no-useless-catch
   try {
     const response = await authInstance.put(`/post/${id}`, putData);
@@ -34,7 +34,7 @@ export const postPutAPI = async (token, id, putData) => {
 };
 
 //게시글 수정 시에 불러오기
-export const postGetUpdateAPI = async (token, id) => {
+export const postGetUpdateAPI = async (id) => {
   // eslint-disable-next-line no-useless-catch
   try {
     const reponse = await authInstance.get(`/post/${id}`);
