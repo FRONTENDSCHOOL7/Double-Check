@@ -41,7 +41,11 @@ const SHeader = styled.header`
   z-index: 100;
 `;
 
-const SDiv = styled.div``;
+const SDiv = styled.div`
+  svg {
+    font-size: 30px;
+  }
+`;
 
 const Sh1 = styled.h1`
   text-align: center;
@@ -54,9 +58,6 @@ const SLink = styled(Link)`
   display: block;
   width: ${(props) => (props.home ? '200px' : '25px')};
   height: ${(props) => (props.home ? '' : '25px')};
-  svg {
-    font-size: 25px;
-  }
 `;
 
 const SDoblechaek = styled(Doblechaek)`
