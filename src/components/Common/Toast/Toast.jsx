@@ -1,20 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import useToast from '../../../Hooks/useToast';
+import showToast from '../../../Hooks/showToast';
 
-function Toast(props) {
-  const handleShowToast = (success) => {
-    if (success) {
-      useToast(`${props.message}`, 'success');
-    } else {
-      useToast(`${props.message}`, 'error');
-    }
+function Toast({ message, add }) {
+  const handleShowToast = () => {
+    showToast(message, add ? 'success' : 'error');
   };
 
   return (
     <div>
-      <button onClick={() => handleShowToast(props.add)}>Show Toast</button>
+      <button onClick={handleShowToast}>Show Toast</button>
     </div>
   );
 }

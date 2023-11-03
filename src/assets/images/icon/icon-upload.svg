@@ -1,6 +1,6 @@
-<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Group 18821">
-<path id="union-1" d="M1 6C1 3.23858 3.3132 1 6.16667 1H19.0833C21.9368 1 24.25 3.23858 24.25 6V18.5C24.25 21.2614 21.9368 23.5 19.0833 23.5H6.16667C3.3132 23.5 1 21.2614 1 18.5V6Z" stroke="#AAAAAA" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="union-2" d="M7.14453 12.2501H12.6246M12.6246 12.2501H18.1047M12.6246 12.2501V17.5534M12.6246 12.2501V6.94678" stroke="#AAAAAA" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
+<svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 7.44444C1 3.88528 3.88528 1 7.44444 1H23.5556C27.1147 1 30 3.88528 30 7.44444V23.5556C30 27.1147 27.1147 30 23.5556 30H7.44444C3.88528 30 1 27.1147 1 23.5556V7.44444Z" stroke="#AAAAAA" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.30469 16.4295H23.1229" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round"/>
+<path d="M7.30469 12.1538H23.1229" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round"/>
+<path d="M7.30469 21.077L16.1308 21.077" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round"/>
 </svg>

@@ -16,14 +16,14 @@ const ModalBackDrop = styled.div`
   width: 390px;
   height: 100%;
   top: 0;
-  z-index: 10;
+  z-index: 200;
 `;
 
 const ModalLayout = styled.div`
   position: fixed;
   width: 321px;
   background-color: var(--white);
-  z-index: 20;
+  z-index: 220;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -39,7 +39,7 @@ const ModalContent = styled.p`
   font-family: 'Pretendard-Medium', sans-serif;
 `;
 
-const ModalCautionTxt = styled.p`
+const ModalCautionTxt = styled.span`
   color: var(--gray-500);
   font-size: var(--font-xs-size);
   margin-top: 10px;

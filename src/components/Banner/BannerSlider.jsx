@@ -6,10 +6,9 @@ import Button from 'components/Common/Button/Button';
 function BannerSlider({ banners, currentSlide, nextSlide, prevSlide }) {
   return (
     <>
-      {/*  bgImg={banner.img} */}
       <SBannerSliderContent currentSlide={currentSlide}>
         {banners.map((banner, index) => (
-          <SBannerSlide key={index} color={banner.color}>
+          <SBannerSlide key={index} color={banner.color} bgImg={banner.img}>
             <div>
               <SText>{banner.message}</SText>
               <Link to={banner.linkTo}>
@@ -21,7 +20,6 @@ function BannerSlider({ banners, currentSlide, nextSlide, prevSlide }) {
           </SBannerSlide>
         ))}
       </SBannerSliderContent>
-
       {/* 버튼 */}
       <SliderButton position='left' onClick={prevSlide}>
         <BsArrowLeftShort />
@@ -47,8 +45,8 @@ const SBannerSlide = styled.div`
   background-color: ${(props) => props.color};
   background-image: url(${(props) => props.bgImg});
   background-repeat: no-repeat;
-  background-size: 70%;
-  background-position: 90%;
+  background-size: 160px;
+  background-position: 90% 130%;
   display: flex;
   align-items: center;
   padding: 0px 30px;

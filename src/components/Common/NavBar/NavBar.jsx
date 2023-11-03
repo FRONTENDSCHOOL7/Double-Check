@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { NavBarWrapper, NavBarContents, NavItem, NavItemImg } from './NabBarStyle';
+import { NavBarWrapper, NavBarContents, NavItem, NavItemImg } from './NavBarStyle';
 import { useLocation, Link } from 'react-router-dom';
 import iconHome from '../../../assets/images/icon/icon-home.svg';
 import iconHomeFill from '../../../assets/images/icon/icon-fill-home.svg';
-import iconLookArround from '../../../assets/images/icon/icon-lookaround.svg';
-import iconLookAroundFill from '../../../assets/images/icon/icon-fill-lookaround.svg';
+import iconPost from '../../../assets/images/icon/icon-post.svg';
+import iconPostFill from '../../../assets/images/icon/icon-fill-post.svg';
 import iconUpload from '../../../assets/images/icon/icon-upload.svg';
 import iconUploadFill from '../../../assets/images/icon/icon-fill-upload.svg';
 import iconProfile from '../../../assets/images/icon/icon-profile.svg';
@@ -15,11 +15,11 @@ const navItem = [
   {
     id: 1,
     name: '둘러보기',
-    to: '/looaround',
-    icon: iconLookArround,
-    iconFill: iconLookAroundFill,
+    to: '/post',
+    icon: iconPost,
+    iconFill: iconPostFill,
   },
-  { id: 2, name: '피드작성', to: '/upload', icon: iconUpload, iconFill: iconUploadFill },
+  { id: 2, name: '피드작성', to: '/phraselist', icon: iconUpload, iconFill: iconUploadFill },
   { id: 3, name: '프로필', to: '/profile', icon: iconProfile, iconFill: iconProfileFill },
 ];
 

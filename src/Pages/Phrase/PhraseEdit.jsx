@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { phraseAPI } from 'API/phrase';
-import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './EditPhraseStyle';
+import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './PhraseEditStyle';
 import Textarea from 'components/Common/Textarea/Textarea';
 import { ContentState } from 'Recoil/ContentState';
 import { useNavigate } from 'react-router-dom';
 import Button from 'components/Common/Button/Button';
-import useToast from 'Hooks/useToast';
+import useToast from 'Hooks/showToast';
 import Modal from 'components/Common/Modal/Modal';
 
-const EditPhrase = () => {
+const PhraseEdit = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -88,4 +88,4 @@ const EditPhrase = () => {
   );
 };
 
-export default EditPhrase;
+export default PhraseEdit;

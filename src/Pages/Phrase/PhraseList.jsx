@@ -1,9 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { getPhraseListAPI } from 'API/phrase';
 import styled from 'styled-components';
 import Button from 'components/Common/Button/Button';
+import { useGetInfinitePhrase, useDeletePhrase } from 'Hooks/usePhrase';
+import { useNavigate } from 'react-router-dom';
+import showMore from '../../assets/images/icon/show-more.svg';
+import ModalButton from 'components/Common/Modal/ModalButton';
+import Modal from 'components/Common/Modal/Modal';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { itemIdState } from 'Recoil/PhraseId';
+import loginToken from 'Recoil/LoginToken';
+import useCustomToast from 'Hooks/useCustomToast';
+import Topbar from 'components/Common/Topbar/Topbar';
 
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
@@ -23,9 +33,40 @@ const getColorPairByIndex = (index) => {
   return colors[adjustedIndex];
 };
 
-const PhraseList = () => {
-  const [filteredProducts, setFilteredProducts] = useState([]);
+export default function PhraseList() {
   const [expandedItem, setExpandedItem] = useState({});
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const token = useRecoilValue(loginToken);
+  const showToast = useCustomToast();
+
+  const navigate = useNavigate();
+  const userId = localStorage.getItem('userId');
+  const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
+
+  const { deletePhraseMutate } = useDeletePhrase(currentItemId, token);
+  const confirmDelete = () => {
+    setIsModalVisible(false);
+    setShowModal(true);
+  };
+
+  const handleEdit = () => {
+    navigate(`/phraseupdate/${currentItemId}`);
+    setIsModalVisible(false);
+  };
+
+  const handleDelete = () => {
+    console.log('삭제 버튼 클릭');
+    deletePhraseMutate();
+    setIsModalVisible(false); // 모달 숨기기
+    setShowModal(false);
+    showToast('해당 글귀가 삭제되었습니다.');
+  };
+
+  const handleCancel = () => {
+    console.log('취소 버튼 클릭됨');
+    setIsModalVisible(false); // 모달 숨기기
+  };
 
   // 스프레드 연산자를 활용해 나머지 값은 그대로 저장하고 파라미터로 받은 id를 객체의 key 값으로 사용 -> 해당 값을 true/false로 바꿔서 넣어준다.
   const toggleExpandItem = (id) => {
@@ -35,94 +76,97 @@ const PhraseList = () => {
     }));
   };
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    'productData',
-    getPhraseListAPI,
-    {
-      getNextPageParam: (lastPage) => {
-        return lastPage.isLast ? undefined : lastPage.nextPage;
-      },
-      enabled: filteredProducts.length === 0, // 처음 컴포넌트가 마운트될 때만 쿼리 실행
-      onSuccess: (newData) => {
-        let allProducts = [];
-        let initialExpandedState = {};
-        newData.pages.forEach((page) => {
-          allProducts = allProducts.concat(page.product);
-          page.product.forEach((product) => {
-            initialExpandedState[product.id] = false; // 모든 상품을 접힌 상태로 초기화
-          });
-        });
-
-        // '@cc@' 포함된 것만 필터링
-        const filteredAndUniqueProducts = allProducts.filter(
-          (product) =>
-            product.itemName?.includes('@cc@') &&
-            !filteredProducts.some((existingProduct) => existingProduct.id === product.id),
-        );
-
-        setFilteredProducts(filteredAndUniqueProducts);
-      },
-    },
-  );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // 화면 끝에 도달했는지 확인
-      if (
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
-      )
-        return;
-
-      // 다음 페이지가 있으면 데이터 불러오기
-      if (hasNextPage) fetchNextPage();
-    };
-
-    // 스크롤 이벤트 리스너 추가
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      // cleanup
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [hasNextPage, fetchNextPage]);
+  const { phrase, allPhrase, fetchNextPhrase, hasNextPhrase } = useGetInfinitePhrase();
+  console.log(allPhrase);
+  console.log(allPhrase.map((item) => item.itemName));
 
   return (
-    <PhraseContainer>
-      {filteredProducts.length > 0 ? (
-        <PhraseListUl>
-          {filteredProducts.map((product, index) => {
-            const [bgColor, colorBox] = getColorPairByIndex(index);
-            return (
-              <PhraseListItem key={index} bgcolor={bgColor} onClick={() => toggleExpandItem(index)}>
-                <PhraseContents>
-                  <PhraseItemBox colorbox={colorBox} />
-                  <PhraseArticle>
-                    <PhraseTxt {...(expandedItem[index] ? { expanded: 'true' } : {})}>
-                      {product.itemImage}
-                    </PhraseTxt>
-                  </PhraseArticle>
-                </PhraseContents>
-                <Options>
-                  <PhraseInfo>
-                    <p>{product.itemName.replace('@cc@', '')}</p>
-                    <p>{product.link}</p>
-                  </PhraseInfo>
-                  <Button category='basic' shape='none'>
-                    저장
-                  </Button>
-                </Options>
-              </PhraseListItem>
-            );
-          })}
-        </PhraseListUl>
-      ) : (
-        <p>글귀가 없습니다.</p>
-      )}
-    </PhraseContainer>
-  );
-};
+    <>
+      <Topbar
+        // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
+        title='글귀 목록'
+        rightButton={
+          <Button
+            category='basic'
+            shape='primary'
+            type='button'
+            onClick={() => navigate('/phraseupload')}
+          >
+            작성
+          </Button>
+        }
+      />
+      <PhraseContainer>
+        {allPhrase.length > 0 ? (
+          <PhraseListUl>
+            {allPhrase.map((item, index) => {
+              console.log('authorId:  ' + item.author._id);
+              console.log('userId:  ' + userId);
+              const [bgColor, colorBox] = getColorPairByIndex(index);
+              return (
+                <PhraseListItem
+                  key={index}
+                  bgcolor={bgColor}
+                  onClick={() => toggleExpandItem(index)}
+                >
+                  <PhraseContents>
+                    <PhraseItemBox colorbox={colorBox} />
+                    <PhraseArticle>
+                      <PhraseTxt {...(expandedItem[index] ? { expanded: 'true' } : {})}>
+                        {item.itemImage}
+                      </PhraseTxt>
+                    </PhraseArticle>
+                  </PhraseContents>
+                  <Options>
+                    <PhraseInfo>
+                      <p>{item.itemName.replace('@cc@', '')}</p>
+                      <p>{item.link}</p>
+                    </PhraseInfo>
 
-export default PhraseList;
+                    {item.author._id === userId ? (
+                      <Button
+                        category='basic'
+                        shape='none'
+                        onClick={() => {
+                          setIsModalVisible(true);
+                          setCurrentItemId(item._id);
+                        }}
+                      >
+                        <img src={showMore} alt='더보기 아이콘' />
+                      </Button>
+                    ) : (
+                      <Button category='basic' shape='none'>
+                        저장
+                      </Button>
+                    )}
+                  </Options>
+                </PhraseListItem>
+              );
+            })}
+            {hasNextPhrase && <div>로딩중</div>}
+          </PhraseListUl>
+        ) : (
+          <p>글귀가 없습니다.</p>
+        )}
+      </PhraseContainer>
+      {isModalVisible && (
+        <ModalButton
+          itemId={currentItemId} // 여기에서 currentItemId를 전달
+          text={['글귀 수정', '글귀 삭제']}
+          onClick={[handleEdit, confirmDelete]}
+          onCancel={handleCancel}
+        />
+      )}
+      <Modal
+        content={'글귀를 삭제하시겠습니까?'}
+        btnTxt='예'
+        isVisible={showModal}
+        onConfirm={handleDelete}
+        onCancel={() => setShowModal(false)}
+      />
+    </>
+  );
+}
 
 const PhraseContainer = styled.section`
   font-family: 'Pretendard-Regular', sans-serif;
@@ -142,6 +186,7 @@ const PhraseListItem = styled.li`
 const PhraseContents = styled.div`
   display: flex;
   gap: 19px;
+  margin-bottom: 21px;
 `;
 
 const Options = styled.div`
@@ -176,7 +221,7 @@ const PhraseTxt = styled.p`
   text-align: justify;
   white-space: normal;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   transition:
@@ -195,9 +240,4 @@ const PhraseTxt = styled.p`
     max-height: 1000px; 
     opacity: 1;
   `}
-`;
-
-const SaveButton = styled(Button)`
-  font-size: var(--font-xs-size);
-  font-family: 'Pretendard-Regular', sans-serif;
 `;
