@@ -15,8 +15,8 @@ export default function BookList({ product }) {
         <StitleBox>
           <h2>{title}</h2>
           <p> {author}</p>
-          {bestDuration && <SInfo bestDuration={bestDuration} />}{' '}
         </StitleBox>
+        {bestDuration && <SInfo bestDuration={bestDuration} />}{' '}
       </Link>
     </Sli>
   );
@@ -52,7 +52,7 @@ const StitleBox = styled.div`
     line-height: 1.3;
   }
   h2 {
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 14px;
     -webkit-line-clamp: 2;
   }
@@ -65,6 +65,5 @@ const StitleBox = styled.div`
 `;
 
 const SInfo = styled(FeatureBanner)`
-  content: ${(props) =>
-    props.bestDuration}; // FeatureBanner의 내용을 직접 bestDuration에서 설정합니다
+  content: ${(props) => props.bestDuration};
 `;

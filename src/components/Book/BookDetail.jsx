@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Topbar from 'components/Common/TopBar';
+
 const MaxDescriptionLength = 200;
 
 const BookDetail = ({ book }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const toggleExpansion = () => {
-    setIsExpanded(!isExpanded);
-  };
-
   const {
     title,
     image,
@@ -22,15 +17,22 @@ const BookDetail = ({ book }) => {
     pubdate,
     description,
   } = book;
+  console.log(book);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpansion = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   const bookImage = image || cover;
   const pubdates = pubdate || pubDate;
   const categoryNameSplit = categoryName ? categoryName.split('>') : [];
   const lastCategory = categoryNameSplit.length > 0 ? categoryNameSplit.pop().trim() : '';
-
+  const modifiedAuthor = author.replace(/\^/g, ', ');
   return (
     <Ssection>
-      <Topbar customStyle={true} />
+      <Topbar customStyle={true} rightEl='review' book={book} />
+
       <SBookDetail>
         <h1>도서 상세 정보</h1>
         <SBookImg>
@@ -40,37 +42,51 @@ const BookDetail = ({ book }) => {
       <SDescContainer>
         <Stitle>
           <h2>{title}</h2>
-          <p> {author}</p>
+          <p> {modifiedAuthor}</p>
         </Stitle>
 
         <SInfoBox>
-          <span>
-            카테고리 <p>{lastCategory}</p>
-          </span>
-          <span>
+          {categoryName && (
+            <li>
+              카테고리 <p>{lastCategory}</p>
+            </li>
+          )}
+          <li>
+            출판사 <p> {publisher}</p>
+          </li>
+          <li>
+            ISBN<p>{isbn}</p>
+          </li>
+          <li>
             출간일
             <p>{pubdates}</p>
-          </span>
-          <span>
-            ISBN<p>{isbn}</p>
-          </span>
-          <span>
-            출판사 <p> {publisher}</p>
-          </span>
+          </li>
         </SInfoBox>
+
         <SDescWraaper>
-          <Description>
-            책 소개
-            <p>{isExpanded ? description : description.slice(0, MaxDescriptionLength)}</p>
-          </Description>
-          <MoreButton onClick={toggleExpansion}>{isExpanded ? '접어보기' : '더보기'}</MoreButton>
+          {!description ? (
+            <Description>업데이트 중입니다. 조금만 기다려 주세요 : )</Description>
+          ) : (
+            <Description>
+              책 소개
+              <p>{isExpanded ? description : description.slice(0, MaxDescriptionLength)}</p>
+            </Description>
+          )}
+          {description && description.length >= 300 && (
+            <MoreButton onClick={toggleExpansion}>{isExpanded ? '접어보기' : '더보기'}</MoreButton>
+          )}
         </SDescWraaper>
       </SDescContainer>
     </Ssection>
   );
 };
 
+const Description = styled.span`
+  display: block;
+`;
 const Ssection = styled.section`
+  position: relative;
+
   p {
     color: var(--gray-500);
     font-size: small;
@@ -78,8 +94,6 @@ const Ssection = styled.section`
     margin-top: 10px;
   }
 `;
-
-// 나머지 스타일 컴포넌트 정의는 여기에 있습니다.
 
 const SBookDetail = styled.div`
   padding: 30px 30px 45px 30px;
@@ -118,12 +132,12 @@ const SBookImg = styled.div`
   }
 `;
 
-const SInfoBox = styled.div`
+const SInfoBox = styled.ul`
   background-color: var(--light-orange);
   text-align: center;
   padding: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   span {
     font-size: medium;
   }
@@ -132,10 +146,10 @@ const SInfoBox = styled.div`
 const SDescWraaper = styled.div`
   padding: 20px;
   position: relative;
-`;
-
-const Description = styled.span`
-  display: block;
+  width: 390px;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis; // 말줄임표를 표시
 `;
 
 const MoreButton = styled.button`

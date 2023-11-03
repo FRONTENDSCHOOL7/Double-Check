@@ -14,13 +14,7 @@ export default function BookSlideItem({ title, author, cover, desc }) {
   );
 }
 const SDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  flex-shrink: 0;
   width: 110px;
-  cursor: pointer;
   margin: 5px;
   img {
     width: 100%;
@@ -31,7 +25,6 @@ const SDiv = styled.div`
   }
   div {
     margin-top: 20px;
-    width: 100%;
   }
   strong,
   p {
@@ -42,13 +35,12 @@ const SDiv = styled.div`
     width: 100%;
   }
   p {
-    font-size: small;
+    font-size: 12px;
     color: var(--gray-500);
     margin-top: 6px;
   }
   strong {
-    font-size: medium;
-    font-weight: bold;
+    font-size: 15px;
   }
 `;
 const SImgWrapper = styled.div`

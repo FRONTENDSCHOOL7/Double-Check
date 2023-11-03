@@ -3,9 +3,9 @@ import StyledTextarea from './TextareaStyle';
 import { useRecoilState } from 'recoil';
 import { ContentState } from 'Recoil/ContentState';
 
-const Textarea = () => {
+const Textarea = ({ placeholder }) => {
   const [content, setContent] = useRecoilState(ContentState);
-  const [height, setHeight] = useState('50px');
+  const [height, setHeight] = useState('82px');
   const textareaRef = useRef(null);
 
   const autoResizeTextarea = () => {
@@ -27,6 +27,7 @@ const Textarea = () => {
       value={content}
       onChange={handleInputChange}
       onKeyDown={autoResizeTextarea}
+      placeholder={placeholder}
       ref={textareaRef}
     />
   );

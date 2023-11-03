@@ -3,16 +3,15 @@ import React, { useState } from 'react';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { phraseAPI } from 'API/phrase';
-import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './EditPhraseStyle';
+import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './PhraseEditStyle';
 import Textarea from 'components/Common/Textarea/Textarea';
 import { ContentState } from 'Recoil/ContentState';
 import { useNavigate } from 'react-router-dom';
-// import Button from 'components/Common/Button/Button';
-import useToast from 'Hooks/useToast';
+import Button from 'components/Common/Button/Button';
+import useToast from 'Hooks/showToast';
 import Modal from 'components/Common/Modal/Modal';
-import Topbar from 'components/Common/TopBar';
 
-const EditPhrase = () => {
+const PhraseEdit = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -56,7 +55,6 @@ const EditPhrase = () => {
 
   return (
     <>
-      <Topbar centerEl='write' rightEl='write' onButtonClick={confirmUpload} />
       <EditPhraseWrapper>
         <EditPhraseForm>
           <EditPhraseInput
@@ -76,9 +74,9 @@ const EditPhrase = () => {
           <Textarea value={content} onChange={(e) => setContent(e.target.value)} />
         </EditPhraseForm>
       </EditPhraseWrapper>
-      {/* <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+      <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
         등록
-      </Button> */}
+      </Button>
       <Modal
         content='글귀를 등록하시겠습니까?'
         btnTxt='예'
@@ -90,4 +88,4 @@ const EditPhrase = () => {
   );
 };
 
-export default EditPhrase;
+export default PhraseEdit;
