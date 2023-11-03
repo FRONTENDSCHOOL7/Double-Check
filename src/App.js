@@ -62,11 +62,13 @@ function App() {
             <Route path='/phraseupdate/:id' element={<PhraseUpdate />} />
             <Route path='/phraseupload/' element={<PhraseUpload />} />
             <Route path='/phraselist' element={<PhraseList />} />
-            <Route path='/search' element={<SearchPage />} />
-            <Route path='/post' element={<PostMain />} />
-            <Route path='/profile/:accountname/' element={<UserPost />} />
+
+            <Route path='/post' element={<PostPage />} />
             <Route path='/post/:post_id' element={<PostDetailPage />} />
             <Route path='/post/:post_id/edit' element={<PostEditPage />} />
+
+            <Route path='post' element={<PostMain />} />
+
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           {showNavBar && <NavBar />}
