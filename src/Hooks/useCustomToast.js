@@ -6,7 +6,7 @@ const useCustomToast = () => {
       position: toast.POSITION.TOP_CENTER,
       hideProgressBar: true,
       autoClose: 2000,
-      icon: '🍁',
+      icon: '🔔',
       style: {
         borderRadius: '10px',
         background: '#333',

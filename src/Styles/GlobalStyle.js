@@ -89,9 +89,9 @@ const GlobalStyles = createGlobalStyle`
   --dark-orange: #FF6C6C;
   --danger-color: #FF7474;
   --gray-100: #F8F8F8;
-  --gray-200: #D9D9D9;
-  --gray-300: #FFFFFF;
-  --gray-400: #EFEFEF;
+  --gray-200: #EFEFEF;
+  --gray-300: #D9D9D9;
+  --gray-400: #AEAEAE;
   --gray-500: #646464;
   --white: #FFFFFF;
   --black: #000000;

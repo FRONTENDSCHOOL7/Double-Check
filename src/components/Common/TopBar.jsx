@@ -8,7 +8,7 @@ import { CiMenuKebab } from 'react-icons/ci';
 import Star from './Button/StarButton';
 import { ReactComponent as Doblechaek } from '../../assets/images/logo/doblechaek.svg';
 import { BsPencilSquare } from 'react-icons/bs';
-import TopBarBtn from './TopBarBtn';
+import TopBarBtn from './Topbar/TopBarBtn';
 import Button from 'components/Common/Button/Button';
 import HamSideNoLogin from './HamSideBar/HamSideNoLogin';
 
@@ -40,6 +40,8 @@ const CenterEl = ({ centerEl }) => {
     return <Sh1> &nbsp;&nbsp; 글귀 </Sh1>;
   } else if (centerEl === 'feed') {
     return <Sh1>피드</Sh1>;
+  } else if (centerEl === 'setprofile') {
+    return <Sh1>프로필 수정</Sh1>;
   } else if (centerEl === 'home') {
     return (
       <h1>
@@ -149,12 +151,19 @@ const Sh1 = styled.h1`
 
 const SLink = styled(Link)`
   text-decoration: none;
+  border-radius: 50%;
+  background-color: #e5daff;
   cursor: pointer;
   display: block;
-  width: ${(props) => (props.home ? '200px' : '25px')};
-  height: ${(props) => (props.home ? '' : '25px')};
+  width: ${(props) => (props.home ? '200px' : '50px')};
+  height: ${(props) => (props.home ? '' : '50px')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
   svg {
-    font-size: 25px;
+    font-size: 28px;
   }
 `;
 const SDoblechaek = styled(Doblechaek)`

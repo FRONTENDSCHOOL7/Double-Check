@@ -11,6 +11,8 @@ import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import Textarea from 'components/Common/Textarea/Textarea';
 import useCustomToast from 'Hooks/useCustomToast';
+import Topbar from 'components/Common/Topbar/Topbar';
+import { useNavigate } from 'react-router-dom';
 
 const PhraseUpdate = () => {
   const { id } = useParams();
@@ -20,6 +22,7 @@ const PhraseUpdate = () => {
   const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
   const showToast = useCustomToast();
+  const navigate = useNavigate();
 
   // 상세 페이지
   // id가 있을 때만 상세페이지 데이터를 불러오는 로직을 실행
@@ -47,6 +50,10 @@ const PhraseUpdate = () => {
     showToast('해당 글귀가 수정되었습니다.');
   };
 
+  const handleGoToHome = () => {
+    navigate('/');
+  };
+
   const confirmUpdate = (e) => {
     e.preventDefault();
     console.log('confirmUpload 함수 실행');
@@ -67,6 +74,15 @@ const PhraseUpdate = () => {
 
   return (
     <>
+      <Topbar
+        // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
+        title='글귀 수정'
+        rightButton={
+          <Button category='basic' shape='primary' type='button' onClick={confirmUpdate}>
+            수정
+          </Button>
+        }
+      />
       <EditPhraseWrapper>
         <EditPhraseForm>
           <Textarea
@@ -90,11 +106,6 @@ const PhraseUpdate = () => {
           />
         </EditPhraseForm>
       </EditPhraseWrapper>
-
-      <Button category='basic' shape='primary' type='button' onClick={confirmUpdate}>
-        수정
-      </Button>
-
       <Modal
         content={'글귀를 수정하시겠습니까?'}
         btnTxt='예'

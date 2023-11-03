@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenAtom } from 'Recoil/Modal';
@@ -10,15 +11,15 @@ import {
 } from './ModalStyle';
 
 const Modal = ({ content, caution, btnTxt, isVisible, onConfirm, onCancel }) => {
-  const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenAtom);
+  // const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenAtom);
 
-  useEffect(() => {
-    setModalIsOpen(isVisible);
-  }, [isVisible]);
+  // useEffect(() => {
+  //   setModalIsOpen(isVisible);
+  // }, [isVisible]);
 
   return (
     <>
-      {modalIsOpen && (
+      {isVisible && (
         <>
           <ModalBackDrop onClick={onCancel} role='presentation' />
           <ModalLayout>

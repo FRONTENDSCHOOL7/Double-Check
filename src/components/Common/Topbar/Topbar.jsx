@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { VscChevronLeft } from 'react-icons/vsc';
-import { ReactComponent as Doblechaek } from '../../../assets/images/doublechaeklogo.svg';
-import TopBarBtn from '../TopBarBtn';
+import { ReactComponent as Doblechaek } from '../../../assets/images/logo/doblechaek.svg';
+import TopBarBtn from './TopBarBtn';
 
 const Topbar = ({ leftButton, title, rightButton }) => {
   const navigate = useNavigate();
   const defaultLeftButton = <TopBarBtn icon={VscChevronLeft} onClick={() => navigate(-1)} />;
-
+  console.log(title);
   const defaultTitle = (
     <SLink home to='/'>
       <SDoblechaek />
@@ -17,9 +17,9 @@ const Topbar = ({ leftButton, title, rightButton }) => {
 
   return (
     <SHeader>
-      {leftButton || defaultLeftButton}
-      <Sh1>{title || defaultTitle}</Sh1>
-      {rightButton || null}
+      <SDiv>{leftButton || defaultLeftButton}</SDiv>
+      <Sh1 rightButtonExists={!!rightButton}>{title || defaultTitle}</Sh1>
+      <SDiv>{rightButton || null}</SDiv>
     </SHeader>
   );
 };
@@ -41,9 +41,14 @@ const SHeader = styled.header`
   z-index: 100;
 `;
 
+const SDiv = styled.div`
+  flex-shrink: 0;
+`;
+
 const Sh1 = styled.h1`
   text-align: center;
   font-size: var(--font-base-size);
+  margin-left: ${(props) => (!props.rightButtonExists ? '-30px' : '0')};
 `;
 
 const SLink = styled(Link)`

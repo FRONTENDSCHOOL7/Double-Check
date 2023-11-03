@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import useCustomToast from 'Hooks/useCustomToast';
+import Topbar from 'components/Common/Topbar/Topbar';
 
 const PhraseEdit = () => {
   const navigate = useNavigate();
@@ -36,9 +37,12 @@ const PhraseEdit = () => {
     console.log(response.product.id);
     setShowModal(false);
     if (response) {
+      setContent('');
       navigate('/phraselist');
+      showToast('작성한 글귀가 등록되었습니다.');
+    } else {
+      showToast('글귀 등록에 실패했습니다.');
     }
-    showToast('작성한 글귀가 등록되었습니다.');
   };
 
   const confirmUpload = (e) => {
@@ -58,6 +62,14 @@ const PhraseEdit = () => {
 
   return (
     <>
+      <Topbar
+        title='글귀 작성'
+        rightButton={
+          <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+            등록
+          </Button>
+        }
+      />
       <EditPhraseWrapper>
         <EditPhraseForm>
           <Textarea
@@ -82,9 +94,9 @@ const PhraseEdit = () => {
         </EditPhraseForm>
       </EditPhraseWrapper>
 
-      <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+      {/* <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
         등록
-      </Button>
+      </Button> */}
       <Modal
         content='글귀를 등록하시겠습니까?'
         btnTxt='예'

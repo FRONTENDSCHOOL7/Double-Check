@@ -39,7 +39,7 @@ const ModalContent = styled.p`
   font-family: 'Pretendard-Medium', sans-serif;
 `;
 
-const ModalCautionTxt = styled.p`
+const ModalCautionTxt = styled.span`
   color: var(--gray-500);
   font-size: var(--font-xs-size);
   margin-top: 10px;
