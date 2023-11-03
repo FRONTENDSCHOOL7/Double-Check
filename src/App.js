@@ -28,7 +28,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
 import OthersPage from 'Pages/OthersPage';
-import SplashPage from 'Pages/SplashPage';
+// import StartLoginPage from 'Pages/StartLoginPage';
+import UserPost from 'components/Post/UserPost';
 
 function App() {
   const showNavBar = useRecoilValue(navBar);
@@ -52,12 +53,12 @@ function App() {
           <Routes>
             {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
+            {/* <Route path='/*' element={<StartLoginPage />} /> */}
             <Route path='/' element={<MainPage />} />
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
             <Route path='/search' element={<SearchPage />} />
-
             <Route path='/phraseupdate/:id' element={<PhraseUpdate />} />
             <Route path='/phraseupload/' element={<PhraseUpload />} />
             <Route path='/phraselist' element={<PhraseList />} />
@@ -68,7 +69,6 @@ function App() {
 
             <Route path='post' element={<PostMain />} />
 
-            <Route path='/splash' element={<SplashPage />} />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           {showNavBar && <NavBar />}

@@ -13,53 +13,46 @@ import Modal from 'components/Common/Modal/Modal';
 import { useRecoilState } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
 import useCustomToast from 'Hooks/useCustomToast';
-import { modalState } from 'Recoil/Modal';
+import { reportPost } from '../../API/post1';
 
 export default function Post({ post, color }) {
   const timeSincePosted = useTimeSince(post.createdAt);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
-  const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
+  const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
   const { title, author, review } = post.parsedContent || {};
-
+  const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
   const userId = localStorage.getItem('userId');
-  const [modal, setModal] = useRecoilState(modalState);
   const showToast = useCustomToast();
-
-  const handleCancel = () => {
-    setModal((prev) => ({ ...prev, isModalVisible: false }));
-  };
-
-  const confirmReport = () => {
-    setModal((prev) => ({ ...prev, showModal: true }));
-  };
-
-  const handleReport = () => {
-    setModal({
-      isModalVisible: false,
-      showModal: false,
-      showReportModal: false,
-      currentItemId: null,
-    });
-    showToast('해당 리뷰가 신고되었습니다.');
-  };
 
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
-      // 사용자의 게시물인 경우
-      setModal((prev) => ({
-        ...prev,
-        isModalVisible: !prev.isModalVisible,
-        currentItemId: post._id,
-      }));
+      setShowEditDeleteModal(true);
+      setCurrentItemId(post._id);
     } else {
-      // 다른 사용자의 게시물인 경우
-      setModal((prev) => ({
-        ...prev,
-        showReportModal: !prev.showReportModal,
-        currentItemId: post._id,
-      }));
+      setShowReportModal(true);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
+    setShowReportModal(false);
+  };
+
+  const confirmReport = () => {
+    setCurrentItemId(post._id);
+    setShowReportModal(false);
+    setShowModal(true);
+    setShowEditDeleteModal(false);
+  };
+
+  const handleReport = async () => {
+    setShowModal(false);
+    try {
+      const response = await reportPost({ postId: currentItemId });
+      showToast('해당 게시글이 신고되었습니다.');
+    } catch (error) {
+      showToast('게시글 신고에 실패했습니다. ');
     }
   };
 
@@ -96,29 +89,30 @@ export default function Post({ post, color }) {
         </SButtonGroup>
         <SPostSpan>{timeSincePosted}</SPostSpan>
       </SPostFooter>
-      {modal.isModalVisible && (
+      {showEditDeleteModal && (
         <ModalButton
-          itemId={modal.currentItemId}
+          itemId={currentItemId}
           text={['리뷰 수정', '리뷰 삭제']}
-          // onClick={[handleEdit, confirmDelete]}
           onCancel={handleCancel}
         />
       )}
-      {modal.showReportModal && (
+      {showReportModal && (
         <ModalButton
-          itemId={modal.currentItemId}
+          itemId={currentItemId}
           text={['신고하기']}
           onClick={[confirmReport]}
-          onCancel={() => setModal((prev) => ({ ...prev, showReportModal: false }))}
+          onCancel={handleCancel}
         />
       )}
-      <Modal
-        content={'해당 리뷰를 신고하시겠습니까?'}
-        btnTxt='예'
-        isVisible={modal.showModal}
-        onConfirm={handleReport}
-        onCancel={() => setModal((prev) => ({ ...prev, showModal: false }))}
-      />
+      {showModal && ( // 수정된 모달 상태 체크
+        <Modal
+          content={'해당 리뷰를 신고하시겠습니까?'}
+          btnTxt='예'
+          isVisible={showModal}
+          onConfirm={() => handleReport({ postId: currentItemId })}
+          onCancel={() => setShowModal(false)}
+        />
+      )}
     </SPostArticle>
   );
 }

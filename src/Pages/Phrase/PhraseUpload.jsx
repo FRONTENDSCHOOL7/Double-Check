@@ -37,9 +37,12 @@ const PhraseEdit = () => {
     console.log(response.product.id);
     setShowModal(false);
     if (response) {
+      setContent('');
       navigate('/phraselist');
+      showToast('작성한 글귀가 등록되었습니다.');
+    } else {
+      showToast('글귀 등록에 실패했습니다.');
     }
-    showToast('작성한 글귀가 등록되었습니다.');
   };
 
   const confirmUpload = (e) => {

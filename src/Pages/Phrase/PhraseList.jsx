@@ -14,8 +14,6 @@ import { itemIdState } from 'Recoil/PhraseId';
 import loginToken from 'Recoil/LoginToken';
 import useCustomToast from 'Hooks/useCustomToast';
 import Topbar from 'components/Common/Topbar/Topbar';
-import TopBarBtn from 'components/Common/TopBarBtn';
-import HamSideNoLogin from 'components/Common/HamSideBar/HamSideNoLogin';
 
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
@@ -37,8 +35,6 @@ const getColorPairByIndex = (index) => {
 
 export default function PhraseList() {
   const [expandedItem, setExpandedItem] = useState({});
-  // const [showButton, setShowButton] = useState({});
-  // const [currentVisibleButton, setCurrentVisibleButton] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
@@ -50,6 +46,7 @@ export default function PhraseList() {
 
   const { deletePhraseMutate } = useDeletePhrase(currentItemId, token);
   const confirmDelete = () => {
+    setIsModalVisible(false);
     setShowModal(true);
   };
 
