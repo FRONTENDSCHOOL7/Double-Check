@@ -29,9 +29,9 @@ const StyledButton = styled(Button)`
   ${(props) => {
     if (props.shape === 'primary') {
       return css`
-        font-size: var(--font-sm-size);
+        font-size: var(--font-xm-size);
         font-weight: 400;
-        padding: 8px 14px;
+        padding: 8px 19px;
         border-radius: 25px;
       `;
     } else if (props.shape === 'sub') {
