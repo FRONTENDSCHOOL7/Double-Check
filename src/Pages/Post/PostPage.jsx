@@ -66,7 +66,13 @@ export default function PostPage() {
       <Topbar
         title
         rightButton={
-          <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+          <Button
+            category='basic'
+            shape='primary'
+            type='button'
+            onClick={confirmUpload}
+            disabled={review.trim() === ''} // 텍스트를 입력하지않으면  버튼이 비 활성화
+          >
             등록
           </Button>
         }
