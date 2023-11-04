@@ -11,7 +11,7 @@ const CategoryButton = styled.button`
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  padding: 10px 20px;
+  padding: 8px 20px;
   border: none;
   border-radius: 70px;
   margin: 5px;
