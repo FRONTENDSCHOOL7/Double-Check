@@ -14,8 +14,8 @@ export default function PostDetailPage() {
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
   const [postUser, setPostUser] = useRecoilState(postDetailUser);
   const [postInfo, setPostInfo] = useRecoilState(postDetailInfo);
-  const [showEditDeleteModal, setShowEditDeleteModal] = useState(false); // Added showEditDeleteModal state
-  const [currentItemId, setCurrentItemId] = useState(null); // Added currentItemId state
+  const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
+  const [currentItemId, setCurrentItemId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,13 +58,19 @@ export default function PostDetailPage() {
     setShowEditDeleteModal(false);
   };
 
-  const navigateToEditPage = () => {
-    navigate(`/post/${post_id}/edit`);
+  const navigateToLoginPage = () => {
+    navigate('loginpage');
+  };
+  const navigateToProfilePage = () => {
+    navigate('/setmyinfo');
+  };
+  const navigateToMainPostPage = () => {
+    navigate('/post');
   };
 
   return (
     <>
-      <Topbar title rightButton={LogoutButton} />
+      <Topbar title rightButton={LogoutButton} goBack={navigateToMainPostPage} />
       <PostDetail
         authorInfo={postUser}
         postInfo={postInfo}
@@ -72,16 +78,17 @@ export default function PostDetailPage() {
         postid={post_id}
         hearted={postInfo.hearted}
         heartCount={postInfo.heartCount}
-        showEditDeleteModal={showEditDeleteModal} // Pass the showEditDeleteModal state
-        currentItemId={currentItemId} // Pass the currentItemId state
-        setCurrentItemId={setCurrentItemId} // Pass the function to update currentItemId
+        showEditDeleteModal={showEditDeleteModal}
+        currentItemId={currentItemId}
+        setCurrentItemId={setCurrentItemId}
       />
       {showEditDeleteModal && (
         <ModalButton
           itemId={currentItemId}
-          text={['리뷰 수정', '리뷰 삭제']}
-          onClick={[navigateToEditPage, () => setShowEditDeleteModal(false)]}
+          text={['설정 및 개인정보', '로그아웃']}
+          onClick={[navigateToProfilePage, () => navigateToLoginPage]}
           onCancel={handleCancel}
+          padding
         />
       )}
     </>
