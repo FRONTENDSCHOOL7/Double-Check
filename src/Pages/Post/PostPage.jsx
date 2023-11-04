@@ -6,7 +6,7 @@ import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import styled from 'styled-components';
 import Topbar from 'components/Common/Topbar/Topbar';
-import useCustomToast from '../../Hooks/useCustomToast';
+import { showToast } from 'Hooks/useCustomToast';
 
 export default function PostPage() {
   const textareaRef = useRef(null);
@@ -15,7 +15,6 @@ export default function PostPage() {
   const bookData = location.state;
   const [review, setReview] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const showToast = useCustomToast();
 
   const confirmUpload = (e) => {
     e.preventDefault();

@@ -12,8 +12,8 @@ import Modal from 'components/Common/Modal/Modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
 import loginToken from 'Recoil/LoginToken';
-import useCustomToast from 'Hooks/useCustomToast';
 import Topbar from 'components/Common/Topbar/Topbar';
+import { showToast } from 'Hooks/useCustomToast';
 
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
@@ -38,7 +38,6 @@ export default function PhraseList() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
-  const showToast = useCustomToast();
 
   const navigate = useNavigate();
   const userId = localStorage.getItem('userId');

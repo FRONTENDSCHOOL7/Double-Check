@@ -8,6 +8,8 @@ import Topbar from 'components/Common/Topbar/Topbar';
 
 import PostDetail from 'components/Post/PostDetail';
 import ModalButton from 'components/Common/Modal/ModalButton';
+import Comments from 'components/Comment/Comments';
+import CommentUpload from 'components/Comment/CommentUpload';
 
 export default function PostDetailPage() {
   const { post_id } = useParams();
@@ -82,6 +84,9 @@ export default function PostDetailPage() {
         currentItemId={currentItemId}
         setCurrentItemId={setCurrentItemId}
       />
+      <Comments postId={post_id} />
+      <CommentUpload postId={post_id} />
+
       {showEditDeleteModal && (
         <ModalButton
           itemId={currentItemId}

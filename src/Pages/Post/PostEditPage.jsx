@@ -5,17 +5,16 @@ import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import styled from 'styled-components';
 import Topbar from 'components/Common/Topbar/Topbar';
-import useCustomToast from '../../Hooks/useCustomToast';
 import { postPutAPI } from 'API/Post';
 import { useRecoilState } from 'recoil';
 import { postDetailsState } from '../../Recoil/PostDetail';
+import { showToast } from 'Hooks/useCustomToast';
 
 export default function PostEditPage() {
   const { post_id } = useParams();
   const navigate = useNavigate();
   const textareaRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
-  const showToast = useCustomToast();
   // eslint-disable-next-line no-unused-vars
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
   // eslint-disable-next-line no-unused-vars

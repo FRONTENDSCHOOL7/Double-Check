@@ -12,7 +12,7 @@ import ModalButton from 'components/Common/Modal/ModalButton';
 import Modal from 'components/Common/Modal/Modal';
 import { useRecoilState } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
-import useCustomToast from 'Hooks/useCustomToast';
+import { showToast } from 'Hooks/useCustomToast';
 import { reportPost } from '../../API/post1';
 import { setProfile } from 'API/Profile';
 import accountname from '../../Recoil/Accountname';
@@ -27,10 +27,14 @@ export default function Post({ post, color }) {
   const { title, author, review } = post.parsedContent || {};
   const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
   const userId = localStorage.getItem('userId');
+
   const showToast = useCustomToast();
   const [likedPosts, setLikedPosts] = useRecoilState(likedState);
   console.log(likedPosts);
   console.log(post.heartCount);
+
+
+
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
       setShowEditDeleteModal(true);
