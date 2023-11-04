@@ -6,6 +6,8 @@ import { postDetailsState, postDetailUser, postDetailInfo } from '../../Recoil/P
 import { useNavigate } from 'react-router-dom';
 import Topbar from 'components/Common/Topbar/Topbar';
 import Modal from 'components/Common/Modal/Modal';
+import CommentUpload from 'components/Comment/CommentUpload';
+import Comments from 'components/Comment/Comments';
 
 export default function PostDetailPage() {
   const navigate = useNavigate();
@@ -85,6 +87,8 @@ export default function PostDetailPage() {
       ) : (
         <p>Loading...</p>
       )}
+      <Comments postId={post_id} />
+      <CommentUpload postId={post_id} />
 
       <Modal
         content='리뷰를 삭제하시겠습니까?'
