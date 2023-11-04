@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
 const StyledTextarea = styled.textarea`
-<<<<<<< HEAD
   overflow: hidden;
   border: none;
-=======
->>>>>>> develop
-  padding: 10px;
+  padding: 20px;
   outline: none;
   resize: none;
   line-height: 1.5;
