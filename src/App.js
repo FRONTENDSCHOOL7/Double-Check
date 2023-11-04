@@ -5,7 +5,7 @@ import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
 // import SplashPage from 'Pages/SplashPage';
 // import ErrorPage from 'Pages/ErrorPage';
-
+import SetMyInfo from 'Pages/SetMyInfo';
 import PostPage from 'Pages/Post/PostPage';
 import PostDetailPage from 'Pages/Post/PostDetailPage';
 import PostEditPage from 'Pages/Post/PostEditPage';
@@ -27,7 +27,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
-import OthersPage from 'Pages/OthersPage';
 
 // import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
@@ -71,7 +70,7 @@ function App() {
             <Route path='/post/:post_id' element={<PostDetailPage />} />
             <Route path='/post/:post_id/edit' element={<PostEditPage />} />
             <Route path='/post' element={<PostMain />} />
-
+            <Route path='/setmyinfo' element={<SetMyInfo />} />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           {showNavBar && <NavBar />}
