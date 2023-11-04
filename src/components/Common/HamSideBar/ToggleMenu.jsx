@@ -30,7 +30,7 @@ const RotatingIcon = styled(BiSolidRightArrow).attrs({
   className: 'rotating-icon',
 })`
   &.rotating-icon {
-    font-size: 18px;
+    font-size: 14px;
   }
   margin-right: 5px;
   font-size: 20px;
@@ -46,7 +46,7 @@ const TitleWrapper = styled.div`
 
 const Title = styled.button`
   margin-bottom: 15px;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const SubTitle = styled.button`
