@@ -10,8 +10,8 @@ import { ContentState } from 'Recoil/ContentState';
 import { useNavigate } from 'react-router-dom';
 import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
-import useCustomToast from 'Hooks/useCustomToast';
 import Topbar from 'components/Common/Topbar/Topbar';
+import { showToast } from 'Hooks/useCustomToast';
 
 const PhraseEdit = () => {
   const navigate = useNavigate();
@@ -20,7 +20,6 @@ const PhraseEdit = () => {
   const [content, setContent] = useRecoilState(ContentState);
   const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
-  const showToast = useCustomToast();
 
   const handlePhraseUpload = async () => {
     const productData = {

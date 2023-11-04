@@ -6,6 +6,7 @@ import { commentTextState } from 'Recoil/CommentText';
 import StyledTextarea from 'components/Common/Textarea/TextareaStyle';
 import styled from 'styled-components';
 import { StyledButton } from 'components/Common/Button/ButtonStyle';
+import { showToast } from 'Hooks/useCustomToast';
 
 export default function CommentUpload({ postId }) {
   const [commentText, setCommentText] = useRecoilState(commentTextState);
@@ -24,6 +25,7 @@ export default function CommentUpload({ postId }) {
         content: commentText,
       },
       onSuccess: () => {
+        showToast('댓글이 등록되었습니다.');
         setCommentText('');
       },
     };
