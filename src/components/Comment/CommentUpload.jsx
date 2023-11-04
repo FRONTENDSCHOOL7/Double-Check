@@ -66,6 +66,9 @@ const CommentTextarea = styled(StyledTextarea)`
     font-size: var(--font-xs-size);
     padding: 0 7px;
   }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const CommentButton = styled(StyledButton)`
