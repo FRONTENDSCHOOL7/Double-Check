@@ -12,7 +12,8 @@ import loginToken from 'Recoil/LoginToken';
 import { navBar } from 'Recoil/Navbar';
 import { styled } from 'styled-components';
 import { ReactComponent as Doublechaek } from '../assets/images/logo/doblechaek.svg';
-import Bg from '../assets/images/bg.png';
+import Bg from '../assets/images/bg/bg-white-space.svg';
+import Button from 'components/Common/Button/Button';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -115,7 +116,7 @@ export default function LoginPage() {
               type='password'
               name='password'
               id='passwordInput'
-              placeholder='비밀번호를 설정해 주세요.'
+              placeholder='비밀번호 입력'
               onChange={handleInputChange}
               value={loginData.user.password}
             />
@@ -126,7 +127,7 @@ export default function LoginPage() {
           {errorMessage && loginData.user.email && loginData.user.password && (
             <ErrorMassage>{errorMessage}</ErrorMassage>
           )}
-          <Button type='submit' onClick={handleError}>
+          <Button category='basic' shape='big' type='submit' onClick={handleError}>
             로그인
           </Button>
         </form>
@@ -138,7 +139,7 @@ export default function LoginPage() {
 const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 32px;
+  margin: 32px 0;
 `;
 
 const LoginBox = styled.div`
@@ -149,8 +150,6 @@ const LoginBox = styled.div`
 const Label = styled.label`
   margin-bottom: 9px;
   color: #471bb2;
-  font-family: Inter;
-  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 14px; /* 100% */
@@ -160,16 +159,6 @@ const ErrorMassage = styled.div`
   margin-top: 10px;
   color: red;
   font-size: 14px;
-`;
-
-const Button = styled.button`
-  height: 49px;
-  width: 100%;
-  font-size: 16px;
-  color: #fff;
-  border-radius: 17px;
-  background: #b29aff;
-  margin-top: 33px;
 `;
 
 const DisabledButton = styled.button`
@@ -203,11 +192,10 @@ const LogoBox = styled.div`
 const BgImg = styled.div`
   position: absolute;
   top: 0;
-  width: 390px;
-  height: 200px;
+  width: inherit;
+  height: 161px;
   background-image: url(${Bg});
   overflow: hidden;
-  transform: rotate(-10deg);
   background-size: cover;
   background-position: center;
 `;
