@@ -14,7 +14,11 @@ import { useRecoilState } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
 import useCustomToast from 'Hooks/useCustomToast';
 import { reportPost } from '../../API/post1';
-
+import { setProfile } from 'API/Profile';
+import accountname from '../../Recoil/Accountname';
+import { useRecoilValue } from 'recoil';
+import { likedState } from '../../Recoil/like';
+import LikeButton from 'components/Common/Button/likeButton';
 export default function Post({ post, color }) {
   const timeSincePosted = useTimeSince(post.createdAt);
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +28,9 @@ export default function Post({ post, color }) {
   const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
   const userId = localStorage.getItem('userId');
   const showToast = useCustomToast();
-
+  const [likedPosts, setLikedPosts] = useRecoilState(likedState);
+  console.log(likedPosts);
+  console.log(post.heartCount);
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
       setShowEditDeleteModal(true);
@@ -60,9 +66,10 @@ export default function Post({ post, color }) {
     <SPostArticle>
       <SPostHeader>
         <SProfileImg src={ImageCheck(post.author.image, 'profile')} alt='유저 프로필 사진' />
+
         <SLink to={`/profile/${post.author.accountname}`}>
           <SPostSpan>{post.author.username}</SPostSpan>
-          <SPostSpan>{post.author.accountname}</SPostSpan>
+          <SPostSpan className='accountname'>{post.author.accountname}</SPostSpan>
         </SLink>
         <SShowMore onClick={handleShowMoreClick}>
           <img src={showMore} alt='더보기 버튼' />
@@ -81,7 +88,11 @@ export default function Post({ post, color }) {
       <SPostFooter>
         <SButtonGroup>
           <SPostbutton>
-            <img src={heart} alt='좋아요 버튼' />
+            <LikeButton
+              postId={post._id}
+              liked={likedPosts[post._id]}
+              heartCount={post.heartCount}
+            ></LikeButton>
           </SPostbutton>
           <SPostbutton>
             <img src={comment} alt='댓글 버튼' />
@@ -136,12 +147,15 @@ const SPostHeader = styled.header`
 const SLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   color: var(--gray-500);
 
   & > span:first-of-type {
     font-family: 'Pretendard-SemiBold';
     color: var(--black);
+  }
+  .accountname {
+    font-size: var(--font-xxs-size);
   }
 `;
 
@@ -177,9 +191,18 @@ const SPostImg = styled.img`
 `;
 
 const SProfileImg = styled.img`
+  /* width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  border: 1px solid var(--gray-300); */
   height: 42px;
+  width: 42px;
   border-radius: 50%;
   border: 1px solid var(--gray-300);
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  object-fit: cover;
 `;
 
 const SPostSpan = styled.span``;
@@ -197,6 +220,13 @@ const SButtonGroup = styled.div``;
 
 const SPostbutton = styled.button`
   margin-right: 10px;
+
+  img {
+    margin-right: 4px;
+  }
+  span {
+    color: var(--gray-500);
+  }
 `;
 
 const SShowMore = styled.button`
