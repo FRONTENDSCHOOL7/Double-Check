@@ -51,6 +51,7 @@ export const useUploadComment = (postId) => {
     (commentData) => uploadComment(postId, commentData),
     {
       onSuccess: () => {
+        showToast('댓글이 등록되었습니다.');
         queryClient.invalidateQueries({ queryKey: ['comments', postId], refetchActive: true });
         navigate(`/post/${postId}`);
       },
@@ -83,6 +84,7 @@ export const useDeleteComment = (postId) => {
     ({ postId, commentId }) => deleteComment(postId, commentId),
     {
       onSuccess: () => {
+        // showToast('댓글이 삭제되었습니다.');
         queryClient.invalidateQueries(['comments', postId]);
       },
     },
@@ -99,7 +101,7 @@ export const useReportComment = (postId) => {
     isError,
   } = useMutation((commentId) => reportComment(postId, commentId), {
     onSuccess: () => {
-      showToast('댓글이 신고되었습니다.');
+      // showToast('댓글이 신고되었습니다.');
       queryClient.invalidateQueries(['comments', postId]);
     },
     onError: () => {

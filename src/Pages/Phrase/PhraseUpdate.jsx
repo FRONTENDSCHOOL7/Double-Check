@@ -10,9 +10,9 @@ import { EditPhraseWrapper, EditPhraseForm, EditPhraseInput } from './PhraseEdit
 import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import Textarea from 'components/Common/Textarea/Textarea';
-import useCustomToast from 'Hooks/useCustomToast';
 import Topbar from 'components/Common/Topbar/Topbar';
 import { useNavigate } from 'react-router-dom';
+import { showToast } from 'Hooks/useCustomToast';
 
 const PhraseUpdate = () => {
   const { id } = useParams();
@@ -21,7 +21,6 @@ const PhraseUpdate = () => {
   const [content, setContent] = useRecoilState(ContentState);
   const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
-  const showToast = useCustomToast();
   const navigate = useNavigate();
 
   // 상세 페이지

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import useTimeSince from 'Hooks/useTimeSince';
 import { useRecoilState } from 'recoil';
 import { commentTextState } from 'Recoil/CommentText';
+import { showToast } from 'Hooks/useCustomToast';
 
 export default function CommentItem({ comment, postId }) {
   const [commentText, setCommentText] = useRecoilState(commentTextState);
@@ -19,10 +20,12 @@ export default function CommentItem({ comment, postId }) {
   // 댓글 삭제
   const handleDeleteComment = (commentId) => {
     deleteCommentMutate({ postId, commentId });
+    showToast('댓글이 삭제되었습니다.');
     setCommentText(''); // 댓글 삭제 후에 textarea를 비우기 위해 상태 업뎃!!
   };
 
   const handleReportComment = (commentId) => {
+    showToast('댓글이 신고되었습니다.');
     reportCommentMutate(commentId, { postId });
   };
 
