@@ -45,7 +45,7 @@ const StyledButton = styled(Button)`
       return css`
         font-size: var(--font-sm-size);
         font-weight: 500;
-        width: 298px;
+        width: 100%;
         padding: 12px 40px;
         border-radius: 10px;
       `;
