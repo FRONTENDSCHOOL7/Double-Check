@@ -2,7 +2,7 @@ import React from 'react';
 import { useInfinitePosts, useGetInfiniteFollowingPosts } from 'API/post1';
 import Post from 'components/Post/Post';
 import Topbar from 'components/Common/Topbar/Topbar';
-
+import { useNavigate } from 'react-router-dom';
 const colors = [
   ['#FFE7FF', '#E3EEFF'],
   '#F2F4FF',
@@ -16,6 +16,7 @@ const colors = [
 ];
 
 export default function PostMain() {
+  const navigate = useNavigate();
   const { allPosts } = useInfinitePosts();
   const { allFollowingPosts } = useGetInfiniteFollowingPosts();
   console.log(allFollowingPosts);
@@ -38,10 +39,13 @@ export default function PostMain() {
       return false;
     }
   });
+  const navigateToHomePage = () => {
+    navigate('/');
+  };
 
   return (
     <div>
-      <Topbar title='전체 피드' />
+      <Topbar title='전체 피드' goBack={navigateToHomePage} />
       {validPosts.map((post, index) => {
         const colorIndex = index % colors.length;
         const color = colors[colorIndex];

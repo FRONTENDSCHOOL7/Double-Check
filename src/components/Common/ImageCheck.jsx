@@ -28,10 +28,10 @@ function ImageCheck(Img, position) {
 
     if (Img.includes('Ellipse') || !fileNameWithExtension) {
       if (position === 'profile') {
-        return 'https://api.mandarin.weniv.co.kr/' + '1698572319819.png';
+        return 'https://api.mandarin.weniv.co.kr/' + '1699081324473.png';
       }
       if (position === 'post') {
-        return 'https://api.mandarin.weniv.co.kr/' + '1698571980330.png';
+        return 'https://api.mandarin.weniv.co.kr/' + '1699081324473.png';
       }
     }
   }

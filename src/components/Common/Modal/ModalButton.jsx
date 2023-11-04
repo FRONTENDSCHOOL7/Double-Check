@@ -3,13 +3,18 @@ import Button from '../Button/Button';
 import styled from 'styled-components';
 import { ModalBackDrop } from './ModalStyle';
 
-function ModalButton({ itemId = null, text = [], onClick = [], onCancel }) {
+function ModalButton({ itemId = null, text = [], onClick = [], onCancel, padding }) {
   return (
     <ModalButtonWrapper>
       <ModalBackDrop onClick={onCancel} />
       <ButtonGroup>
         {text.map((txt, index) => (
-          <Button key={index} category='white' onClick={() => onClick[index](itemId)}>
+          <Button
+            key={index}
+            category='white'
+            onClick={() => onClick[index](itemId)}
+            padding={padding}
+          >
             {txt}
           </Button>
         ))}

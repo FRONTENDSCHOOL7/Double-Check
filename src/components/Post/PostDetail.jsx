@@ -9,6 +9,8 @@ import LikeButton from 'components/Common/Button/likeButton';
 import Modal from 'components/Common/Modal/Modal';
 import { postDeleteAPI } from 'API/Post';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { likedState } from '../../Recoil/like';
 
 export default function PostDetail({
   authorInfo,
@@ -23,7 +25,10 @@ export default function PostDetail({
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { post_id } = useParams();
+  const likedPosts = useRecoilValue(likedState);
+  console.log(likedPosts);
 
+  // {65462596b2cb205663d37692: true}
   function openModal() {
     setIsModalOpen(true);
   }
@@ -63,14 +68,16 @@ export default function PostDetail({
       console.error('Delete error:', error);
     }
   };
-
+  console.log(postDetails);
   return (
-    <>
+    <SMainPostDetail>
       <SPostarticle>
-        <SProfileImg src={ImageCheck(authorInfo.image, 'profile')} alt='유저 프로필 사진' />
+        <Link to={`/profile/${authorInfo.accountname}`}>
+          <SProfileImg src={ImageCheck(authorInfo.image, 'profile')} alt='유저 프로필 사진' />
+        </Link>
         <div>
           <SPostHeader>
-            <SLink to={`/profile/${authorInfo.accountname}`}>
+            <SLink to={`/book/9791169661393`}>
               <span>{authorInfo.username}</span>
               <span>{authorInfo.accountname}</span>
             </SLink>
@@ -80,18 +87,20 @@ export default function PostDetail({
           </SPostHeader>
           <SPostSection>
             <pre>{postDetails.review}</pre>
-            <SImgWrapper>
+            <SBookImgLink to={`/profile/${authorInfo.accountname}`}>
               <SPostImg src={postDetails.image} alt='책 표지 이미지' />
               <div>
-                <span>{title1}</span>
-                <span>{title2}</span>
+                <span>
+                  {postDetails.title} {title1}
+                </span>
+                <span> {title2}</span>
                 <p>{postDetails.author}</p>
               </div>
-            </SImgWrapper>
+            </SBookImgLink>
           </SPostSection>
           <SPostFooter>
             <SButtonGroup>
-              <LikeButton postId={postid} liked={hearted} heartCount={heartCount}></LikeButton>ㅎ
+              <LikeButton postId={postid} liked={hearted} heartCount={heartCount}></LikeButton>
               <button>
                 <img src={comment} alt='댓글 버튼' />
                 <span>1</span>
@@ -119,13 +128,20 @@ export default function PostDetail({
           onCancel={closeModal}
         />
       )}
-    </>
+    </SMainPostDetail>
   );
 }
-
+const SMainPostDetail = styled.main`
+  min-height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
 const SPostarticle = styled.article`
   display: flex;
+  gap: 10px;
   padding: 15px 19px;
+  position: relative;
   border-bottom: 1px solid var(--gray-200);
 `;
 
@@ -133,6 +149,7 @@ const SPostHeader = styled.header`
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-top: 4px;
 `;
 
 const SProfileImg = styled.img`
@@ -144,8 +161,21 @@ const SProfileImg = styled.img`
   flex-shrink: 0;
   object-fit: cover;
 `;
-
 const SLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--gray-500);
+
+  & > span:nth-of-type(1) {
+    font-family: 'Pretendard-SemiBold';
+    color: var(--black);
+  }
+  & > span:nth-of-type(2) {
+    font-size: var(--font-xxs-size);
+  }
+`;
+/* const SLink = styled(Link)`
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -160,7 +190,7 @@ const SLink = styled(Link)`
     font-family: 'Pretendard-SemiBold';
     color: var(--black);
   }
-`;
+`; */
 
 const SPostSection = styled.section`
   margin: 12px 0 16px;
@@ -177,7 +207,7 @@ const SPostSection = styled.section`
   }
 `;
 
-const SImgWrapper = styled.div`
+const SBookImgLink = styled(Link)`
   border-radius: 5px;
   background-color: var(--light-blue);
   padding: 20px;

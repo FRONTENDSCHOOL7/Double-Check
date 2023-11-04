@@ -1,20 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
-import Button from 'components/Common/Button/Button';
+
+import { StyledButton } from '../Common/Button/ButtonStyle';
 function BannerSlider({ banners, currentSlide, nextSlide, prevSlide }) {
   return (
     <>
       <SBannerSliderContent currentSlide={currentSlide}>
         {banners.map((banner, index) => (
-          <SBannerSlide key={index} color={banner.color} bgImg={banner.img}>
+          <SBannerSlide key={index} color={banner.color} bgImg={banner.img} size={banner.size}>
             <div>
               <SText>{banner.message}</SText>
               <Link to={banner.linkTo}>
-                <SBuntton category='basic' shape='xsmall'>
+                <SStyledButton category='basic' shape='xsmall' backgroundColor={banner.btncolor}>
                   바로 가기
-                </SBuntton>
+                </SStyledButton>
               </Link>
             </div>
           </SBannerSlide>
@@ -45,18 +46,27 @@ const SBannerSlide = styled.div`
   background-color: ${(props) => props.color};
   background-image: url(${(props) => props.bgImg});
   background-repeat: no-repeat;
-  background-size: 160px;
-  background-position: 90% 130%;
+
+  background-size: 135px;
+  background-position: 88% 110%;
+  ${(props) =>
+    props.size === 'small' &&
+    css`
+      background-size: 180px;
+      background-position: 84% 94%;
+    `}
   display: flex;
   align-items: center;
   padding: 0px 30px;
 
   div {
-    width: 60%;
+    width: 80%;
     padding: 5px;
   }
 `;
 
+// background-size: 194px;
+// background-position: 91% 90%;
 const SliderButton = styled.button`
   position: absolute;
   width: 20px;
@@ -81,12 +91,15 @@ const SliderButton = styled.button`
 `;
 const SText = styled.h2`
   margin: 0px 0px 10px 4px;
-  line-height: 20px;
-  font-size: medium;
+  line-height: 28px;
+  font-size: 18px;
+  color: #363636;
 `;
 
-const SBuntton = styled(Button)`
-  font-size: var(--font-xs-size);
+const SStyledButton = styled(StyledButton)`
+  font-size: var(--font-xxs-size);
+  color: black;
+  background-color: ${(props) => props.backgroundColor};
 `;
 
 export default BannerSlider;

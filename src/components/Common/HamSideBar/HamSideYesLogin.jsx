@@ -9,13 +9,14 @@ import { useRecoilState } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import { BiLogOut } from 'react-icons/bi';
 import ImageCheck from 'components/Common/ImageCheck';
-
+import Modal from 'components/Common/Modal/Modal';
+import { Link } from 'react-router-dom';
 export default function HamSideYesLogin() {
   // 햄버거버튼 열기 false -> true = opensidebar
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [, setLoginCheck] = useRecoilState(loginCheck);
   const navigate = useNavigate();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // 햄버거 버튼 눌렀을 때 사이드바 열기 핸들링
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -38,7 +39,7 @@ export default function HamSideYesLogin() {
     localStorage.removeItem('token');
     localStorage.removeItem('recoil-persist');
     setLoginCheck(false);
-
+    setIsModalOpen(false);
     // 사이드바 닫기
     setSidebarOpen(false);
     // 사용자를 홈으로 리디렉션
@@ -65,6 +66,17 @@ export default function HamSideYesLogin() {
       fetchUserInfo(token);
     }
   }, []);
+
+  // Function to open the modal
+  function openModal() {
+    setIsModalOpen(true);
+    setSidebarOpen(false);
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    setIsModalOpen(false);
+  }
 
   const fetchUserInfo = async (token) => {
     try {
@@ -101,40 +113,52 @@ export default function HamSideYesLogin() {
   // userInfo가 있으면 이미지를 ImageCheck를 통해 검사하고, 그 결과를 사용합니다.
   const userImage = userInfo ? ImageCheck(userInfo.image, 'profile') : null;
   return (
-    <Container>
-      <SButton onClick={toggleSidebar}>
-        <GiHamburgerMenu />
-      </SButton>
-      {isSidebarOpen && (
-        <>
-          <SideBarBackDrop onClick={sidebarClose} />
-          <Sidebar isOpen={isSidebarOpen}>
-            <Logo src={logo} alt='logo' />
-            <MyAccount>
-              {userInfo ? (
-                <>
-                  <UserImage src={userImage} alt='userprofileimage' />
-                  <UserName>
-                    {userInfo.name}님<br /> 환영합니다!
-                  </UserName>
-                  {/* <p>{userInfo.id}</p> */}
-                </>
-              ) : (
-                '계정 정보를 불러오는 중...'
-              )}
-            </MyAccount>
+    <>
+      <>
+        <Container>
+          <SButton onClick={toggleSidebar}>
+            <GiHamburgerMenu />
+          </SButton>
+          {isSidebarOpen && (
+            <>
+              <SideBarBackDrop onClick={sidebarClose} />
+              <Sidebar isOpen={isSidebarOpen}>
+                <Logo src={logo} alt='logo' />
+                <MyAccount to='/setmyinfo'>
+                  {userInfo ? (
+                    <>
+                      <UserImage src={userImage} alt='userprofileimage' />
+                      <UserName>
+                        {userInfo.name}님<br /> 환영합니다!
+                      </UserName>
+                      {/* <p>{userInfo.id}</p> */}
+                    </>
+                  ) : (
+                    '계정 정보를 불러오는 중...'
+                  )}
+                </MyAccount>
 
-            {/* 토글 */}
-            <ToggleMenu title='책 목록' menuItems={bookMenuItems} />
-            <ToggleMenu title='글귀' menuItems={quotesMenuItems} />
-            <LogoutBtn onClick={handleLogout}>
-              <StyledIcon />
-              로그아웃
-            </LogoutBtn>
-          </Sidebar>
-        </>
-      )}
-    </Container>
+                {/* 토글 */}
+                <ToggleMenu title='책 목록' menuItems={bookMenuItems} />
+                <ToggleMenu title='글귀' menuItems={quotesMenuItems} />
+                <LogoutBtn onClick={openModal}>
+                  <StyledIcon />
+                  로그아웃
+                </LogoutBtn>
+              </Sidebar>
+            </>
+          )}
+        </Container>
+      </>
+
+      <Modal
+        content='로그아웃하시겠습니까?'
+        btnTxt='로그아웃'
+        isVisible={isModalOpen}
+        onConfirm={handleLogout}
+        onCancel={closeModal}
+      />
+    </>
   );
 }
 
@@ -186,7 +210,7 @@ const Logo = styled.img`
   margin-left: 27px;
 `;
 
-const MyAccount = styled.button`
+const MyAccount = styled(Link)`
   background-color: var(--gray-200);
   width: 100%;
   padding: 27px 0;
@@ -208,8 +232,8 @@ const UserName = styled.p`
 const LogoutBtn = styled.button`
   margin-top: auto; // 나머지 콘텐츠와 분리하여 밑으로 밀기
   margin-bottom: 20px;
-  width: 60%; // 버튼 너비를 사이드바에 맞춤
-  font-size: 20px;
+  width: 50%; // 버튼 너비를 사이드바에 맞춤
+  font-size: 18px;
   cursor: pointer;
   display: flex;
   justify-content: center;

@@ -28,10 +28,9 @@ export default function HamSideNoLogin() {
     setSidebarOpen(false);
   };
   return (
-    <Container>
-      <SButton onClick={toggleSidebar}>
-        <GiHamburgerMenu />
-      </SButton>
+    <>
+      <GiHamburgerMenu onClick={toggleSidebar} />
+
       {isSidebarOpen && (
         <>
           <SideBarBackDrop onClick={sidebarClose} />
@@ -44,24 +43,20 @@ export default function HamSideNoLogin() {
           </Sidebar>
         </>
       )}
-    </Container>
+    </>
   );
 }
 
 // 스타일
-const Container = styled.div`
-  font-family: Arial, sans-serif;
-  position: relative;
-`;
 
-const SButton = styled.button`
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  svg {
-    font-size: 25px;
-  }
-`;
+// const SButton = styled.button`
+//   width: 25px;
+//   height: 25px;
+//   cursor: pointer;
+//   svg {
+//     font-size: 25px;
+//   }
+// `;
 
 // const Sidebar = styled.div`
 //   position: absolute;

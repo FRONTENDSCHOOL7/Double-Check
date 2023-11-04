@@ -12,15 +12,31 @@ function Button({
   type = 'button',
   text = [],
   onClick,
+  padding,
+  backgroundColor,
 }) {
   const button = {
     basic: (
-      <StyledButton shape={shape} type={type} color={color} disabled={disabled} onClick={onClick}>
+      <StyledButton
+        shape={shape}
+        type={type}
+        color={color}
+        disabled={disabled}
+        onClick={onClick}
+        backgroundColor={backgroundColor}
+      >
         {children}
       </StyledButton>
     ),
     white: (
-      <WhiteButton type={type} color={color} disabled={disabled} danger={danger} onClick={onClick}>
+      <WhiteButton
+        type={type}
+        color={color}
+        disabled={disabled}
+        danger={danger}
+        onClick={onClick}
+        padding={padding}
+      >
         {children}
       </WhiteButton>
     ),

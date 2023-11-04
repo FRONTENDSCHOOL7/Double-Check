@@ -5,12 +5,15 @@ import fillheart from '../../../assets/images/icon/icon-fill-heart.svg';
 import { useRecoilState } from 'recoil';
 import loginToken from '../../../Recoil/LoginToken';
 
+import { likedState } from '../../../Recoil/like';
 function LikeButton({ postId, liked, heartCount }) {
+  // eslint-disable-next-line no-unused-vars
+  const [likedPosts, setLikedPosts] = useRecoilState(likedState);
   const initialHearted = localStorage.getItem(`hearted_${postId}`) === 'true';
   const [token] = useRecoilState(loginToken);
   const [isLiked, setIsLiked] = useState(liked);
   const [heartValue, setHeartValue] = useState(heartCount);
-
+  console.log(heartValue);
   const handleLike = async () => {
     try {
       if (isLiked) {
@@ -19,6 +22,11 @@ function LikeButton({ postId, liked, heartCount }) {
           setIsLiked(false);
           localStorage.removeItem(`hearted_${postId}`);
           cancelHeartData();
+          setLikedPosts((prevLikedPosts) => {
+            const updatedLikedPosts = { ...prevLikedPosts };
+            delete updatedLikedPosts[postId];
+            return updatedLikedPosts;
+          });
         }
       } else {
         const response = await likeAPI(token, postId);
@@ -26,6 +34,10 @@ function LikeButton({ postId, liked, heartCount }) {
           setIsLiked(true);
           localStorage.setItem(`hearted_${postId}`, response.post.hearted);
           getHeartData();
+          setLikedPosts((prevLikedPosts) => ({
+            ...prevLikedPosts,
+            [postId]: true,
+          }));
         }
       }
     } catch (error) {
