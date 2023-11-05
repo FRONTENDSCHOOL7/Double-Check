@@ -18,6 +18,7 @@ const colors = [
 export default function PostMain() {
   const navigate = useNavigate();
   const { allPosts } = useInfinitePosts();
+
   const { allFollowingPosts } = useGetInfiniteFollowingPosts();
   console.log(allFollowingPosts);
 
@@ -32,6 +33,7 @@ export default function PostMain() {
       return (
         post.parsedContent &&
         post.parsedContent.title &&
+        post.parsedContent.isbn &&
         post.parsedContent.author &&
         post.parsedContent.review
       );

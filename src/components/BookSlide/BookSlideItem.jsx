@@ -44,6 +44,6 @@ const SDiv = styled.div`
   }
 `;
 const SImgWrapper = styled.div`
-  width: 100px;
+  width: 100%;
   height: 150px;
 `;

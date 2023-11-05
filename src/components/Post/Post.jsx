@@ -25,15 +25,15 @@ export default function Post({ post, color }) {
   const [showModal, setShowModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
-  const { title, author, review } = post.parsedContent || {};
+  const { title, author, review, isbn } = post.parsedContent || {};
   const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
   const userId = localStorage.getItem('userId');
-  const [likedPosts, setLikedPosts] = useRecoilState(likedState);
-  const commentCounts = useRecoilValue(commentCount);
 
-  console.log(likedPosts);
-  console.log(post.heartCount);
-  console.log('댓글수', post.commentCount);
+  const commentCounts = useRecoilValue(commentCount);
+  const [likedPosts, setLikedPosts] = useRecoilState(likedState);
+  // console.log(likedPosts);
+  // console.log(post.heartCount);
+  
 
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
@@ -61,6 +61,7 @@ export default function Post({ post, color }) {
     try {
       const response = await reportPost({ postId: currentItemId });
       showToast('해당 피드가 신고되었습니다.');
+      console.log(response);
     } catch (error) {
       showToast('피드 신고에 실패했습니다. ');
     }
@@ -80,7 +81,7 @@ export default function Post({ post, color }) {
         </SShowMore>
       </SPostHeader>
       <SPostSection>
-        <Link to={`/post/${post._id}`}>
+        <Link to={`/post/${post._id}`} state={isbn}>
           <SImgWrapper color={color}>
             <SPostImg src={post.image} alt='책 표지 이미지' />
           </SImgWrapper>
@@ -96,7 +97,7 @@ export default function Post({ post, color }) {
               heartCount={post.heartCount}
             ></LikeButton>
           </SPostbutton>
-          <Link to={`/post/${post._id}`}>
+          <Link to={`/post/${post._id}` state={isbn}}>
             <SPostbutton>
               <img src={comment} alt='댓글 버튼' />
               <span>{commentCounts[post._id] || 0}</span>

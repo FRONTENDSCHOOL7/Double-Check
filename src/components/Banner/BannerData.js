@@ -23,7 +23,7 @@ export const BannerData = [
       </>
     ),
     color: '#FFF0F0',
-    linkTo: '/looaround',
+    linkTo: '/post',
     size: 'big',
     btncolor: '#FFC7A7',
   },

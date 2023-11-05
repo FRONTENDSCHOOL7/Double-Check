@@ -32,7 +32,7 @@ export default function PostEditPage() {
       setShowModal(true);
     }
   };
-  // console.log(postDetails);
+  console.log(postDetails);
   // 내가 작성할 리뷰 정보
   const postData = {
     title: postDetails.title,
@@ -80,13 +80,12 @@ export default function PostEditPage() {
           ref={textareaRef}
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          placeholder='리뷰를 작성해주세요'
           height='100%'
           width='100%'
           border='none'
         />
         <Modal
-          content='리뷰를 수정하시겠습니까?'
+          content='수정하시겠습니까?'
           btnTxt='예'
           isVisible={showModal}
           onConfirm={handleUpdatePost}

@@ -16,6 +16,7 @@ export default function PostPage() {
   const [review, setReview] = useState('');
   const [showModal, setShowModal] = useState(false);
 
+  console.log(bookData.isbn);
   const confirmUpload = (e) => {
     e.preventDefault();
     console.log('confirmUpload 함수 실행');
@@ -31,6 +32,7 @@ export default function PostPage() {
   const postData = {
     title: bookData.title,
     author: bookData.author,
+    isbn: bookData.isbn,
     review: review,
   };
   const post = {
@@ -81,13 +83,13 @@ export default function PostPage() {
           ref={textareaRef}
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          placeholder='리뷰를 작성해주세요'
+          placeholder='읽은 부분에 대해 기억하고 싶은 내용 또는 나의 생각을 담아  공유해보세요!'
           height='100%'
           width='100%'
           border='none'
         />
         <Modal
-          content='리뷰를 등록하시겠습니까?'
+          content='등록하시겠습니까?'
           btnTxt='예'
           isVisible={showModal}
           onConfirm={handlePostUpload}
