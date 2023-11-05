@@ -280,16 +280,6 @@ const Label = styled.label`
   margin-bottom: 20px;
 `;
 
-// const InputBox = styled.input`
-//   height: 40px;
-//   border: 1px solid #d2d8fa;
-// `;
-const IntroBox = styled.input`
-  height: 40px;
-  border: 1px solid #d2d8fa;
-  border-radius: 10px;
-`;
-
 const InputBoxFile = styled.input`
   height: 40px;
   border: 1px solid #d2d8fa;
