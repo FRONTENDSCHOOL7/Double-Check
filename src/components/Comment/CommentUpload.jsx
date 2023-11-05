@@ -1,17 +1,31 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useUploadComment } from '../../API/Comment';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { commentTextState } from 'Recoil/CommentText';
 import StyledTextarea from 'components/Common/Textarea/TextareaStyle';
 import styled from 'styled-components';
 import { StyledButton } from 'components/Common/Button/ButtonStyle';
 import { showToast } from 'Hooks/useCustomToast';
+import { commentCount } from 'Recoil/CommnetCount';
 
 export default function CommentUpload({ postId }) {
   const [commentText, setCommentText] = useRecoilState(commentTextState);
-  console.log(postId);
-  const { uploadCommentMutate } = useUploadComment(postId);
+  const setCommentCount = useSetRecoilState(commentCount);
+
+  const { uploadCommentMutate } = useUploadComment(postId, {
+    onSuccessExtra: () => {
+      setCommentText('');
+      setCommentCount((prevCounts) => {
+        // postId에 해당하는 댓글 수를 1 증가
+        const newCounts = {
+          ...prevCounts,
+          [postId]: (prevCounts[postId] || 0) + 1,
+        };
+        return newCounts;
+      });
+    },
+  });
 
   /* 모달 !!!!!!!!!!!!!!!!!
    *
@@ -20,13 +34,10 @@ export default function CommentUpload({ postId }) {
 
   const handleCommentUpload = (event) => {
     event.preventDefault();
+    if (!commentText.trim()) return;
     const commentData = {
       comment: {
         content: commentText,
-      },
-      onSuccess: () => {
-        showToast('댓글이 등록되었습니다.');
-        setCommentText('');
       },
     };
     uploadCommentMutate(commentData);
@@ -47,7 +58,7 @@ export default function CommentUpload({ postId }) {
 }
 
 const CommentForm = styled.form`
-  padding: 0 10px;
+  padding: 10px 10px 19px;
   display: flex;
   gap: 8px;
   align-items: center;

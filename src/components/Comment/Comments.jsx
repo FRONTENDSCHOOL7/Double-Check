@@ -22,10 +22,10 @@ export default function Comments({ postId }) {
 }
 
 const SCommentContainer = styled.ul`
-  padding: 13px 0;
+  padding-top: 13px;
 `;
 const SCommentH3 = styled.h3`
   font-family: 'Pretendard-semiBold', sans-serif;
-  font-size: var(--font-md-size);
+  font-size: var(--font-sm-size);
   margin: 0 0 10px 13px;
 `;

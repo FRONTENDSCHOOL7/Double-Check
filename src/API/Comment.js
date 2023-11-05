@@ -44,16 +44,18 @@ export const reportComment = async (postId, commentId) => {
   return response.data;
 };
 
-export const useUploadComment = (postId) => {
+export const useUploadComment = (postId, { onSuccessExtra }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
   const { mutate: uploadCommentMutate } = useMutation(
     (commentData) => uploadComment(postId, commentData),
     {
       onSuccess: () => {
         showToast('댓글이 등록되었습니다.');
+
+        if (onSuccessExtra) onSuccessExtra();
         queryClient.invalidateQueries({ queryKey: ['comments', postId], refetchActive: true });
-        navigate(`/post/${postId}`);
       },
     },
   );
@@ -78,13 +80,14 @@ export const useInfiniteComments = (postId) => {
   return { comments, allComments, fetchNextComments, hasNextComments };
 };
 
-export const useDeleteComment = (postId) => {
+export const useDeleteComment = (postId, { onSuccessExtra }) => {
   const queryClient = useQueryClient();
   const { mutate: deleteCommentMutate } = useMutation(
     ({ postId, commentId }) => deleteComment(postId, commentId),
     {
       onSuccess: () => {
-        // showToast('댓글이 삭제되었습니다.');
+        showToast('댓글이 삭제되었습니다.');
+        if (onSuccessExtra) onSuccessExtra();
         queryClient.invalidateQueries(['comments', postId]);
       },
     },
@@ -101,7 +104,7 @@ export const useReportComment = (postId) => {
     isError,
   } = useMutation((commentId) => reportComment(postId, commentId), {
     onSuccess: () => {
-      // showToast('댓글이 신고되었습니다.');
+      showToast('댓글이 신고되었습니다.');
       queryClient.invalidateQueries(['comments', postId]);
     },
     onError: () => {
