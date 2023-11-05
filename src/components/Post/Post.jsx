@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import showMore from '../../assets/images/icon/show-more-y.svg';
 import { Link } from 'react-router-dom';
 import ImageCheck from 'components/Common/ImageCheck';
 import useTimeSince from 'Hooks/useTimeSince';
-import heart from '../../assets/images/icon/icon-heart.svg';
-import fillheart from '../../assets/images/icon/icon-fill-heart.svg';
 import comment from '../../assets/images/icon/icon-comment.svg';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import Modal from 'components/Common/Modal/Modal';
@@ -17,8 +15,11 @@ import { reportPost } from '../../API/post1';
 import { setProfile } from 'API/Profile';
 import accountname from '../../Recoil/Accountname';
 import { useRecoilValue } from 'recoil';
+commentCount;
 import { likedState } from '../../Recoil/like';
 import LikeButton from 'components/Common/Button/likeButton';
+import { commentCount } from 'Recoil/CommnetCount';
+
 export default function Post({ post, color }) {
   const timeSincePosted = useTimeSince(post.createdAt);
   const [showModal, setShowModal] = useState(false);
@@ -28,9 +29,11 @@ export default function Post({ post, color }) {
   const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
   const userId = localStorage.getItem('userId');
 
+  const commentCounts = useRecoilValue(commentCount);
   const [likedPosts, setLikedPosts] = useRecoilState(likedState);
   // console.log(likedPosts);
   // console.log(post.heartCount);
+  
 
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
@@ -57,10 +60,10 @@ export default function Post({ post, color }) {
     setShowModal(false);
     try {
       const response = await reportPost({ postId: currentItemId });
-      showToast('해당 게시글이 신고되었습니다.');
+      showToast('해당 피드가 신고되었습니다.');
       console.log(response);
     } catch (error) {
-      showToast('게시글 신고에 실패했습니다. ');
+      showToast('피드 신고에 실패했습니다. ');
     }
   };
 
@@ -78,8 +81,6 @@ export default function Post({ post, color }) {
         </SShowMore>
       </SPostHeader>
       <SPostSection>
-        {/* <h2>{contentJson.title}</h2>
-                  <span>{contentJson.author}</span> */}
         <Link to={`/post/${post._id}`} state={isbn}>
           <SImgWrapper color={color}>
             <SPostImg src={post.image} alt='책 표지 이미지' />
@@ -96,16 +97,19 @@ export default function Post({ post, color }) {
               heartCount={post.heartCount}
             ></LikeButton>
           </SPostbutton>
-          <SPostbutton>
-            <img src={comment} alt='댓글 버튼' />
-          </SPostbutton>
+          <Link to={`/post/${post._id}` state={isbn}}>
+            <SPostbutton>
+              <img src={comment} alt='댓글 버튼' />
+              <span>{commentCounts[post._id] || 0}</span>
+            </SPostbutton>
+          </Link>
         </SButtonGroup>
-        <SPostSpan>{timeSincePosted}</SPostSpan>
+        <STime>{timeSincePosted}</STime>
       </SPostFooter>
       {showEditDeleteModal && (
         <ModalButton
           itemId={currentItemId}
-          text={['리뷰 수정', '리뷰 삭제']}
+          text={['피드 수정', '피드 삭제']}
           onCancel={handleCancel}
         />
       )}
@@ -119,7 +123,7 @@ export default function Post({ post, color }) {
       )}
       {showModal && ( // 수정된 모달 상태 체크
         <Modal
-          content={'해당 리뷰를 신고하시겠습니까?'}
+          content={'해당 피드를 신고하시겠습니까?'}
           btnTxt='예'
           isVisible={showModal}
           onConfirm={() => handleReport({ postId: currentItemId })}
@@ -131,10 +135,10 @@ export default function Post({ post, color }) {
 }
 
 const SPostArticle = styled.article`
-  margin-bottom: 59px;
+  margin-bottom: 36px;
 
   &:first-of-type {
-    margin-top: 26px;
+    margin-top: 17px;
   }
 `;
 
@@ -168,7 +172,7 @@ const SPostSection = styled.section`
 `;
 
 const SPostText = styled.p`
-  margin: 33px 0 12px;
+  margin-top: 25px;
   font-family: 'Pretendard-regular', sans-serif;
   padding: 0 21px;
   line-height: 1.3;
@@ -204,13 +208,13 @@ const SProfileImg = styled.img`
   border: 1px solid var(--gray-300);
   aspect-ratio: 1 / 1;
   flex-shrink: 0;
-  object-fit: cover;
+  object-fit: fill;
 `;
 
 const SPostSpan = styled.span``;
 
 const SPostFooter = styled.footer`
-  padding: 12px 21px;
+  padding: 8px 21px;
   display: flex;
   justify-content: space-between;
   color: var(--gray-400);
@@ -239,9 +243,13 @@ const SShowMore = styled.button`
 const SImgWrapper = styled.div`
   position: relative;
   border-radius: 4px;
-  height: 267px;
+  height: 212px;
   background: ${(props) =>
     Array.isArray(props.color)
       ? `linear-gradient(${props.color[0]}, ${props.color[1]})`
       : props.color};
+`;
+
+const STime = styled.time`
+  font-size: var(--font-xxs-size);
 `;
