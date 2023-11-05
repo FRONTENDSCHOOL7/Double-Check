@@ -35,9 +35,10 @@ export function CategoryList({ categories, initialClickedCategories, onCategoryC
 
   const handleButtonClick = (category) => {
     const isClicked = clickedCategories.includes(category);
-    if (isClicked) {
-      // 이미 클릭한 카테고리인 경우, 클릭 해제
+    if (!isClicked) {
+      // 클릭하지 않은 카테고리만 처리
       setClickedCategories((prevState) => prevState.filter((item) => item !== category));
+      onCategoryClick(category);
     } else {
       // 클릭하지 않은 카테고리인 경우, 클릭
       setClickedCategories((prevState) => [...prevState, category]);
