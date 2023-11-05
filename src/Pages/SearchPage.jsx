@@ -90,7 +90,7 @@ export default function SearchPage() {
               type='text'
               value={keyword}
               onChange={handleInputChange}
-              placeholder='검색..'
+              placeholder='검색어를 입력하세요.'
               width='100%'
               height='100%'
               borderRadius='40px'
