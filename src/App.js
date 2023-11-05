@@ -31,6 +31,7 @@ import { navBar } from './Recoil/Navbar';
 // import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
 import SplashPage from 'Pages/SplashPage';
+import ErrorPage from 'Pages/ErrorPage';
 
 function App() {
   const showNavBar = useRecoilValue(navBar);
@@ -52,10 +53,10 @@ function App() {
         {/*  라우터에 영향을 받지않는 컴포넌트들*/}
         <Routes>
           <Route path='/splash' element={<SplashPage />} />
+          <Route path='/error' element={<ErrorPage />} />
         </Routes>
         <LayoutStyle>
           <Routes>
-            {/* <Route path='/*' element={<ErrorPage />} /> */}
             {/* <Route path='/' element={<SplashPage />} /> */}
             {/* <Route path='/*' element={<StartLoginPage />} /> */}
             <Route path='/' element={<MainPage />} />

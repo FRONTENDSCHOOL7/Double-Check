@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import React from 'react';
 import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
