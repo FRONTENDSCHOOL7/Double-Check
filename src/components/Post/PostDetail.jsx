@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,8 +10,9 @@ import LikeButton from 'components/Common/Button/likeButton';
 import Modal from 'components/Common/Modal/Modal';
 import { postDeleteAPI } from 'API/Post';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { likedState } from '../../Recoil/like';
+import { commentCount } from 'Recoil/CommnetCount';
 
 export default function PostDetail({
   authorInfo,
@@ -26,7 +28,19 @@ export default function PostDetail({
   const navigate = useNavigate();
   const { post_id } = useParams();
   const likedPosts = useRecoilValue(likedState);
+  const counts = useRecoilValue(commentCount);
+  const currentCount = counts[post_id] || 0;
   console.log(likedPosts);
+
+  const setCommentCounts = useSetRecoilState(commentCount);
+
+  // 댓글 추가 시 댓글 수 상태 업데이트
+  useEffect(() => {
+    setCommentCounts((prevCounts) => ({
+      ...prevCounts,
+      [post_id]: postInfo.commentCount,
+    }));
+  }, [postInfo.commentCount, setCommentCounts]);
 
   // {65462596b2cb205663d37692: true}
   function openModal() {
@@ -69,6 +83,7 @@ export default function PostDetail({
     }
   };
   console.log(postDetails);
+  console.log('댓글수:', postInfo.commentCount);
   return (
     <SMainPostDetail>
       <SPostarticle>
@@ -103,7 +118,7 @@ export default function PostDetail({
               <LikeButton postId={postid} liked={hearted} heartCount={heartCount}></LikeButton>
               <button>
                 <img src={comment} alt='댓글 버튼' />
-                <span>1</span>
+                <span>{currentCount}</span>
               </button>
             </SButtonGroup>
             <time dateTime={postInfo.createdAt}>
@@ -114,7 +129,7 @@ export default function PostDetail({
       </SPostarticle>
 
       <Modal
-        content='리뷰를 삭제하시겠습니까?'
+        content='해당 피드를 삭제하시겠습니까?'
         btnTxt='예'
         isVisible={showModal}
         onConfirm={handleDeletePost}
@@ -132,10 +147,11 @@ export default function PostDetail({
   );
 }
 const SMainPostDetail = styled.main`
-  min-height: calc(var(--vh, 1vh) * 100);
+  /* min-height: calc(var(--vh, 1vh) * 100); 
   display: flex;
   flex-direction: column;
-  position: relative;
+  position: relative; */
+  flex: 1;
 `;
 const SPostarticle = styled.article`
   display: flex;
