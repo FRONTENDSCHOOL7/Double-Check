@@ -11,7 +11,7 @@ import Topbar from 'components/Common/TopBar';
 import { navBar } from 'Recoil/Navbar';
 import imgBtn from 'assets/images/icon/icon-img.png';
 import { CategoryList } from 'components/Category';
-
+import ImageCheck from 'components/Common/ImageCheck';
 export default function SetMyInfo() {
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   const [isLogin, setIsLogin] = useRecoilState(loginCheck);
@@ -133,7 +133,10 @@ export default function SetMyInfo() {
     console.log(response);
     location.reload();
   };
-
+  const userImage = ImageCheck(
+    'https://api.mandarin.weniv.co.kr/' + profileData.user.image,
+    'profile',
+  );
   return (
     <>
       <Topbar centerEl='setprofile' />
@@ -143,10 +146,7 @@ export default function SetMyInfo() {
           <ProfileBox>
             <ImgInput>
               <ImageBox>
-                <Image
-                  src={'https://api.mandarin.weniv.co.kr/' + profileData.user.image}
-                  alt='프로필이미지'
-                />
+                <Image src={userImage} alt='프로필이미지' />
               </ImageBox>
               <ImgBtn src={imgBtn} alt='' onClick={handleImgBtnClick} />
             </ImgInput>

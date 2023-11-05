@@ -9,8 +9,12 @@ import LikeButton from 'components/Common/Button/likeButton';
 import Modal from 'components/Common/Modal/Modal';
 import { postDeleteAPI } from 'API/Post';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { likedState } from '../../Recoil/like';
+import userInfoState from 'Recoil/UserInfo';
+import { showToast } from 'Hooks/useCustomToast';
+// 게시물 신고 api
+import { reportPost } from 'API/post1';
 
 export default function PostDetail({
   authorInfo,
@@ -22,25 +26,21 @@ export default function PostDetail({
 }) {
   const [dateData, setDateData] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [ItemId, setItemId] = useState(null);
+  const userInfo = useRecoilState(userInfoState);
   const navigate = useNavigate();
   const { post_id } = useParams();
   const likedPosts = useRecoilValue(likedState);
+  console.log(ItemId);
   console.log(likedPosts);
-
-  // {65462596b2cb205663d37692: true}
-  function openModal() {
-    setIsModalOpen(true);
-  }
-
-  const navigateToEditPage = () => {
-    navigate(`/post/${post_id}/edit`);
-  };
-
-  function closeModal() {
-    setIsModalOpen(false);
-  }
-
+  // 내 계정이름
+  const accountname = userInfo[0].accountname;
+  console.log(accountname);
+  console.log(postDetails);
+  // 포스트 계정이름
+  console.log(authorInfo.accountname);
   useEffect(() => {
     setDateData(postInfo.createdAt);
   }, [postInfo.createdAt]);
@@ -49,15 +49,29 @@ export default function PostDetail({
   const month = new Date(dateData).getMonth() + 1;
   const day = new Date(dateData).getDate();
 
-  const regex = /(.*?)\(([^)]+)\)/;
-  const matches = regex.exec(postDetails.title);
+  // 책 제목 ()있으면 잘라냄
+  let postDetailstitle = postDetails.title || ''; // 기본값으로 빈 문자열을 사용
+  postDetailstitle = postDetailstitle.replace(/\([^)]*\)/g, '');
 
-  let title1 = '';
-  let title2 = '';
-  if (matches) {
-    title1 += matches[1].trim();
-    title2 += matches[2];
+  // 책 저자 ^ 를 쉼표로 바꿈
+  let postDetailsauthor = '';
+
+  if (postDetails && typeof postDetails.author === 'string') {
+    postDetailsauthor = postDetails.author.replace(/\^/g, ',');
   }
+
+  const navigateToEditPage = () => {
+    navigate(`/post/${post_id}/edit`);
+  };
+
+  const handleOpenDeleteModal = () => {
+    setShowDeleteModal(true);
+    setIsModalOpen(false);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
 
   const handleDeletePost = async () => {
     try {
@@ -65,10 +79,30 @@ export default function PostDetail({
       console.log('Deleted');
       navigate(`/post`);
     } catch (error) {
-      console.error('Delete error:', error);
+      console.error('개시물 삭제를 실패했습니다:', error);
     }
   };
-  console.log(postDetails);
+  // 게시물 신고 api
+  const handleReport = async () => {
+    setShowReportModal(false);
+    try {
+      const res = await reportPost({ postId: ItemId });
+      showToast('해당 게시글이 신고되었습니다.');
+      console.log(res);
+    } catch (error) {
+      showToast('게시글 신고에 실패했습니다. ');
+    }
+  };
+  const handleShowMoreClick = () => {
+    // 로그인된 계정이름과 포스트 계정이름을 비교함
+    if (accountname === authorInfo.accountname) {
+      setIsModalOpen(true);
+    } else {
+      setItemId(post_id); // 현재 id 설정
+      setShowReportModal(true);
+    }
+  };
+
   return (
     <SMainPostDetail>
       <SPostarticle>
@@ -77,24 +111,22 @@ export default function PostDetail({
         </Link>
         <div>
           <SPostHeader>
-            <SLink to={`/book/9791169661393`}>
+            <SLink to={`/profile/${authorInfo.accountname}`}>
               <span>{authorInfo.username}</span>
               <span>{authorInfo.accountname}</span>
             </SLink>
-            <SShowMore onClick={openModal}>
+            <SShowMore onClick={handleShowMoreClick}>
               <img src={showMore} alt='더보기 버튼' />
             </SShowMore>
           </SPostHeader>
           <SPostSection>
             <pre>{postDetails.review}</pre>
-            <SBookImgLink to={`/profile/${authorInfo.accountname}`}>
+            {/* 책 페이지로 이동  */}
+            <SBookImgLink to={`/book/${postDetails.isbn}`}>
               <SPostImg src={postDetails.image} alt='책 표지 이미지' />
               <div>
-                <span>
-                  {postDetails.title} {title1}
-                </span>
-                <span> {title2}</span>
-                <p>{postDetails.author}</p>
+                <span>{postDetailstitle}</span>
+                <p>{postDetailsauthor}</p>
               </div>
             </SBookImgLink>
           </SPostSection>
@@ -116,23 +148,33 @@ export default function PostDetail({
       <Modal
         content='리뷰를 삭제하시겠습니까?'
         btnTxt='예'
-        isVisible={showModal}
+        isVisible={showDeleteModal}
         onConfirm={handleDeletePost}
-        onCancel={() => setShowModal(false)}
+        onCancel={handleCloseDeleteModal}
       />
+
       {isModalOpen && (
         <ModalButton
           itemId={postid}
           text={['수정', '삭제']}
-          onClick={[navigateToEditPage, () => setShowModal(true)]}
-          onCancel={closeModal}
+          onClick={[navigateToEditPage, handleOpenDeleteModal]}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      )}
+
+      {showReportModal && (
+        <Modal
+          content={'해당 리뷰를 신고하시겠습니까?'}
+          btnTxt='예'
+          isVisible={showReportModal}
+          onConfirm={handleReport}
+          onCancel={() => setShowReportModal(false)}
         />
       )}
     </SMainPostDetail>
   );
 }
 const SMainPostDetail = styled.main`
-  min-height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   position: relative;
