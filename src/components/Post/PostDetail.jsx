@@ -90,10 +90,6 @@ export default function PostDetail({
     postDetailsauthor = postDetails.author.replace(/\^/g, ',');
   }
 
-  const navigateToEditPage = () => {
-    navigate(`/post/${post_id}/edit`);
-  };
-
   const handleOpenDeleteModal = () => {
     setShowDeleteModal(true);
     setIsModalOpen(false);
