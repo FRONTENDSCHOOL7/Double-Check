@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { postDetailsState, postDetailUser, postDetailInfo } from '../../Recoil/PostDetail';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import Topbar from 'components/Common/Topbar/Topbar';
-
+import { loginCheck } from 'Recoil/LoginCheck';
 import PostDetail from 'components/Post/PostDetail';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import Comments from 'components/Comment/Comments';
@@ -18,8 +18,9 @@ export default function PostDetailPage() {
   const [postInfo, setPostInfo] = useRecoilState(postDetailInfo);
   const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
   const [currentItemId, setCurrentItemId] = useState(null);
+  const [, setLoginCheck] = useRecoilState(loginCheck);
   const navigate = useNavigate();
-
+  console.log(postDetailInfo);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,6 +31,7 @@ export default function PostDetailPage() {
           title: content.title,
           author: content.author,
           review: content.review,
+          isbn: content.isbn,
           image: response.post.image,
         });
 
@@ -60,8 +62,12 @@ export default function PostDetailPage() {
     setShowEditDeleteModal(false);
   };
 
+  // 로그아웃
   const navigateToLoginPage = () => {
-    navigate('loginpage');
+    localStorage.removeItem('token');
+    localStorage.removeItem('recoil-persist');
+    setLoginCheck(false);
+    navigate('/');
   };
   const navigateToProfilePage = () => {
     navigate('/setmyinfo');
@@ -91,7 +97,7 @@ export default function PostDetailPage() {
         <ModalButton
           itemId={currentItemId}
           text={['설정 및 개인정보', '로그아웃']}
-          onClick={[navigateToProfilePage, () => navigateToLoginPage]}
+          onClick={[navigateToProfilePage, navigateToLoginPage]}
           onCancel={handleCancel}
           padding
         />
