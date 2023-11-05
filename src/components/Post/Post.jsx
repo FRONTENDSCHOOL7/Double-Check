@@ -24,16 +24,13 @@ export default function Post({ post, color }) {
   const [showModal, setShowModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
-  const { title, author, review } = post.parsedContent || {};
+  const { title, author, review, isbn } = post.parsedContent || {};
   const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
   const userId = localStorage.getItem('userId');
 
-  const showToast = useCustomToast();
   const [likedPosts, setLikedPosts] = useRecoilState(likedState);
-  console.log(likedPosts);
-  console.log(post.heartCount);
-
-
+  // console.log(likedPosts);
+  // console.log(post.heartCount);
 
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
@@ -61,6 +58,7 @@ export default function Post({ post, color }) {
     try {
       const response = await reportPost({ postId: currentItemId });
       showToast('해당 게시글이 신고되었습니다.');
+      console.log(response);
     } catch (error) {
       showToast('게시글 신고에 실패했습니다. ');
     }
@@ -82,7 +80,7 @@ export default function Post({ post, color }) {
       <SPostSection>
         {/* <h2>{contentJson.title}</h2>
                   <span>{contentJson.author}</span> */}
-        <Link to={`/post/${post._id}`}>
+        <Link to={`/post/${post._id}`} state={isbn}>
           <SImgWrapper color={color}>
             <SPostImg src={post.image} alt='책 표지 이미지' />
           </SImgWrapper>
