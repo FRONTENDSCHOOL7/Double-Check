@@ -199,6 +199,7 @@ export default function SetMyInfo() {
 }
 
 const Textarea = styled.textarea`
+  font-family: Pretendard-Regular;
   width: 100%;
   height: 6.25em;
   border: none;
@@ -240,6 +241,7 @@ const Button = styled.button`
 `;
 
 const ButtonDiv = styled.div`
+  font-family: Pretendard-Regular;
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -269,23 +271,13 @@ const InputFile = styled.div`
 
 const Label = styled.label`
   color: #000;
-  font-family: Inter;
+  font-family: Pretendard-Regular;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   text-transform: capitalize;
   margin-bottom: 20px;
-`;
-
-// const InputBox = styled.input`
-//   height: 40px;
-//   border: 1px solid #d2d8fa;
-// `;
-const IntroBox = styled.input`
-  height: 40px;
-  border: 1px solid #d2d8fa;
-  border-radius: 10px;
 `;
 
 const InputBoxFile = styled.input`
