@@ -17,7 +17,7 @@ export default function SetMyInfo() {
   const [isLogin, setIsLogin] = useRecoilState(loginCheck);
   const [token, setToken] = useRecoilState(loginToken);
   const [profileImage, setProfileImage] = useState('');
-  const [categories, setCategories] = useState(Array(3).fill(''));
+  const [categories, setCategories] = useState([]);
   const isFirstRender = useRef(true); // 랜더링 컨트롤
   const [intro, setIntro] = useState('');
   const [profileData, setProfileData] = useState({
@@ -102,11 +102,11 @@ export default function SetMyInfo() {
       if (categories.length < maxCategories) {
         setCategories([...categories, category]);
       } else {
-        return;
+        alert('최대 개수에 도달했습니다.');
       }
     }
     handleIntroChange();
-    isFirstRender.current = true;
+    isFirstRender.current = false;
   };
 
   const handleIntroChange = (e) => {
@@ -160,7 +160,7 @@ export default function SetMyInfo() {
                 onChange={handleImageChange} // 이미지 변경 처리
               />
             </InputFile>
-            <Label>카테고리(최대 3개)</Label>
+            <Label>카테고리</Label>
             <CategoryDiv>
               <CategoryList
                 categories={categoriesArr}
@@ -176,12 +176,11 @@ export default function SetMyInfo() {
                   profileData.user.intro &&
                   typeof profileData.user.intro === 'string' &&
                   profileData.user.intro.includes('@cc@')
-                    ? profileData.user.intro.split('@cc@')[0] + '(30자 이내로 입력해 주세요)'
-                    : profileData.user.intro || '' + '(30자 이내로 입력해 주세요)'
+                    ? profileData.user.intro.split('@cc@')[0]
+                    : profileData.user.intro || ''
                 }
                 id='intro'
                 name='intro'
-                maxLength='30'
                 value={intro || ''}
                 onChange={handleIntroChange}
               />
@@ -199,7 +198,6 @@ export default function SetMyInfo() {
 }
 
 const Textarea = styled.textarea`
-  font-family: Pretendard-Regular;
   width: 100%;
   height: 6.25em;
   border: none;
@@ -241,7 +239,6 @@ const Button = styled.button`
 `;
 
 const ButtonDiv = styled.div`
-  font-family: Pretendard-Regular;
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -271,13 +268,23 @@ const InputFile = styled.div`
 
 const Label = styled.label`
   color: #000;
-  font-family: Pretendard-Regular;
+  font-family: Inter;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   text-transform: capitalize;
   margin-bottom: 20px;
+`;
+
+// const InputBox = styled.input`
+//   height: 40px;
+//   border: 1px solid #d2d8fa;
+// `;
+const IntroBox = styled.input`
+  height: 40px;
+  border: 1px solid #d2d8fa;
+  border-radius: 10px;
 `;
 
 const InputBoxFile = styled.input`

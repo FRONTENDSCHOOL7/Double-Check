@@ -1,4 +1,6 @@
+import { useMutation, useQueryClient } from 'react-query';
 import { authInstance } from './Instance';
+import { showToast } from 'Hooks/useCustomToast';
 
 //게시글 작성
 export const postUploadAPI = async (postData) => {
@@ -53,4 +55,15 @@ export const postDeleteAPI = async (id, token) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const useDeletePost = (postId) => {
+  const queryClient = useQueryClient();
+  const { mutate: deletePostMutate } = useMutation(() => postDeleteAPI(postId), {
+    onSuccess: () => {
+      showToast('피드가 삭제되었습니다.');
+      queryClient.invalidateQueries('posts');
+    },
+  });
+  return { deletePostMutate };
 };

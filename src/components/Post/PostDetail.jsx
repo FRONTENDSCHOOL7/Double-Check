@@ -54,10 +54,6 @@ export default function PostDetail({
     setIsModalOpen(true);
   }
 
-  const navigateToEditPage = () => {
-    navigate(`/post/${post_id}/edit`);
-  };
-
   function closeModal() {
     setIsModalOpen(false);
   }
@@ -90,6 +86,10 @@ export default function PostDetail({
     postDetailsauthor = postDetails.author.replace(/\^/g, ',');
   }
 
+  const navigateToEditPage = () => {
+    navigate(`/post/${post_id}/edit`);
+  };
+
   const handleOpenDeleteModal = () => {
     setShowDeleteModal(true);
     setIsModalOpen(false);
@@ -105,7 +105,7 @@ export default function PostDetail({
       console.log('Deleted');
       navigate(`/post`);
     } catch (error) {
-      console.error('개시물 삭제를 실패했습니다:', error);
+      console.error('피드 삭제를 실패했습니다:', error);
     }
   };
 
@@ -114,10 +114,10 @@ export default function PostDetail({
     setShowReportModal(false);
     try {
       const res = await reportPost({ postId: ItemId });
-      showToast('해당 게시글이 신고되었습니다.');
+      showToast('해당 피드가 신고되었습니다.');
       console.log(res);
     } catch (error) {
-      showToast('게시글 신고에 실패했습니다. ');
+      showToast('피드 신고에 실패했습니다. ');
     }
   };
   const handleShowMoreClick = () => {
@@ -191,7 +191,7 @@ export default function PostDetail({
 
       {showReportModal && (
         <Modal
-          content={'해당 리뷰를 신고하시겠습니까?'}
+          content={'해당 피드를 신고하시겠습니까?'}
           btnTxt='예'
           isVisible={showReportModal}
           onConfirm={handleReport}
@@ -204,7 +204,7 @@ export default function PostDetail({
 const SMainPostDetail = styled.main`
   display: flex;
   flex-direction: column;
-  position: relative; */
+  position: relative;
   flex: 1;
 `;
 const SPostarticle = styled.article`
@@ -331,7 +331,7 @@ const SButtonGroup = styled.div`
     -webkit-box-align: center;
     align-items: center;
     font-size: var(--font-xs-size);
-    color: var(--gray-400);
+    color: var(--gray-500);
   }
 `;
 

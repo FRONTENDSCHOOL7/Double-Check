@@ -16,11 +16,16 @@ import { useNavigate } from 'react-router-dom';
 // import { setProfile } from 'API/Profile';
 // import accountname from '../../Recoil/Accountname';
 import { useRecoilValue } from 'recoil';
-commentCount;
 import { likedState } from '../../Recoil/like';
 import LikeButton from 'components/Common/Button/likeButton';
 import { commentCount } from 'Recoil/CommnetCount';
+<<<<<<< HEAD:src/components/Post/PostItem.jsx
+import { postDeleteAPI, useDeletePost } from 'API/Post';
+import { postDetailsState } from 'Recoil/PostDetail';
+postDetailsState;
+=======
 import { postDeleteAPI } from 'API/Post';
+>>>>>>> 7b42b42d2f822a942aab4ecff87927473d75b27d:src/components/Post/Post.jsx
 
 export default function PostItem({ post, color }) {
   const timeSincePosted = useTimeSince(post.createdAt);
@@ -36,6 +41,10 @@ export default function PostItem({ post, color }) {
   const navigate = useNavigate();
   // console.log(likedPosts);
   // console.log(post.heartCount);
+<<<<<<< HEAD:src/components/Post/PostItem.jsx
+  const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
+=======
+>>>>>>> 7b42b42d2f822a942aab4ecff87927473d75b27d:src/components/Post/Post.jsx
 
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
@@ -47,7 +56,24 @@ export default function PostItem({ post, color }) {
   };
 
   const navigateToEditPage = () => {
+<<<<<<< HEAD:src/components/Post/PostItem.jsx
+    if (post && post._id) {
+      const { title, author, review, isbn } = post.parsedContent || post;
+      setPostDetails((currentDetails) => ({
+        ...currentDetails,
+        title,
+        author: author?.name || author,
+        review,
+        isbn,
+      }));
+
+      navigate(`/post/${post._id}/edit`);
+    } else {
+      showToast('게시글 정보를 불러올 수 없습니다.');
+    }
+=======
     navigate(`/post/${post._id}/edit`);
+>>>>>>> 7b42b42d2f822a942aab4ecff87927473d75b27d:src/components/Post/Post.jsx
   };
 
   const confirmDeleteReport = async () => {
@@ -55,6 +81,27 @@ export default function PostItem({ post, color }) {
     setShowDeleteModal(true);
   };
 
+<<<<<<< HEAD:src/components/Post/PostItem.jsx
+  const { deletePostMutate } = useDeletePost(post._id);
+
+  const handleDelete = () => {
+    deletePostMutate(post._id);
+    setShowDeleteModal(false);
+  };
+
+  // const confirmDelete = async () => {
+  //   try {
+  //     await postDeleteAPI(currentItemId);
+  //     showToast('피드가 삭제되었습니다.');
+  //     setShowDeleteModal(false);
+  //     navigate('/post');
+  //   } catch (error) {
+  //     showToast('피드 삭제에 실패했습니다.');
+  //     setShowDeleteModal(false);
+  //   }
+  // };
+
+=======
   const confirmDelete = async () => {
     try {
       await postDeleteAPI(currentItemId);
@@ -67,6 +114,7 @@ export default function PostItem({ post, color }) {
     }
   };
 
+>>>>>>> 7b42b42d2f822a942aab4ecff87927473d75b27d:src/components/Post/Post.jsx
   const handleCancel = () => {
     setShowModal(false);
     setShowReportModal(false);
@@ -135,7 +183,11 @@ export default function PostItem({ post, color }) {
           itemId={currentItemId}
           text={['피드 수정', '피드 삭제']}
           onClick={[navigateToEditPage, confirmDeleteReport]}
+<<<<<<< HEAD:src/components/Post/PostItem.jsx
+          onCancel={() => setShowEditDeleteModal(false)}
+=======
           onCancel={() => setShowDeleteModal(false)}
+>>>>>>> 7b42b42d2f822a942aab4ecff87927473d75b27d:src/components/Post/Post.jsx
         />
       )}
       {showReportModal && (
@@ -160,7 +212,11 @@ export default function PostItem({ post, color }) {
           content={'해당 피드를 삭제하시겠습니까?'}
           btnTxt='예'
           isVisible={showDeleteModal}
+<<<<<<< HEAD:src/components/Post/PostItem.jsx
+          onConfirm={handleDelete}
+=======
           onConfirm={confirmDelete}
+>>>>>>> 7b42b42d2f822a942aab4ecff87927473d75b27d:src/components/Post/Post.jsx
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
@@ -277,7 +333,7 @@ const SShowMore = styled.button`
 const SImgWrapper = styled.div`
   position: relative;
   border-radius: 4px;
-  height: 212px;
+  height: 261px;
   background: ${(props) =>
     Array.isArray(props.color)
       ? `linear-gradient(${props.color[0]}, ${props.color[1]})`
