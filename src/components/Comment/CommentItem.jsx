@@ -22,10 +22,10 @@ const CommentItem = ({ comment, postId }) => {
   const { deleteCommentMutate } = useDeleteComment(postId, {
     onSuccessExtra: () => {
       setCommentCount((prevCounts) => {
-        // 현재 포스트의 댓글 수를 확인하고, 만약 없다면 0으로 시작합니다.
+        // 현재 포스트의 댓글 수를 확인하고, 만약 없다면 0으로 시작
         const currentCount = prevCounts[postId] || 0;
 
-        // 댓글 수를 하나 줄이되, 0 미만으로 내려가지 않도록 Math.max를 사용합니다.
+        // 댓글 수를 하나 줄이되, 0 미만으로 내려가지 않도록 Math.max를 사용
         const newCount = Math.max(currentCount - 1, 0);
         const newCounts = {
           ...prevCounts,
@@ -128,6 +128,7 @@ const SCommentWrap = styled.section``;
 const SCommentContent = styled.p`
   font-family: 'Pretendard-regular', sans-serif;
   margin: 0 22px 10px 49px;
+  line-height: 1.2;
 `;
 
 const STime = styled.span`
