@@ -28,7 +28,7 @@ export default function HamSideNoLogin() {
     setSidebarOpen(false);
   };
   return (
-    <>
+    <Container>
       <GiHamburgerMenu onClick={toggleSidebar} />
 
       {isSidebarOpen && (
@@ -43,11 +43,16 @@ export default function HamSideNoLogin() {
           </Sidebar>
         </>
       )}
-    </>
+    </Container>
   );
 }
 
 // 스타일
+
+const Container = styled.div`
+  font-family: Arial, sans-serif;
+  position: relative;
+`;
 
 // const SButton = styled.button`
 //   width: 25px;
