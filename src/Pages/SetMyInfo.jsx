@@ -102,19 +102,11 @@ export default function SetMyInfo() {
       if (categories.length < maxCategories) {
         setCategories([...categories, category]);
       } else {
-        const updatedIntro = intro + (categories.length > 0 ? '@cc@' + categories.join(',') : '');
-        setProfileData((prevProfileData) => ({
-          ...prevProfileData,
-          user: {
-            ...prevProfileData.user,
-            intro: updatedIntro,
-          },
-        }));
         return;
       }
     }
     handleIntroChange();
-    isFirstRender.current = false;
+    isFirstRender.current = true;
   };
 
   const handleIntroChange = (e) => {
