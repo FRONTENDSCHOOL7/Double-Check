@@ -47,7 +47,7 @@ export default function HamSideYesLogin() {
     // 사이드바 닫기
     setSidebarOpen(false);
     // 사용자를 홈으로 리디렉션
-    navigate('/');
+    location.reload(navigate('/'));
   };
 
   // 토글 메뉴에 meneitems props로 전달하기
