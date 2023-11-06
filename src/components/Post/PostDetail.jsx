@@ -8,15 +8,13 @@ import comment from '../../assets/images/icon/icon-comment.svg';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import LikeButton from 'components/Common/Button/likeButton';
 import Modal from 'components/Common/Modal/Modal';
-import { postDeleteAPI } from 'API/Post';
+import { postDeleteAPI, reportPost } from 'API/Post';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { likedState } from '../../Recoil/like';
 import { commentCount } from 'Recoil/CommnetCount';
 import userInfoState from 'Recoil/UserInfo';
 import { showToast } from 'Hooks/useCustomToast';
-// 게시물 신고 api
-import { reportPost } from 'API/post1';
 
 export default function PostDetail({
   authorInfo,
