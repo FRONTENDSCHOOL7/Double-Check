@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import 'react-loading-skeleton/dist/skeleton.css';
 export default function BookSlideItem({ title, author, cover, desc }) {
   return (
     <SDiv>

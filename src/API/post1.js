@@ -40,6 +40,7 @@ export const useInfinitePosts = () => {
     data: posts,
     fetchNextPage: fetchNextPosts,
     hasNexPage: hasNextPosts,
+    isLoading: isLoadingPosts,
   } = useInfiniteQuery({
     queryKey: 'posts',
     queryFn: async ({ pageParam = 0 }) => {
@@ -58,7 +59,7 @@ export const useInfinitePosts = () => {
     },
   });
 
-  return { posts, allPosts, fetchNextPosts, hasNextPosts };
+  return { posts, allPosts, fetchNextPosts, hasNextPosts, isLoadingPosts };
 };
 
 // 유저별 게시글
@@ -69,6 +70,7 @@ export const useGetInfiniteUserPosts = (accountname) => {
     data: userposts,
     fetchNextPage: fetchNextUserPosts,
     hasNextPage: hasNextUserPosts,
+    isLoading: isLoadingUserPosts,
   } = useInfiniteQuery({
     queryKey: ['userposts', accountname],
     queryFn: async ({ pageParam = 0 }) => {
@@ -80,7 +82,7 @@ export const useGetInfiniteUserPosts = (accountname) => {
     },
   });
 
-  return { userposts, allUserPosts, fetchNextUserPosts, hasNextUserPosts };
+  return { userposts, allUserPosts, fetchNextUserPosts, hasNextUserPosts, isLoadingUserPosts };
 };
 
 // 팔로잉 게시글
@@ -90,6 +92,7 @@ export const useGetInfiniteFollowingPosts = () => {
     data: followingPosts,
     fetchNextPage: fetchNextPosts,
     hasNexPage: hasNextPosts,
+    isLoading: isLoadingFollowingPosts,
   } = useInfiniteQuery({
     queryKey: 'followingPosts',
     queryFn: async ({ pageParam = 0 }) => {
@@ -103,5 +106,11 @@ export const useGetInfiniteFollowingPosts = () => {
     },
   });
 
-  return { followingPosts, allFollowingPosts, fetchNextPosts, hasNextPosts };
+  return {
+    followingPosts,
+    allFollowingPosts,
+    fetchNextPosts,
+    hasNextPosts,
+    isLoadingFollowingPosts,
+  };
 };

@@ -17,10 +17,14 @@ const colors = [
 
 export default function PostMain() {
   const navigate = useNavigate();
-  const { allPosts } = useInfinitePosts();
+  const { allPosts, isLoadingPosts } = useInfinitePosts();
 
-  const { allFollowingPosts } = useGetInfiniteFollowingPosts();
+  const { allFollowingPosts, isLoadingFollowingPosts } = useGetInfiniteFollowingPosts();
   console.log(allFollowingPosts);
+  if (isLoadingPosts || isLoadingFollowingPosts) {
+    // Display a loading spinner or message while data is loading
+    return <div>로딩 중...</div>;
+  }
 
   const validPosts = allPosts.filter((post) => {
     if (typeof post.content !== 'string') {
