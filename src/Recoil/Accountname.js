@@ -4,7 +4,7 @@ import { recoilPersist } from 'recoil-persist';
 const { persistAtom } = recoilPersist();
 
 const accountname = atom({
-  key: 'accountname',
+  key: 'accountnameState',
   default: '',
   effects_UNSTABLE: [persistAtom],
 });
