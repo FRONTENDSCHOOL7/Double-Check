@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ImageCheck from 'components/Common/ImageCheck';
 import { profileAPI } from 'API/Profile';
+import { useNavigate } from 'react-router-dom';
 // import showMore from '../../assets/images/icon/show-more-y.svg';
 
-export default function MyProfile() {
+export default function MyProfile({ onShowFollowers, onShowFollowings, activeButton }) {
   const [profile, setProfile] = useState({
     username: '',
     imageUrl: '',
@@ -64,7 +65,6 @@ export default function MyProfile() {
     try {
       const token = localStorage.getItem('token'); // token을 localStorage에서 가져옵니다.
       const response = await profileAPI(token); // profileAPI 함수가 정의되어 있어야 합니다.
-      console.log(response);
       setProfileData(response); // setProfileData 함수가 정의되어 있어야 합니다.
 
       // intro가 있는지 확인하고, 있으면 처리합니다.
@@ -90,11 +90,20 @@ export default function MyProfile() {
       getMyProfile();
     }
   }, []);
-  console.log(categories);
+
+  // 프로필설정하러가기 버튼 클릭시 프로필설정하는곳으로 네비게이션
+  const Navigate = useNavigate();
+  const navigateToSetMyInfo = () => {
+    Navigate('/setmyinfo');
+  };
+
   return (
     <div>
       <ProfileContainer>
-        <ProfileFollow>
+        <ProfileFollow
+          onClick={onShowFollowers}
+          className={activeButton === 'followers' ? 'active' : ''}
+        >
           <p>{profile.followerCount}</p>
           <p>팔로워</p>
         </ProfileFollow>
@@ -102,12 +111,15 @@ export default function MyProfile() {
           <ProfileImage src={userImage} alt='Profile' />
           <ProfileName>{profile.username} 님</ProfileName>
         </ProfileDetails>
-        <ProfileFollow>
+        <ProfileFollow
+          onClick={onShowFollowings}
+          className={activeButton === 'followings' ? 'active' : ''}
+        >
           <p>{profile.followingCount}</p>
           <p>팔로잉</p>
         </ProfileFollow>
       </ProfileContainer>
-      <ProfileSetButton>
+      <ProfileSetSection>
         <IntroWrapper>
           <TopBox />
           <Intro>소개</Intro>
@@ -120,10 +132,8 @@ export default function MyProfile() {
           </CategoryUl>
           <IntroExplain>{intro}</IntroExplain>
         </CateIntroWrapper>
-      </ProfileSetButton>
-      <ProfileReview>
-        <p>여기에 피드 받아오기</p>
-      </ProfileReview>
+        <ProfileSetBtn onClick={navigateToSetMyInfo}>프로필 설정하기</ProfileSetBtn>
+      </ProfileSetSection>
     </div>
   );
 }
@@ -138,9 +148,17 @@ const ProfileFollow = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
   gap: 5px;
   margin-top: 70px;
   font-size: var(--font-xs-size);
+  &.active {
+    // 기타 활성화 상태에 필요한 스타일
+    color: var(--dark-purple);
+    border-top: 5px solid var(--dark-purple);
+    border-radius: 3px;
+    padding-top: 5px;
+  }
 `;
 
 const ProfileDetails = styled.div`
@@ -159,7 +177,7 @@ const ProfileName = styled.div`
   text-align: center;
 `;
 
-const ProfileSetButton = styled.button`
+const ProfileSetSection = styled.section`
   width: 345px;
   margin: 40px auto 0;
   display: block;
@@ -168,13 +186,10 @@ const ProfileSetButton = styled.button`
   border: none;
   border-radius: 20px;
   text-align: left;
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 28px;
-`;
-
-const ProfileReview = styled.div`
-  margin-top: 20px;
 `;
 
 const TopBox = styled.div`
@@ -198,7 +213,9 @@ const Intro = styled.p`
 const CateIntroWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+  padding-bottom: 10px;
+  width: 245px; // intro 내용이 너무 길 때 숨김처리를 위한 너비값
 `;
 
 const CategoryUl = styled.ul`
@@ -211,8 +228,28 @@ const CategoryLi = styled.li`
   background-color: var(--white);
   padding: 2px 10px;
   border-radius: 10px;
+  font-size: var(--font-xxs-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const IntroExplain = styled.p`
   padding-bottom: 10px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: 33px;
+  line-height: 1.1;
+`;
+
+const ProfileSetBtn = styled.button`
+  position: absolute; /* 부모인 .profileSetSection에 대해 절대 위치 */
+  right: 0; /* 오른쪽 하단 정렬을 위해 오른쪽을 0으로 설정 */
+  bottom: 0; /* 오른쪽 하단 정렬을 위해 하단을 0으로 설정 */
+  margin: 10px 15px; /* 조금의 간격을 주기 위해 마진 설정 */
 `;

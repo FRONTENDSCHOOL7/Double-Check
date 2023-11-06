@@ -31,6 +31,7 @@ import OthersPage from 'Pages/OthersPage';
 // import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
 import MyProfilePage from 'Pages/MyProfilePage';
+import SetMyInfo from 'Pages/SetMyInfo';
 
 function App() {
   const showNavBar = useRecoilValue(navBar);
@@ -66,6 +67,7 @@ function App() {
             <Route path='/search' element={<SearchPage />} />
             <Route path='/post' element={<PostMain />} />
             <Route path='/myprofile' element={<MyProfilePage />} />
+            <Route path='/setmyinfo' element={<SetMyInfo />} />
             <Route path='/profile/:accountname/' element={<UserPost />} />
             <Route path='/post/:post_id' element={<PostDetailPage />} />
             <Route path='/post/:post_id/edit' element={<PostEditPage />} />
