@@ -32,16 +32,11 @@ import { navBar } from './Recoil/Navbar';
 
 import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
-
-import MyProfilePage from 'Pages/MyProfilePage';
-import SetMyInfo from 'Pages/SetMyInfo';
 import SplashPage from 'Pages/SplashPage';
 import ErrorPage from 'Pages/ErrorPage';
-import loginToken from 'Recoil/LoginToken';
-import Modal from 'components/Common/Modal/Modal';
 import PostDetail from 'components/Post/PostDetail';
 import PhraseEdit from 'Pages/Phrase/PhraseUpload';
-import RouteModal from 'components/Common/\bProtectedRoute/RouteModal';
+import RouteModal from 'components/Common/ProtectedRoute/RouteModal';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -76,7 +71,6 @@ function App() {
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
-            <Route path='/myprofile' element={<MyProfilePage />} />
             <Route
               path='/search'
               element={
