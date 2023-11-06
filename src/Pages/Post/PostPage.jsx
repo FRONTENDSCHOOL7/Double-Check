@@ -15,8 +15,9 @@ export default function PostPage() {
   const bookData = location.state;
   const [review, setReview] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
 
-  console.log(bookData.isbn);
+  // console.log(bookData.isbn);
   const confirmUpload = (e) => {
     e.preventDefault();
     console.log('confirmUpload 함수 실행');
@@ -28,6 +29,7 @@ export default function PostPage() {
       setShowModal(true);
     }
   };
+
   // 내가 작성할 리뷰 정보
   const postData = {
     title: bookData.title,
@@ -64,11 +66,18 @@ export default function PostPage() {
       textareaRef.current.focus();
     }
   }, []);
-
+  const handleLeavePage = () => {
+    navigate(-1);
+  };
+  const onLeaveClick = () => {
+    setShowLeaveModal(true);
+  };
   return (
     <>
       <Topbar
         title
+        executeLeveaOnClick={true}
+        onLeaveClick={onLeaveClick}
         rightButton={
           <Button
             category='basic'
@@ -98,13 +107,13 @@ export default function PostPage() {
           onConfirm={handlePostUpload}
           onCancel={() => setShowModal(false)}
         />
-        {/* <Modal
-          content='리뷰를 등록을 취소하시겠습니까?'
+        <Modal
+          content='등록을 취소하시겠습니까?'
           btnTxt='예'
-          isVisible={showModal}
+          isVisible={showLeaveModal}
           onConfirm={handleLeavePage}
-          onCancel={() => setShowModal(false)}
-        /> */}
+          onCancel={() => setShowLeaveModal(false)}
+        />
       </SPostContainer>
     </>
   );

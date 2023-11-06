@@ -83,7 +83,7 @@ export default function FollowerList() {
     }
   }, [accountname]); // accountname이 변경될 때마다 팔로워 목록을 가져오는 effect가 실행됩니다.
 
-  if (loading) return <Loding>Loading...</Loding>;
+  if (loading) return <Loding>불러오는 중..</Loding>;
   if (error) return <div>Error: {error}</div>;
 
   // 사용자 프로필로 이동하는 함수

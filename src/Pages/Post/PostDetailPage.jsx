@@ -74,7 +74,7 @@ export default function PostDetailPage() {
     localStorage.removeItem('token');
     localStorage.removeItem('recoil-persist');
     setLoginCheck(false);
-    navigate('/');
+    navigate('/main');
   };
 
   const navigateToEditPage = () => {

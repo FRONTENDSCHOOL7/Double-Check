@@ -28,11 +28,11 @@ const Container = styled.div`
 const BackGround = styled.div`
   position: fixed;
   top: -50px;
-  width: 390px; // 원하는 너비로 설정하세요.
-  height: 300px; // 원하는 높이로 설정하세요.
-  background-image: url(${bg}); // 배경 이미지를 적용합니다.
+  width: 390px;
+  height: 300px;
+  background-image: url(${bg});
   background-size: cover;
-  margin-bottom: 50px; // 필요한 경우 마진을 조정하세요.
+  margin-bottom: 50px;
 `;
 
 const Icon = styled.div`

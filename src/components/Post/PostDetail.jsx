@@ -123,6 +123,9 @@ export default function PostDetail({
       setShowReportModal(true);
     }
   };
+  const navigateToEditPage = () => {
+    navigate(`/post/${post_id}/edit`);
+  };
 
   return (
     <SMainPostDetail>

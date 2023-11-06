@@ -45,7 +45,7 @@ const CenterEl = ({ centerEl }) => {
   } else if (centerEl === 'home') {
     return (
       <h1>
-        <SLink home to='/'>
+        <SLink home to='/main'>
           <SDoblechaek />
         </SLink>
       </h1>

@@ -13,13 +13,14 @@ import ImageCheck from 'components/Common/ImageCheck';
 import Modal from 'components/Common/Modal/Modal';
 import { Link } from 'react-router-dom';
 import userInfoState from 'Recoil/UserInfo';
+import Topbar from '../TopBar';
 export default function HamSideYesLogin() {
   // 햄버거버튼 열기 false -> true = opensidebar
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [, setLoginCheck] = useRecoilState(loginCheck);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isMarginAdded, setIsMarginAdded] = useState(false);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   // 햄버거 버튼 눌렀을 때 사이드바 열기 핸들링
   const toggleSidebar = () => {
@@ -47,7 +48,7 @@ export default function HamSideYesLogin() {
     // 사이드바 닫기
     setSidebarOpen(false);
     // 사용자를 홈으로 리디렉션
-    location.reload(navigate('/'));
+    location.reload(navigate('/main'));
   };
 
   // 토글 메뉴에 meneitems props로 전달하기
@@ -70,13 +71,12 @@ export default function HamSideYesLogin() {
     }
   }, []);
 
-  // Function to open the modal
   function openModal() {
+    setIsMarginAdded(true);
     setIsModalOpen(true);
     setSidebarOpen(false);
   }
 
-  // Function to close the modal
   function closeModal() {
     setIsModalOpen(false);
   }
@@ -113,7 +113,7 @@ export default function HamSideYesLogin() {
     }
   };
   console.log(userInfo);
-  // userInfo가 있으면 이미지를 ImageCheck를 통해 검사하고, 그 결과를 사용합니다.
+
   const userImage = userInfo ? ImageCheck(userInfo.image, 'profile') : null;
   return (
     <>
@@ -123,7 +123,10 @@ export default function HamSideYesLogin() {
         </SButton>
         {isSidebarOpen && (
           <>
-            <SideBarBackDrop onClick={sidebarClose} />
+            <SideBarBackDrop
+              onClick={sidebarClose}
+              style={{ margin: isMarginAdded ? '-16px' : '0' }}
+            />
             <Sidebar isOpen={isSidebarOpen}>
               <Logo src={logo} alt='logo' />
               <MyAccount to='/setmyinfo'>
@@ -162,7 +165,12 @@ export default function HamSideYesLogin() {
   );
 }
 
+const SideBarBackDrop = styled(ModalBackDrop)`
+  margin: 0px -16px;
+`;
+
 // 스타일
+
 const Container = styled.div`
   font-family: Arial, sans-serif;
   position: relative;
@@ -223,7 +231,7 @@ const UserImage = styled.img`
   width: 80px; // 이미지의 너비를 80px로 설정
   height: 80px; // 이미지의 높이를 80px로 설정
   border-radius: 50%; // 이미지를 원형으로 만듭니다
-  object-fit: cover; // 이미지 비율을 유지하면서 요소에 맞춥니다
+  object-fit: cover;
 `;
 
 const UserName = styled.p`
@@ -248,9 +256,4 @@ const StyledIcon = styled(BiLogOut)`
   && {
     font-size: 23px;
   }
-`;
-
-const SideBarBackDrop = styled(ModalBackDrop)`
-  transform: translateX(-50%);
-  left: 50%;
 `;

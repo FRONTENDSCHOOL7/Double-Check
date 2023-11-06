@@ -50,7 +50,7 @@ const PhraseUpdate = () => {
   };
 
   const handleGoToHome = () => {
-    navigate('/');
+    navigate('/main');
   };
 
   const confirmUpdate = (e) => {

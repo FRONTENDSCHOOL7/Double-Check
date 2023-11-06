@@ -80,7 +80,7 @@ export default function BookSlide({ title, dataType, desc, path }) {
         >
           {bookData.item.slice(0, 10).map((item) => (
             <BookSlideItem
-              key={item.id}
+              key={item.isbn13}
               title={item.title}
               author={item.author}
               cover={item.cover}
