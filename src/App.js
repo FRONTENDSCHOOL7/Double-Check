@@ -30,11 +30,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
 
-// import StartLoginPage from 'Pages/StartLoginPage';
+import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
 import SplashPage from 'Pages/SplashPage';
 import ErrorPage from 'Pages/ErrorPage';
-import StartLoginPage from 'Pages/StartLoginPage';
 import loginToken from 'Recoil/LoginToken';
 import Modal from 'components/Common/Modal/Modal';
 import PostDetail from 'components/Post/PostDetail';
@@ -66,7 +65,6 @@ function App() {
         {/*  라우터에 영향을 받지않는 컴포넌트들*/}
         <Routes>
           <Route path='/splash' element={<SplashPage />} />
-          <Route path='/error' element={<ErrorPage />} />
         </Routes>
         <LayoutStyle>
           <Routes>

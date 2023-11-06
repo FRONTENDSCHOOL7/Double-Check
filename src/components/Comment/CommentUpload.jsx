@@ -66,8 +66,9 @@ const CommentForm = styled.form`
 
 const CommentTextarea = styled(StyledTextarea)`
   width: 100%;
-  padding: 10px;
+  padding: 13px 20px;
   background-color: var(--gray-200);
+  line-height: 1;
   border: none;
   border-radius: 32px;
   height: 41px;
@@ -75,7 +76,7 @@ const CommentTextarea = styled(StyledTextarea)`
   font-size: var(--font-xs-size);
   &::placeholder {
     font-size: var(--font-xs-size);
-    padding: 0 7px;
+    /* padding: 0 8px; */
   }
   &::-webkit-scrollbar {
     display: none;
@@ -83,6 +84,7 @@ const CommentTextarea = styled(StyledTextarea)`
 `;
 
 const CommentButton = styled(StyledButton)`
-  border-radius: 11px;
   font-size: var(--font-xs-size);
+  font-family: 'Pretendard-SemiBold', sans-serif;
+  color: var(--gray-500);
 `;
