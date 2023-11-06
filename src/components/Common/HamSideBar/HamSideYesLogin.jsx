@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import logo from 'assets/images/doublechaeklogo.svg';
@@ -46,7 +47,7 @@ export default function HamSideYesLogin() {
     // 사이드바 닫기
     setSidebarOpen(false);
     // 사용자를 홈으로 리디렉션
-    navigate('/');
+    location.reload(navigate('/'));
   };
 
   // 토글 메뉴에 meneitems props로 전달하기
@@ -117,42 +118,39 @@ export default function HamSideYesLogin() {
   return (
     <>
       <>
-        <Container>
-          <SButton onClick={toggleSidebar}>
-            <GiHamburgerMenu />
-          </SButton>
-          {isSidebarOpen && (
-            <>
-              <SideBarBackDrop onClick={sidebarClose} />
-              <Sidebar isOpen={isSidebarOpen}>
-                <Logo src={logo} alt='logo' />
-                <MyAccount to='/setmyinfo'>
-                  {userInfo ? (
-                    <>
-                      <UserImage src={userImage} alt='userprofileimage' />
-                      <UserName>
-                        {userInfo.name}님<br /> 환영합니다!
-                      </UserName>
-                      {/* <p>{userInfo.id}</p> */}
-                    </>
-                  ) : (
-                    '계정 정보를 불러오는 중...'
-                  )}
-                </MyAccount>
+        <SButton onClick={toggleSidebar}>
+          <GiHamburgerMenu />
+        </SButton>
+        {isSidebarOpen && (
+          <>
+            <SideBarBackDrop onClick={sidebarClose} />
+            <Sidebar isOpen={isSidebarOpen}>
+              <Logo src={logo} alt='logo' />
+              <MyAccount to='/setmyinfo'>
+                {userInfo ? (
+                  <>
+                    <UserImage src={userImage} alt='userprofileimage' />
+                    <UserName>
+                      {userInfo.name}님<br /> 환영합니다!
+                    </UserName>
+                    {/* <p>{userInfo.id}</p> */}
+                  </>
+                ) : (
+                  '계정 정보를 불러오는 중...'
+                )}
+              </MyAccount>
 
-                {/* 토글 */}
-                <ToggleMenu title='책 목록' menuItems={bookMenuItems} />
-                <ToggleMenu title='글귀' menuItems={quotesMenuItems} />
-                <LogoutBtn onClick={openModal}>
-                  <StyledIcon />
-                  로그아웃
-                </LogoutBtn>
-              </Sidebar>
-            </>
-          )}
-        </Container>
+              {/* 토글 */}
+              <ToggleMenu title='책 목록' menuItems={bookMenuItems} />
+              <ToggleMenu title='글귀' menuItems={quotesMenuItems} />
+              <LogoutBtn onClick={openModal}>
+                <StyledIcon />
+                로그아웃
+              </LogoutBtn>
+            </Sidebar>
+          </>
+        )}
       </>
-
       <Modal
         content='로그아웃하시겠습니까?'
         btnTxt='로그아웃'
@@ -199,8 +197,10 @@ const Sidebar = styled.div`
   height: 100vh;
   background-color: white;
   z-index: 250;
-  left: -16px;
-  top: -21px;
+  /* left: -16px;
+  top: -21px; */
+  left: 0px;
+  top: 0px;
 `;
 
 const Logo = styled.img`

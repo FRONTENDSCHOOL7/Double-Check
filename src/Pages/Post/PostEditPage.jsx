@@ -57,14 +57,21 @@ export default function PostEditPage() {
       console.error('Update error:', error);
     }
   };
+
   useEffect(() => {
-    if (textareaRef.current) {
-      // 기존 리뷰 내용이 있는 경우, 텍스트 에어리어의 끝으로 포커스를 이동
+    if (review && textareaRef.current) {
       const textLength = review.length;
       textareaRef.current.setSelectionRange(textLength, textLength);
       textareaRef.current.focus();
     }
   }, [review]);
+
+  useEffect(() => {
+    if (postDetails?.review) {
+      setReview(postDetails.review);
+    }
+  }, [postDetails]);
+
   return (
     <>
       <Topbar

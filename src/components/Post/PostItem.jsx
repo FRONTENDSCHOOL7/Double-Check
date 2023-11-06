@@ -11,28 +11,31 @@ import Modal from 'components/Common/Modal/Modal';
 import { useRecoilState } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
 import { showToast } from 'Hooks/useCustomToast';
-import { reportPost } from '../../API/post1';
-import { setProfile } from 'API/Profile';
-import accountname from '../../Recoil/Accountname';
+import { useNavigate } from 'react-router-dom';
+// import { setProfile } from 'API/Profile';
+// import accountname from '../../Recoil/Accountname';
 import { useRecoilValue } from 'recoil';
-commentCount;
 import { likedState } from '../../Recoil/like';
 import LikeButton from 'components/Common/Button/likeButton';
 import { commentCount } from 'Recoil/CommnetCount';
+import { postDeleteAPI, useDeletePost, reportPost } from 'API/Post';
+import { postDetailsState } from 'Recoil/PostDetail';
 
-export default function Post({ post, color }) {
+export default function PostItem({ post, color }) {
   const timeSincePosted = useTimeSince(post.createdAt);
   const [showModal, setShowModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { title, author, review, isbn } = post.parsedContent || {};
   const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
   const userId = localStorage.getItem('userId');
-
   const commentCounts = useRecoilValue(commentCount);
   const [likedPosts, setLikedPosts] = useRecoilState(likedState);
+  const navigate = useNavigate();
   // console.log(likedPosts);
   // console.log(post.heartCount);
+  const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
 
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
@@ -43,9 +46,51 @@ export default function Post({ post, color }) {
     }
   };
 
+  const navigateToEditPage = () => {
+    if (post && post._id) {
+      const { title, author, review, isbn } = post.parsedContent || post;
+      setPostDetails((currentDetails) => ({
+        ...currentDetails,
+        title,
+        author: author?.name || author,
+        review,
+        isbn,
+      }));
+
+      navigate(`/post/${post._id}/edit`);
+    } else {
+      showToast('게시글 정보를 불러올 수 없습니다.');
+    }
+  };
+
+  const confirmDeleteReport = async () => {
+    setShowEditDeleteModal(false);
+    setShowDeleteModal(true);
+  };
+
+  const { deletePostMutate } = useDeletePost(post._id);
+
+  const handleDelete = () => {
+    deletePostMutate(post._id);
+    setShowDeleteModal(false);
+  };
+
+  // const confirmDelete = async () => {
+  //   try {
+  //     await postDeleteAPI(currentItemId);
+  //     showToast('피드가 삭제되었습니다.');
+  //     setShowDeleteModal(false);
+  //     navigate('/post');
+  //   } catch (error) {
+  //     showToast('피드 삭제에 실패했습니다.');
+  //     setShowDeleteModal(false);
+  //   }
+  // };
+
   const handleCancel = () => {
     setShowModal(false);
     setShowReportModal(false);
+    setShowDeleteModal(false);
   };
 
   const confirmReport = () => {
@@ -96,7 +141,7 @@ export default function Post({ post, color }) {
               heartCount={post.heartCount}
             ></LikeButton>
           </SPostbutton>
-          <Link to={`/post/${post._id}`} state={isbn}>
+          <Link to={`/post/${post._id}`}>
             <SPostbutton>
               <img src={comment} alt='댓글 버튼' />
               <span>{commentCounts[post._id] || 0}</span>
@@ -110,7 +155,8 @@ export default function Post({ post, color }) {
         <ModalButton
           itemId={currentItemId}
           text={['피드 수정', '피드 삭제']}
-          onCancel={handleCancel}
+          onClick={[navigateToEditPage, confirmDeleteReport]}
+          onCancel={() => setShowEditDeleteModal(false)}
         />
       )}
       {showReportModal && (
@@ -128,6 +174,15 @@ export default function Post({ post, color }) {
           isVisible={showModal}
           onConfirm={() => handleReport({ postId: currentItemId })}
           onCancel={() => setShowModal(false)}
+        />
+      )}
+      {showDeleteModal && (
+        <Modal
+          content={'해당 피드를 삭제하시겠습니까?'}
+          btnTxt='예'
+          isVisible={showDeleteModal}
+          onConfirm={handleDelete}
+          onCancel={() => setShowDeleteModal(false)}
         />
       )}
     </SPostArticle>
@@ -243,7 +298,7 @@ const SShowMore = styled.button`
 const SImgWrapper = styled.div`
   position: relative;
   border-radius: 4px;
-  height: 212px;
+  height: 261px;
   background: ${(props) =>
     Array.isArray(props.color)
       ? `linear-gradient(${props.color[0]}, ${props.color[1]})`

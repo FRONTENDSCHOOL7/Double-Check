@@ -8,15 +8,13 @@ import comment from '../../assets/images/icon/icon-comment.svg';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import LikeButton from 'components/Common/Button/likeButton';
 import Modal from 'components/Common/Modal/Modal';
-import { postDeleteAPI } from 'API/Post';
+import { postDeleteAPI, reportPost } from 'API/Post';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { likedState } from '../../Recoil/like';
 import { commentCount } from 'Recoil/CommnetCount';
 import userInfoState from 'Recoil/UserInfo';
 import { showToast } from 'Hooks/useCustomToast';
-// 게시물 신고 api
-import { reportPost } from 'API/post1';
 
 export default function PostDetail({
   authorInfo,
@@ -53,10 +51,6 @@ export default function PostDetail({
   function openModal() {
     setIsModalOpen(true);
   }
-
-  const navigateToEditPage = () => {
-    navigate(`/post/${post_id}/edit`);
-  };
 
   function closeModal() {
     setIsModalOpen(false);
@@ -105,7 +99,7 @@ export default function PostDetail({
       console.log('Deleted');
       navigate(`/post`);
     } catch (error) {
-      console.error('개시물 삭제를 실패했습니다:', error);
+      console.error('피드 삭제를 실패했습니다:', error);
     }
   };
 
@@ -114,10 +108,10 @@ export default function PostDetail({
     setShowReportModal(false);
     try {
       const res = await reportPost({ postId: ItemId });
-      showToast('해당 게시글이 신고되었습니다.');
+      showToast('해당 피드가 신고되었습니다.');
       console.log(res);
     } catch (error) {
-      showToast('게시글 신고에 실패했습니다. ');
+      showToast('피드 신고에 실패했습니다. ');
     }
   };
   const handleShowMoreClick = () => {
@@ -191,7 +185,7 @@ export default function PostDetail({
 
       {showReportModal && (
         <Modal
-          content={'해당 리뷰를 신고하시겠습니까?'}
+          content={'해당 피드를 신고하시겠습니까?'}
           btnTxt='예'
           isVisible={showReportModal}
           onConfirm={handleReport}
@@ -331,7 +325,7 @@ const SButtonGroup = styled.div`
     -webkit-box-align: center;
     align-items: center;
     font-size: var(--font-xs-size);
-    color: var(--gray-400);
+    color: var(--gray-500);
   }
 `;
 

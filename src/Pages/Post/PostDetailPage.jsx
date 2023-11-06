@@ -22,6 +22,7 @@ export default function PostDetailPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   console.log(postDetailInfo);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,6 +53,10 @@ export default function PostDetailPage() {
     };
 
     fetchData();
+
+    return () => {
+      setPostDetails({});
+    };
   }, [post_id, setPostDetails, setPostInfo, setPostUser]);
 
   const LogoutButton = (
@@ -71,9 +76,12 @@ export default function PostDetailPage() {
     setLoginCheck(false);
     navigate('/');
   };
-  const navigateToProfilePage = () => {
-    navigate('/setmyinfo');
+
+  const navigateToEditPage = () => {
+    setPostDetails(postDetails); // 수정 페이지로 이동하기 전에 업뎃
+    navigate(`/post/${post_id}/edit`);
   };
+
   const navigateToMainPostPage = () => {
     navigate('/post');
   };
@@ -101,7 +109,7 @@ export default function PostDetailPage() {
         <ModalButton
           itemId={currentItemId}
           text={['설정 및 개인정보', '로그아웃']}
-          onClick={[navigateToProfilePage, navigateToLoginPage]}
+          onClick={[navigateToEditPage, navigateToLoginPage]}
           onCancel={handleCancel}
           padding
         />
