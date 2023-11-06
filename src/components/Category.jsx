@@ -35,14 +35,18 @@ export function CategoryList({ categories, initialClickedCategories, onCategoryC
 
   const handleButtonClick = (category) => {
     const isClicked = clickedCategories.includes(category);
+    const canAdd = clickedCategories.length < 3;
     if (isClicked) {
       // 이미 클릭한 카테고리인 경우, 클릭 해제
       setClickedCategories((prevState) => prevState.filter((item) => item !== category));
-    } else {
-      // 클릭하지 않은 카테고리인 경우, 클릭
+    } else if (!isClicked && canAdd) {
+      // 클릭하지 않은 카테고리이고, 아직 3개 미만이라면 클릭해서 추가
       setClickedCategories((prevState) => [...prevState, category]);
     }
-    onCategoryClick(category); // 부모 컴포넌트에서 클릭 이벤트 처리
+    // 클릭한 카테고리가 이미 3개이면 추가하지 않고, 부모 컴포넌트에도 변경을 알리지 않음
+    if (isClicked || canAdd) {
+      onCategoryClick(category); // 부모 컴포넌트에서 클릭 이벤트 처리
+    }
   };
 
   return (
