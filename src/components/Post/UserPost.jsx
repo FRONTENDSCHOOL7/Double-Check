@@ -1,8 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useGetInfiniteUserPosts } from 'API/Post';
-import Post from 'components/Post/PostItem';
+import PostItem from 'components/Post/PostItem';
+import GalleryView from './PostGallery';
+import Topbar from 'components/Common/Topbar/Topbar';
+import styled from 'styled-components';
+import galleryIcon from '../../assets/images/icon/icon-gallery.svg';
+import feedIcon from '../../assets/images/icon/icon-feed.svg';
+import { useRecoilState } from 'recoil';
+import { viewState } from '../../Recoil/FeedView';
 
 const colors = [
   ['#FFE7FF', '#E3EEFF'],
@@ -16,36 +22,44 @@ const colors = [
   '#f0f8ff',
 ];
 
-export default function UserPost() {
-  const { accountname } = useParams();
-  const { allUserPosts } = useGetInfiniteUserPosts(accountname);
+export default function UserPost({ accountname }) {
+  const { allUserPosts, isLoading } = useGetInfiniteUserPosts(accountname);
   console.log(allUserPosts);
+  const [view, setView] = useRecoilState(viewState);
 
   const validUserPosts = allUserPosts.filter((post) => {
     try {
       post.parsedContent = JSON.parse(post.content);
-      return (
-        post.parsedContent &&
-        post.parsedContent.title &&
-        post.parsedContent.author &&
-        post.parsedContent.review
-      );
+      return post.parsedContent.review;
     } catch (error) {
       return false;
     }
   });
 
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
+  const toggleView = () => {
+    setView((currentView) => (currentView === 'feed' ? 'gallery' : 'feed'));
+  };
+
   return (
     <div>
-      {validUserPosts.length > 0 ? (
+      {view === 'feed' ? (
         validUserPosts.map((post, index) => {
           const colorIndex = index % colors.length;
           const color = colors[colorIndex];
-          return <Post key={post._id} post={post} color={color} />;
+          return <PostItem key={post._id} post={post} color={color} />;
         })
       ) : (
-        <div>Loading...</div>
+        <GalleryView posts={validUserPosts} />
       )}
     </div>
   );
 }
+
+const StyledImage = styled.img`
+  width: 25px;
+  height: auto;
+`;
