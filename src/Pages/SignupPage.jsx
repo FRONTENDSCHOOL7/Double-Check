@@ -2,7 +2,7 @@
 /* eslint-disable no-empty */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -11,13 +11,16 @@ import { useRecoilState } from 'recoil';
 import { navBar } from 'Recoil/Navbar';
 
 export default function SignUpPage() {
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isAccountNameValid, setIsAccountNameValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false);
+  const [isUsernameConfirmed, setIsUsernameConfirmed] = useState(false);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState([]);
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
-  const [userErrorMessage, setUserErrorMessage] = useState([]); // "errorMessage"를 제거하고 "userErrorMessage"로 변경
+  const [userErrorMessage, setUserErrorMessage] = useState([]);
   const [checkPassword, setCheckPassword] = useState('');
-  // const [emailDuplicate, setEmailDuplicate] = useState(true);
-  // const [accountnameDuplicate, setAccountnameDuplicate] = useState(true);
   const [signUpCheck, setSignUpCheck] = useState(false);
   const [signUpData, setSignUpData] = useState({
     user: {
@@ -27,6 +30,13 @@ export default function SignUpPage() {
       accountname: '',
     },
   });
+  useEffect(() => {
+    if (isEmailValid && isAccountNameValid && isPasswordValid && isPasswordConfirmed) {
+      setSignUpCheck(true);
+    } else {
+      setSignUpCheck(false);
+    }
+  }, [isEmailValid, isAccountNameValid, isPasswordValid, isPasswordConfirmed, isUsernameConfirmed]);
 
   setShowNavBar(false);
 
@@ -39,13 +49,30 @@ export default function SignUpPage() {
         [name]: value,
       },
     }));
+    // 이메일이 변경되었을 때 emailAvailable 함수 호출
+    if (name === 'email') {
+      emailAvailable(value);
+    }
+
+    // 계정명이 변경되었을 때 accountnameAvailable 함수 호출
+    if (name === 'accountname') {
+      accountnameAvailable(value);
+    }
+
+    if (name === 'username') {
+      handleError(value);
+    }
+
+    if (name === 'password') {
+      handleError(value);
+    }
   };
 
-  const emailAvailable = async () => {
+  const emailAvailable = async (value) => {
     const errors = [];
     const emailRegex =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/g;
-    const email = signUpData.user.email;
+    const email = value;
     const data = {
       user: {
         email: email,
@@ -54,33 +81,28 @@ export default function SignUpPage() {
 
     if (email === '') {
       errors.push('이메일을 입력해주세요.');
-      setSignUpCheck(false);
     } else if (!emailRegex.test(email)) {
       errors.push('이메일 형식이 올바르지 않습니다.');
-      setSignUpCheck(false);
     } else {
       try {
         const response = await emailValid(data);
         if (response.message === '이미 가입된 이메일 주소 입니다.') {
           errors.push('이미 가입된 이메일 입니다.');
-          // setEmailDuplicate(true);
-          setSignUpCheck(false);
+          setIsEmailValid(false);
         } else {
-          setSignUpCheck(true);
+          setIsEmailValid(true);
         }
       } catch (error) {
         console.log(error);
       }
     }
-
     setUserErrorMessage(errors);
   };
 
-  const accountnameAvailable = async () => {
+  const accountnameAvailable = async (value) => {
     const errors = [];
-    // eslint-disable-next-line no-useless-escape
-    const accountnameRegex = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
-    const accountname = signUpData.user.accountname;
+    const accountnameRegex = /^[a-zA-Z0-9가-힣]*$/g;
+    const accountname = value;
     const data = {
       user: {
         accountname: accountname,
@@ -98,37 +120,33 @@ export default function SignUpPage() {
         const response = await accountnameValid(data);
         if (response.message === '이미 가입된 계정ID 입니다.') {
           errors.push('이미 가입된 계정ID 입니다.');
-          // setAccountnameDuplicate(true);
-          setSignUpCheck(false);
+          setIsAccountNameValid(false);
         } else {
-          setSignUpCheck(true);
+          setIsAccountNameValid(true);
         }
       } catch (error) {
         console.log(error);
       }
     }
-
     setUserErrorMessage(errors);
   };
 
-  const handleError = () => {
+  const handleError = (value) => {
     const errors = [];
-    const username = signUpData.user.username;
-    const passwordLength = signUpData.user.password.length;
+    const username = value;
+    const passwordLength = value.length;
+    const password = value;
     if (passwordLength < 6) {
       errors.push('비밀번호를 6자리 이상 입력해주세요');
-      setSignUpCheck(false);
-    } else if (signUpData.user.password !== checkPassword) {
-      errors.push('비밀번호가 일치하지 않습니다.');
-      setSignUpCheck(false);
-    } else if (username === '') {
+    } else {
+      setIsPasswordValid(true);
+    }
+
+    if (username === '') {
       errors.push('사용자 이름을 입력해 주세요');
-      setSignUpCheck(false);
-    } else if (accountnameDuplicate) {
-      errors.push('이미 가입된 계정ID 입니다.');
     } else {
       errors.push('');
-      setSignUpCheck(true);
+      setIsUsernameConfirmed(true);
     }
     setUserErrorMessage(errors);
   };
@@ -141,6 +159,31 @@ export default function SignUpPage() {
       const errorMessage = response && response.message ? response.message : handleError();
       setErrorMessage(errorMessage);
     }
+  };
+
+  // const handleCheckPassword = (e) => {
+  //   const errors = [];
+  //   const value = e.target.value;
+  //   setCheckPassword(value);
+  //   if (signUpData.user.password !== checkPassword) {
+  //     errors.push('비밀번호가 일치하지 않습니다.');
+  //   } else {
+  //     setIsPasswordConfirmed(true);
+  //   }
+  //   setUserErrorMessage(errors);
+  // };
+
+  const handleCheckPassword = (e) => {
+    const errors = [];
+    const value = e.target.value;
+    setCheckPassword(value);
+    if (signUpData.user.password !== value) {
+      errors.push('비밀번호가 일치하지 않습니다.');
+      setIsPasswordConfirmed(false); // 비밀번호가 일치하지 않으면 false로 설정
+    } else {
+      setIsPasswordConfirmed(true);
+    }
+    setUserErrorMessage(errors);
   };
 
   return (
@@ -157,7 +200,6 @@ export default function SignUpPage() {
             placeholder='이메일 주소를 알려주세요.'
             onChange={handleInputChange}
             value={signUpData.user.email}
-            onBlur={emailAvailable}
           />
           {userErrorMessage.includes('이메일을 입력해주세요.') && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
@@ -178,7 +220,6 @@ export default function SignUpPage() {
             placeholder='비밀번호를 설정해 주세요.'
             onChange={handleInputChange}
             value={signUpData.user.password}
-            onBlur={handleError}
           />
           {userErrorMessage.includes('비밀번호를 입력해 주세요.') && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
@@ -195,8 +236,7 @@ export default function SignUpPage() {
             id='checkPassword'
             placeholder='동일한 비밀번호를 입력해주세요.'
             value={checkPassword}
-            onChange={(e) => setCheckPassword(e.target.value)}
-            onBlur={handleError}
+            onChange={handleCheckPassword}
           />
           {userErrorMessage.includes('비밀번호가 일치하지 않습니다.') && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
@@ -214,7 +254,6 @@ export default function SignUpPage() {
             placeholder='2~10자 이내여야 합니다.'
             onChange={handleInputChange}
             value={signUpData.user.username}
-            onBlur={handleError}
           />
           {userErrorMessage.includes('사용자 이름을 입력해 주세요') && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
@@ -229,7 +268,7 @@ export default function SignUpPage() {
             placeholder='영문, 숫자, 특수문자(,), (_)만 사용 가능합니다.'
             onChange={handleInputChange}
             value={signUpData.user.accountname}
-            onBlur={accountnameAvailable}
+            maxLength='10'
           />
           {userErrorMessage.includes('계정ID를 입력해 주세요.') && (
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
@@ -242,14 +281,14 @@ export default function SignUpPage() {
           ) : null}
         </InputDiv>
         <ButtonDiv>
-          {!signUpCheck ? (
-            <DisabledButton type='button' disabled={true}>
-              가입하기
-            </DisabledButton>
-          ) : (
+          {signUpCheck ? (
             <Button type='button' onClick={handleSubmitBtn}>
               가입하기
             </Button>
+          ) : (
+            <DisabledButton type='button' disabled={true}>
+              가입하기
+            </DisabledButton>
           )}
         </ButtonDiv>
       </section>
@@ -276,12 +315,9 @@ const H1 = styled.h1`
   margin-left: 38px;
   margin-bottom: 63px;
   color: #000;
-  font-family: Inter;
+  font-family: Pretendard-SemiBold;
   font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
   line-height: normal;
-  text-transform: capitalize;
 `;
 
 const Label = styled.label`
@@ -294,7 +330,7 @@ const Label = styled.label`
 const ButtonDiv = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 70px;
 `;
 
 const ErrorMassage = styled.div`
@@ -327,6 +363,7 @@ const DisabledButton = styled.button`
 
 const InputBox = styled.input`
   height: 52px;
-  border-radius: 4px;
+  border-radius: 12px;
+  padding-left: 15px;
   background: #f8f8f8;
 `;

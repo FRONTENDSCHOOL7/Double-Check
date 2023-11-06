@@ -5,9 +5,15 @@ import { VscChevronLeft } from 'react-icons/vsc';
 import { ReactComponent as Doblechaek } from '../../../assets/images/logo/doblechaek.svg';
 import TopBarBtn from './TopBarBtn';
 
-const Topbar = ({ leftButton, title, rightButton }) => {
+const Topbar = ({ leftButton, title, rightButton, goBack }) => {
   const navigate = useNavigate();
-  const defaultLeftButton = <TopBarBtn icon={VscChevronLeft} onClick={() => navigate(-1)} />;
+
+  const defaultLeftButton = (
+    <TopBarBtn
+      icon={VscChevronLeft}
+      onClick={() => (goBack !== undefined ? goBack() : navigate(-1))}
+    />
+  );
   console.log(title);
   const defaultTitle = (
     <SLink home to='/'>
@@ -42,6 +48,9 @@ const SHeader = styled.header`
 `;
 
 const SDiv = styled.div`
+  svg {
+    font-size: 30px;
+  }
   flex-shrink: 0;
 `;
 
@@ -57,9 +66,6 @@ const SLink = styled(Link)`
   display: block;
   width: ${(props) => (props.home ? '200px' : '25px')};
   height: ${(props) => (props.home ? '' : '25px')};
-  svg {
-    font-size: 25px;
-  }
 `;
 
 const SDoblechaek = styled(Doblechaek)`

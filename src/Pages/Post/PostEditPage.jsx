@@ -5,17 +5,16 @@ import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import styled from 'styled-components';
 import Topbar from 'components/Common/Topbar/Topbar';
-import useCustomToast from '../../Hooks/useCustomToast';
 import { postPutAPI } from 'API/Post';
 import { useRecoilState } from 'recoil';
 import { postDetailsState } from '../../Recoil/PostDetail';
+import { showToast } from 'Hooks/useCustomToast';
 
 export default function PostEditPage() {
   const { post_id } = useParams();
   const navigate = useNavigate();
   const textareaRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
-  const showToast = useCustomToast();
   // eslint-disable-next-line no-unused-vars
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
   // eslint-disable-next-line no-unused-vars
@@ -33,7 +32,7 @@ export default function PostEditPage() {
       setShowModal(true);
     }
   };
-  // console.log(postDetails);
+  console.log(postDetails);
   // 내가 작성할 리뷰 정보
   const postData = {
     title: postDetails.title,
@@ -58,14 +57,21 @@ export default function PostEditPage() {
       console.error('Update error:', error);
     }
   };
+
   useEffect(() => {
-    if (textareaRef.current) {
-      // 기존 리뷰 내용이 있는 경우, 텍스트 에어리어의 끝으로 포커스를 이동
+    if (review && textareaRef.current) {
       const textLength = review.length;
       textareaRef.current.setSelectionRange(textLength, textLength);
       textareaRef.current.focus();
     }
   }, [review]);
+
+  useEffect(() => {
+    if (postDetails?.review) {
+      setReview(postDetails.review);
+    }
+  }, [postDetails]);
+
   return (
     <>
       <Topbar
@@ -81,13 +87,12 @@ export default function PostEditPage() {
           ref={textareaRef}
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          placeholder='리뷰를 작성해주세요'
           height='100%'
           width='100%'
           border='none'
         />
         <Modal
-          content='리뷰를 수정하시겠습니까?'
+          content='수정하시겠습니까?'
           btnTxt='예'
           isVisible={showModal}
           onConfirm={handleUpdatePost}

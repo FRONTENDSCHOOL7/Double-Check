@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useInfinitePosts, useGetInfiniteFollowingPosts } from 'API/post1';
-import Post from 'components/Post/Post';
+import styled from 'styled-components';
+import Post from 'components/Post/PostItem';
 import Topbar from 'components/Common/Topbar/Topbar';
+// import { useNavigate } from 'react-router-dom';
+import PostGallery from 'components/Post/PostGallery';
+import galleryIcon from '../../assets/images/icon/icon-gallery.svg';
+import feeddIcon from '../../assets/images/icon/icon-feed.svg';
 
 const colors = [
   ['#FFE7FF', '#E3EEFF'],
@@ -12,11 +17,18 @@ const colors = [
   '#fff0f0',
   ['#DDF6FA', '#F9F0DC'],
   '#f9f0ff',
+  ['#E3FDF5', '#FFE6FA'],
   '#f0f8ff',
+  ['#ffecd2', '#fcb69f'],
+  ['#fdfbfb', '#ebedee'],
+  ['#e9defa', '#fbfcdb'],
 ];
 
 export default function PostMain() {
+  const [view, setView] = useState('feed');
+  // const navigate = useNavigate();
   const { allPosts } = useInfinitePosts();
+
   const { allFollowingPosts } = useGetInfiniteFollowingPosts();
   console.log(allFollowingPosts);
 
@@ -28,25 +40,49 @@ export default function PostMain() {
     try {
       // JSON.parse()를 사용하여 post.content를 객체로 변환
       post.parsedContent = JSON.parse(post.content);
-      return (
-        post.parsedContent &&
-        post.parsedContent.title &&
-        post.parsedContent.author &&
-        post.parsedContent.review
-      );
+      return post.parsedContent.review;
     } catch (error) {
       return false;
     }
   });
+  // const navigateToHomePage = () => {
+  //   navigate('/');
+  // };
+
+  const toggleView = () => {
+    setView((currentView) => (currentView === 'feed' ? 'gallery' : 'feed'));
+  };
 
   return (
     <div>
-      <Topbar title='전체 피드' />
-      {validPosts.map((post, index) => {
-        const colorIndex = index % colors.length;
-        const color = colors[colorIndex];
-        return <Post key={post._id} post={post} color={color} />;
-      })}
+      <Topbar
+        // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
+        title='전체 피드'
+        rightButton={
+          <button onClick={toggleView}>
+            {view === 'feed' ? (
+              <StyledImage src={galleryIcon} alt='갤러리 뷰' />
+            ) : (
+              <StyledImage src={feeddIcon} alt='피드 뷰' />
+            )}
+          </button>
+        }
+      />
+
+      {view === 'feed' ? (
+        validPosts.map((post, index) => {
+          const colorIndex = index % colors.length;
+          const color = colors[colorIndex];
+          return <Post key={post._id} post={post} color={color} />;
+        })
+      ) : (
+        <PostGallery posts={validPosts} />
+      )}
     </div>
   );
 }
+
+const StyledImage = styled.img`
+  width: 25px;
+  height: auto;
+`;

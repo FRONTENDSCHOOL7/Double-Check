@@ -1,29 +1,43 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import showMore from '../../assets/images/icon/show-more-y.svg';
 import { Link } from 'react-router-dom';
 import ImageCheck from 'components/Common/ImageCheck';
 import useTimeSince from 'Hooks/useTimeSince';
-import heart from '../../assets/images/icon/icon-heart.svg';
-import fillheart from '../../assets/images/icon/icon-fill-heart.svg';
 import comment from '../../assets/images/icon/icon-comment.svg';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import Modal from 'components/Common/Modal/Modal';
 import { useRecoilState } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
-import useCustomToast from 'Hooks/useCustomToast';
+import { showToast } from 'Hooks/useCustomToast';
 import { reportPost } from '../../API/post1';
+import { useNavigate } from 'react-router-dom';
+// import { setProfile } from 'API/Profile';
+// import accountname from '../../Recoil/Accountname';
+import { useRecoilValue } from 'recoil';
+import { likedState } from '../../Recoil/like';
+import LikeButton from 'components/Common/Button/likeButton';
+import { commentCount } from 'Recoil/CommnetCount';
+import { postDeleteAPI, useDeletePost } from 'API/Post';
+import { postDetailsState } from 'Recoil/PostDetail';
+postDetailsState;
 
-export default function Post({ post, color }) {
+export default function PostItem({ post, color }) {
   const timeSincePosted = useTimeSince(post.createdAt);
   const [showModal, setShowModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
-  const { title, author, review } = post.parsedContent || {};
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { title, author, review, isbn } = post.parsedContent || {};
   const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
   const userId = localStorage.getItem('userId');
-  const showToast = useCustomToast();
+  const commentCounts = useRecoilValue(commentCount);
+  const [likedPosts, setLikedPosts] = useRecoilState(likedState);
+  const navigate = useNavigate();
+  // console.log(likedPosts);
+  // console.log(post.heartCount);
+  const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
 
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
@@ -34,9 +48,51 @@ export default function Post({ post, color }) {
     }
   };
 
+  const navigateToEditPage = () => {
+    if (post && post._id) {
+      const { title, author, review, isbn } = post.parsedContent || post;
+      setPostDetails((currentDetails) => ({
+        ...currentDetails,
+        title,
+        author: author?.name || author,
+        review,
+        isbn,
+      }));
+
+      navigate(`/post/${post._id}/edit`);
+    } else {
+      showToast('게시글 정보를 불러올 수 없습니다.');
+    }
+  };
+
+  const confirmDeleteReport = async () => {
+    setShowEditDeleteModal(false);
+    setShowDeleteModal(true);
+  };
+
+  const { deletePostMutate } = useDeletePost(post._id);
+
+  const handleDelete = () => {
+    deletePostMutate(post._id);
+    setShowDeleteModal(false);
+  };
+
+  // const confirmDelete = async () => {
+  //   try {
+  //     await postDeleteAPI(currentItemId);
+  //     showToast('피드가 삭제되었습니다.');
+  //     setShowDeleteModal(false);
+  //     navigate('/post');
+  //   } catch (error) {
+  //     showToast('피드 삭제에 실패했습니다.');
+  //     setShowDeleteModal(false);
+  //   }
+  // };
+
   const handleCancel = () => {
     setShowModal(false);
     setShowReportModal(false);
+    setShowDeleteModal(false);
   };
 
   const confirmReport = () => {
@@ -50,9 +106,10 @@ export default function Post({ post, color }) {
     setShowModal(false);
     try {
       const response = await reportPost({ postId: currentItemId });
-      showToast('해당 게시글이 신고되었습니다.');
+      showToast('해당 피드가 신고되었습니다.');
+      console.log(response);
     } catch (error) {
-      showToast('게시글 신고에 실패했습니다. ');
+      showToast('피드 신고에 실패했습니다. ');
     }
   };
 
@@ -60,18 +117,17 @@ export default function Post({ post, color }) {
     <SPostArticle>
       <SPostHeader>
         <SProfileImg src={ImageCheck(post.author.image, 'profile')} alt='유저 프로필 사진' />
+
         <SLink to={`/profile/${post.author.accountname}`}>
           <SPostSpan>{post.author.username}</SPostSpan>
-          <SPostSpan>{post.author.accountname}</SPostSpan>
+          <SPostSpan className='accountname'>{post.author.accountname}</SPostSpan>
         </SLink>
         <SShowMore onClick={handleShowMoreClick}>
           <img src={showMore} alt='더보기 버튼' />
         </SShowMore>
       </SPostHeader>
       <SPostSection>
-        {/* <h2>{contentJson.title}</h2>
-                  <span>{contentJson.author}</span> */}
-        <Link to={`/post/${post._id}`}>
+        <Link to={`/post/${post._id}`} state={isbn}>
           <SImgWrapper color={color}>
             <SPostImg src={post.image} alt='책 표지 이미지' />
           </SImgWrapper>
@@ -81,19 +137,27 @@ export default function Post({ post, color }) {
       <SPostFooter>
         <SButtonGroup>
           <SPostbutton>
-            <img src={heart} alt='좋아요 버튼' />
+            <LikeButton
+              postId={post._id}
+              liked={likedPosts[post._id]}
+              heartCount={post.heartCount}
+            ></LikeButton>
           </SPostbutton>
-          <SPostbutton>
-            <img src={comment} alt='댓글 버튼' />
-          </SPostbutton>
+          <Link to={`/post/${post._id}`}>
+            <SPostbutton>
+              <img src={comment} alt='댓글 버튼' />
+              <span>{commentCounts[post._id] || 0}</span>
+            </SPostbutton>
+          </Link>
         </SButtonGroup>
-        <SPostSpan>{timeSincePosted}</SPostSpan>
+        <STime>{timeSincePosted}</STime>
       </SPostFooter>
       {showEditDeleteModal && (
         <ModalButton
           itemId={currentItemId}
-          text={['리뷰 수정', '리뷰 삭제']}
-          onCancel={handleCancel}
+          text={['피드 수정', '피드 삭제']}
+          onClick={[navigateToEditPage, confirmDeleteReport]}
+          onCancel={() => setShowEditDeleteModal(false)}
         />
       )}
       {showReportModal && (
@@ -106,11 +170,20 @@ export default function Post({ post, color }) {
       )}
       {showModal && ( // 수정된 모달 상태 체크
         <Modal
-          content={'해당 리뷰를 신고하시겠습니까?'}
+          content={'해당 피드를 신고하시겠습니까?'}
           btnTxt='예'
           isVisible={showModal}
           onConfirm={() => handleReport({ postId: currentItemId })}
           onCancel={() => setShowModal(false)}
+        />
+      )}
+      {showDeleteModal && (
+        <Modal
+          content={'해당 피드를 삭제하시겠습니까?'}
+          btnTxt='예'
+          isVisible={showDeleteModal}
+          onConfirm={handleDelete}
+          onCancel={() => setShowDeleteModal(false)}
         />
       )}
     </SPostArticle>
@@ -118,10 +191,10 @@ export default function Post({ post, color }) {
 }
 
 const SPostArticle = styled.article`
-  margin-bottom: 59px;
+  margin-bottom: 36px;
 
   &:first-of-type {
-    margin-top: 26px;
+    margin-top: 17px;
   }
 `;
 
@@ -136,12 +209,15 @@ const SPostHeader = styled.header`
 const SLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   color: var(--gray-500);
 
   & > span:first-of-type {
     font-family: 'Pretendard-SemiBold';
     color: var(--black);
+  }
+  .accountname {
+    font-size: var(--font-xxs-size);
   }
 `;
 
@@ -152,7 +228,7 @@ const SPostSection = styled.section`
 `;
 
 const SPostText = styled.p`
-  margin: 33px 0 12px;
+  margin-top: 25px;
   font-family: 'Pretendard-regular', sans-serif;
   padding: 0 21px;
   line-height: 1.3;
@@ -177,15 +253,24 @@ const SPostImg = styled.img`
 `;
 
 const SProfileImg = styled.img`
+  /* width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  border: 1px solid var(--gray-300); */
   height: 42px;
+  width: 42px;
   border-radius: 50%;
   border: 1px solid var(--gray-300);
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  object-fit: fill;
 `;
 
 const SPostSpan = styled.span``;
 
 const SPostFooter = styled.footer`
-  padding: 12px 21px;
+  padding: 8px 21px;
   display: flex;
   justify-content: space-between;
   color: var(--gray-400);
@@ -197,6 +282,13 @@ const SButtonGroup = styled.div``;
 
 const SPostbutton = styled.button`
   margin-right: 10px;
+
+  img {
+    margin-right: 4px;
+  }
+  span {
+    color: var(--gray-500);
+  }
 `;
 
 const SShowMore = styled.button`
@@ -207,9 +299,13 @@ const SShowMore = styled.button`
 const SImgWrapper = styled.div`
   position: relative;
   border-radius: 4px;
-  height: 267px;
+  height: 261px;
   background: ${(props) =>
     Array.isArray(props.color)
       ? `linear-gradient(${props.color[0]}, ${props.color[1]})`
       : props.color};
+`;
+
+const STime = styled.time`
+  font-size: var(--font-xxs-size);
 `;

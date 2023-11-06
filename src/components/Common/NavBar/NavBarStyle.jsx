@@ -29,7 +29,7 @@ const NavItem = styled.li`
 `;
 
 const NavItemImg = styled.img`
-  height: ${({ to }) => (to === '/profile' ? '36px' : '31px')};
+  height: ${({ to }) => (to === '/profile' ? '33px' : '31px')};
 `;
 
 const NavItemTxt = styled.p`

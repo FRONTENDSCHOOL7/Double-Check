@@ -4,7 +4,7 @@ import BannerSlideShow from 'components/Banner/BannerSlideEffect';
 import BookSlide from 'components/BookSlide/BookSlide';
 import Topbar from 'components/Common/Topbar/Topbar';
 import TopBarBtn from 'components/Common/Topbar/TopBarBtn';
-import HamSideNoLogin from 'components/Common/HamSideBar/HamSideNoLogin';
+
 import { useNavigate } from 'react-router-dom';
 import { BiSearchAlt } from 'react-icons/bi';
 import Button from 'components/Common/Button/Button';
@@ -13,7 +13,7 @@ import loginToken from 'Recoil/LoginToken';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import HamSideYesLogin from 'components/Common/HamSideBar/HamSideYesLogin';
-
+import HamSideNoLogin from 'components/Common/HamSideBar/HamSideNoLogin';
 export default function MainPage() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');

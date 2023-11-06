@@ -6,7 +6,7 @@ import Button from 'components/Common/Button/Button';
 import Modal from 'components/Common/Modal/Modal';
 import styled from 'styled-components';
 import Topbar from 'components/Common/Topbar/Topbar';
-import useCustomToast from '../../Hooks/useCustomToast';
+import { showToast } from 'Hooks/useCustomToast';
 
 export default function PostPage() {
   const textareaRef = useRef(null);
@@ -15,8 +15,8 @@ export default function PostPage() {
   const bookData = location.state;
   const [review, setReview] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const showToast = useCustomToast();
 
+  console.log(bookData.isbn);
   const confirmUpload = (e) => {
     e.preventDefault();
     console.log('confirmUpload 함수 실행');
@@ -32,6 +32,7 @@ export default function PostPage() {
   const postData = {
     title: bookData.title,
     author: bookData.author,
+    isbn: bookData.isbn,
     review: review,
   };
   const post = {
@@ -48,7 +49,8 @@ export default function PostPage() {
       setShowModal(true);
       console.log(response.post.id);
       // 리뷰등록하면 상세페이지로 이동! postDetailPage
-      navigate(`/post/${response.post.id}`);
+      // navigate(`/post/${response.post.id}`);
+      navigate('/post');
     } catch (error) {
       console.error('업로드 에러:', error);
     }
@@ -65,7 +67,13 @@ export default function PostPage() {
       <Topbar
         title
         rightButton={
-          <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
+          <Button
+            category='basic'
+            shape='primary'
+            type='button'
+            onClick={confirmUpload}
+            disabled={review.trim() === ''} // 텍스트를 입력하지않으면  버튼이 비 활성화
+          >
             등록
           </Button>
         }
@@ -75,13 +83,13 @@ export default function PostPage() {
           ref={textareaRef}
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          placeholder='리뷰를 작성해주세요'
+          placeholder='읽은 부분에 대해 기억하고 싶은 내용 또는 나의 생각을 담아  공유해보세요!'
           height='100%'
           width='100%'
           border='none'
         />
         <Modal
-          content='리뷰를 등록하시겠습니까?'
+          content='등록하시겠습니까?'
           btnTxt='예'
           isVisible={showModal}
           onConfirm={handlePostUpload}

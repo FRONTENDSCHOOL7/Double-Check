@@ -8,8 +8,8 @@ import Textarea from 'components/Common/Textarea/Textarea';
 import { ContentState } from 'Recoil/ContentState';
 import { useNavigate } from 'react-router-dom';
 import Button from 'components/Common/Button/Button';
-import useToast from 'Hooks/showToast';
 import Modal from 'components/Common/Modal/Modal';
+import { showToast } from 'Hooks/useCustomToast';
 
 const PhraseEdit = () => {
   const navigate = useNavigate();
@@ -43,11 +43,11 @@ const PhraseEdit = () => {
     console.log('confirmUpload 함수 실행');
 
     if (title === '' || title.length < 1) {
-      return useToast('제목을 입력해주세요.');
+      return showToast('제목을 입력해주세요.');
     } else if (author === '' || author.length < 1) {
-      return useToast('저자를 입력해주세요.');
+      return showToast('저자를 입력해주세요.');
     } else if (content === '' || author.length < 1) {
-      return useToast('내용을 입력해주세요.');
+      return showToast('내용을 입력해주세요.');
     }
 
     setShowModal(true);

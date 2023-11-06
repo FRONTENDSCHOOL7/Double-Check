@@ -11,7 +11,7 @@ import Topbar from 'components/Common/TopBar';
 import { navBar } from 'Recoil/Navbar';
 import imgBtn from 'assets/images/icon/icon-img.png';
 import { CategoryList } from 'components/Category';
-
+import ImageCheck from 'components/Common/ImageCheck';
 export default function SetMyInfo() {
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   const [isLogin, setIsLogin] = useRecoilState(loginCheck);
@@ -133,7 +133,10 @@ export default function SetMyInfo() {
     console.log(response);
     location.reload();
   };
-
+  const userImage = ImageCheck(
+    'https://api.mandarin.weniv.co.kr/' + profileData.user.image,
+    'profile',
+  );
   return (
     <>
       <Topbar centerEl='setprofile' />
@@ -143,10 +146,7 @@ export default function SetMyInfo() {
           <ProfileBox>
             <ImgInput>
               <ImageBox>
-                <Image
-                  src={'https://api.mandarin.weniv.co.kr/' + profileData.user.image}
-                  alt='프로필이미지'
-                />
+                <Image src={userImage} alt='프로필이미지' />
               </ImageBox>
               <ImgBtn src={imgBtn} alt='' onClick={handleImgBtnClick} />
             </ImgInput>
@@ -173,6 +173,8 @@ export default function SetMyInfo() {
               <Textarea
                 type='text'
                 placeholder={
+                  profileData.user.intro &&
+                  typeof profileData.user.intro === 'string' &&
                   profileData.user.intro.includes('@cc@')
                     ? profileData.user.intro.split('@cc@')[0]
                     : profileData.user.intro || ''
@@ -201,6 +203,8 @@ const Textarea = styled.textarea`
   border: none;
   resize: none;
   border-radius: 10px;
+  padding: 15px;
+  font-size: var(--font-xs-size);
 `;
 
 const Rectangle = styled.div`
@@ -216,9 +220,9 @@ const Wrapper = styled.div`
 `;
 
 const Profile = styled.div`
-  margin-top: 50px;
+  margin-top: 32px;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 10px 20px;
   background-color: #f2f4ff;
   border-radius: 20px;
@@ -300,12 +304,15 @@ const InputBoxFile = styled.input`
 
 const ProfileBox = styled.div`
   margin-top: 60px;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-fit: fill;
+  image-rendering: -webkit-optimize-contrast;
 `;
 
 const ImageBox = styled.div`
@@ -333,6 +340,7 @@ const ImgBtn = styled.img`
 `;
 
 const CategoryDiv = styled.div`
+  margin-top: 15px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

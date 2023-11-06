@@ -7,7 +7,7 @@ const Button = styled.button`
   font-size: var(--font-xm-size);
   padding: 7px 16px;
   line-height: 1;
-  background-color: var(--main-purple);
+  background-color: ${(props) => props.backgroundColor || 'var(--main-purple)'};
   color: var(--white);
   border-radius: 25px;
   text-align: center;
@@ -15,7 +15,7 @@ const Button = styled.button`
   &:active,
   &:hover,
   &:focus {
-    background-color: var(--main-purple);
+    background-color: ${(props) => props.backgroundColor || 'var(--main-purple)'};
   }
 
   &:disabled {
@@ -29,9 +29,9 @@ const StyledButton = styled(Button)`
   ${(props) => {
     if (props.shape === 'primary') {
       return css`
-        font-size: var(--font-sm-size);
+        font-size: var(--font-xm-size);
         font-weight: 400;
-        padding: 8px 14px;
+        padding: 8px 19px;
         border-radius: 25px;
       `;
     } else if (props.shape === 'sub') {
@@ -45,7 +45,7 @@ const StyledButton = styled(Button)`
       return css`
         font-size: var(--font-sm-size);
         font-weight: 500;
-        width: 298px;
+        width: 100%;
         padding: 12px 40px;
         border-radius: 10px;
       `;
@@ -55,6 +55,7 @@ const StyledButton = styled(Button)`
         font-weight: 300;
         width: 80px;
         border-radius: 30px;
+        background-color: ${(props) => props.backgroundColor};
       `;
     } else if (props.shape === 'none') {
       return css`
@@ -77,7 +78,7 @@ const WhiteButton = styled(Button)`
   font-size: var(--font-sm-size);
   font-weight: 400;
   width: 312px;
-  padding: 15px 120px;
+  padding: ${(props) => (props.padding ? '15px 88px' : '15px 120px')};
   border-radius: 8px;
   color: ${(props) => (props.danger ? 'var(--danger-color)' : 'var(--black)')};
   background-color: var(--white);
