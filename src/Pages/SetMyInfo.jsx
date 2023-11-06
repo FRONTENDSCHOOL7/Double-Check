@@ -17,7 +17,7 @@ export default function SetMyInfo() {
   const [isLogin, setIsLogin] = useRecoilState(loginCheck);
   const [token, setToken] = useRecoilState(loginToken);
   const [profileImage, setProfileImage] = useState('');
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(Array(3));
   const isFirstRender = useRef(true); // 랜더링 컨트롤
   const [intro, setIntro] = useState('');
   const [profileData, setProfileData] = useState({
@@ -102,11 +102,11 @@ export default function SetMyInfo() {
       if (categories.length < maxCategories) {
         setCategories([...categories, category]);
       } else {
-        alert('최대 개수에 도달했습니다.');
+        return;
       }
     }
     handleIntroChange();
-    isFirstRender.current = false;
+    isFirstRender.current = true;
   };
 
   const handleIntroChange = (e) => {
@@ -160,7 +160,7 @@ export default function SetMyInfo() {
                 onChange={handleImageChange} // 이미지 변경 처리
               />
             </InputFile>
-            <Label>카테고리</Label>
+            <Label>카테고리(최대 3개)</Label>
             <CategoryDiv>
               <CategoryList
                 categories={categoriesArr}
@@ -176,11 +176,12 @@ export default function SetMyInfo() {
                   profileData.user.intro &&
                   typeof profileData.user.intro === 'string' &&
                   profileData.user.intro.includes('@cc@')
-                    ? profileData.user.intro.split('@cc@')[0]
-                    : profileData.user.intro || ''
+                    ? profileData.user.intro.split('@cc@')[0] + '(30자 이내로 입력해 주세요)'
+                    : profileData.user.intro || '' + '(30자 이내로 입력해 주세요)'
                 }
                 id='intro'
                 name='intro'
+                maxLength='30'
                 value={intro || ''}
                 onChange={handleIntroChange}
               />

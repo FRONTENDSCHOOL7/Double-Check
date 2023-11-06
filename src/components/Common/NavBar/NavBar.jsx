@@ -11,7 +11,7 @@ import iconProfile from '../../../assets/images/icon/icon-profile.svg';
 import iconProfileFill from '../../../assets/images/icon/icon-fill-profile.svg';
 
 const navItem = [
-  { id: 0, name: '홈', to: '/', icon: iconHome, iconFill: iconHomeFill },
+  { id: 0, name: '홈', to: '/main', icon: iconHome, iconFill: iconHomeFill },
   {
     id: 1,
     name: '둘러보기',

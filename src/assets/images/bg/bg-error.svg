@@ -1,0 +1,82 @@
+<svg width="1400" height="1000" viewBox="0 0 1400 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1_4)">
+<rect width="1400" height="1000" fill="#242424"/>
+<g clip-path="url(#clip1_1_4)">
+<path d="M1617.79 903.69C1620.72 973.388 1643.25 1037 1643.81 1102.72C1644.07 1168.02 1622.36 1235.41 1575.3 1266.69C1527.94 1297.55 1455.88 1292.45 1388.55 1287.07C1321.21 1281.7 1257.93 1275.89 1208.83 1243.18C1159.38 1210.72 1123.8 1150.93 1068.73 1095.88C1013.67 1040.83 938.453 990.352 905.988 925.11C873.523 859.867 883.149 779.701 932.266 739.289C981.33 699.55 1069.58 699.151 1128.17 661.974C1186.41 625.058 1215.34 551.103 1266.6 521.834C1317.87 492.566 1391.82 507.722 1458.92 541.885C1526.02 576.047 1586.62 628.955 1608.74 693.506C1631.16 758.471 1614.5 834.252 1617.79 903.69Z" fill="#323232"/>
+<g clip-path="url(#clip2_1_4)">
+<rect x="1152" y="914" width="37" height="37" rx="18.5" fill="#858585"/>
+<circle cx="1175.5" cy="935.5" r="18.5" fill="#404040"/>
+<g clip-path="url(#clip3_1_4)">
+<rect x="1152" y="914" width="37" height="37" rx="18.5" fill="#858585"/>
+<circle cx="1175.5" cy="935.5" r="18.5" fill="#404040"/>
+</g>
+</g>
+<g clip-path="url(#clip4_1_4)">
+<rect x="1184" y="700" width="37" height="37" rx="18.5" fill="#858585"/>
+<circle cx="1207.5" cy="721.5" r="18.5" fill="#404040"/>
+</g>
+<g clip-path="url(#clip5_1_4)">
+<rect x="1345" y="600" width="37" height="37" rx="18.5" fill="#858585"/>
+<circle cx="1368.5" cy="621.5" r="18.5" fill="#404040"/>
+<g clip-path="url(#clip6_1_4)">
+<rect x="1345" y="600" width="37" height="37" rx="18.5" fill="#858585"/>
+<circle cx="1368.5" cy="621.5" r="18.5" fill="#404040"/>
+</g>
+</g>
+<g clip-path="url(#clip7_1_4)">
+<rect x="975" y="822" width="37" height="37" rx="18.5" fill="#858585"/>
+<circle cx="998.5" cy="843.5" r="18.5" fill="#404040"/>
+</g>
+<circle cx="1138.5" cy="462.5" r="2.5" fill="white"/>
+</g>
+<circle cx="20.5" cy="573.5" r="2.5" fill="white"/>
+<circle cx="402.5" cy="318.5" r="2.5" fill="white"/>
+<circle cx="955.5" cy="190.5" r="2.5" fill="white"/>
+<circle cx="1189.5" cy="338.5" r="2.5" fill="white"/>
+<circle cx="376.5" cy="819.5" r="2.5" fill="white"/>
+<circle cx="190.5" cy="13.5" r="2.5" fill="white"/>
+<circle cx="505.5" cy="193.5" r="2.5" fill="white"/>
+<circle cx="75.5" cy="711.5" r="2.5" fill="white"/>
+<circle cx="407.5" cy="343.5" r="2.5" fill="white"/>
+<circle cx="294.5" cy="489.5" r="2.5" fill="white"/>
+<circle cx="561.5" cy="827.5" r="2.5" fill="white"/>
+<circle cx="347.5" cy="151.5" r="2.5" fill="white"/>
+<circle cx="1167.5" cy="169.5" r="2.5" fill="white"/>
+<circle cx="20.5" cy="398.5" r="2.5" fill="white"/>
+<circle cx="719.5" cy="218.5" r="2.5" fill="white"/>
+<circle cx="585.5" cy="976.5" r="2.5" fill="white"/>
+<circle cx="240.5" cy="403.5" r="2.5" fill="white"/>
+<circle cx="274.5" cy="294.5" r="2.5" fill="white"/>
+<circle cx="399.5" cy="976.5" r="2.5" fill="white"/>
+<circle cx="142.5" cy="129.5" r="2.5" fill="white"/>
+<circle cx="1074.5" cy="299.5" r="2.5" fill="white"/>
+<circle cx="124.5" cy="367.5" r="2.5" fill="white"/>
+<circle cx="195.5" cy="662.5" r="2.5" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1_4">
+<rect width="1400" height="1000" fill="white"/>
+</clipPath>
+<clipPath id="clip1_1_4">
+<rect width="1026" height="882" fill="white" transform="translate(1373.64 247) rotate(53.7893)"/>
+</clipPath>
+<clipPath id="clip2_1_4">
+<rect x="1152" y="914" width="37" height="37" rx="18.5" fill="white"/>
+</clipPath>
+<clipPath id="clip3_1_4">
+<rect x="1152" y="914" width="37" height="37" rx="18.5" fill="white"/>
+</clipPath>
+<clipPath id="clip4_1_4">
+<rect x="1184" y="700" width="37" height="37" rx="18.5" fill="white"/>
+</clipPath>
+<clipPath id="clip5_1_4">
+<rect x="1345" y="600" width="37" height="37" rx="18.5" fill="white"/>
+</clipPath>
+<clipPath id="clip6_1_4">
+<rect x="1345" y="600" width="37" height="37" rx="18.5" fill="white"/>
+</clipPath>
+<clipPath id="clip7_1_4">
+<rect x="975" y="822" width="37" height="37" rx="18.5" fill="white"/>
+</clipPath>
+</defs>
+</svg>

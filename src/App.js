@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
-// import SplashPage from 'Pages/SplashPage';
-// import ErrorPage from 'Pages/ErrorPage';
+import MyProfilePage from 'Pages/MyProfilePage';
 import SetMyInfo from 'Pages/SetMyInfo';
 import PostPage from 'Pages/Post/PostPage';
 import PostDetailPage from 'Pages/Post/PostDetailPage';
@@ -38,6 +37,7 @@ import ErrorPage from 'Pages/ErrorPage';
 import PostDetail from 'components/Post/PostDetail';
 import PhraseEdit from 'Pages/Phrase/PhraseUpload';
 import RouteModal from 'components/Common/ProtectedRoute/RouteModal';
+import MyProfilePage from 'Pages/MyProfilePage';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -60,16 +60,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ToastContainer />
       <BrowserRouter>
-        <GlobalStyles />
         {/*  라우터에 영향을 받지않는 컴포넌트들*/}
-        <Routes>
-          <Route path='/splash' element={<SplashPage />} />
-        </Routes>
+        <GlobalStyles />
         <LayoutStyle>
           <Routes>
-            <Route path='/*' element={<StartLoginPage />} />
-            <Route path='/' element={<MainPage />} />
-            <Route path='/book/*' element={<BookRoutes />} />
+            <Route path='/*' element={<ErrorPage />} />
+            <Route path='/' element={<SplashPage />} />
+            {/* <Route path='/' element={<StartLoginPage />} /> */}
+            <Route path='/main' element={<MainPage />} />
+            <Route path='/book*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
             <Route
@@ -77,6 +76,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <SearchPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/myprofile'
+              element={
+                <ProtectedRoute>
+                  <MyProfilePage />
                 </ProtectedRoute>
               }
             />
@@ -89,10 +96,10 @@ function App() {
               }
             />
             <Route
-              path='/phraseupload/'
+              path='/myprofile'
               element={
                 <ProtectedRoute>
-                  <PhraseEdit />
+                  <MyProfilePage />
                 </ProtectedRoute>
               }
             />
@@ -162,8 +169,8 @@ function App() {
             />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
-          {showNavBar && <NavBar />}
         </LayoutStyle>
+        {showNavBar && <NavBar />}
       </BrowserRouter>
     </QueryClientProvider>
   );

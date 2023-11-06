@@ -5,25 +5,28 @@ import { VscChevronLeft } from 'react-icons/vsc';
 import { ReactComponent as Doblechaek } from '../../../assets/images/logo/doblechaek.svg';
 import TopBarBtn from './TopBarBtn';
 
-const Topbar = ({ leftButton, title, rightButton, goBack }) => {
+const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeLeveaOnClick }) => {
   const navigate = useNavigate();
-
   const defaultLeftButton = (
     <TopBarBtn
       icon={VscChevronLeft}
       onClick={() => (goBack !== undefined ? goBack() : navigate(-1))}
     />
   );
+
+  const leave = executeLeveaOnClick ? (
+    <TopBarBtn icon={VscChevronLeft} onClick={() => onLeaveClick()} />
+  ) : null;
   console.log(title);
   const defaultTitle = (
-    <SLink home to='/'>
+    <SLink home to='/main'>
       <SDoblechaek />
     </SLink>
   );
 
   return (
     <SHeader>
-      <SDiv>{leftButton || defaultLeftButton}</SDiv>
+      <SDiv>{leave || leftButton || defaultLeftButton}</SDiv>
       <Sh1 rightButtonExists={!!rightButton}>{title || defaultTitle}</Sh1>
       <SDiv>{rightButton || null}</SDiv>
     </SHeader>
