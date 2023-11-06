@@ -17,6 +17,7 @@ import SignupPage from 'Pages/SignupPage';
 import LoginPage from 'Pages/LoginPage';
 import PhraseList from 'Pages/Phrase/PhraseList';
 import PostMain from 'Pages/Post/PostMain';
+import ProfilePage from 'Pages/ProfilePage';
 
 // import TestPage from 'Pages/TestPage';
 import NavBar from 'components/Common/NavBar/NavBar';
@@ -147,6 +148,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <SetMyInfo />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/profile/:accountname'
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/profile/myinfo'
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
                 </ProtectedRoute>
               }
             />

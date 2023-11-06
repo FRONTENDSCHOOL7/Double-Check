@@ -32,3 +32,43 @@ export const setProfileAPI = async (profileData, token) => {
     throw error;
   }
 };
+
+// 팔로잉 리스트
+export const getfollowingListAPI = async ({ accountname }) => {
+  try {
+    const response = await authInstance.get(`/profile/${accountname}/following`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 팔로우 리스트
+export const getfollowerListAPI = async ({ accountname }) => {
+  try {
+    const response = await authInstance.get(`/profile/${accountname}/follower`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 팔로우
+export const followAPI = async ({ accountname }) => {
+  try {
+    const response = await authInstance.post(`/profile/${accountname}/follow`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 언팔로우
+export const unfollowAPI = async ({ accountname }) => {
+  try {
+    const response = await authInstance.delete(`/profile/${accountname}/unfollow`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
