@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetInfiniteUserPosts } from 'API/post1';
+import { useGetInfiniteUserPosts } from 'API/Post';
 import Post from 'components/Post/PostItem';
 
 const colors = [
