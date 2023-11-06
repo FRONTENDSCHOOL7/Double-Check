@@ -33,7 +33,6 @@ export default function Post({ post, color }) {
   const [likedPosts, setLikedPosts] = useRecoilState(likedState);
   // console.log(likedPosts);
   // console.log(post.heartCount);
-  
 
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
@@ -97,7 +96,7 @@ export default function Post({ post, color }) {
               heartCount={post.heartCount}
             ></LikeButton>
           </SPostbutton>
-          <Link to={`/post/${post._id}` state={isbn}}>
+          <Link to={`/post/${post._id}`} state={isbn}>
             <SPostbutton>
               <img src={comment} alt='댓글 버튼' />
               <span>{commentCounts[post._id] || 0}</span>
@@ -106,6 +105,7 @@ export default function Post({ post, color }) {
         </SButtonGroup>
         <STime>{timeSincePosted}</STime>
       </SPostFooter>
+
       {showEditDeleteModal && (
         <ModalButton
           itemId={currentItemId}
