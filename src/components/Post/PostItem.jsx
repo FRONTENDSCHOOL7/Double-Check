@@ -11,7 +11,6 @@ import Modal from 'components/Common/Modal/Modal';
 import { useRecoilState } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
 import { showToast } from 'Hooks/useCustomToast';
-import { reportPost } from '../../API/post1';
 import { useNavigate } from 'react-router-dom';
 // import { setProfile } from 'API/Profile';
 // import accountname from '../../Recoil/Accountname';
@@ -19,9 +18,8 @@ import { useRecoilValue } from 'recoil';
 import { likedState } from '../../Recoil/like';
 import LikeButton from 'components/Common/Button/likeButton';
 import { commentCount } from 'Recoil/CommnetCount';
-import { postDeleteAPI, useDeletePost } from 'API/Post';
+import { postDeleteAPI, useDeletePost, reportPost } from 'API/Post';
 import { postDetailsState } from 'Recoil/PostDetail';
-postDetailsState;
 
 export default function PostItem({ post, color }) {
   const timeSincePosted = useTimeSince(post.createdAt);

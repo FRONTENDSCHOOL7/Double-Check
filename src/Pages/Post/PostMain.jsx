@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useInfinitePosts, useGetInfiniteFollowingPosts } from 'API/post1';
+import { useInfinitePosts, useGetInfiniteFollowingPosts } from 'API/Post';
 import styled from 'styled-components';
 import Post from 'components/Post/PostItem';
 import Topbar from 'components/Common/Topbar/Topbar';
