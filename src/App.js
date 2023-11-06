@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
 // import SplashPage from 'Pages/SplashPage';
@@ -25,14 +27,22 @@ import PhraseUpdate from 'Pages/Phrase/PhraseUpdate';
 import PhraseUpload from 'Pages/Phrase/PhraseUpload';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
 
-// import StartLoginPage from 'Pages/StartLoginPage';
+import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
 import SplashPage from 'Pages/SplashPage';
+import ErrorPage from 'Pages/ErrorPage';
+import loginToken from 'Recoil/LoginToken';
+import Modal from 'components/Common/Modal/Modal';
+import PostDetail from 'components/Post/PostDetail';
+import PhraseEdit from 'Pages/Phrase/PhraseUpload';
+import RouteModal from 'components/Common/\bProtectedRoute/RouteModal';
 
 function App() {
+  const token = localStorage.getItem('token');
+  console.log(`token : ${token}`);
   const showNavBar = useRecoilValue(navBar);
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -43,6 +53,9 @@ function App() {
       },
     },
   });
+  const ProtectedRoute = ({ children }) => {
+    return <RouteModal token={token}>{children}</RouteModal>;
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -55,22 +68,83 @@ function App() {
         </Routes>
         <LayoutStyle>
           <Routes>
-            {/* <Route path='/*' element={<ErrorPage />} /> */}
-            {/* <Route path='/' element={<SplashPage />} /> */}
-            {/* <Route path='/*' element={<StartLoginPage />} /> */}
+            <Route path='/*' element={<StartLoginPage />} />
             <Route path='/' element={<MainPage />} />
             <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
-            <Route path='/search' element={<SearchPage />} />
-            <Route path='/phraseupdate/:id' element={<PhraseUpdate />} />
-            <Route path='/phraseupload/' element={<PhraseUpload />} />
-            <Route path='/phraselist' element={<PhraseList />} />
-            <Route path='/post/upload/' element={<PostPage />} />
-            <Route path='/post/:post_id' element={<PostDetailPage />} />
-            <Route path='/post/:post_id/edit' element={<PostEditPage />} />
-            <Route path='/post' element={<PostMain />} />
-            <Route path='/setmyinfo' element={<SetMyInfo />} />
+            <Route
+              path='/search'
+              element={
+                <ProtectedRoute>
+                  <SearchPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/phraseupdate/:id'
+              element={
+                <ProtectedRoute>
+                  <PhraseUpdate />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/phraseupload/'
+              element={
+                <ProtectedRoute>
+                  <PhraseEdit />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/phraselist'
+              element={
+                <ProtectedRoute>
+                  <PhraseList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/post/upload/'
+              element={
+                <ProtectedRoute>
+                  <PostPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/post/:post_id'
+              element={
+                <ProtectedRoute>
+                  <PostDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/post/:post_id/edit'
+              element={
+                <ProtectedRoute>
+                  <PostEditPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/post'
+              element={
+                <ProtectedRoute>
+                  <PostMain />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/setmyinfo'
+              element={
+                <ProtectedRoute>
+                  <SetMyInfo />
+                </ProtectedRoute>
+              }
+            />
             {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
           {showNavBar && <NavBar />}
