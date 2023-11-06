@@ -38,7 +38,7 @@ import loginToken from 'Recoil/LoginToken';
 import Modal from 'components/Common/Modal/Modal';
 import PostDetail from 'components/Post/PostDetail';
 import PhraseEdit from 'Pages/Phrase/PhraseUpload';
-import RouteModal from 'components/Common/\bProtectedRoute/RouteModal';
+import RouteModal from 'components/Common/ProtectedRoute/RouteModal';
 
 function App() {
   const token = localStorage.getItem('token');
