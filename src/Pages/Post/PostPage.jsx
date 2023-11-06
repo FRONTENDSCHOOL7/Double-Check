@@ -50,7 +50,10 @@ export default function PostPage() {
       console.log(response.post.id);
       // 리뷰등록하면 상세페이지로 이동! postDetailPage
       // navigate(`/post/${response.post.id}`);
-      navigate('/post');
+      showToast('등록 되었습니다');
+      setTimeout(() => {
+        navigate('/post');
+      }, 100);
     } catch (error) {
       console.error('업로드 에러:', error);
     }
@@ -83,7 +86,7 @@ export default function PostPage() {
           ref={textareaRef}
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          placeholder='읽은 부분에 대해 기억하고 싶은 내용 또는 나의 생각을 담아  공유해보세요!'
+          placeholder='읽은 부분에 대해 기억하고 싶은 내용 또는 나의 생각을 담아 공유해보세요!'
           height='100%'
           width='100%'
           border='none'

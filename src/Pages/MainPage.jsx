@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import BannerSlideShow from 'components/Banner/BannerSlideEffect';
 import BookSlide from 'components/BookSlide/BookSlide';
 import Topbar from 'components/Common/Topbar/Topbar';
@@ -14,6 +14,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import HamSideYesLogin from 'components/Common/HamSideBar/HamSideYesLogin';
 import HamSideNoLogin from 'components/Common/HamSideBar/HamSideNoLogin';
+import MainSkeleton from 'assets/Skeleton/MainSkeleton';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 export default function MainPage() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -31,7 +34,7 @@ export default function MainPage() {
         rightButton={<TopBarBtn icon={BiSearchAlt} onClick={() => navigate('/search')} />}
       />
       <BannerSlideShow />
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<MainSkeleton />}>
         <BookSlide
           title='베스트 셀러'
           dataType='bestsellers'

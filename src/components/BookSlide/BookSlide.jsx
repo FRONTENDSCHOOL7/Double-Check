@@ -8,20 +8,15 @@ import { useRecoilValue } from 'recoil';
 import { fetchBestsellersData, fetchNewBooksData, fetchNewBookSpecialData } from 'Recoil/BookData';
 
 export default function BookSlide({ title, dataType, desc, path }) {
-  let bookData;
-
-  if (dataType === 'bestsellers') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    bookData = useRecoilValue(fetchBestsellersData);
-  } else if (dataType === 'newBooks') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    bookData = useRecoilValue(fetchNewBooksData);
-  } else if (dataType === 'newBookSpecial') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    bookData = useRecoilValue(fetchNewBookSpecialData);
-  }
-  // bookData가 null 또는 undefined인 경우 초기화
-  bookData = bookData || { item: [] };
+  const bookData = useRecoilValue(
+    dataType === 'bestsellers'
+      ? fetchBestsellersData
+      : dataType === 'newBooks'
+      ? fetchNewBooksData
+      : dataType === 'newBookSpecial'
+      ? fetchNewBookSpecialData
+      : fetchBestsellersData,
+  );
 
   const [prevPageX, setPrevPageX] = useState(null);
   const [isDragStart, setDragStart] = useState(false);
@@ -66,13 +61,14 @@ export default function BookSlide({ title, dataType, desc, path }) {
     <SSliderContainer>
       <STitleBox>
         <STitleWrapper>
-          <h2>{title}</h2>
+          {title}
           <SLink to={path}>
             <IoIosArrowForward />
           </SLink>
         </STitleWrapper>
         <p>{desc}</p>
       </STitleBox>
+
       <SWrapprer>
         <SCarousal
           onMouseDown={onDragStart}
