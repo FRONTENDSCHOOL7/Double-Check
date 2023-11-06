@@ -15,6 +15,7 @@ export default function ErrorPage() {
   const goHomeBtn = () => {
     navigate('/');
   };
+
   return (
     <Root>
       <ErrorMsg />
