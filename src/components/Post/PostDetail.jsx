@@ -84,10 +84,6 @@ export default function PostDetail({
     postDetailsauthor = postDetails.author.replace(/\^/g, ',');
   }
 
-  const navigateToEditPage = () => {
-    navigate(`/post/${post_id}/edit`);
-  };
-
   const handleOpenDeleteModal = () => {
     setShowDeleteModal(true);
     setIsModalOpen(false);
@@ -126,6 +122,9 @@ export default function PostDetail({
       setItemId(post_id); // 현재 id 설정
       setShowReportModal(true);
     }
+  };
+  const navigateToEditPage = () => {
+    navigate(`/post/${post_id}/edit`);
   };
 
   return (

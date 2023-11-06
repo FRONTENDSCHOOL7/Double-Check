@@ -37,6 +37,7 @@ import ErrorPage from 'Pages/ErrorPage';
 import PostDetail from 'components/Post/PostDetail';
 import PhraseEdit from 'Pages/Phrase/PhraseUpload';
 import RouteModal from 'components/Common/ProtectedRoute/RouteModal';
+import MyProfilePage from 'Pages/MyProfilePage';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -88,10 +89,10 @@ function App() {
               }
             />
             <Route
-              path='/phraseupload/'
+              path='/myprofile'
               element={
                 <ProtectedRoute>
-                  <PhraseEdit />
+                  <MyProfilePage />
                 </ProtectedRoute>
               }
             />
