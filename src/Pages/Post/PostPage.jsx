@@ -15,8 +15,9 @@ export default function PostPage() {
   const bookData = location.state;
   const [review, setReview] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
 
-  console.log(bookData.isbn);
+  // console.log(bookData.isbn);
   const confirmUpload = (e) => {
     e.preventDefault();
     console.log('confirmUpload 함수 실행');
@@ -28,6 +29,7 @@ export default function PostPage() {
       setShowModal(true);
     }
   };
+
   // 내가 작성할 리뷰 정보
   const postData = {
     title: bookData.title,
@@ -50,7 +52,10 @@ export default function PostPage() {
       console.log(response.post.id);
       // 리뷰등록하면 상세페이지로 이동! postDetailPage
       // navigate(`/post/${response.post.id}`);
-      navigate('/post');
+      showToast('등록 되었습니다');
+      setTimeout(() => {
+        navigate('/post');
+      }, 100);
     } catch (error) {
       console.error('업로드 에러:', error);
     }
@@ -61,11 +66,18 @@ export default function PostPage() {
       textareaRef.current.focus();
     }
   }, []);
-
+  const handleLeavePage = () => {
+    navigate(-1);
+  };
+  const onLeaveClick = () => {
+    setShowLeaveModal(true);
+  };
   return (
     <>
       <Topbar
         title
+        executeLeveaOnClick={true}
+        onLeaveClick={onLeaveClick}
         rightButton={
           <Button
             category='basic'
@@ -83,7 +95,7 @@ export default function PostPage() {
           ref={textareaRef}
           value={review}
           onChange={(e) => setReview(e.target.value)}
-          placeholder='읽은 부분에 대해 기억하고 싶은 내용 또는 나의 생각을 담아  공유해보세요!'
+          placeholder='읽은 부분에 대해 기억하고 싶은 내용 또는 나의 생각을 담아 공유해보세요!'
           height='100%'
           width='100%'
           border='none'
@@ -95,13 +107,13 @@ export default function PostPage() {
           onConfirm={handlePostUpload}
           onCancel={() => setShowModal(false)}
         />
-        {/* <Modal
-          content='리뷰를 등록을 취소하시겠습니까?'
+        <Modal
+          content='등록을 취소하시겠습니까?'
           btnTxt='예'
-          isVisible={showModal}
+          isVisible={showLeaveModal}
           onConfirm={handleLeavePage}
-          onCancel={() => setShowModal(false)}
-        /> */}
+          onCancel={() => setShowLeaveModal(false)}
+        />
       </SPostContainer>
     </>
   );

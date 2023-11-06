@@ -25,12 +25,16 @@ const colors = [
 ];
 
 export default function PostMain() {
+  const { allPosts, isLoadingPosts } = useInfinitePosts();
+
   const [view, setView] = useState('feed');
   // const navigate = useNavigate();
-  const { allPosts } = useInfinitePosts();
 
-  const { allFollowingPosts } = useGetInfiniteFollowingPosts();
+  const { allFollowingPosts, isLoadingFollowingPosts } = useGetInfiniteFollowingPosts();
   console.log(allFollowingPosts);
+  if (isLoadingPosts || isLoadingFollowingPosts) {
+    return <div>로딩 중...</div>;
+  }
 
   const validPosts = allPosts.filter((post) => {
     if (typeof post.content !== 'string') {

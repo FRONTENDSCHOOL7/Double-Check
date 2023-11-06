@@ -4,24 +4,28 @@ import { Link } from 'react-router-dom';
 import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
 import { StyledButton } from '../Common/Button/ButtonStyle';
+
 function BannerSlider({ banners, currentSlide, nextSlide, prevSlide }) {
+  // 렌더링될 슬라이드 컴포넌트 배열 생성
+  const slides = banners.map((banner, index) => (
+    <SBannerSlide key={index} color={banner.color} bgImg={banner.img} size={banner.size}>
+      <div>
+        <SText>{banner.message}</SText>
+        {banner.linkTo && (
+          <Link to={banner.linkTo}>
+            <SStyledButton category='basic' shape='xsmall' backgroundColor={banner.btncolor}>
+              바로 가기
+            </SStyledButton>
+          </Link>
+        )}
+      </div>
+    </SBannerSlide>
+  ));
+
   return (
     <>
-      <SBannerSliderContent currentSlide={currentSlide}>
-        {banners.map((banner, index) => (
-          <SBannerSlide key={index} color={banner.color} bgImg={banner.img} size={banner.size}>
-            <div>
-              <SText>{banner.message}</SText>
-              <Link to={banner.linkTo}>
-                <SStyledButton category='basic' shape='xsmall' backgroundColor={banner.btncolor}>
-                  바로 가기
-                </SStyledButton>
-              </Link>
-            </div>
-          </SBannerSlide>
-        ))}
-      </SBannerSliderContent>
-      {/* 버튼 */}
+      <SBannerSliderContent currentSlide={currentSlide}>{slides}</SBannerSliderContent>
+      {/* 슬라이드 이전/다음 버튼 */}
       <SliderButton position='left' onClick={prevSlide}>
         <BsArrowLeftShort />
       </SliderButton>
@@ -65,8 +69,6 @@ const SBannerSlide = styled.div`
   }
 `;
 
-// background-size: 194px;
-// background-position: 91% 90%;
 const SliderButton = styled.button`
   position: absolute;
   width: 20px;
@@ -89,6 +91,7 @@ const SliderButton = styled.button`
   justify-content: center;
   align-items: center;
 `;
+
 const SText = styled.h2`
   margin: 0px 0px 10px 4px;
   line-height: 28px;

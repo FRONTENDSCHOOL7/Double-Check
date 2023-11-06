@@ -14,7 +14,7 @@ import { itemIdState } from 'Recoil/PhraseId';
 import loginToken from 'Recoil/LoginToken';
 import Topbar from 'components/Common/Topbar/Topbar';
 import { showToast } from 'Hooks/useCustomToast';
-
+import PhraseListSkeleton from 'assets/Skeleton/PhraseListSkeleton';
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
   ['#E2FFFB', '#AFEEE3'],
@@ -145,7 +145,7 @@ export default function PhraseList() {
             {hasNextPhrase && <div>로딩중</div>}
           </PhraseListUl>
         ) : (
-          <p>글귀가 없습니다.</p>
+          <PhraseListSkeleton />
         )}
       </PhraseContainer>
       {isModalVisible && (

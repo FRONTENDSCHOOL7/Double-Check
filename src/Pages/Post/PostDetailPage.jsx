@@ -10,7 +10,7 @@ import PostDetail from 'components/Post/PostDetail';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import Comments from 'components/Comment/Comments';
 import CommentUpload from 'components/Comment/CommentUpload';
-
+import PostDetailSkeleton from 'assets/Skeleton/PostDetailSkeleton';
 export default function PostDetailPage() {
   const { post_id } = useParams();
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
@@ -20,6 +20,7 @@ export default function PostDetailPage() {
   const [currentItemId, setCurrentItemId] = useState(null);
   const [, setLoginCheck] = useRecoilState(loginCheck);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   console.log(postDetailInfo);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function PostDetailPage() {
         });
 
         setPostUser(response.post.author);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -72,7 +74,7 @@ export default function PostDetailPage() {
     localStorage.removeItem('token');
     localStorage.removeItem('recoil-persist');
     setLoginCheck(false);
-    navigate('/');
+    navigate('/main');
   };
 
   const navigateToEditPage = () => {
@@ -83,7 +85,9 @@ export default function PostDetailPage() {
   const navigateToMainPostPage = () => {
     navigate('/post');
   };
-
+  if (isLoading) {
+    return <PostDetailSkeleton />;
+  }
   return (
     <>
       <Topbar title rightButton={LogoutButton} goBack={navigateToMainPostPage} />

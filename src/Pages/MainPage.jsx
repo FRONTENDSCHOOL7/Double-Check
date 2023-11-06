@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import BannerSlideShow from 'components/Banner/BannerSlideEffect';
 import BookSlide from 'components/BookSlide/BookSlide';
 import Topbar from 'components/Common/Topbar/Topbar';
@@ -14,9 +14,15 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import HamSideYesLogin from 'components/Common/HamSideBar/HamSideYesLogin';
 import HamSideNoLogin from 'components/Common/HamSideBar/HamSideNoLogin';
+import MainSkeleton from 'assets/Skeleton/MainSkeleton';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { navBar } from '../Recoil/Navbar';
 export default function MainPage() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const [showNavBar, setShowNavBar] = useRecoilState(navBar);
+  setShowNavBar(true);
 
   return (
     <>
@@ -31,19 +37,24 @@ export default function MainPage() {
         rightButton={<TopBarBtn icon={BiSearchAlt} onClick={() => navigate('/search')} />}
       />
       <BannerSlideShow />
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<MainSkeleton />}>
         <BookSlide
           title='베스트 셀러'
           dataType='bestsellers'
           desc='최근 1주 동안 많은 고객들이 찾은 도서 순위!!'
-          path='book/bestseller'
+          path='/book/bestseller'
         />
-        <BookSlide title='신간 도서 리스트' dataType='newBooks' path='book/newBooks' />
+        <BookSlide
+          title='신간 도서 리스트'
+          dataType='newBooks'
+          desc='오늘의 독서, 어떤 책을 읽을까요?'
+          path='/book/newBooks'
+        />
         <BookSlide
           title='이번달 주목할 만한 도서'
           dataType='newBookSpecial'
           desc='독서 트렌드 따라잡기'
-          path='book/NewBookSpecial'
+          path='/book/NewBookSpecial'
         />
       </Suspense>
     </>

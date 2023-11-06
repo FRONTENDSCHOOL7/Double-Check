@@ -150,6 +150,7 @@ export default function PostItem({ post, color }) {
         </SButtonGroup>
         <STime>{timeSincePosted}</STime>
       </SPostFooter>
+
       {showEditDeleteModal && (
         <ModalButton
           itemId={currentItemId}

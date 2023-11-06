@@ -18,7 +18,7 @@ export default function SearchPage() {
   const userButtonRef = useRef(null);
   const bookButtonRef = useRef(null);
 
-  const [filter, setFilter] = useState('user'); // 'all', 'user', or 'book'
+  const [filter, setFilter] = useState('book'); // 'all', 'user', or 'book'
 
   const handleUserFilter = () => {
     setFilter('user');
@@ -81,7 +81,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <Topbar title='검색하기' />
+      <Topbar title='검색' />
 
       <Ssection>
         <SDiv>
@@ -98,25 +98,29 @@ export default function SearchPage() {
           </SInputWrap>
           <FilterButtons>
             <button
-              ref={userButtonRef}
-              onClick={handleUserFilter}
-              className={filter === 'user' ? 'active' : ''}
-            >
-              유저
-            </button>
-            <button
               ref={bookButtonRef}
               onClick={handleBookFilter}
               className={filter === 'book' ? 'active' : ''}
             >
               책
             </button>
+            <button
+              ref={userButtonRef}
+              onClick={handleUserFilter}
+              className={filter === 'user' ? 'active' : ''}
+            >
+              유저
+            </button>
           </FilterButtons>
         </SDiv>
         {loading && <SNodata>검색 중...</SNodata>}
         {error && <p>{error}</p>}
         {!loading && !error && data.length === 0 && bookdata.length === 0 && (
-          <SNodata>검색 결과가 없습니다.</SNodata>
+          <SNodata>
+            {filter === 'user'
+              ? '유저 검색 결과가 없습니다.'
+              : '제목, 저자, 출판사로 검색해보세요.'}
+          </SNodata>
         )}
         {!loading && !error && (data.length > 0 || bookdata.length > 0) && (
           <SearchContent data={data} bookdata={bookdata} filter={filter} keyword={keyword} />
@@ -147,7 +151,7 @@ const SDiv = styled.div`
 `;
 
 const SInputWrap = styled.div`
-  padding: 6px;
+  padding: 0px 18px;
 `;
 
 const Ssection = styled.section``;
@@ -155,4 +159,6 @@ const Ssection = styled.section``;
 const SNodata = styled.p`
   text-align: center;
   margin-top: 20px;
+
+  color: var(--gray-500);
 `;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookList from 'components/Book/BookList';
-import Loading from 'components/Common/Loading';
 import Topbar from 'components/Common/TopBar';
 import styled from 'styled-components';
+import BookListSkeleton from 'assets/Skeleton/BookListSkeleton';
 const LIST_INFO_MAP = {
   bestseller: { endpoint: 'bestseller', title: '베스트 셀러' },
   newBooks: { endpoint: 'newBooks', title: '신작 전체 리스트' },
@@ -44,7 +44,7 @@ const BookListPage = ({ listType }) => {
       <SSection>
         <h1>{title}</h1>
         {loading ? ( // 로딩 중일 때 Loading 컴포넌트 표시
-          <Loading />
+          <BookListSkeleton />
         ) : (
           <SBookList>
             {productList.map((product) => (

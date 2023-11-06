@@ -20,7 +20,7 @@ export default function RouteModal({ token, children }) {
   };
 
   const goToHome = () => {
-    navigate('/');
+    navigate('/main');
   };
 
   if (!token) {

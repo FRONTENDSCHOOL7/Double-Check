@@ -4,7 +4,7 @@ export const showToast = (message) => {
   return toast(message, {
     position: toast.POSITION.TOP_CENTER,
     hideProgressBar: true,
-    autoClose: 2000,
+    autoClose: 200,
     icon: '🔔',
     style: {
       borderRadius: '10px',
@@ -19,6 +19,6 @@ export const successToast = (message) => {
     type: toast.TYPE.SUCCESS,
     position: toast.POSITION.TOP_CENTER,
     hideProgressBar: true,
-    autoClose: 2000,
+    autoClose: 200,
   });
 };
