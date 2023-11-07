@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import { showToast } from 'Hooks/useCustomToast';
 import ViewToggleButton from 'components/Common/Button/ViewToggleButton';
 import { viewState } from 'Recoil/FeedView';
+import { navBar } from '../Recoil/Navbar';
 
 export default function ProfilePage() {
   const [listToShow, setListToShow] = useState(null);
@@ -23,6 +24,8 @@ export default function ProfilePage() {
   const accountname = useRecoilValue(accountnameState);
   const { accountname: urlAccountname } = useParams();
   const [view, setView] = useRecoilState(viewState);
+  const [showNavBar, setShowNavBar] = useRecoilState(navBar);
+  setShowNavBar(true);
 
   const getMyProfile = async () => {
     setIsLoading(true);
