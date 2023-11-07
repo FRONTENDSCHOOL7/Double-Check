@@ -36,7 +36,7 @@ export const BannerData = [
       </>
     ),
     color: ' #EFFFCD;',
-    linkTo: 'book/newBooks',
+    linkTo: '/book/newBooks',
     size: 'small',
     btncolor: '#A0FFC6',
   },
