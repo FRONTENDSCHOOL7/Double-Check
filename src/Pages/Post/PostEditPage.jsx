@@ -19,7 +19,6 @@ export default function PostEditPage() {
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
   // eslint-disable-next-line no-unused-vars
   const [review, setReview] = useState(postDetails.review);
-  console.log(review);
 
   const confirmUpload = (e) => {
     e.preventDefault();
@@ -37,6 +36,7 @@ export default function PostEditPage() {
   const postData = {
     title: postDetails.title,
     author: postDetails.author,
+    isbn: postDetails.isbn,
     review: review,
   };
 
@@ -46,7 +46,7 @@ export default function PostEditPage() {
       image: postDetails.image || postDetails.cover,
     },
   };
-
+  console.log(post_id);
   const handleUpdatePost = async () => {
     try {
       const res = await postPutAPI(post_id, postEdit);

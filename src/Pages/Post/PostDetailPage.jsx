@@ -11,8 +11,10 @@ import ModalButton from 'components/Common/Modal/ModalButton';
 import Comments from 'components/Comment/Comments';
 import CommentUpload from 'components/Comment/CommentUpload';
 import PostDetailSkeleton from 'assets/Skeleton/PostDetailSkeleton';
+import { useLocation } from 'react-router-dom';
 export default function PostDetailPage() {
   const { post_id } = useParams();
+
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
   const [postUser, setPostUser] = useRecoilState(postDetailUser);
   const [postInfo, setPostInfo] = useRecoilState(postDetailInfo);
@@ -20,14 +22,17 @@ export default function PostDetailPage() {
   const [currentItemId, setCurrentItemId] = useState(null);
   const [, setLoginCheck] = useRecoilState(loginCheck);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(location.state);
   const [isLoading, setIsLoading] = useState(true);
   console.log(postDetailInfo);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await postGetUpdateAPI(post_id);
         const content = JSON.parse(response.post.content);
+        console.log(content);
 
         setPostDetails({
           title: content.title,
@@ -52,6 +57,7 @@ export default function PostDetailPage() {
       }
     };
 
+    console.log(postDetails.isbn);
     fetchData();
 
     // return () => {
@@ -77,9 +83,9 @@ export default function PostDetailPage() {
     navigate('/main');
   };
 
-  const navigateToEditPage = () => {
-    setPostDetails(postDetails); // 수정 페이지로 이동하기 전에 업뎃
-    navigate(`/post/${post_id}/edit`);
+  const navigateToMyPage = () => {
+    setPostDetails(postDetails);
+    navigate(`/profile/myinfo`);
   };
 
   const navigateToMainPostPage = () => {
@@ -92,6 +98,7 @@ export default function PostDetailPage() {
     <>
       <Topbar title rightButton={LogoutButton} goBack={navigateToMainPostPage} />
       <PostDetail
+        isbn={location.state}
         authorInfo={postUser}
         postInfo={postInfo}
         postDetails={postDetails}
@@ -109,7 +116,7 @@ export default function PostDetailPage() {
         <ModalButton
           itemId={currentItemId}
           text={['설정 및 개인정보', '로그아웃']}
-          onClick={[navigateToEditPage, navigateToLoginPage]}
+          onClick={[navigateToMyPage, navigateToLoginPage]}
           onCancel={handleCancel}
           padding
         />

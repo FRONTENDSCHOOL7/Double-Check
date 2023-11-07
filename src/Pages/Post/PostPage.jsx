@@ -7,16 +7,18 @@ import Modal from 'components/Common/Modal/Modal';
 import styled from 'styled-components';
 import Topbar from 'components/Common/Topbar/Topbar';
 import { showToast } from 'Hooks/useCustomToast';
-
+import { useRecoilState } from 'recoil';
+import { newinfo } from '../../Recoil/PostDetail';
 export default function PostPage() {
   const textareaRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
   const bookData = location.state;
+  console.log(bookData.isbn);
   const [review, setReview] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
-
+  const [newInfo, setNewInfo] = useRecoilState(newinfo);
   // console.log(bookData.isbn);
   const confirmUpload = (e) => {
     e.preventDefault();
@@ -29,8 +31,7 @@ export default function PostPage() {
       setShowModal(true);
     }
   };
-
-  // 내가 작성할 리뷰 정보
+  // 내가 작성한 리뷰 정보 , 업로드
   const postData = {
     title: bookData.title,
     author: bookData.author,
@@ -47,20 +48,22 @@ export default function PostPage() {
   const handlePostUpload = async () => {
     try {
       const response = await postUploadAPI(post);
-      console.log(response);
+
+      // post값을 리코일에 저장
+      setNewInfo(response);
       setShowModal(true);
-      console.log(response.post.id);
+
       // 리뷰등록하면 상세페이지로 이동! postDetailPage
       // navigate(`/post/${response.post.id}`);
       showToast('등록 되었습니다');
-      setTimeout(() => {
-        navigate('/post');
-      }, 100);
+      navigate('/post');
     } catch (error) {
       console.error('업로드 에러:', error);
     }
   };
 
+  // 수정하기갔다오면 이상함
+  console.log(newInfo);
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.focus();
