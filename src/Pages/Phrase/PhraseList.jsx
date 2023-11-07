@@ -15,6 +15,8 @@ import loginToken from 'Recoil/LoginToken';
 import Topbar from 'components/Common/Topbar/Topbar';
 import { showToast } from 'Hooks/useCustomToast';
 import PhraseListSkeleton from 'assets/Skeleton/PhraseListSkeleton';
+import userInfoState from 'Recoil/UserInfo';
+
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
   ['#E2FFFB', '#AFEEE3'],
@@ -38,6 +40,8 @@ export default function PhraseList() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const token = useRecoilValue(loginToken);
+  const userInfo = useRecoilState(userInfoState);
+  const accountname = userInfo[0].accountname;
 
   const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
@@ -122,7 +126,7 @@ export default function PhraseList() {
                       <p>{item.link}</p>
                     </PhraseInfo>
 
-                    {item.author._id === userId ? (
+                    {item.author.accountname === userId ? (
                       <Button
                         category='basic'
                         shape='none'

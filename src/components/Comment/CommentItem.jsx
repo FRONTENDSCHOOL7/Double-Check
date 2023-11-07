@@ -11,6 +11,7 @@ import { commentTextState } from 'Recoil/CommentText';
 import { showToast } from 'Hooks/useCustomToast';
 import Modal from 'components/Common/Modal/Modal';
 import { commentCount } from 'Recoil/CommnetCount';
+import userInfoState from 'Recoil/UserInfo';
 
 const CommentItem = ({ comment, postId }) => {
   const [commentText, setCommentText] = useRecoilState(commentTextState);
@@ -18,6 +19,8 @@ const CommentItem = ({ comment, postId }) => {
   const timeSince = useTimeSince(comment.createdAt);
   const userId = localStorage.getItem('userId');
   const setCommentCount = useSetRecoilState(commentCount);
+  const userInfo = useRecoilState(userInfoState);
+  const accountname = userInfo[0].accountname;
 
   const { deleteCommentMutate } = useDeleteComment(postId, {
     onSuccessExtra: () => {
@@ -81,13 +84,13 @@ const CommentItem = ({ comment, postId }) => {
           isVisible={showModal}
           onCancel={handleCloseModal}
           content={
-            comment.author._id === userId
+            comment.author.accountname === accountname
               ? '이 댓글을 삭제하시겠습니까?'
               : '이 댓글을 신고하시겠습니까?'
           }
-          btnTxt={comment.author._id === userId ? '삭제' : '신고'}
+          btnTxt={comment.author.accountname === accountname ? '삭제' : '신고'}
           onConfirm={
-            comment.author._id === userId
+            comment.author.accountname === accountname
               ? () => {
                   console.log('Deleting comment with id:', comment.id);
                   handleDelete(comment.id);
