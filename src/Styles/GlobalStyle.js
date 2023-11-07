@@ -5,6 +5,51 @@ import './fonts.css';
 const GlobalStyles = createGlobalStyle` 
   ${reset}
 
+  @font-face {
+  font-family: 'Pretendard-Regular';
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('Pretendard Regular'),
+    url('../assets/fonts/Pretendard/Pretendard-Regular.woff') format('woff'),
+    url('../assets/fonts/Pretendard/Pretendard-Regular.woff2') format('woff2'),
+    url('../assets/fonts/Pretendard/Pretendard-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard-Medium';
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local('Pretendard Medium'),
+    url('../assets/fonts/Pretendard/Pretendard-Medium.woff') format('woff'),
+    url('../assets/fonts/Pretendard/Pretendard-Medium.woff2') format('woff2'),
+    url('../assets/fonts/Pretendard/Pretendard-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('Pretendard SemiBold'),
+    url('../assets/fonts/Pretendard/Pretendard-SemiBold.woff') format('woff'),
+    url('../assets/fonts/Pretendard/Pretendard-SemiBold.woff2') format('woff2'),
+    url('../assets/fonts/Pretendard/Pretendard-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Pretendard-Bold';
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('Pretendard Bold'),
+    url('../assets/fonts/Pretendard/Pretendard-Bold.woff') format('woff'),
+    url('../assets/fonts/Pretendard/Pretendard-Bold.woff2') format('woff2'),
+    url('../assets/fonts/Pretendard/Pretendard-Bold.otf') format('opentype');
+}
+
+
   body{
     font-family: "Pretendard-Medium", sans-serif;
   }
