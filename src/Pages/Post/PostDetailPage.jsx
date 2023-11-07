@@ -54,9 +54,9 @@ export default function PostDetailPage() {
 
     fetchData();
 
-    return () => {
-      setPostDetails({});
-    };
+    // return () => {
+    //   setPostDetails({});
+    // };
   }, [post_id, setPostDetails, setPostInfo, setPostUser]);
 
   const LogoutButton = (
