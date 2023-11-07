@@ -1,11 +1,9 @@
-/* eslint-disable no-undef */
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
+
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
-import MyProfilePage from 'Pages/MyProfilePage';
 import SetMyInfo from 'Pages/SetMyInfo';
 import PostPage from 'Pages/Post/PostPage';
 import PostDetailPage from 'Pages/Post/PostDetailPage';
@@ -29,7 +27,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { navBar } from './Recoil/Navbar';
-
 import StartLoginPage from 'Pages/StartLoginPage';
 import UserPost from 'components/Post/UserPost';
 import SplashPage from 'Pages/SplashPage';
@@ -37,7 +34,6 @@ import ErrorPage from 'Pages/ErrorPage';
 import PostDetail from 'components/Post/PostDetail';
 import PhraseEdit from 'Pages/Phrase/PhraseUpload';
 import RouteModal from 'components/Common/ProtectedRoute/RouteModal';
-import MyProfilePage from 'Pages/MyProfilePage';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -80,26 +76,10 @@ function App() {
               }
             />
             <Route
-              path='/myprofile'
-              element={
-                <ProtectedRoute>
-                  <MyProfilePage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
               path='/phraseupdate/:id'
               element={
                 <ProtectedRoute>
                   <PhraseUpdate />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path='/myprofile'
-              element={
-                <ProtectedRoute>
-                  <MyProfilePage />
                 </ProtectedRoute>
               }
             />
