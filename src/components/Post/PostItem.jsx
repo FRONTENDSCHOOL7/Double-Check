@@ -21,7 +21,9 @@ import { commentCount } from 'Recoil/CommnetCount';
 import { postDeleteAPI, useDeletePost, reportPost } from 'API/Post';
 import { postDetailsState } from 'Recoil/PostDetail';
 
-export default function PostItem({ post, color }) {
+export default function PostItem({ post, color, id }) {
+  console.log(post.id);
+  console.log(id);
   const timeSincePosted = useTimeSince(post.createdAt);
   const [showModal, setShowModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
@@ -40,14 +42,14 @@ export default function PostItem({ post, color }) {
   const handleShowMoreClick = () => {
     if (post.author._id === userId) {
       setShowEditDeleteModal(true);
-      setCurrentItemId(post._id);
+      setCurrentItemId(id);
     } else {
       setShowReportModal(true);
     }
   };
 
   const navigateToEditPage = () => {
-    if (post && post._id) {
+    if (post && id) {
       const { title, author, review, isbn } = post.parsedContent || post;
       setPostDetails((currentDetails) => ({
         ...currentDetails,
@@ -57,7 +59,7 @@ export default function PostItem({ post, color }) {
         isbn,
       }));
 
-      navigate(`/post/${post._id}/edit`);
+      navigate(`/post/${id}/edit`);
     } else {
       showToast('게시글 정보를 불러올 수 없습니다.');
     }
@@ -68,10 +70,10 @@ export default function PostItem({ post, color }) {
     setShowDeleteModal(true);
   };
 
-  const { deletePostMutate } = useDeletePost(post._id);
+  const { deletePostMutate } = useDeletePost(id);
 
   const handleDelete = () => {
-    deletePostMutate(post._id);
+    deletePostMutate(id);
     setShowDeleteModal(false);
   };
 
@@ -94,7 +96,7 @@ export default function PostItem({ post, color }) {
   };
 
   const confirmReport = () => {
-    setCurrentItemId(post._id);
+    setCurrentItemId(id);
     setShowReportModal(false);
     setShowModal(true);
     setShowEditDeleteModal(false);
@@ -110,7 +112,10 @@ export default function PostItem({ post, color }) {
       showToast('피드 신고에 실패했습니다. ');
     }
   };
-
+  // 65486b5eb2cb2056630b8d8a
+  console.log(post);
+  console.log(id); // post id
+  console.log(post.id);
   return (
     <SPostArticle>
       <SPostHeader>
@@ -125,7 +130,7 @@ export default function PostItem({ post, color }) {
         </SShowMore>
       </SPostHeader>
       <SPostSection>
-        <Link to={`/post/${post._id}`} state={isbn}>
+        <Link to={`/post/${id}`}>
           <SImgWrapper color={color}>
             <SPostImg src={post.image} alt='책 표지 이미지' />
           </SImgWrapper>
@@ -136,15 +141,15 @@ export default function PostItem({ post, color }) {
         <SButtonGroup>
           <SPostbutton>
             <LikeButton
-              postId={post._id}
-              liked={likedPosts[post._id]}
+              postId={id}
+              liked={likedPosts[id]}
               heartCount={post.heartCount}
             ></LikeButton>
           </SPostbutton>
-          <Link to={`/post/${post._id}`}>
+          <Link to={`/post/${id}`}>
             <SPostbutton>
               <img src={comment} alt='댓글 버튼' />
-              <span>{commentCounts[post._id] || 0}</span>
+              <span>{commentCounts[id] || 0}</span>
             </SPostbutton>
           </Link>
         </SButtonGroup>
