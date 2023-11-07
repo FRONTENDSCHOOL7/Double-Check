@@ -1,6 +1,6 @@
 
 <div align="center">
-<img src="https://github.com/FRONTENDSCHOOL5/final-14-BangKKuseok/assets/138556026/29735135-e495-45cc-9361-53c1c067464d">
+<img src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/78103eeb-9cff-42d3-a97a-4b4877322983">
 <br/>
 <br/>
 <h2>Coding Crusaders</h2>
