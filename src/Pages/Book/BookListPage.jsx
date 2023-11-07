@@ -26,7 +26,7 @@ const BookListPage = ({ listType }) => {
   useEffect(() => {
     if (endpoint) {
       axios
-        .get(`http://localhost:8080/${endpoint}`)
+        .get(`https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/${endpoint}`)
         .then((response) => {
           const item = response.data.item;
           setProductList(item);
