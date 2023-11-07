@@ -16,7 +16,7 @@
   <tbody>
       <tr>
         <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/77034f17-6a11-4772-8733-dff265ff08e1" />
+            <img style="width:237px; height:4px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/77034f17-6a11-4772-8733-dff265ff08e1" />
         </td>
         <td>
             <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/c7c6b16b-8cb5-4cba-9ae7-181f3afbd6cf">
