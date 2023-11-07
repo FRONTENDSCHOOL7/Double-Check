@@ -64,6 +64,7 @@ const StyledButton = styled(Button)`
         color: var(--black);
         height: 27px;
         padding: 6px;
+        min-width: 35px;
         &:active,
         &:hover,
         &:focus {
