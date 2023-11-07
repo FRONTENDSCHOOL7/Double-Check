@@ -116,7 +116,7 @@ export default function ProfilePage() {
       content = (
         <>
           <FollowerTitle>
-            <SSectionTitle>리뷰</SSectionTitle>
+            <SSectionTitle>게시물</SSectionTitle>
             <ViewToggleButton view={view} toggleView={toggleView} />
           </FollowerTitle>
           <UserPost accountname={finalAccountname} />
