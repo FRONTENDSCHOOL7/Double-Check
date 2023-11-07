@@ -72,7 +72,9 @@ export default function HamSideYesLogin() {
   }, []);
 
   function openModal() {
-    setIsMarginAdded(true);
+    setIsMarginAdded(!isMarginAdded);
+    console.log('isMarginAdded:', isMarginAdded);
+
     setIsModalOpen(true);
     setSidebarOpen(false);
   }
@@ -113,7 +115,7 @@ export default function HamSideYesLogin() {
     }
   };
   console.log(userInfo);
-
+  console.log(isMarginAdded);
   const userImage = userInfo ? ImageCheck(userInfo.image, 'profile') : null;
   return (
     <>
@@ -123,10 +125,7 @@ export default function HamSideYesLogin() {
         </SButton>
         {isSidebarOpen && (
           <>
-            <SideBarBackDrop
-              onClick={sidebarClose}
-              style={{ margin: isMarginAdded ? '-16px' : '0' }}
-            />
+            <SideBarBackDrop onClick={sidebarClose} isMarginAdded={isMarginAdded} />
             <Sidebar isOpen={isSidebarOpen}>
               <Logo src={logo} alt='logo' />
               <MyAccount to='/setmyinfo'>
@@ -166,7 +165,7 @@ export default function HamSideYesLogin() {
 }
 
 const SideBarBackDrop = styled(ModalBackDrop)`
-  margin: 0px -16px;
+  margin: ${({ isMarginAdded }) => (isMarginAdded ? '0px -16px' : '0px -16px')};
 `;
 
 // 스타일
