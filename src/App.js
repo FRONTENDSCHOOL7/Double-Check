@@ -76,6 +76,15 @@ function App() {
               }
             />
             <Route
+              path='/phrase/upload'
+              element={
+                <ProtectedRoute>
+                  <PhraseUpload />
+                </ProtectedRoute>
+              }
+            />
+            이거 추가하
+            <Route
               path='/phraseupdate/:id'
               element={
                 <ProtectedRoute>

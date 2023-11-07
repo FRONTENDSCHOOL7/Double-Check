@@ -68,6 +68,7 @@ export default function PostItem({ post, color, id }) {
       showToast('게시글 정보를 불러올 수 없습니다.');
     }
   };
+  // console.log(isbn);
 
   const confirmDeleteReport = async () => {
     setShowEditDeleteModal(false);
@@ -134,7 +135,7 @@ export default function PostItem({ post, color, id }) {
         </SShowMore>
       </SPostHeader>
       <SPostSection>
-        <Link to={`/post/${id}`}>
+        <Link to={`/post/${id}`} state={isbn}>
           <SImgWrapper color={color}>
             <SPostImg src={post.image} alt='책 표지 이미지' />
           </SImgWrapper>

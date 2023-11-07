@@ -14,3 +14,8 @@ export const postDetailInfo = atom({
   key: 'postDetailInfo',
   default: '',
 });
+
+export const newinfo = atom({
+  key: 'newinfo',
+  default: '',
+});

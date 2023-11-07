@@ -23,6 +23,7 @@ export default function PostDetail({
   postid,
   heartCount,
   hearted,
+  isbn,
 }) {
   const [dateData, setDateData] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,6 +38,7 @@ export default function PostDetail({
   const currentCount = counts[post_id] || 0;
   console.log(likedPosts);
 
+  console.log(isbn);
   const setCommentCounts = useSetRecoilState(commentCount);
 
   // 댓글 추가 시 댓글 수 상태 업데이트
@@ -61,7 +63,7 @@ export default function PostDetail({
   // 내 계정이름
   const accountname = userInfo[0].accountname;
   console.log(accountname);
-  console.log(postDetails);
+  console.log(postDetails.isbn);
   // 포스트 계정이름
   console.log(authorInfo.accountname);
 
@@ -127,7 +129,7 @@ export default function PostDetail({
       setShowReportModal(true);
     }
   };
-
+  console.log(postDetails.isbn);
   return (
     <SMainPostDetail>
       <SPostarticle>

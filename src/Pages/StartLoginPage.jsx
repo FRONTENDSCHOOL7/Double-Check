@@ -1,38 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import PigCharacter from 'assets/images/PigCharacter.png';
+import PigCharacter from 'assets/images/userimage.png';
 import bg from 'assets/images/bg.png';
 
 function StartLoginPage() {
   return (
     <Container>
-      <BackGround />
-      <Icon />
-      <StyledLink to='/loginpage'>이메일로 로그인</StyledLink>
-      <SignUpLink to='/signupPage'>회원가입</SignUpLink>
+      {/* <BackGround /> */}
+      <SLoginWrap>
+        <Icon />
+        <StyledLink to='/loginpage'>이메일로 로그인</StyledLink>
+        <SignUpLink to='/signupPage'>회원가입</SignUpLink>
+      </SLoginWrap>
     </Container>
   );
 }
-
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  height: 100vh;
-  width: 390px;
-  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
-const BackGround = styled.div`
-  position: fixed;
-  top: -50px;
-  width: 390px;
-  height: 300px;
+const SLoginWrap = styled.div`
   background-image: url(${bg});
-  background-size: cover;
-  margin-bottom: 50px;
+  background-position: 40% -10%;
+  background-size: 400px;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  width: 390px;
+  padding: 0;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Icon = styled.div`
@@ -40,7 +45,6 @@ const Icon = styled.div`
   height: 140px;
   background-image: url(${PigCharacter});
   background-size: cover;
-  margin-top: 300px;
 `;
 
 const StyledLink = styled(Link)`
@@ -60,8 +64,7 @@ const StyledLink = styled(Link)`
 
 const SignUpLink = styled(Link)`
   // 회원가입 링크에 대한 스타일을 추가합니다.
-  position: absolute;
-  bottom: 100px;
+
   text-decoration: underline;
   color: black;
 `;
