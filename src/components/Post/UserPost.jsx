@@ -9,6 +9,7 @@ import galleryIcon from '../../assets/images/icon/icon-gallery.svg';
 import feedIcon from '../../assets/images/icon/icon-feed.svg';
 import { useRecoilState } from 'recoil';
 import { viewState } from '../../Recoil/FeedView';
+import { clear } from '@testing-library/user-event/dist/clear';
 
 const colors = [
   ['#FFE7FF', '#E3EEFF'],
@@ -43,14 +44,15 @@ export default function UserPost({ accountname }) {
   const toggleView = () => {
     setView((currentView) => (currentView === 'feed' ? 'gallery' : 'feed'));
   };
-
+  console.log(view);
   return (
     <div>
       {view === 'feed' ? (
         validUserPosts.map((post, index) => {
           const colorIndex = index % colors.length;
           const color = colors[colorIndex];
-          return <PostItem key={post._id} post={post} color={color} />;
+          console.log(post.id);
+          return <PostItem key={post.id} post={post} id={post.id} color={color} />;
         })
       ) : (
         <GalleryView posts={validUserPosts} />

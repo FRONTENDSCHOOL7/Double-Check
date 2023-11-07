@@ -6,8 +6,8 @@ export default function PostGallery({ posts }) {
   return (
     <SGalleryPostList>
       {posts.map((post) => (
-        <SGalleryPostItem key={post._id}>
-          <Link to={`/post/${post._id}`}>
+        <SGalleryPostItem key={post.id}>
+          <Link to={`/post/${post.id}`}>
             <GalleryImg src={post.image} alt='책 표지 이미지' />
           </Link>
         </SGalleryPostItem>

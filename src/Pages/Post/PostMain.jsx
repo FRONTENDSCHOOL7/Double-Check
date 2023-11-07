@@ -78,7 +78,8 @@ export default function PostMain() {
         validPosts.map((post, index) => {
           const colorIndex = index % colors.length;
           const color = colors[colorIndex];
-          return <Post key={post._id} post={post} color={color} />;
+          console.log(post._id);
+          return <Post key={post._id} post={post} color={color} id={post._id} />;
         })
       ) : (
         <PostGallery posts={validPosts} />
