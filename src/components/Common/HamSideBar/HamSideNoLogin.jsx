@@ -24,7 +24,7 @@ export default function HamSideNoLogin() {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/loginpage');
+    navigate('/startloginpage');
     setSidebarOpen(false);
   };
   return (

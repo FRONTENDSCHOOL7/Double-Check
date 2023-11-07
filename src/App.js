@@ -62,7 +62,7 @@ function App() {
           <Routes>
             <Route path='/*' element={<ErrorPage />} />
             <Route path='/' element={<SplashPage />} />
-            {/* <Route path='/' element={<StartLoginPage />} /> */}
+            <Route path='/startloginpage' element={<StartLoginPage />} />
             <Route path='/main' element={<MainPage />} />
             <Route path='/book*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
