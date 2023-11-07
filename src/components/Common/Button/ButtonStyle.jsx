@@ -15,7 +15,7 @@ const Button = styled.button`
   &:active,
   &:hover,
   &:focus {
-    background-color: ${(props) => props.backgroundColor || 'var(--main-purple)'};
+    background-color: ${(props) => props.backgroundColor || 'var(--dark-purple)'};
   }
 
   &:disabled {
@@ -64,7 +64,7 @@ const StyledButton = styled(Button)`
         color: var(--black);
         height: 27px;
         padding: 6px;
-        min-width: 35px;
+        min-width: 40px;
         &:active,
         &:hover,
         &:focus {
