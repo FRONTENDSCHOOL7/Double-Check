@@ -5,10 +5,10 @@ import styled from 'styled-components';
 
 // styled-components를 사용하여 버튼 스타일을 정의합니다.
 const CategoryButton = styled.button`
-  background-color: ${(props) => (props.clicked ? '#d2d8fa' : '#fff')};
-  color: #000;
-  font-family: Inter;
-  font-size: 14px;
+  background-color: ${(props) => (props.clicked ? 'var(--medium-blue)' : 'var(--white)')};
+  color: var(--black);
+  font-family: 'Pretendard-Regular';
+  font-size: var(--font-xs-size)
   font-style: normal;
   font-weight: 400;
   padding: 8px 20px;
@@ -29,8 +29,9 @@ export function CategoryList({ categories, initialClickedCategories, onCategoryC
     setClickedCategories(initialClickedCategories);
   }, [initialClickedCategories]);
 
+  // 상태 업데이트 후의 값을 확인
   useEffect(() => {
-    console.log(clickedCategories); // 상태 업데이트 후의 값을 확인
+    console.log(clickedCategories);
   }, [clickedCategories]);
 
   const handleButtonClick = (category) => {
