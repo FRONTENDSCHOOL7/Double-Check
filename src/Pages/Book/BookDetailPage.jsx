@@ -12,7 +12,9 @@ export default function BookDetailPage() {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/search/?isbn=${isbn}`);
+        const response = await axios.get(
+          `https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/search/?isbn=${isbn}`,
+        );
         let bookData = response.data.items || [];
 
         if (bookData.length === 0 && location.state && location.state.product) {

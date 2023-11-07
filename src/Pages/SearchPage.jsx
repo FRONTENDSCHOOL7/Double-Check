@@ -68,7 +68,11 @@ export default function SearchPage() {
   useEffect(() => {
     if (keyword) {
       axios
-        .get(`http://localhost:8080/search?searchQuery=${encodeURIComponent(keyword)}`)
+        .get(
+          `https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/search?searchQuery=${encodeURIComponent(
+            keyword,
+          )}`,
+        )
         .then((response) => {
           const data = response.data.items;
           setBookData(data);
