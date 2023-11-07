@@ -12,12 +12,14 @@ import { navBar } from 'Recoil/Navbar';
 import imgBtn from 'assets/images/icon/icon-img.png';
 import { CategoryList } from 'components/Category';
 import ImageCheck from 'components/Common/ImageCheck';
+import { useNavigate } from 'react-router-dom';
 export default function SetMyInfo() {
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useRecoilState(loginCheck);
   const [token, setToken] = useRecoilState(loginToken);
   const [profileImage, setProfileImage] = useState('');
-  const [categories, setCategories] = useState(Array(3));
+  const [categories, setCategories] = useState([]);
   const isFirstRender = useRef(true); // 랜더링 컨트롤
   const [intro, setIntro] = useState('');
   const [profileData, setProfileData] = useState({
@@ -118,20 +120,22 @@ export default function SetMyInfo() {
     if (!isFirstRender.current) {
       return;
     }
-    setProfileData((prevProfileData) => ({
-      ...prevProfileData,
-      user: {
-        ...prevProfileData.user,
-        intro: intro + (categories.length > 0 ? '@cc@' + categories.join(',') : ''),
-      },
-    }));
+    if (categories) {
+      setProfileData((prevProfileData) => ({
+        ...prevProfileData,
+        user: {
+          ...prevProfileData.user,
+          intro: intro + (categories.length > 0 ? '@cc@' + categories.join(',') : ''),
+        },
+      }));
+    }
   }, [categories, intro]);
 
   const updateProfile = async () => {
     console.log('Updating profile with data:', profileData);
     const response = await setProfileAPI(profileData, token);
     console.log(response);
-    location.reload();
+    location.reload(navigate('/profile/myinfo'));
   };
   const userImage = ImageCheck(
     'https://api.mandarin.weniv.co.kr/' + profileData.user.image,
@@ -201,7 +205,7 @@ export default function SetMyInfo() {
 const Textarea = styled.textarea`
   width: 100%;
   height: 6.25em;
-  font-family: Pretendard-Regular;
+  font-family: 'Pretendard-Regular';
   border: none;
   resize: none;
   border-radius: 10px;
@@ -218,6 +222,7 @@ const Rectangle = styled.div`
 `;
 
 const Wrapper = styled.div`
+  font-family: 'Pretendard-Regular';
   padding: 0 20px;
 `;
 
@@ -271,7 +276,7 @@ const InputFile = styled.div`
 
 const Label = styled.label`
   color: #000;
-  font-family: Pretendard-Regular;
+  font-family: 'Pretendard-Regular';
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -282,7 +287,7 @@ const Label = styled.label`
 
 const InputBoxFile = styled.input`
   height: 40px;
-  border: 1px solid #d2d8fa;
+  border: 1px solid var(--medium-blue);
   .a11y-hidden {
     clip: rect(1px, 1px, 1px, 1px);
     clip-path: inset(50%);
@@ -311,7 +316,7 @@ const Image = styled.img`
 const ImageBox = styled.div`
   width: 150px;
   height: 150px;
-  background-color: #fff;
+  background-color: var(--white);
   border-radius: 50%;
   overflow: hidden;
 `;
@@ -333,7 +338,7 @@ const ImgBtn = styled.img`
 `;
 
 const CategoryDiv = styled.div`
-  margin-top: 15px;
+  margin: 15px 0 0 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
