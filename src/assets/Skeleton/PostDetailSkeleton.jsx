@@ -18,7 +18,7 @@ const PostDetailSkeleton = (props) => (
       <circle cx='38' cy='36' r='23' />
       <rect x='71' y='20' rx='5' ry='5' width='159' height='16' />
       <rect x='70' y='44' rx='5' ry='5' width='198' height='14' />
-      <rect x='67' y='77' rx='5' ry='5' width='298' height='300' />
+      <rect x='67' y='77' rx='5' ry='5' width='298' height='250' />
       <rect x='351' y='21' rx='5' ry='5' width='14' height='29' />
     </ContentLoader>
   </>

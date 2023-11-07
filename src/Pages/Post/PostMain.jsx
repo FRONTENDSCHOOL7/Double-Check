@@ -7,7 +7,7 @@ import Topbar from 'components/Common/Topbar/Topbar';
 import PostGallery from 'components/Post/PostGallery';
 import galleryIcon from '../../assets/images/icon/icon-gallery.svg';
 import feeddIcon from '../../assets/images/icon/icon-feed.svg';
-
+import PostSkeleton from 'assets/Skeleton/PostSkeleton';
 const colors = [
   ['#FFE7FF', '#E3EEFF'],
   '#F2F4FF',
@@ -32,8 +32,9 @@ export default function PostMain() {
 
   const { allFollowingPosts, isLoadingFollowingPosts } = useGetInfiniteFollowingPosts();
   console.log(allFollowingPosts);
+
   if (isLoadingPosts || isLoadingFollowingPosts) {
-    return <div>로딩 중...</div>;
+    return <PostSkeleton />;
   }
 
   const validPosts = allPosts.filter((post) => {
