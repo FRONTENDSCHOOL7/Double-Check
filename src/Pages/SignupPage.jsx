@@ -31,7 +31,13 @@ export default function SignUpPage() {
     },
   });
   useEffect(() => {
-    if (isEmailValid && isAccountNameValid && isPasswordValid && isPasswordConfirmed) {
+    if (
+      isEmailValid &&
+      isAccountNameValid &&
+      isPasswordValid &&
+      isPasswordConfirmed &&
+      isUsernameConfirmed
+    ) {
       setSignUpCheck(true);
     } else {
       setSignUpCheck(false);
@@ -60,11 +66,11 @@ export default function SignUpPage() {
     }
 
     if (name === 'username') {
-      handleError(value);
+      handleUsernameError(value);
     }
 
     if (name === 'password') {
-      handleError(value);
+      handlePasswordError(value);
     }
   };
 
@@ -131,22 +137,24 @@ export default function SignUpPage() {
     setUserErrorMessage(errors);
   };
 
-  const handleError = (value) => {
+  const handleUsernameError = (username) => {
     const errors = [];
-    const username = value;
-    const passwordLength = value.length;
-    const password = value;
-    if (passwordLength < 6) {
-      errors.push('비밀번호를 6자리 이상 입력해주세요');
-    } else {
-      setIsPasswordValid(true);
-    }
-
     if (username === '') {
       errors.push('사용자 이름을 입력해 주세요');
+      setIsUsernameConfirmed(false);
     } else {
-      errors.push('');
       setIsUsernameConfirmed(true);
+    }
+    setUserErrorMessage(errors);
+  };
+
+  const handlePasswordError = (password) => {
+    const errors = [];
+    if (password.length < 6) {
+      errors.push('비밀번호를 6자리 이상 입력해주세요');
+      setIsPasswordValid(false);
+    } else {
+      setIsPasswordValid(true);
     }
     setUserErrorMessage(errors);
   };
