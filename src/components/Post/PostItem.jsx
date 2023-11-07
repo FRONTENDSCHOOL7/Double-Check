@@ -20,6 +20,7 @@ import LikeButton from 'components/Common/Button/likeButton';
 import { commentCount } from 'Recoil/CommnetCount';
 import { postDeleteAPI, useDeletePost, reportPost } from 'API/Post';
 import { postDetailsState } from 'Recoil/PostDetail';
+import userInfoState from 'Recoil/UserInfo';
 
 export default function PostItem({ post, color, id }) {
   console.log(post.id);
@@ -31,6 +32,7 @@ export default function PostItem({ post, color, id }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { title, author, review, isbn } = post.parsedContent || {};
   const [currentItemId, setCurrentItemId] = useRecoilState(itemIdState);
+  const userInfo = useRecoilState(userInfoState);
   const userId = localStorage.getItem('userId');
   const commentCounts = useRecoilValue(commentCount);
   const [likedPosts, setLikedPosts] = useRecoilState(likedState);
@@ -39,8 +41,10 @@ export default function PostItem({ post, color, id }) {
   // console.log(post.heartCount);
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
 
+  const accountname = userInfo[0].accountname;
+
   const handleShowMoreClick = () => {
-    if (post.author._id === userId) {
+    if (post.author.accountname === accountname) {
       setShowEditDeleteModal(true);
       setCurrentItemId(id);
     } else {
