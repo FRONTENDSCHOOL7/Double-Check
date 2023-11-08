@@ -11,9 +11,19 @@
 |  [김창영](https://github.com/changyoungg) |  [박은진](https://github.com/eunjingrove)  | [박현석](https://github.com/hspark9781) | [이하연](https://github.com/cocorig)|
 
 </div>
-//메인자리입니다 !! 여기에 올려주세요 !! 
+
 <table>
   <tbody>
+      <tr>
+        <td>
+          <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/23a5fc60-640c-4e4a-b5a0-0d7b869f7917" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/5b9c2d14-a0e3-4b71-8e7e-05a51b24d931"/>
+        </td>
+      </tr>
       <tr>
         <td>
             <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/77034f17-6a11-4772-8733-dff265ff08e1" />
