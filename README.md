@@ -20,9 +20,18 @@
         </td>
       </tr>
       <tr>
-        <td>
-          <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/5b9c2d14-a0e3-4b71-8e7e-05a51b24d931"/>
-        </td>
+          <td>
+              <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/cdd68c1c-1305-41d4-b82a-35b9cb79dc09" />
+          </td>
+          <td>
+              <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/c23ffdc8-121e-46ba-97bb-26c9f2ca5c19" />
+          </td>
+           <td>
+              <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/ff9685cf-d3ad-4a5e-9e5e-dd546c030373" />
+          </td>
+          <td>
+            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/5b9c2d14-a0e3-4b71-8e7e-05a51b24d931"/>
+          </td>
       </tr>
       <tr>
         <td>
