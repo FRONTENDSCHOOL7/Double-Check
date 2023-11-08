@@ -38,7 +38,7 @@ export default function FollowingList({ accountname }) {
   }, [accountname]);
 
   if (isLoading) {
-    return <div>Loading followings...</div>;
+    return <div>로딩중</div>;
   }
 
   if (error) {

@@ -32,7 +32,7 @@ export default function ProfilePage() {
     try {
       const response = await profileAPI();
       setMyAccountname(response.user.accountname);
-      console.log(response.user.accountname);
+      console.log(response);
       setIsLoading(false);
     } catch (error) {
       console.error('Profile fetch error:', error);
@@ -145,9 +145,9 @@ export default function ProfilePage() {
 }
 
 const FollowButton = styled.button`
-  background-color: ${(props) => (props.isFollowing ? 'var(--gray-300)' : 'var(--white)')};
-  color: ${(props) => (props.isFollowing ? 'var(--gray-500)' : 'var(--black)')};
-  border: 1px solid ${(props) => (props.isFollowing ? 'var(--gray-400)' : 'var(--gray-400)')};
+  background-color: ${(props) => (props.isFollowing ? 'var(--gray-200)' : 'var(--white)')};
+  color: ${(props) => (props.isFollowing ? 'var(--gray-400)' : 'var(--black)')};
+  border: 1px solid ${(props) => (props.isFollowing ? 'var(--gray-300)' : 'var(--gray-400)')};
   border-radius: 25px;
   cursor: pointer;
   font-size: var(--font-xm-size);
