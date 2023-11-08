@@ -1,53 +1,64 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import pretendardRegularWoff from '../assets/fonts/Pretendard/Pretendard-Regular.woff';
+import pretendardRegularWoff2 from '../assets/fonts/Pretendard/Pretendard-Regular.woff2';
+import pretendardRegularOtf from '../assets/fonts/Pretendard/Pretendard-Regular.otf';
+import pretendardMediumWoff from '../assets/fonts/Pretendard/Pretendard-Medium.woff';
+import pretendardMediumWoff2 from '../assets/fonts/Pretendard/Pretendard-Medium.woff2';
+import pretendardMediumOtf from '../assets/fonts/Pretendard/Pretendard-Medium.otf';
+import pretendardSemiBoldWoff from '../assets/fonts/Pretendard/Pretendard-SemiBold.woff';
+import pretendardSemiBoldWoff2 from '../assets/fonts/Pretendard/Pretendard-SemiBold.woff2';
+import pretendardSemiBoldOtf from '../assets/fonts/Pretendard/Pretendard-SemiBold.otf';
+import pretendardBoldWoff from '../assets/fonts/Pretendard/Pretendard-Bold.woff';
+import pretendardBoldWoff2 from '../assets/fonts/Pretendard/Pretendard-Bold.woff2';
+import pretendardBoldOtf from '../assets/fonts/Pretendard/Pretendard-Bold.otf';
 
-const GlobalStyles = createGlobalStyle` 
+const GlobalStyles = createGlobalStyle`
   ${reset}
 
   @font-face {
-  font-family: 'Pretendard-Regular';
-  font-weight: 400;
-  font-display: swap;
-  src:
-    local('Pretendard Regular'),
-    url('../assets/fonts/Pretendard/Pretendard-Regular.woff') format('woff'),
-    url('../assets/fonts/Pretendard/Pretendard-Regular.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-Regular.otf') format('opentype');
-}
+    font-family: 'Pretendard-Regular';
+    font-weight: 400;
+    font-display: swap;
+    src:
+      local('Pretendard Regular'),
+      url(${pretendardRegularWoff}) format('woff'),
+      url(${pretendardRegularWoff2}) format('woff2'),
+      url(${pretendardRegularOtf}) format('opentype');
+  }
 
-@font-face {
-  font-family: 'Pretendard-Medium';
-  font-weight: 500;
-  font-display: swap;
-  src:
-    local('Pretendard Medium'),
-    url('../assets/fonts/Pretendard/Pretendard-Medium.woff') format('woff'),
-    url('../assets/fonts/Pretendard/Pretendard-Medium.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-Medium.otf') format('opentype');
-}
+  @font-face {
+    font-family: 'Pretendard-Medium';
+    font-weight: 500;
+    font-display: swap;
+    src:
+      local('Pretendard Medium'),
+      url(${pretendardMediumWoff}) format('woff'),
+      url(${pretendardMediumWoff2}) format('woff2'),
+      url(${pretendardMediumOtf}) format('opentype');
+  }
 
-@font-face {
-  font-family: 'Pretendard-SemiBold';
-  font-weight: 600;
-  font-display: swap;
-  src:
-    local('Pretendard SemiBold'),
-    url('../assets/fonts/Pretendard/Pretendard-SemiBold.woff') format('woff'),
-    url('../assets/fonts/Pretendard/Pretendard-SemiBold.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-SemiBold.otf') format('opentype');
-}
+  @font-face {
+    font-family: 'Pretendard-SemiBold';
+    font-weight: 600;
+    font-display: swap;
+    src:
+      local('Pretendard SemiBold'),
+      url(${pretendardSemiBoldWoff}) format('woff'),
+      url(${pretendardSemiBoldWoff2}) format('woff2'),
+      url(${pretendardSemiBoldOtf}) format('opentype');
+  }
 
-@font-face {
-  font-family: 'Pretendard-Bold';
-  font-weight: 700;
-  font-display: swap;
-  src:
-    local('Pretendard Bold'),
-    url('../assets/fonts/Pretendard/Pretendard-Bold.woff') format('woff'),
-    url('../assets/fonts/Pretendard/Pretendard-Bold.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-Bold.otf') format('opentype');
-}
-
+  @font-face {
+    font-family: 'Pretendard-Bold';
+    font-weight: 700;
+    font-display: swap;
+    src:
+      local('Pretendard Bold'),
+      url(${pretendardBoldWoff}) format('woff'),
+      url(${pretendardBoldWoff2}) format('woff2'),
+      url(${pretendardBoldOtf}) format('opentype');
+  }
 
   body{
     font-family: "Pretendard-Medium", sans-serif;

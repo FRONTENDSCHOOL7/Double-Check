@@ -7,7 +7,7 @@ import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
 import { styled } from 'styled-components';
 import { ImageUpload } from 'API/ImageUpload';
-import Topbar from 'components/Common/TopBar';
+import Topbar from 'components/Common/Topbar/Topbar';
 import { navBar } from 'Recoil/Navbar';
 import imgBtn from 'assets/images/icon/icon-img.png';
 import { CategoryList } from 'components/Category';
@@ -143,7 +143,7 @@ export default function SetMyInfo() {
   );
   return (
     <>
-      <Topbar centerEl='setprofile' />
+      <Topbar title='프로필 수정' />
       <Wrapper>
         <Profile>
           <Rectangle />
