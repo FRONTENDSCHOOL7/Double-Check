@@ -86,14 +86,13 @@ export default function PhraseList() {
   return (
     <>
       <Topbar
-        // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
         title='글귀 목록'
         rightButton={
           <Button
             category='basic'
             shape='primary'
             type='button'
-            onClick={() => navigate('/phraseupload')}
+            onClick={() => navigate('/phrase/upload')}
           >
             작성
           </Button>
@@ -126,7 +125,7 @@ export default function PhraseList() {
                       <p>{item.link}</p>
                     </PhraseInfo>
 
-                    {item.author.accountname === userId ? (
+                    {item.author.accountname === accountname ? (
                       <Button
                         category='basic'
                         shape='none'
