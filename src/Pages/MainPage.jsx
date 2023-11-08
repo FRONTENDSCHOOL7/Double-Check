@@ -6,7 +6,7 @@ import Topbar from 'components/Common/Topbar/Topbar';
 import TopBarBtn from 'components/Common/Topbar/TopBarBtn';
 
 import { useNavigate } from 'react-router-dom';
-import { BiSearchAlt } from 'react-icons/bi';
+import { BiSearch } from 'react-icons/bi';
 import Button from 'components/Common/Button/Button';
 import { Suspense } from 'react';
 import loginToken from 'Recoil/LoginToken';
@@ -34,7 +34,7 @@ export default function MainPage() {
             icon={token ? HamSideYesLogin : HamSideNoLogin}
           />
         }
-        rightButton={<TopBarBtn icon={BiSearchAlt} onClick={() => navigate('/search')} />}
+        rightButton={<TopBarBtn icon={BiSearch} onClick={() => navigate('/search')} />}
       />
       <BannerSlideShow />
       <Suspense fallback={<MainSkeleton />}>
