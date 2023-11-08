@@ -32,7 +32,6 @@ import UserPost from 'components/Post/UserPost';
 import SplashPage from 'Pages/SplashPage';
 import ErrorPage from 'Pages/ErrorPage';
 import PostDetail from 'components/Post/PostDetail';
-import PhraseEdit from 'Pages/Phrase/PhraseUpload';
 import RouteModal from 'components/Common/ProtectedRoute/RouteModal';
 
 function App() {
@@ -76,15 +75,6 @@ function App() {
               }
             />
             <Route
-              path='/phrase/upload'
-              element={
-                <ProtectedRoute>
-                  <PhraseUpload />
-                </ProtectedRoute>
-              }
-            />
-            이거 추가하
-            <Route
               path='/phraseupdate/:id'
               element={
                 <ProtectedRoute>
@@ -97,6 +87,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <PhraseList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/phrase/upload'
+              element={
+                <ProtectedRoute>
+                  <PhraseUpload />
                 </ProtectedRoute>
               }
             />

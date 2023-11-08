@@ -154,7 +154,8 @@ export default function PostItem({ post, color, id }) {
           <Link to={`/post/${id}`}>
             <SPostbutton>
               <img src={comment} alt='댓글 버튼' />
-              <span>{commentCounts[id] || 0}</span>
+              {/* <span>{commentCounts[id] || 0}</span> */}
+              <span>{post.comments.length}</span>
             </SPostbutton>
           </Link>
         </SButtonGroup>
