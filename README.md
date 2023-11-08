@@ -25,6 +25,14 @@
   <tbody>
        <tr>
         <td>
+          <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/3583aa44-8fe6-4f2b-973f-d97208d70188" />
+        </td>
+        <td>
+         <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/62f66fdf-6412-4ddf-8d12-b5a5c7844b86" />
+        </td>
+      </tr>
+       <tr>
+        <td>
           <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/23a5fc60-640c-4e4a-b5a0-0d7b869f7917" />
         </td>
         <td>
@@ -74,6 +82,9 @@
         </td>
     </tr>
     <tr>
+         <td>
+            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/51c3a0ea-cdd4-442f-a4e9-32a088947f28">
+        </td>
         <td>
             <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/124c8b31-838c-4098-a596-e5de847e47d4">
         </td>
