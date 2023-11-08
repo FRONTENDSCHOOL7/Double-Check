@@ -9,8 +9,17 @@
 | :--------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
 |<img src="https://avatars.githubusercontent.com/u/138555880?v=4" width="120px;" alt=""/>  | <img src="https://avatars.githubusercontent.com/u/138556026?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/124562930?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/95855640?v=4?s=100" width="120" alt="" /> |
 |  [김창영](https://github.com/changyoungg) |  [박은진](https://github.com/eunjingrove)  | [박현석](https://github.com/hspark9781) | [이하연](https://github.com/cocorig)|
+  </div>
+    <p>
+      <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+      <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+      <img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white" />
+      <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white" />
+      <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black" />
+      <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=black" />
+      <img src="https://img.shields.io/badge/notion-white?style=for-the-badge&logo=notion&logoColor=black" />
+  </p>
 
-</div>
 
 <table>
   <tbody>
