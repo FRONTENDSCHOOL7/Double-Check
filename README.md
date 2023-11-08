@@ -2,6 +2,16 @@
 <div align="center">
 <img src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/78103eeb-9cff-42d3-a97a-4b4877322983">
 <br/>
+  
+  <h3>같이 읽고, 생각을 나눠봐요. 책과 함께한 순간을 공유합니다</h3> 
+  <br/>
+
+ <b>[DOBLE CHAEK 바로가기]()</b> 
+  <br/>
+ <br/>
+  Test ID : `doublechaek@test.com` <br>
+  Test PW : `123123`
+<br> 
 <br/>
 <h2>Coding Crusaders</h2>
 
