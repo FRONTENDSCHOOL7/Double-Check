@@ -169,13 +169,16 @@ const ProfileFollow = styled.button`
   gap: 5px;
   justify-content: center;
   font-size: var(--font-sm-size);
-  font-family: 'Pretendard-SemiBold', sans-serif;
+  font-family: 'Pretendard-Medium', sans-serif;
   &.active {
-    // 기타 활성화 상태에 필요한 스타일
     color: var(--dark-purple);
-    border-top: 5px solid var(--dark-purple);
-    border-radius: 3px;
-    padding-top: 5px;
+    &::before {
+      content: '';
+      width: 38px;
+      height: 4px;
+      border-radius: 23px;
+      background-color: var(--dark-purple);
+    }
   }
 `;
 
