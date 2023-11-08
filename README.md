@@ -23,9 +23,15 @@
 
 <table>
   <tbody>
-      <tr>
+       <tr>
         <td>
           <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/23a5fc60-640c-4e4a-b5a0-0d7b869f7917" />
+        </td>
+        <td>
+         <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/8f5a73ae-c9fd-4a95-aa5c-baa26c10ffbe" />
+        </td>
+        <td>
+         <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/ce85ed7b-d0d1-4903-98d3-69a3517e54df" />
         </td>
       </tr>
       <tr>
