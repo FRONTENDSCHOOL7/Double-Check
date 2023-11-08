@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookList from 'components/Book/BookList';
-import Topbar from 'components/Common/TopBar';
+import Topbar from 'components/Common/Topbar/Topbar';
 import styled from 'styled-components';
 import BookListSkeleton from 'assets/Skeleton/BookListSkeleton';
 const LIST_INFO_MAP = {
@@ -40,7 +40,7 @@ const BookListPage = ({ listType }) => {
 
   return (
     <>
-      <Topbar centerEl={title} />
+      <Topbar title={title} />
       <SSection>
         <h1>{title}</h1>
         {loading ? ( // 로딩 중일 때 Loading 컴포넌트 표시
