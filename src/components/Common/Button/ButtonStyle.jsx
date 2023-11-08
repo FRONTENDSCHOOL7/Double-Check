@@ -96,7 +96,7 @@ const SideLoginBtn = styled(Button)`
   border: none;
   cursor: pointer;
   font-size: var(--font-xm-size);
-  padding: 14px 17px;
+  padding: 14px 30px;
   line-height: 1;
   background-color: var(--main-purple);
   color: var(--white);

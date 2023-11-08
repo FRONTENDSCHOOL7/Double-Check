@@ -98,20 +98,21 @@ const Sidebar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 90px 20px;
+  padding: 50px 20px 60px 10px;
 `;
 
 const Logo = styled.img`
   /* image2.png에 대한 스타일 */
   display: block;
   width: 165px;
-  height: 65px;
+  height: 75px;
 `;
 
 const Character = styled.img`
   /* image1.jpg에 대한 스타일 */
   display: block;
   width: 200px;
+  margin: 85px 0px 10px 0px;
   /* width: 166px;
   height: 153px;
   margin: 107px auto;  */
