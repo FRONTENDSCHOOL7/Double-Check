@@ -3,17 +3,29 @@
 <img src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/78103eeb-9cff-42d3-a97a-4b4877322983">
 
 
-  <h3>같이 읽고, 생각을 나눠봐요. 책과 함께한 순간을 공유합니다</h3> 
+  <h2>같이 읽고, 생각을 나눠봐요. 책과 함께한 순간을 공유합니다</h2> 
   <br/>
 
- <b>[DOUBLE CHAEK 바로가기](https://web-doublechaek-02-1igmo82clonz4u17.sel5.cloudtype.app/)</b> 
+ <b> [DOUBLE CHAEK 바로가기](https://web-doublechaek-02-1igmo82clonz4u17.sel5.cloudtype.app/)</b> 
   <br/>
  <br/>
-  Test ID : `doublechaek@test.com` <br>
-  Test PW : `123123`
-<br> 
-<br/>
+ 
+
  </div>
+ 
+ ###   Test ID
+ ```
+  doublechaek@test.com
+ ```
+### Test PW 
+```  
+ 123123 
+```
+
+
+
+<br/>
+
 
 
 ## 0.  목차 
@@ -37,6 +49,7 @@
 
 ## 1. 프로젝트 소개
 <br> 
+
 "더블책(Double Chaek)"은 도서에 대한 정보를 제공하고 사용자들이 리뷰를 남기며 글귀를 저장할 수 있는 커뮤니티 플랫폼입니다.
 - 네이버와 알라딘의 도서 API를 활용하여 베스트셀러와 신간 도서를 추천하며, 독자들이 도서에 대한 다양한 관점을 탐색하고 토론할 수 있는 환경을 조성하는 것을 목표로 합니다.
 - 사용자들이 책을 읽고 그 내용을 리뷰하거나 글귀를 공유함으로써 다시 한번 내용을 되새기고, 다른 사람들의 해석과 평가를 '두 번 확인(double check)'하는 과정을 상징합니다.
@@ -280,14 +293,11 @@
 
 <div align="center">
 
-<img src="https://github.com/cocorig/node-express/assets/95855640/cb511b3a-7eda-4347-9de2-59c157eff9d3" width="300" height="400" />
 
-
-|김창영|박은진|박현석|이하연|
-| :---: | :---: | :---: | :---: |
-| <img width="180" alt="프로필_김창영" src="https://avatars.githubusercontent.com/u/138555880?v=4"> | <img width="180" alt="프로필_박은진" src="https://avatars.githubusercontent.com/u/138556026?v=4"> | <img width="180" alt="프로필_박현석" src="https://avatars.githubusercontent.com/u/124562930?v=4"> | <img width="180" alt="프로필_이하연" src="https://avatars.githubusercontent.com/u/95855640?v=4?s=100"> |
-| [changyoungg](https://github.com/changyoungg) | [eunjingrove](https://github.com/eunjingrove) | [hspark9781](https://github.com/hspark9781) | [cocorig](https://github.com/cocorig) |
-
+|김창영|박은진|박현석|이하연| 팀 사진 |
+| :---: | :---: | :---: | :---: | :---: |
+| <img width="180" alt="프로필_김창영" src="https://avatars.githubusercontent.com/u/138555880?v=4"> | <img width="180" alt="프로필_박은진" src="https://avatars.githubusercontent.com/u/138556026?v=4"> | <img width="180" alt="프로필_박현석" src="https://avatars.githubusercontent.com/u/124562930?v=4"> | <img width="180" alt="프로필_이하연" src="https://avatars.githubusercontent.com/u/95855640?v=4?s=100"> | <img src="https://github.com/cocorig/node-express/assets/95855640/cb511b3a-7eda-4347-9de2-59c157eff9d3" width="200" /> | 
+| [changyoungg](https://github.com/changyoungg) | [eunjingrove](https://github.com/eunjingrove) | [hspark9781](https://github.com/hspark9781) | [cocorig](https://github.com/cocorig) | [Coding Crusaders](https://github.com/FRONTENDSCHOOL7/final-02-doublechaek)
 </div>
 
 <br />
