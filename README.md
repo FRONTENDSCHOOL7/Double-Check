@@ -18,61 +18,45 @@
 
 ## 0.  목차 
 
+ 1.  [프로젝트 소개](#1-프로젝트-소개) 
+ 2.  [개발 일정 및 진행방식](#2-개발-일정-및-진행방식)
+ 3.  [기술 및 개발 환경](#3-기술-및-개발-환경)  
+ 4.  [구현 기능](#4-구현-기능)   
+ 5.  [주요 기능](#5-주요-기능) 
+ 6.  [팀 협업 방식 및 컨벤션](#6-팀-협업-방식-및-컨벤션) 
+ 7.  [트러블 슈팅](#7-트러블-슈팅)  
+ 8.  [피드백 관리](#8-피드백)  
+ 9.  [팀원 소개](#9-팀원-소개)
+ 10. [프로젝트 진행소감](#10-프로젝트-진행소감) 
 
-1. [프로젝트 소개](#app)
-2. [팀원 소개](#team)
-3. [기술 및 개발 환경](#dev)
-4. [개발 일정](#schedule)
-5. [구현 기능](#feature)
-6. [컨벤션 및 협업 문화](#convention)
-7. [프로젝트 구조](#tree)
-8. [주요 기능](#main)
-10. [피드백 관리](#feedback)
 
 
 <br>
 
-## <span id="app">📚  1. 프로젝트 소개</span>
 
 
+## 1. 프로젝트 소개
+<br> 
 "더블책(Double Chaek)"은 도서에 대한 정보를 제공하고 사용자들이 리뷰를 남기며 글귀를 저장할 수 있는 커뮤니티 플랫폼입니다.
 - 네이버와 알라딘의 도서 API를 활용하여 베스트셀러와 신간 도서를 추천하며, 독자들이 도서에 대한 다양한 관점을 탐색하고 토론할 수 있는 환경을 조성하는 것을 목표로 합니다.
 - 사용자들이 책을 읽고 그 내용을 리뷰하거나 글귀를 공유함으로써 다시 한번 내용을 되새기고, 다른 사람들의 해석과 평가를 '두 번 확인(double check)'하는 과정을 상징합니다.
+
  <br />
  
 
-  
-## <span id="team">🍀  2. 팀원 소개</span>
-
-<div align="center">
-  
-|김창영|박은진|박현석|이하연|
-| :---: | :---: | :---: | :---: |
-| <img width="180" alt="프로필_김창영" src="https://avatars.githubusercontent.com/u/138555880?v=4"> | <img width="180" alt="프로필_박은진" src="https://avatars.githubusercontent.com/u/138556026?v=4"> | <img width="180" alt="프로필_박현석" src="https://avatars.githubusercontent.com/u/124562930?v=4"> | <img width="180" alt="프로필_이하연" src="https://avatars.githubusercontent.com/u/95855640?v=4?s=100"> |
-| [changyoungg](https://github.com/changyoungg) | [eunjingrove](https://github.com/eunjingrove) | [hspark9781](https://github.com/hspark9781) | [cocorig](https://github.com/cocorig) |
-
-</div>
-<br />
-
-## <span id="schedule">📅 3. 개발 일정 및 진행 방식</span>
- 
-### 프로젝트 개발기간 
-
-> 2023.10.16 - 2023.11.09  <br />
+## 2. 개발 일정 및 진행방식 
 
 📌  스크럼
 - 매일 오전 10시 스크럼 진행
 - 17시 진행상황 및 이슈 공유
 - 필요시 오프라인 미팅 진행
 
-### 리팩토링 개발기간 
-> 2023.11.12 ~
-
 
 <br /> 
 
 
-## <span id="dev">  ⚙️ 4. 기술 및 개발 환경</span>
+
+## 3. 기술 및 개발 환경
 
 <div align="center">
 
@@ -81,7 +65,6 @@
 | <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black">  <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white">   <img src="https://img.shields.io/badge/axios-7F2B7B?style=flat-square&logo=axios&logoColor=white"/>  <img src="https://img.shields.io/badge/reactquery-FF4154?style=flat-square&logo=reactquery&logoColor=white"> | <img src="https://img.shields.io/badge/Node.Js-339933?style=flat-square&logo=Node.js&logoColor=white"/>   <img src="https://img.shields.io/badge/express-000000?style=flat-square&logo=express&logoColor=white"/>  </br>  제공된 API | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
  
 </div>
-
 <br /> 
 
 ### [기술스택 상세]
@@ -129,7 +112,8 @@
 
 <br /> 
 
-## <span id="schedule"> ✨ 5. 구현 기능</span>
+
+ ## 4. 구현 기능
 
 <table>
   <tbody>
@@ -206,7 +190,13 @@
 </table>
 
 
-##<span id="convention">💥  5.  컨벤션 </span>
+
+## 5. 주요 기능
+
+
+
+## 6. 팀 협업 방식 및 컨벤션
+
 
 ### Git 컨벤션
 
@@ -272,36 +262,58 @@
 
 <br />
 
-## 🪄 6.  **명세서**
 
-<h align="center">[기술 명세서 ](https://www.notion.so/1d0d3520d9b84228afcd9cbd43cdafd8)</h>
-
-
-<br><br><br>
 
 <br />
 
-## <span id="main"> ✨ 7. 구현 기능</span>
+
+## 7. 트러블 슈팅
+
+
+## 8. 피드백
+
+
+
+## 9. 팀원 소개
+
+### 안녕하세요👋🏻  저희는 멋쟁이사자처럼 프론트엔드 스쿨 7기 2조 **코딩 크루세이더스** 조 입니다.
+
+<div align="center">
+
+<img src="https://github.com/cocorig/node-express/assets/95855640/cb511b3a-7eda-4347-9de2-59c157eff9d3" width="300" height="400" />
+
+
+|김창영|박은진|박현석|이하연|
+| :---: | :---: | :---: | :---: |
+| <img width="180" alt="프로필_김창영" src="https://avatars.githubusercontent.com/u/138555880?v=4"> | <img width="180" alt="프로필_박은진" src="https://avatars.githubusercontent.com/u/138556026?v=4"> | <img width="180" alt="프로필_박현석" src="https://avatars.githubusercontent.com/u/124562930?v=4"> | <img width="180" alt="프로필_이하연" src="https://avatars.githubusercontent.com/u/95855640?v=4?s=100"> |
+| [changyoungg](https://github.com/changyoungg) | [eunjingrove](https://github.com/eunjingrove) | [hspark9781](https://github.com/hspark9781) | [cocorig](https://github.com/cocorig) |
+
+</div>
+
+<br />
+
+##  10. 프로젝트 진행소감
+
+### 🦁김창영
+
+```
+```
+
+### 🐻‍❄️박현석
+
+```
+```
+
+### 🐰박은진 
+
+```
+```
+
+### 🐨이하연
+
+```
+```
 
 
 
 
-##<span id="feedback"> ✨ 8.트러블 슈팅 및 리팩토링 부분</span>
-
-
-   
-
-<span id="codig"> ✨ 9. 느낀점 및 팀 사진..☺️🌸</span>
-
-
-### 김창영
-
-### 박현석
-
-### 박은진 
-
-### 이하연
-
-
-<!-- Top Button -->
-<p style='background: black; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-left: auto;'><a href="#top" style='color: white; '>▲</a></p>
