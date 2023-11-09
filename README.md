@@ -6,7 +6,7 @@
   <h3>같이 읽고, 생각을 나눠봐요. 책과 함께한 순간을 공유합니다</h3> 
   <br/>
 
- <b>[DOBLE CHAEK 바로가기](https://web-doublechaek-02-1igmo82clonz4u17.sel5.cloudtype.app/)</b> 
+ <b>[DOUBLE CHAEK 바로가기](https://web-doublechaek-02-1igmo82clonz4u17.sel5.cloudtype.app/)</b> 
   <br/>
  <br/>
   Test ID : `doublechaek@test.com` <br>
@@ -16,10 +16,29 @@
  </div>
 
 
-## <span id="app">📚  1. 서비스 소개</span>
+## 0.  목차 
 
 
+1. [프로젝트 소개](#app)
+2. [팀원 소개](#team)
+3. [기술 및 개발 환경](#dev)
+4. [개발 일정](#schedule)
+5. [구현 기능](#feature)
+6. [컨벤션 및 협업 문화](#convention)
+7. [프로젝트 구조](#tree)
+8. [주요 기능](#main)
+9. [버그 관리](#bug)
+10. [피드백 관리](#feedback)
 
+
+<br>
+
+## <span id="app">📚  1. 프로젝트 소개</span>
+
+
+"더블책(Double Chaek)"은 도서에 대한 정보를 제공하고 사용자들이 리뷰를 남기며 글귀를 저장할 수 있는 커뮤니티 플랫폼입니다.
+- 네이버와 알라딘의 도서 API를 활용하여 베스트셀러와 신간 도서를 추천하며, 독자들이 도서에 대한 다양한 관점을 탐색하고 토론할 수 있는 환경을 조성하는 것을 목표로 합니다.
+- 사용자들이 책을 읽고 그 내용을 리뷰하거나 글귀를 공유함으로써 다시 한번 내용을 되새기고, 다른 사람들의 해석과 평가를 '두 번 확인(double check)'하는 과정을 상징합니다.
  <br />
  
 
@@ -36,10 +55,17 @@
 </div>
 <br />
 
-## <span id="schedule">📅 3. 개발 일정</span>
+## <span id="schedule">📅 3. 개발 일정 및 진행 방식</span>
  
 ### 프로젝트 개발기간 
+
 > 2023.10.16 - 2023.11.09  <br />
+
+📌  스크럼
+- 매일 오전 10시 스크럼 진행
+- 17시 진행상황 및 이슈 공유
+- 필요시 오프라인 미팅 진행
+
 ### 리팩토링 개발기간 
 > 2023.11.12 ~
 
@@ -53,10 +79,56 @@
 
 | FrontEnd | BackEnd | Design | 협업방식 | 컨벤션 |
 | :----: | :----: | :----: | :----: | :----: |
-| <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white">   <img src="https://img.shields.io/badge/reactquery-FF4154?style=flat-square&logo=reactquery&logoColor=white">| <img src="https://img.shields.io/badge/Node.Js-339933?style=flat-square&logo=Node.js&logoColor=white"/>   <img src="https://img.shields.io/badge/express-000000?style=flat-square&logo=express&logoColor=white"/>    </br>  제공된 API | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
-
+| <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black">  <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white">   <img src="https://img.shields.io/badge/axios-7F2B7B?style=flat-square&logo=axios&logoColor=white"/>  <img src="https://img.shields.io/badge/reactquery-FF4154?style=flat-square&logo=reactquery&logoColor=white"> | <img src="https://img.shields.io/badge/Node.Js-339933?style=flat-square&logo=Node.js&logoColor=white"/>   <img src="https://img.shields.io/badge/express-000000?style=flat-square&logo=express&logoColor=white"/>  </br>  제공된 API | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
+ 
 </div>
 
+<br /> 
+
+### [기술스택 상세]
+
+<br /> 
+
+ <details>
+  <summary>Recoil 상태관리 활용</summary>
+  <div markdown="1">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary>axios , react query 라이브러리로 서버통신 관리</summary>
+  <div markdown="1">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary> express 프레임워크를 사용한 이유</summary>
+  <div markdown="1">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary>styled components 활용</summary>
+  <div markdown="1">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+    </ul>
+  </div>
+</details>
+
+
+<br /> 
 
 ## <span id="schedule"> ✨ 5. 구현 기능</span>
 
@@ -135,3 +207,104 @@
 </table>
 
 
+## <span id="convention">💥  5.  컨벤션 </span>
+
+### Git 컨벤션
+
+<details>
+  <summary>커밋 컨벤션</summary>
+  
+```
+ feat: 기능 추가, 삭제, 변경
+ fix: 버그, 오류 수정
+ docs: readme.md, json 파일 등 수정, 라이브러리 설치 (문서 관련, 코드 수정 없음)
+ style: CSS 등 사용자 UI 디자인 변경 (제품 코드 수정 발생, 코드 형식, 정렬 등의 변경)
+ refactor: 코드 리팩토링
+ test: 테스트 코드 추가, 삭제, 변경 등 (코드 수정 없음, 테스트 코드에 관련된 모든 변경에 해당)
+ config: npm 모듈 설치 등
+ chore: 패키지 매니저 설정할 경우, etc 등 (ex. gitignore)
+ comment : 필요한 주석 추가 및 변경
+ rename: 파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우
+ remove: 파일을 삭제하는 작업만 수행한 경우
+ bug: 오류, 버그
+ ```
+</details>
+
+### 코드 컨벤션
+<details>
+  <summary>코드 컨벤션</summary>
+  
+ #### **eslint**
+
+```json
+{
+  "extends": ["react-app", "prettier"],
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }], // 들여쓰기 2칸만 허용
+    "no-var": "error", // // var 키워드 사용 금지
+    "require-await": "error", // async 함수 내부에 await 키워드가 없으면 오류 발생
+    "eqeqeq": "warn", // ==, != 대신에 ===, !== 사용
+    "react/prop-types": 0, // 프롭스 타입 무시
+    "no-unused-vars": "off" // 호출되지 않은 변수도 사용 가능하게 설정
+  }
+}
+```
+
+#### **prettier**
+
+```json
+{
+  "bracketSpacing": true, // 객체 리터럴에서 괄호에 공백 삽입
+  "jsxBracketSameLine": false, // JSX의 마지막 `>`를 다음 줄로 내릴지 여부
+  "jsxSingleQuote": true, // JSX에 홑따옴표 사용 여부
+  "singleQuote": true, // 홑따옴표 사용 여부
+  "proseWrap": "preserve", // markdown 텍스트의 줄바꿈 방식 (v1.8.2)
+  "semi": true, // 세미콜론 사용 여부
+  "printWidth": 100, // 줄 바꿈 할 폭 길이
+  "endOfLine": "auto", // EoF 방식, OS별로 처리 방식이 다름
+  "useTabs": false, // 탭 사용 여부
+  "tabWidth": 2, // 탭 너비
+  "trailingComma": "all", // 여러 줄을 사용할 때, 후행 콤마 사용 방식
+  "arrowParens": "always" // 화살표 함수 괄호 사용 여부
+}
+```
+</details>
+
+
+<br />
+
+
+### 🪄 **기술 명세서**
+
+<h align="center">[기술 명세서 ](https://www.notion.so/1d0d3520d9b84228afcd9cbd43cdafd8)</h>
+
+
+<br><br><br>
+
+<br />
+
+
+## ✴️ **11. 핵심 코드**
+## ✴️ **12. 트러블 슈팅**
+## ✴️ **13. 리팩토링할 부분**
+
+-
+-
+-
+
+
+## ✴️ **14. 느낀점 및 팀 사진..☺️🌸**
+
+
+
+### 김창영
+
+### 박현석
+
+### 박은진 
+
+### 이하연
+
+
+<!-- Top Button -->
+<p style='background: black; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-left: auto;'><a href="#top" style='color: white; '>▲</a></p>
