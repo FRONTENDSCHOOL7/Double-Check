@@ -1,8 +1,8 @@
 
 <div align="center">
 <img src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/78103eeb-9cff-42d3-a97a-4b4877322983">
-<br/>
-  
+
+
   <h3>같이 읽고, 생각을 나눠봐요. 책과 함께한 순간을 공유합니다</h3> 
   <br/>
 
@@ -13,23 +13,52 @@
   Test PW : `123123`
 <br> 
 <br/>
-<h2>Coding Crusaders</h2>
+ </div>
 
-|     |                          |                   |                                                                    |
-| :--------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: |
-|<img src="https://avatars.githubusercontent.com/u/138555880?v=4" width="120px;" alt=""/>  | <img src="https://avatars.githubusercontent.com/u/138556026?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/124562930?v=4" width="120px;" alt=""/> | <img src="https://avatars.githubusercontent.com/u/95855640?v=4?s=100" width="120" alt="" /> |
-|  [김창영](https://github.com/changyoungg) |  [박은진](https://github.com/eunjingrove)  | [박현석](https://github.com/hspark9781) | [이하연](https://github.com/cocorig)|
-  </div>
-    <p>
-      <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-      <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
-      <img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white" />
-      <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white" />
-      <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black" />
-      <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=black" />
-      <img src="https://img.shields.io/badge/notion-white?style=for-the-badge&logo=notion&logoColor=black" />
-  </p>
 
+## <span id="app">📚  1. 서비스 소개</span>
+
+
+
+ <br />
+ 
+
+  
+## <span id="team">🍀  2. 팀원 소개</span>
+
+<div align="center">
+  
+|김창영|박은진|박현석|이하연|
+| :---: | :---: | :---: | :---: |
+| <img width="180" alt="프로필_김창영" src="https://avatars.githubusercontent.com/u/138555880?v=4"> | <img width="180" alt="프로필_박은진" src="https://avatars.githubusercontent.com/u/138556026?v=4"> | <img width="180" alt="프로필_박현석" src="https://avatars.githubusercontent.com/u/124562930?v=4"> | <img width="180" alt="프로필_이하연" src="https://avatars.githubusercontent.com/u/95855640?v=4?s=100"> |
+| [changyoungg](https://github.com/changyoungg) | [eunjingrove](https://github.com/eunjingrove) | [hspark9781](https://github.com/hspark9781) | [cocorig](https://github.com/cocorig) |
+
+</div>
+<br />
+
+## <span id="schedule">📅 3. 개발 일정</span>
+ 
+### 프로젝트 개발기간 
+> 2023.10.16 - 2023.11.09  <br />
+### 리팩토링 개발기간 
+> 2023.11.12 ~
+
+
+<br /> 
+
+
+## <span id="dev">  ⚙️ 4. 기술 및 개발 환경</span>
+
+<div align="center">
+
+| FrontEnd | BackEnd | Design | 협업방식 | 컨벤션 |
+| :----: | :----: | :----: | :----: | :----: |
+| <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/styledcomponents-CC6699?style=flat-square&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-3578E5.svg?style=flat-square&logo=Recoil&logoColor=white">   <img src="https://img.shields.io/badge/reactquery-FF4154?style=flat-square&logo=reactquery&logoColor=white">| <img src="https://img.shields.io/badge/Node.Js-339933?style=flat-square&logo=Node.js&logoColor=white"/>   <img src="https://img.shields.io/badge/express-000000?style=flat-square&logo=express&logoColor=white"/>    </br>  제공된 API | <img src="https://img.shields.io/badge/figma-FBCEB1?style=flat-square&logo=figma&logoColor=white"> | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000.svg?style=flat-square&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=Discord&logoColor=white"> | <img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat-square&logo=ESLint&logoColor=white"> |
+
+</div>
+
+
+## <span id="schedule"> ✨ 5. 구현 기능</span>
 
 <table>
   <tbody>
