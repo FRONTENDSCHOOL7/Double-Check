@@ -22,16 +22,19 @@
 
 ## 📃 목차
 
+
 1.  [프로젝트 소개](#1-프로젝트-소개)
 2.  [개발 일정 및 진행방식](#2-개발-일정-및-진행방식)
-3.  [기술 및 개발 환경](#3-기술-및-개발-환경)
-4.  [구현 기능](#4-구현-기능)
-5.  [주요 기능](#5-주요-기능)
-6.  [팀 협업 방식 및 컨벤션](#6-팀-협업-방식-및-컨벤션)
-7.  [트러블 슈팅](#7-트러블-슈팅)
-8.  [피드백 관리](#8-피드백)
-9.  [팀원 소개](#9-팀원-소개)
-10. [프로젝트 진행소감](#10-프로젝트-진행소감)
+3.  [팀 컨벤션](#3-팀-컨벤션)
+4.  [기술 및 개발 환경](#4-기술-및-개발-환경)
+5.  [구현 기능](#5-구현-기능)
+6.  [주요 기능](#6-주요-기능)
+7.  [사용자 경험 향상을 위한 전략](#7-사용자-경험-향상을-위한-전략)
+8.  [핵심 코드](#8-핵심-코드)
+9.  [트러블 슈팅](#9-트러블-슈팅)
+10.  [피드백 관리](#10-피드백)
+11. [팀원 소개](#11-팀원-소개)
+
 
 <br>
 <br>
@@ -52,13 +55,18 @@
 <br>
 <br>
 
-## 📘 2. 개발 일정 및 개발방식
+## 📘 2. 개발 일정 및 진행방식
 
 ### 📅 개발 일정 
 
-- 프로젝트 기획  2023.10.16 ~ 2023.10.22 
-- 프로젝트 개발: 2023.10.23 ~ 2023.11.08
+- **1차**
+  
+   -   프로젝트 기획  2023.10.16 ~ 2023.10.22  <br/>
+   -  프로젝트 개발: 2023.10.23 ~ 2023.11.08
+- **2차**
 
+    - 프로젝트 기획  2023.11.20 ~   <br/>
+   - 프로젝트 개발: 2023.11
 
 ### 📌 스크럼
 
@@ -66,15 +74,17 @@
 - 17시 진행상황 및 이슈 공유
 - 필요시 오프라인 미팅 진행
 
-### 🎯 초기 개발 진행방식 ( 자세히 보고 싶다면 사진을 클릭해주세요 😃 )
-   
-<details><summary> 피그마 디자인 시스템 사용
+### 🎯 초기 개발 진행방식 
+
+  👉 👉 [자세히 보러가기](https://www.figma.com/file/So490bR7Nu7sX0SByGKrtZ/%EB%8D%94%EB%B8%94-%EC%B1%85-%EC%B4%88%EA%B8%B0-%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84?type=design&mode=design&t=lodtv3lLpUwKPluN-0)   
+
+ <details><summary> 피그마 디자인 시스템 사용 - 피그마 툴을 사용해 더블책의 디자인과 흐름도를 작성했습니다.
 
 </summary>
 
  <br/>
  
-- 피그마 툴을 사용해 더블책의 디자인과 흐름도를 작성했습니다.
+
   
  <h align="center">[<img src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/4a8df7cd-8ac2-41f7-b332-2ae02e079eb5">](https://www.figma.com/file/So490bR7Nu7sX0SByGKrtZ/%EB%8D%94%EB%B8%94-%EC%B1%85-%EC%B4%88%EA%B8%B0-%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84?type=design&node-id=0-1&mode=design&t=46CeABdWldpDBsnt-0)</h>
 <br/>
@@ -84,12 +94,13 @@
 
 
  
-<details><summary> 아토믹 디자인 시스템 도입 
+<details>
+  <summary> 아토믹 디자인 시스템 도입  - 저희 팀은 초기 개발 단계에서 프로젝트의 이해를 높이기 위해 팀원들과 Atomic Design에 대한 이해를 공유하고, 토론을 통해 각 컴포넌트가 어떤 단계로 간주되어야 하는지,어떤 것이 분자로 적합한지 등에 대해 의논하며 공통된 컴포넌트를 분리해내는 작업을 진행했습니다.
 </summary>
   
   <br/>
   
-- 저희 팀은 초기 개발 단계에서 프로젝트의 이해를 높이기 위해 팀원들과 Atomic Design에 대한 이해를 공유하고, 토론을 통해 각 컴포넌트가 어떤 단계로 간주되어야 하는지,어떤 것이 분자로 적합한지 등에 대해 의논하며 공통된 컴포넌트를 분리해내는 작업을 진행했습니다.
+
 
 <h align="center">[<img src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/d965191e-1f1f-488d-aeb3-eed33986a0c6">](https://www.figma.com/file/So490bR7Nu7sX0SByGKrtZ/%EB%8D%94%EB%B8%94-%EC%B1%85-%EC%B4%88%EA%B8%B0-%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84?type=design&node-id=0-1&mode=design&t=46CeABdWldpDBsnt-0)</h>
 
@@ -108,9 +119,94 @@
 
 </details>
 
-<br />
+<br>
+<br>
 
-## 📘 3. 기술 및 개발 환경
+## 📘 3. 팀 컨벤션
+
+### Git 컨벤션
+
+<details>
+  <summary>커밋 컨벤션</summary>
+  
+```
+ feat: 기능 추가, 삭제, 변경
+ fix: 버그, 오류 수정
+ docs: readme.md, json 파일 등 수정, 라이브러리 설치 (문서 관련, 코드 수정 없음)
+ style: CSS 등 사용자 UI 디자인 변경 (제품 코드 수정 발생, 코드 형식, 정렬 등의 변경)
+ refactor: 코드 리팩토링
+ test: 테스트 코드 추가, 삭제, 변경 등 (코드 수정 없음, 테스트 코드에 관련된 모든 변경에 해당)
+ config: npm 모듈 설치 등
+ chore: 패키지 매니저 설정할 경우, etc 등 (ex. gitignore)
+ comment : 필요한 주석 추가 및 변경
+ rename: 파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우
+ remove: 파일을 삭제하는 작업만 수행한 경우
+ bug: 오류, 버그
+ ```
+</details>
+
+### 코드 컨벤션
+
+<details>
+  <summary>코드 컨벤션</summary>
+  
+ #### **eslint**
+
+```json
+{
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "react-app",
+    "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended" // JSX 접근성에 대한 권장 설정을 적용
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    // 들여쓰기를 2로 설정하며, SwitchCase에 대한 들여쓰기를 1로 설정
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    // var 키워드 사용을 금지
+    "no-var": "error",
+    // async 함수에서는 반드시 await 키워드를 사용
+    "require-await": "error",
+    // 일치 연산자(=== 및 !==)를 사용
+    "eqeqeq": "warn",
+    // React prop-types를 사용하지 않도록 설정
+    "react/prop-types": 0,
+    // 사용하지 않는 변수에 대한 경고를 비활성화
+    "no-unused-vars": "off",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+  }
+}
+
+```
+
+#### **prettier**
+
+```json
+{
+  "bracketSpacing": true, // 객체 리터럴에서 괄호에 공백 삽입
+  "jsxBracketSameLine": false, // JSX의 마지막 `>`를 다음 줄로 내릴지 여부
+  "jsxSingleQuote": true, // JSX에 홑따옴표 사용 여부
+  "singleQuote": true, // 홑따옴표 사용 여부
+  "proseWrap": "preserve", // markdown 텍스트의 줄바꿈 방식 (v1.8.2)
+  "semi": true, // 세미콜론 사용 여부
+  "printWidth": 100, // 줄 바꿈 할 폭 길이
+  "endOfLine": "auto", // EoF 방식, OS별로 처리 방식이 다름
+  "useTabs": false, // 탭 사용 여부
+  "tabWidth": 2, // 탭의 너비를 2로 설정
+  "trailingComma": "all", // 여러 줄을 사용할 때, 후행 콤마 사용 방식
+  "arrowParens": "always" // 화살표 함수 괄호 사용 여부
+}
+```
+
+</details>
+
+
+<br>
+<br>
+
+## 📘 4. 기술 및 개발 환경
 
 <div align="center">
 
@@ -121,51 +217,50 @@
 </div>
 <br />
 
-### 📝 [기술스택 상세]
+## 💡  기술스택 적용 이유
 
 <br />
 
- <details>
-  <summary>Recoil 상태관리 활용</summary>
-  <div markdown="1">
-    <ul>
-      <li>1</li>
-      <li>2</li>
-    </ul>
-  </div>
-</details>
+### 💥 Recoil 상태관리 활용
 
-<details>
-  <summary> axios , react query 라이브러리로 서버통신 관리 </summary>
-  <div markdown="1">
-    <ul>
-      <li>1</li>
-      <li>2</li>
-    </ul>
-  </div>
-</details>
-<details>
-  <summary> express 프레임워크를 사용한 이유</summary>
-  <div markdown="1">
-    <ul>
-      <li>1</li>
-      <li>2</li>
-    </ul>
-  </div>
-</details>
-<details>
-  <summary>styled components 활용</summary>
-  <div markdown="1">
-    <ul>
-      <li>1</li>
-      <li>2</li>
-    </ul>
-  </div>
-</details>
-
+ <br />
+ 
+ 🔗 [리코일 사용 바로보기](https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/tree/develop/src/Recoil)
+ 
+ * 저희 팀이 다른 상태 관리 라이브러리 대신 Recoil을 선택한 이유는 팀 내에서 리액트를 갓 배운 멤버들이 많았고 Recoil은 다른 라이브러리보단 학습 곡선이 낮고 프로젝트의 복잡도가 비교적 작은 편이었기 때문에 Recoil을 사용함으로써 효과적으로 전역 상태를 관리할 수 있는 좋은 선택이라고 생각했기 때문에 Recoil을 선택하여 프로젝트를 진행하게 되었습니다.
 <br />
 
-## 📘 4. 구현 기능
+--------
+
+ ### 💥  axios , react query 라이브러리로 서버통신 관리
+  <br />
+  
+   🔗 [인스턴스 활용 바로보기](https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/blob/develop/src/API/Instance.js)
+   
+ * Axios의 주요 특징 중  ```기본 인스턴스를 커스텀하게 설정 가능```  하다는 점 입니다. <br/>
+   API 요청 중 토큰이 필요한 요청과 필요없는 요청을 관리하기위해  ```unauthInstance```와 ```authInstance```라는 두 개의 인스턴스를 생성했습니다.  <br/>
+```unauthInstance는 인증이 필요 없는 기본 인스턴스```로, 헤더에 Content-type: application/json을 설정하여 JSON 형식의 데이터를 기본으로 보내고,   <br/>
+``` authInstance는 사용자의 토큰을 확인```하여 헤더에 Authorization: Bearer Token와 함께 Content-Type: application/json 을 설정하여, 인증이 필요한 요청에 대한 커스텀 설정을 적용했습니다.   <br/>
+  또한, ```인터셉터를 활용```하여 요청이 전송되기 전에  getToken 함수를 사용하여 로컬 스토리지에서 토큰을 가져와서 해당 토큰을 요청 헤더의 Authorization 속성으로 자동으로 추가 할 수 있게 해주었습니다. <br/>
+  이를 통해 ```인증이 필요한 요청에 대한 토큰을 자동으로 관리```할 수 있기 때문에 axios를 사용했습니다.
+
+  <br/> 
+  
+  --------
+  
+ ### 💥  express 프레임워크를 사용한 이유
+ 
+ <br/>
+ 
+🔗 [express 사용 바로보기](https://github.com/cocorig/node-express/blob/main/app.js)
+
+- CORS 이슈로 클라이언트에서 직접 알라딘 API를 호출하는 데 제약이 발생하여 이 문제를 해결하기 위해 Express 서버를 도입해 CORS 미들웨어를 사용하여 문제를 해결했습니다.
+
+
+
+<br/>
+
+## 📘 5. 구현 기능
 
 <table>
   <tbody>
@@ -245,7 +340,9 @@
 <br/>
 <br/>
 
-## 📘 5. 주요 기능
+## 📘 6. 주요 기능
+
+<br/>
 
 ### 🍏 도서 추천 및 정보 제공
 
@@ -271,7 +368,7 @@
 <br/>
 <br/>
 
-## 📘 6. 사용자 경험 향상을 위한 전략
+## 📘 7. 사용자 경험 향상을 위한 전략
 
 #### 시각적 피드백 제공
 
@@ -285,85 +382,40 @@
 <br/>
 <br/>
 
-## 📘 7. 팀 협업 방식 및 컨벤션
-
-### Git 컨벤션
-
-<details>
-  <summary>커밋 컨벤션</summary>
-  
-```
- feat: 기능 추가, 삭제, 변경
- fix: 버그, 오류 수정
- docs: readme.md, json 파일 등 수정, 라이브러리 설치 (문서 관련, 코드 수정 없음)
- style: CSS 등 사용자 UI 디자인 변경 (제품 코드 수정 발생, 코드 형식, 정렬 등의 변경)
- refactor: 코드 리팩토링
- test: 테스트 코드 추가, 삭제, 변경 등 (코드 수정 없음, 테스트 코드에 관련된 모든 변경에 해당)
- config: npm 모듈 설치 등
- chore: 패키지 매니저 설정할 경우, etc 등 (ex. gitignore)
- comment : 필요한 주석 추가 및 변경
- rename: 파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우
- remove: 파일을 삭제하는 작업만 수행한 경우
- bug: 오류, 버그
- ```
-</details>
-
-### 코드 컨벤션
-
-<details>
-  <summary>코드 컨벤션</summary>
-  
- #### **eslint**
-
-```json
-{
-  "extends": ["react-app", "prettier"],
-  "rules": {
-    "indent": ["error", 2, { "SwitchCase": 1 }], // 들여쓰기 2칸만 허용
-    "no-var": "error", // // var 키워드 사용 금지
-    "require-await": "error", // async 함수 내부에 await 키워드가 없으면 오류 발생
-    "eqeqeq": "warn", // ==, != 대신에 ===, !== 사용
-    "react/prop-types": 0, // 프롭스 타입 무시
-    "no-unused-vars": "off" // 호출되지 않은 변수도 사용 가능하게 설정
-  }
-}
-```
-
-#### **prettier**
-
-```json
-{
-  "bracketSpacing": true, // 객체 리터럴에서 괄호에 공백 삽입
-  "jsxBracketSameLine": false, // JSX의 마지막 `>`를 다음 줄로 내릴지 여부
-  "jsxSingleQuote": true, // JSX에 홑따옴표 사용 여부
-  "singleQuote": true, // 홑따옴표 사용 여부
-  "proseWrap": "preserve", // markdown 텍스트의 줄바꿈 방식 (v1.8.2)
-  "semi": true, // 세미콜론 사용 여부
-  "printWidth": 100, // 줄 바꿈 할 폭 길이
-  "endOfLine": "auto", // EoF 방식, OS별로 처리 방식이 다름
-  "useTabs": false, // 탭 사용 여부
-  "tabWidth": 2, // 탭 너비
-  "trailingComma": "all", // 여러 줄을 사용할 때, 후행 콤마 사용 방식
-  "arrowParens": "always" // 화살표 함수 괄호 사용 여부
-}
-```
-
-</details>
+## 📘 8. 핵심 코드
 
 <br />
 <br />
 <br />
 
 
-## 📘 8. 트러블 슈팅
+## 📘 9. 트러블 슈팅
 
-### 🍎 CORS 문제
-- #### 문제상황
-웹 애플리케이션에서 외부 도서 API로부터 데이터를 가져오려고 했으나, 브라우저에서 CORS(Cross-Origin Resource Sharing) 정책으로 인해 요청이 차단되었습니다. 이로 인해 API 데이터에 접근할 수 없는 문제가 발생했습니다.
-- #### 문제점
-도메인 간 리소스 공유 정책(CORS) 때문에 외부 도메인에서 데이터를 가져올 수 없었습니다. 따라서 프록시 서버를 통해 API 요청을 보내야 했습니다.
-- #### 해결방법
-Heroku를 고려했지만 유료화 정책으로 인해 무료로 서버를 배포할 수 있는 Cloudtype를 사용하여 프록시 서버를 설정했습니다. Cloudtype를 통해 API 요청을 보내고 응답을 받아 웹 애플리케이션으로 전달함으로써 CORS 문제를 해결했습니다.
+<br/>
+
+###  🌐 CORS 이슈
+
+<br/>
+
+- **문제 발생**
+
+알라딘 API를 활용하여 정보를 가져오는 중, CORS(Cross-Origin Resource Sharing) 정책으로 인해 브라우저에서의 직접적인 API 호출이 차단되어 정보를 가져올 수 없었습니다. <br/>
+CORS 이슈란, 브라우저의 보안 정책에 따라, 다른 도메인에서의 자원 요청은 차단합니다.  <br/>
+ 이로 인해 클라이언트에서 직접 알라딘 API를 호출하는 경우, CORS 문제가 발생하여 데이터를 가져올 수 없는 상황이었습니다. <br/> 
+
+ <br/>
+
+- **해결 방법**
+
+이 문제를 해결하기 위해 Express 서버를 도입하여  클라이언트가  Express 서버를 통해 알라딘 API의 정보를 받기위해 간단한 서버구축과 CORS 미들웨어를 활용하여 모든 도메인에서의 요청을 허용하도록 설정했습니다.
+
+또한,  Cloudtype의 배포 플랫폼을 활용하여 서버를 배포했습니다. 
+ Cloudtype는 무료로 서버를 배포할 수 있는 플랫폼으로, Heroku를 고려했지만 유료화 정책 때문에 Cloudtype을 선택했습니다.   <br/>
+이를 통해 클라이언트는 Express 서버를 통해 Cloudtype에 배포된 서버로 요청을 보내고, Cloudtype 서버는 이 요청을 처리하여 알라딘 API로부터 데이터를 받아 클라이언트에 전달합니다.   <br/>
+이러한 방식으로 CORS 문제를  해결할 수 있었습니다.
+
+
+
 
 <br/>
 
@@ -400,51 +452,30 @@ API가 제공하는 데이터의 한계로 인해 사용자의 경험 저하되�
 <br />
 <br />
 
-## 📘 9. 피드백
+## 📘 10. 피드백
+
+### 🚀 프로젝트 방향성 설정
+
+> 현재 프로젝트는 다른 책 콘텐츠와의 차별성을 만들 필요가 있고, 커뮤니티 특성에 맞는 핵심 기능을 정확하게 설정을 하고, 어떤 형태로 유저들에게 어필이 되는 콘셉트인지 정확히 고민을 해봐야 한다는 피드백을 제시받았습니다.
+
+ - 이러한 피드백을 바탕으로 프로젝트의 콘셉트를 더 명확히 정할 필요가 있다고 생각했습니다. 글귀를 중심으로 한 사용자 경험을 강화할 건지, 사용자 키워드를 활용한 맞춤형 추천 기능 등을 도입할 건지, 어떤 형태로 유저들에게 어필이 되는 콘셉트인지 정확히 판단하기로 했습니다.
+
 
 <br />
 <br />
 <br />
 
-## 📘 10. 팀원 소개
+## 📘 11. 팀원 소개
 
 ### 안녕하세요👋🏻 저희는 멋쟁이사자처럼 프론트엔드 스쿨 7기 2조 **코딩 크루세이더스** 조 입니다.
 
 <div align="center">
 
-|                                              김창영                                               |                                              박은진                                               |                                              박현석                                               |                                                 이하연                                                 |                                                        팀 사진                                                         |
-| :-----------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: |
+|      김창영       |       박은진      |          박현석    |        이하연       |      팀 사진            |
+| :-------------: | :----------------: | :---------------: | :------------: | :-----------------: |
 | <img width="180" alt="프로필_김창영" src="https://avatars.githubusercontent.com/u/138555880?v=4"> | <img width="180" alt="프로필_박은진" src="https://avatars.githubusercontent.com/u/138556026?v=4"> | <img width="180" alt="프로필_박현석" src="https://avatars.githubusercontent.com/u/124562930?v=4"> | <img width="180" alt="프로필_이하연" src="https://avatars.githubusercontent.com/u/95855640?v=4?s=100"> | <img src="https://github.com/cocorig/node-express/assets/95855640/cb511b3a-7eda-4347-9de2-59c157eff9d3" width="200" /> |
-|                           [changyoungg](https://github.com/changyoungg)                           |                           [eunjingrove](https://github.com/eunjingrove)                           |                            [hspark9781](https://github.com/hspark9781)                            |                                 [cocorig](https://github.com/cocorig)                                  |                      [Coding Crusaders](https://github.com/FRONTENDSCHOOL7/final-02-doublechaek)                       |
+|    [changyoungg](https://github.com/changyoungg)      |      [eunjingrove](https://github.com/eunjingrove)    |    [hspark9781](https://github.com/hspark9781)      |                          [cocorig](https://github.com/cocorig)       |  [Coding Crusaders](https://github.com/FRONTENDSCHOOL7/final-02-doublechaek)       |
 
 </div>
 
-<br />
-<br />
-<br />
 
-## 📘 11. 프로젝트 진행소감
-
-### 🦁김창영
-
-```
-
-```
-
-### 🐻‍❄️박현석
-
-```
-
-```
-
-### 🐰박은진
-
-```
-
-```
-
-### 🐨이하연
-
-```
-
-```
