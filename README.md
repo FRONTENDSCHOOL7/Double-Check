@@ -73,10 +73,12 @@
 - 매일 오전 10시 디스코드에서 데일리 스크럼 진행
 - 17시 진행상황 및 이슈 공유
 - 필요시 오프라인 미팅 진행
+  
+ <br/>
 
-### 🎯 초기 개발 진행방식 
+### 🎯 초기 개발 진행방식    👉 [자세히 보러가기](https://www.figma.com/file/So490bR7Nu7sX0SByGKrtZ/%EB%8D%94%EB%B8%94-%EC%B1%85-%EC%B4%88%EA%B8%B0-%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84?type=design&mode=design&t=lodtv3lLpUwKPluN-0)   
 
-  👉 👉 [자세히 보러가기](https://www.figma.com/file/So490bR7Nu7sX0SByGKrtZ/%EB%8D%94%EB%B8%94-%EC%B1%85-%EC%B4%88%EA%B8%B0-%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84?type=design&mode=design&t=lodtv3lLpUwKPluN-0)   
+
 
  <details><summary> 피그마 디자인 시스템 사용 - 피그마 툴을 사용해 더블책의 디자인과 흐름도를 작성했습니다.
 
