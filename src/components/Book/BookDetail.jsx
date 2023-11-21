@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Topbar from 'components/Common/TopBar';
+import Topbar from 'components/Common/Topbar/Topbar';
+import { BsPencilSquare } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const MaxDescriptionLength = 200;
 
@@ -24,6 +26,12 @@ const BookDetail = ({ book }) => {
     setIsExpanded(!isExpanded);
   };
 
+  const reviewButton = (
+    <SLink to='/post/upload' state={book}>
+      <BsPencilSquare />
+    </SLink>
+  );
+
   const bookImage = image || cover;
   const pubdates = pubdate || pubDate;
   const categoryNameSplit = categoryName ? categoryName.split('>') : [];
@@ -31,7 +39,8 @@ const BookDetail = ({ book }) => {
   const modifiedAuthor = author.replace(/\^/g, ', ');
   return (
     <Ssection>
-      <Topbar customStyle={true} rightEl='review' book={book} />
+      {/* <Topbar customStyle={true} rightEl='review' book={book} /> */}
+      <Topbar rightButton={reviewButton} />
 
       <SBookDetail>
         <h1>도서 상세 정보</h1>
@@ -63,7 +72,7 @@ const BookDetail = ({ book }) => {
           </li>
         </SInfoBox>
 
-        <SDescWraaper>
+        <SDescWrapper>
           {!description ? (
             <Description>업데이트 중입니다. 조금만 기다려 주세요 : )</Description>
           ) : (
@@ -75,7 +84,7 @@ const BookDetail = ({ book }) => {
           {description && description.length >= 300 && (
             <MoreButton onClick={toggleExpansion}>{isExpanded ? '접어보기' : '더보기'}</MoreButton>
           )}
-        </SDescWraaper>
+        </SDescWrapper>
       </SDescContainer>
     </Ssection>
   );
@@ -143,7 +152,7 @@ const SInfoBox = styled.ul`
   }
 `;
 
-const SDescWraaper = styled.div`
+const SDescWrapper = styled.div`
   padding: 20px;
   position: relative;
   width: 390px;
@@ -157,6 +166,20 @@ const MoreButton = styled.button`
   position: absolute;
   color: var(--dark-purple);
   right: 30px;
+`;
+
+const SLink = styled(Link)`
+  text-decoration: none;
+  border-radius: 50%;
+  background-color: #e5daff;
+  cursor: pointer;
+  display: block;
+  width: ${(props) => (props.home ? '200px' : '50px')};
+  height: ${(props) => (props.home ? '' : '50px')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 
 export default BookDetail;
