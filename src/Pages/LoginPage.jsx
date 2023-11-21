@@ -11,7 +11,7 @@ import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
 import { navBar } from 'Recoil/Navbar';
 import { styled } from 'styled-components';
-import { ReactComponent as Doublechaek } from '../assets/images/logo/doblechaek.svg';
+import { ReactComponent as Doublechaek } from '../assets/images/logo/DOUBLECHECK.svg';
 import Bg from '../assets/images/bg/bg-white-space.svg';
 import Button from 'components/Common/Button/Button';
 

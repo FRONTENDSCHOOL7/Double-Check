@@ -32,8 +32,9 @@ const NavItemImg = styled.img`
   height: ${({ to }) => (to === '/profile' ? '33px' : '31px')};
 `;
 
-const NavItemTxt = styled.p`
-  min-width: 57px;
+const NavItemTxt = styled.span`
+  min-width: 31px;
+  font-size: var(--font-xxs-size);
 `;
 
 export { NavBarWrapper, NavBarContents, NavItem, NavItemImg, NavItemTxt };

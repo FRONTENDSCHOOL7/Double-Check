@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { NavBarWrapper, NavBarContents, NavItem, NavItemImg } from './NavBarStyle';
+import { NavBarWrapper, NavBarContents, NavItem, NavItemImg, NavItemTxt } from './NavBarStyle';
 import { useLocation, Link } from 'react-router-dom';
 import iconHome from '../../../assets/images/icon/icon-home.svg';
 import iconHomeFill from '../../../assets/images/icon/icon-fill-home.svg';
+import iconBook from '../../../assets/images/icon/icon-book.svg';
+import iconBookFill from '../../../assets/images/icon/icon-fill-book.svg';
 import iconPost from '../../../assets/images/icon/icon-post.svg';
 import iconPostFill from '../../../assets/images/icon/icon-fill-post.svg';
-import iconUpload from '../../../assets/images/icon/icon-upload.svg';
-import iconUploadFill from '../../../assets/images/icon/icon-fill-upload.svg';
 import iconProfile from '../../../assets/images/icon/icon-profile.svg';
 import iconProfileFill from '../../../assets/images/icon/icon-fill-profile.svg';
 
@@ -14,12 +14,12 @@ const navItem = [
   { id: 0, name: '홈', to: '/main', icon: iconHome, iconFill: iconHomeFill },
   {
     id: 1,
-    name: '둘러보기',
+    name: '피드',
     to: '/post',
     icon: iconPost,
     iconFill: iconPostFill,
   },
-  { id: 2, name: '피드작성', to: '/phraselist', icon: iconUpload, iconFill: iconUploadFill },
+  { id: 2, name: '책장', to: '/phraselist', icon: iconBook, iconFill: iconBookFill },
   { id: 3, name: '프로필', to: '/profile/myinfo', icon: iconProfile, iconFill: iconProfileFill },
 ];
 
@@ -50,6 +50,7 @@ function NavBar() {
               alt='네비게이션 아이콘'
               to={item.to}
             />
+            <NavItemTxt>{item.name}</NavItemTxt>
           </NavBarItem>
         ))}
       </NavBarContents>
