@@ -120,20 +120,21 @@ const SWrapprer = styled.div`
   width: 100%;
 `;
 const SCarousal = styled.div`
-  /* overflow: scroll hidden;
+  overflow: scroll hidden;
   white-space: nowrap;
   display: flex;
   margin-left: 10px;
   overflow-x: auto;
   font-size: 0;
   scrollbar-width: none;
-  -ms-overflow-style: none; */
-  overflow: hidden;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* overflow: hidden;
   white-space: nowrap;
   display: flex;
   cursor: grab;
-  margin-left: 10px;
+  margin-left: 10px; */
 `;
-// &::-webkit-scrollbar {
-//   display: none;
-// }

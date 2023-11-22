@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { useNavigate } from 'react-router-dom';
 import 'react-loading-skeleton/dist/skeleton.css';
-export default function BookSlideItem({ title, author, cover, desc }) {
+export default function BookSlideItem({ title, author, cover, desc, isbn }) {
+  const navigate = useNavigate();
+  const navigateToBook = () => {
+    navigate(`/book/${isbn}`);
+  };
   return (
-    <SDiv>
+    <SDiv onClick={navigateToBook}>
       <SImgWrapper>
         <img src={cover} alt={desc} />
       </SImgWrapper>
@@ -46,6 +50,6 @@ const SDiv = styled.div`
   }
 `;
 const SImgWrapper = styled.div`
-  width: 100%;
+  width: 110px;
   height: 150px;
 `;
