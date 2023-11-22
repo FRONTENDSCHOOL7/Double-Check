@@ -250,13 +250,16 @@ PW: 123123
 
 ## 📘 5. 구현 기능
 
-- ### Splash, 회원가입, 로그인 & 로그아웃
+- ## Splash, 회원가입, 로그인 & 로그아웃
+
+
 
 |                                                                      Splash                                                                       |                                                                     회원가입                                                                     |                                                                  로그인                                                                  |                                                                      로그아웃                                                                  |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
 | <img src= "https://github.com/FRONTENDSCHOOL7/Double-Check/assets/95855640/3e5fa4bc-cdc2-4dd5-80a7-d9bdb1ae2136" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/95855640/460af237-5307-497d-8459-ed709d2b6e50" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/95855640/5662f5ca-bc56-49ab-b962-9aa1f06265aa" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/95855640/a647b319-2d4a-41d5-bf87-1bfdfc96f6ff" height=462 width=220> |
 
-- ### 홈 화면, 피드 등록 , 검색
+- ## 홈 화면, 피드 등록 , 검색
+
 
 |                                                                  홈 화면                                                                |                                                                 책 후기 등록                                                                |                                                                       검색(책 & 유저)                                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -266,92 +269,18 @@ PW: 123123
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
 | <img src= "https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/f7f94fa7-e10b-4f52-9284-973fffc39814" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/02cca39a-8e9d-4a94-a795-8352d8fb46a7" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/1695ba0b-6fca-490a-b656-666536b825f9" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/bb059368-5adb-45ec-a6ea-8cbe2b95dd75" height=462 width=220> |
 
-- ### 글귀
+- ##  글귀
 
 |                                                                      글귀 목록                                                                       |                                                                     글귀 등록                                                                     |                                                                   글귀 수정                                                                    |                                                                      글귀 삭제                                                                      |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
 | <img src= "https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/fb25d174-8335-453f-969f-dd406a7b454b" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/b1c36c8c-c5f4-4014-bcd3-f3e96451c0d4" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/f9aec557-bd35-4e55-aa10-6387f21cc9cc" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/d992f864-999f-4072-b2b2-a722f7160ab0" height=462 width=220> |
 
-- ### 프로필
-
-|                                                                      프로필설정                                                                      |                                                                     계정별 피드                                                                     |                                                                   팔로우 목록                                                                    |                                                                     
-| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | 
-| <img src= "https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/d6eba80d-6083-47e6-bef9-793ddf71a1dd" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/98b542a6-ea26-441b-9318-0b3c4ae7b9c3" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/66411a52-7346-4706-94c1-2f07803c7109" height=462 width=220> | 
+- ##  프로필 / NotFound(404)
 
 
-<table>
-  <tbody>
-       <tr>
-        <td>
-          <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/3583aa44-8fe6-4f2b-973f-d97208d70188" />
-        </td>
-        <td>
-         <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/62f66fdf-6412-4ddf-8d12-b5a5c7844b86" />
-        </td>
-      </tr>
-       <tr>
-        <td>
-          <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/23a5fc60-640c-4e4a-b5a0-0d7b869f7917" />
-        </td>
-        <td>
-         <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/8f5a73ae-c9fd-4a95-aa5c-baa26c10ffbe" />
-        </td>
-        <td>
-         <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/ce85ed7b-d0d1-4903-98d3-69a3517e54df" />
-        </td>
-      </tr>
-      <tr>
-          <td>
-              <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/cdd68c1c-1305-41d4-b82a-35b9cb79dc09" />
-          </td>
-          <td>
-              <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/c23ffdc8-121e-46ba-97bb-26c9f2ca5c19" />
-          </td>
-           <td>
-              <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/ff9685cf-d3ad-4a5e-9e5e-dd546c030373" />
-          </td>
-          <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/5b9c2d14-a0e3-4b71-8e7e-05a51b24d931"/>
-          </td>
-      </tr>
-      <tr>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/77034f17-6a11-4772-8733-dff265ff08e1" />
-        </td>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/c7c6b16b-8cb5-4cba-9ae7-181f3afbd6cf">
-        </td>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/8c6907ec-3720-414e-a821-30f997076027">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/7b4a5195-6713-4c93-9b28-b171dd255305">
-        </td>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/18fa1f1d-54d0-420f-82ed-39722555ad96">
-        </td>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/4c746189-29fa-45a7-ad9e-c10185476fc7">
-        </td>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/744a2c2d-3c3b-402e-ba32-3ab680b92247">
-        </td>
-    </tr>
-    <tr>
-         <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/51c3a0ea-cdd4-442f-a4e9-32a088947f28">
-        </td>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/124c8b31-838c-4098-a596-e5de847e47d4">
-        </td>
-        <td>
-            <img style="width:237px; height:513px;" src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/138556026/d0dec26a-40c8-4e42-8280-8f250ce24eb5">
-        </td>
-    </tr>
-  </tbody>
-</table>
+|                                                                      프로필설정                                                                      |                                                                     계정별 피드                                                                     |                                                                   팔로우 목록                                                                    |            NotFound(404) |                                                         
+| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src= "https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/d6eba80d-6083-47e6-bef9-793ddf71a1dd" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/98b542a6-ea26-441b-9318-0b3c4ae7b9c3" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL7/Double-Check/assets/138556026/66411a52-7346-4706-94c1-2f07803c7109" height=462 width=220>  | <img src="https://github.com/FRONTENDSCHOOL7/final-02-doublechaek/assets/95855640/62f66fdf-6412-4ddf-8d12-b5a5c7844b86" height=462 width=220> |
 
 <br/>
 <br/>
