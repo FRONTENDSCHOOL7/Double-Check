@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import pigs from '../../../assets/images/pigs.png';
-import logo from 'assets/images/doublechaeklogo.svg';
+import logo from 'assets/images/hamlogo.svg';
 import Button from 'components/Common/Button/Button';
 import { ModalBackDrop } from 'components/Common/Modal/ModalStyle';
 import { useNavigate } from 'react-router-dom';
@@ -104,8 +104,8 @@ const Sidebar = styled.div`
 const Logo = styled.img`
   /* image2.png에 대한 스타일 */
   display: block;
-  width: 165px;
-  height: 75px;
+  width: 160px;
+  height: 70px;
 `;
 
 const Character = styled.img`

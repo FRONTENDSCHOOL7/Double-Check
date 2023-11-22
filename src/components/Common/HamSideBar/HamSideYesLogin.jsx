@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import logo from 'assets/images/doublechaeklogo.svg';
+import logo from 'assets/images/hamlogo.svg';
 import { ModalBackDrop } from 'components/Common/Modal/ModalStyle';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import ToggleMenu from './ToggleMenu';
