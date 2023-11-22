@@ -6,10 +6,10 @@ import styled from 'styled-components';
 import BookListSkeleton from 'assets/Skeleton/BookListSkeleton';
 const LIST_INFO_MAP = {
   bestseller: { endpoint: 'bestseller', title: '베스트 셀러' },
-  newBooks: { endpoint: 'newBooks', title: '신작 전체 리스트' },
+  newBooks: { endpoint: 'newBooks', title: '신작 도서 리스트' },
   NewBookSpecial: {
     endpoint: 'NewBookSpecial',
-    title: '주목할 만한 신간 리스트',
+    title: '이번달 신간 리스트',
   },
 };
 const getListInfo = (listType) => {
