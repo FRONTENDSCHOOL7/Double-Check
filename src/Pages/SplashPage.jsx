@@ -6,7 +6,7 @@ import { keyframes, styled } from 'styled-components';
 import dbcBook from 'assets/images/character/dbc-book.svg';
 import dbc from 'assets/images/character/dbc.svg';
 import bgStart from 'assets/images/bg/bg-start.jpeg';
-import logoWhite from 'assets/images/logo/logo-white.svg';
+import logoWhite from 'assets/images/logo/logo-white2.svg';
 import dbc3 from 'assets/images/character/dbc3.svg';
 import dbc2 from 'assets/images/character/dbc2.svg';
 import bgSpace from 'assets/images/bg/bg-space.jpeg';
@@ -97,7 +97,7 @@ const Character = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
-  top: 55%;
+  top: 60%;
   left: 50%;
   transform: translate(-45%, -50%);
 `;
