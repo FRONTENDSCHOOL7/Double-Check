@@ -51,7 +51,7 @@ export default function MainPage() {
           path='/book/newBooks'
         />
         <BookSlide
-          title='이번달 주목할 만한 도서'
+          title='이번달 신간 리스트'
           dataType='newBookSpecial'
           desc='독서 트렌드 따라잡기'
           path='/book/NewBookSpecial'

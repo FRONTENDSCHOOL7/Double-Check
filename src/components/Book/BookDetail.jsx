@@ -40,7 +40,7 @@ const BookDetail = ({ book }) => {
   return (
     <Ssection>
       {/* <Topbar customStyle={true} rightEl='review' book={book} /> */}
-      <Topbar rightButton={reviewButton} />
+      <Topbar title rightButton={reviewButton} />
 
       <SBookDetail>
         <h1>도서 상세 정보</h1>
