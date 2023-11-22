@@ -13,7 +13,6 @@ import ImageCheck from 'components/Common/ImageCheck';
 import Modal from 'components/Common/Modal/Modal';
 import { Link } from 'react-router-dom';
 import userInfoState from 'Recoil/UserInfo';
-import Topbar from '../TopBar';
 export default function HamSideYesLogin() {
   // 햄버거버튼 열기 false -> true = opensidebar
   const [isSidebarOpen, setSidebarOpen] = useState(false);

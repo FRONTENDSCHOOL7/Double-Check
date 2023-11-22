@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { VscChevronLeft } from 'react-icons/vsc';
-import { ReactComponent as Doblechaek } from '../../../assets/images/logo/doblechaek.svg';
+import { ReactComponent as Doblechaek } from '../../../assets/images/logo/logo6.svg';
 import TopBarBtn from './TopBarBtn';
 
-const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeLeveaOnClick }) => {
+const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeLeaveOnClick }) => {
   const navigate = useNavigate();
   const defaultLeftButton = (
     <TopBarBtn
@@ -14,7 +14,7 @@ const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeL
     />
   );
 
-  const leave = executeLeveaOnClick ? (
+  const leave = executeLeaveOnClick ? (
     <TopBarBtn icon={VscChevronLeft} onClick={() => onLeaveClick()} />
   ) : null;
   console.log(title);
@@ -60,7 +60,7 @@ const SDiv = styled.div`
 const Sh1 = styled.h1`
   text-align: center;
   font-size: var(--font-base-size);
-  margin-left: ${(props) => (!props.rightButtonExists ? '-30px' : '0')};
+  margin-left: ${(props) => (!props.rightButtonExists ? '-27px' : '14px')};
 `;
 
 const SLink = styled(Link)`
