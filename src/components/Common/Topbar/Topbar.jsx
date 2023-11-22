@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { VscChevronLeft } from 'react-icons/vsc';
-import { ReactComponent as Doblechaek } from '../../../assets/images/logo/DOUBLECHECK.svg';
+import { ReactComponent as Doblechaek } from '../../../assets/images/logo/logo6.svg';
 import TopBarBtn from './TopBarBtn';
 
 const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeLeaveOnClick }) => {
