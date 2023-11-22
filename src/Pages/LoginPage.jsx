@@ -11,7 +11,7 @@ import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
 import { navBar } from 'Recoil/Navbar';
 import { styled } from 'styled-components';
-import { ReactComponent as Doublechaek } from '../assets/images/logo/DOUBLECHECK.svg';
+import { ReactComponent as Doublechaek } from '../assets/images/logo/logo6.svg';
 import Bg from '../assets/images/bg/bg-white-space.svg';
 import Button from 'components/Common/Button/Button';
 
@@ -21,8 +21,8 @@ export default function LoginPage() {
   const [userErrorMessage, setUserErrorMessage] = useState([]);
   const [errorMessage, setErrorMessage] = useState([]);
   const [isLoginCheck, setIsLoginCheck] = useRecoilState(loginCheck);
-  const [errorCheck, setErrorCheck] = useState(false);
   const [token, setToken] = useRecoilState(loginToken);
+  const [valid, setValid] = useState(false);
 
   const [loginData, setLoginData] = useState({
     user: {
@@ -46,12 +46,15 @@ export default function LoginPage() {
         [name]: value,
       },
     }));
+    handleError();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    handleError();
-    await handleLogin();
+    setValid(handleError);
+    if (valid) {
+      await handleLogin();
+    }
   };
 
   const handleLogin = async () => {
@@ -73,21 +76,19 @@ export default function LoginPage() {
 
   const handleError = () => {
     const errors = [];
+    setErrorMessage('');
     if (loginData.user.email === '') {
-      errors.push('이메일을 입력해주세요');
+      setValid(false);
     } else if (loginData.user.password === '') {
-      errors.push('비밀번호를 입력해주세요');
+      setValid(false);
     } else {
-      setErrorCheck(true);
-      errors.push('');
-      handleLogin();
+      setValid(true);
     }
-    setUserErrorMessage(errors);
   };
 
   return (
     <>
-      <BgImg></BgImg>
+      <BgImg />
       <LogoBox>
         <Logo />
       </LogoBox>
@@ -103,12 +104,6 @@ export default function LoginPage() {
               onChange={handleInputChange}
               value={loginData.user.email}
             />
-            {userErrorMessage.includes('이메일을 입력해주세요') && (
-              <ErrorMassage>{userErrorMessage}</ErrorMassage>
-            )}
-            {userErrorMessage.includes('이메일 형식이 올바르지 않습니다.') && (
-              <ErrorMassage>{userErrorMessage}</ErrorMassage>
-            )}
           </InputDiv>
           <InputDiv>
             <Label htmlFor='passwordInput'>비밀번호</Label>
@@ -120,16 +115,19 @@ export default function LoginPage() {
               onChange={handleInputChange}
               value={loginData.user.password}
             />
-            {userErrorMessage.includes('비밀번호를 입력해주세요') && (
-              <ErrorMassage>{userErrorMessage}</ErrorMassage>
+            {errorMessage && loginData.user.email && loginData.user.password && (
+              <ErrorMassage>{errorMessage}</ErrorMassage>
             )}
           </InputDiv>
-          {errorMessage && loginData.user.email && loginData.user.password && (
-            <ErrorMassage>{errorMessage}</ErrorMassage>
+          {valid ? (
+            <Button category='basic' shape='big' type='submit' onClick={handleLogin}>
+              로그인
+            </Button>
+          ) : (
+            <DisabledButton type='button' disabled={true}>
+              로그인
+            </DisabledButton>
           )}
-          <Button category='basic' shape='big' type='submit' onClick={handleError}>
-            로그인
-          </Button>
         </form>
       </LoginBox>
     </>
@@ -143,7 +141,6 @@ const InputDiv = styled.div`
 `;
 
 const LoginBox = styled.div`
-  margin-top: 43px;
   padding: 0 49px;
 `;
 
@@ -179,14 +176,16 @@ const InputBox = styled.input`
   border: 1px solid #d2d8fa;
 `;
 
-const Logo = styled(Doublechaek)`
-  width: 200px;
-  margin-top: 200px;
-`;
-
 const LogoBox = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const Logo = styled(Doublechaek)`
+  width: 200px;
+  height: 100px;
+  padding: 0;
+  margin-top: 100px;
 `;
 
 const BgImg = styled.div`
