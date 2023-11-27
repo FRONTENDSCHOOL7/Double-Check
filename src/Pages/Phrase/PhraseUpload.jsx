@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { phraseUpload } from 'API/phrase';
@@ -19,6 +19,7 @@ const PhraseEdit = () => {
   const [author, setAuthor] = useState('');
   const [content, setContent] = useRecoilState(ContentState);
   const [showModal, setShowModal] = useState(false);
+  const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
   const token = useRecoilValue(loginToken);
 
   const handlePhraseUpload = async () => {
@@ -63,6 +64,8 @@ const PhraseEdit = () => {
     <>
       <Topbar
         title='글귀 작성'
+        onLeaveClick={() => setShowLeaveConfirm(true)}
+        executeLeaveOnClick
         rightButton={
           <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
             등록
@@ -93,15 +96,28 @@ const PhraseEdit = () => {
         </EditPhraseForm>
       </EditPhraseWrapper>
 
-      {/* <Button category='basic' shape='primary' type='button' onClick={confirmUpload}>
-        등록
-      </Button> */}
       <Modal
         content='글귀를 등록하시겠습니까?'
         btnTxt='예'
         isVisible={showModal}
         onConfirm={handlePhraseUpload}
         onCancel={() => setShowModal(false)}
+      />
+      <Modal
+        content={
+          <div>
+            작성 중인 내용이 저장되지 않습니다.
+            <br />
+            정말로 나가시겠습니까?
+          </div>
+        }
+        btnTxt='나가기'
+        isVisible={showLeaveConfirm}
+        onConfirm={() => {
+          setShowLeaveConfirm(false);
+          navigate('/phraselist');
+        }}
+        onCancel={() => setShowLeaveConfirm(false)}
       />
     </>
   );
