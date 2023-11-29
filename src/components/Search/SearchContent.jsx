@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ImageCheck from '../Common/ImageCheck';
 export default function SearchContent({ data, bookdata, filter, keyword }) {
-  console.log(data);
+  console.log(bookdata);
   const HighlightSpan = styled.span`
     color: var(--dark-purple);
   `;
 
   const highlightKeyword = (text) => {
-    if (keyword) {
+    if (keyword && text) {
       const regex = new RegExp(`(${keyword})`, 'gi');
       return text.split(regex).map((chunk, index) => {
         if (index % 2 === 1) {
@@ -21,7 +21,6 @@ export default function SearchContent({ data, bookdata, filter, keyword }) {
     }
     return text;
   };
-
   return (
     <SUl>
       {filter === 'user'
@@ -41,10 +40,10 @@ export default function SearchContent({ data, bookdata, filter, keyword }) {
         : null}
       {filter === 'book'
         ? bookdata.map((item) => (
-            <SLi key={item.isbn}>
-              <SBook to={`/book/${item.isbn}`} className='book-link'>
+            <SLi key={item.isbn || item.isbn13}>
+              <SBook to={`/book/${item.isbn || item.isbn13}`} className='book-link'>
                 <BookimgWrapper>
-                  <img src={item.image} alt={item.title} />
+                  <img src={item.image || item.cover} alt={item.title} />
                 </BookimgWrapper>
                 <SBookDesBox>
                   <strong>{highlightKeyword(item.title)}</strong>

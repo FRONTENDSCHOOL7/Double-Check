@@ -36,7 +36,7 @@ export default function SearchPage() {
 
     // 검색어 입력이 변경될 때 검색 결과 초기화
     if (newKeyword === '') {
-      setData([]);
+      // setData([]);
       setBookData([]);
     }
   };
@@ -74,7 +74,11 @@ export default function SearchPage() {
           )}`,
         )
         .then((response) => {
-          const data = response.data.items;
+          let naverItems = response.data.naverData.items;
+          let aladinItem = response.data.aladinData.item;
+
+          const mergedData = [...new Set([...naverItems, ...aladinItem])];
+          const data = mergedData;
           setBookData(data);
         })
         .catch((error) => {
@@ -83,6 +87,18 @@ export default function SearchPage() {
     }
   }, [keyword]);
 
+  // console.log(bookdata);
+
+  const uniqueData = bookdata.filter((obj, index, array) => {
+    // isbn 속성은 있고 isbn13 속성은 없는 객체인 경우
+    if (obj.isbn && !obj.isbn13) {
+      // 현재 객체의 isbn 값과 동일한 isbn13 값을 가진 객체가 있는지 확인
+      const hasIdenticalIsbn13 = array.some((item) => item.isbn13 === obj.isbn);
+      return !hasIdenticalIsbn13; // 동일한 isbn13를 가진 객체가 없으면 유지
+    }
+    return true; // isbn13가 없는 객체가 아니면 유지
+  });
+  console.log(uniqueData);
   return (
     <>
       <Topbar title='검색' />
@@ -117,18 +133,24 @@ export default function SearchPage() {
             </button>
           </FilterButtons>
         </SDiv>
-        {loading && <SNodata>검색 중...</SNodata>}
-        {error && <p>{error}</p>}
-        {!loading && !error && data.length === 0 && bookdata.length === 0 && (
-          <SNodata>
-            {filter === 'user'
-              ? '유저 검색 결과가 없습니다.'
-              : '제목, 저자, 출판사로 검색해보세요.'}
-          </SNodata>
-        )}
-        {!loading && !error && (data.length > 0 || bookdata.length > 0) && (
-          <SearchContent data={data} bookdata={bookdata} filter={filter} keyword={keyword} />
-        )}
+        {!loading &&
+          !error &&
+          Array.isArray(data) &&
+          data.length === 0 &&
+          Array.isArray(bookdata) &&
+          bookdata.length === 0 && (
+            <SNodata>
+              {filter === 'user'
+                ? '유저 검색 결과가 없습니다.'
+                : '제목, 저자, 출판사로 검색해보세요.'}
+            </SNodata>
+          )}
+        {!loading &&
+          !error &&
+          ((Array.isArray(data) && data.length > 0) ||
+            (Array.isArray(uniqueData) && uniqueData.length > 0)) && (
+            <SearchContent data={data} bookdata={uniqueData} filter={filter} keyword={keyword} />
+          )}
       </Ssection>
     </>
   );

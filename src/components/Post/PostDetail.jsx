@@ -64,7 +64,7 @@ export default function PostDetail({
   const accountname = userInfo && userInfo[0] ? userInfo[0].accountname : '';
 
   console.log(accountname);
-  console.log(postDetails.isbn);
+
   // 포스트 계정이름
   console.log(authorInfo.accountname);
 
@@ -150,7 +150,7 @@ export default function PostDetail({
           <SPostSection>
             <pre>{postDetails.review}</pre>
             {/* 책 페이지로 이동  */}
-            <SBookImgLink to={`/book/${postDetails.isbn}`}>
+            <SBookImgLink to={`/book/${isbn}`}>
               <SPostImg src={postDetails.image} alt='책 표지 이미지' />
               <div>
                 <span>{postDetailstitle}</span>

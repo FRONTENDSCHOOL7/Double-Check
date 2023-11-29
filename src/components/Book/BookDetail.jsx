@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 
 const MaxDescriptionLength = 200;
 
-const BookDetail = ({ book }) => {
+const BookDetail = ({ detailInfo }) => {
+  console.log(detailInfo);
   const {
     title,
     image,
@@ -18,8 +19,7 @@ const BookDetail = ({ book }) => {
     isbn,
     pubdate,
     description,
-  } = book;
-  console.log(book);
+  } = detailInfo;
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpansion = () => {
@@ -27,7 +27,7 @@ const BookDetail = ({ book }) => {
   };
 
   const reviewButton = (
-    <SLink to='/post/upload' state={book}>
+    <SLink to='/post/upload' state={detailInfo}>
       <BsPencilSquare />
     </SLink>
   );
