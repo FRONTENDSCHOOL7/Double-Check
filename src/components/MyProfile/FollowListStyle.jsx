@@ -23,9 +23,6 @@ const UserProfile = styled.li`
   align-items: center;
   gap: 12px;
   margin: 10px 0 0 18px;
-  /* margin-left: 25px;
-  font-family: 'Pretendard-SemiBold', sans-serif;
-  font-size: var(--font-base-size); */
   cursor: pointer;
   &:first-child {
     margin: 20px 0 0 18px;
@@ -51,7 +48,7 @@ const EmptyList = styled.p`
   margin-top: 180px;
 `;
 
-const Loding = styled.div`
+const Loading = styled.div`
   text-align: center;
   margin-top: 247px;
   font-family: 'Pretendard-Regular', sans-serif;
@@ -59,4 +56,4 @@ const Loding = styled.div`
   color: var(--gray-400);
 `;
 
-export { FollowerTitle, UserProfileWrapper, UserProfile, ProfileImage, EmptyList, Loding };
+export { FollowerTitle, UserProfileWrapper, UserProfile, ProfileImage, EmptyList, Loading };

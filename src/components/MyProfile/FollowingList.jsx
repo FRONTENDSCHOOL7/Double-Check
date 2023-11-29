@@ -8,7 +8,7 @@ import {
   UserProfile,
   ProfileImage,
   EmptyList,
-  Loding,
+  Loading,
 } from './FollowListStyle';
 
 export default function FollowingList({ accountname }) {
@@ -37,15 +37,14 @@ export default function FollowingList({ accountname }) {
     }
   }, [accountname]);
 
-  if (isLoading) {
-    return <div>로딩중</div>;
-  }
+  if (isLoading) return <Loading>Loading...</Loading>;
+  if (error) return <div>Error: {error}</div>;
 
   if (error) {
     return <div>팔로잉 리스트를 가져오는데 실패했습니다.</div>;
   }
 
-  if (isLoading) return <Loding>Loading...</Loding>;
+  if (isLoading) return <Loading>Loading...</Loading>;
   if (error) return <div>Error: {error}</div>;
 
   // 사용자 프로필로 이동하는 함수
