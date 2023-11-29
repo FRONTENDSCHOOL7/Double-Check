@@ -21,6 +21,8 @@ const PhraseUpdate = () => {
   const [content, setContent] = useRecoilState(ContentState);
   const [showModal, setShowModal] = useState(false);
   const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const token = useRecoilValue(loginToken);
   const navigate = useNavigate();
 
@@ -63,18 +65,51 @@ const PhraseUpdate = () => {
       showToast('내용을 입력해주세요.');
       return;
     }
-
     setShowModal(true);
   };
+
+  const handleContentChange = (e) => {
+    const newContent = e.target.value;
+    setContent(newContent);
+    setButtonDisabled(newContent === phrase.itemImage);
+
+    if (newContent !== phrase.itemImage) {
+      setShowLeaveConfirm(true);
+    } else {
+      setShowLeaveConfirm(false);
+    }
+  };
+
+  useEffect(() => {
+    if (phrase) {
+      setButtonDisabled(content === phrase.itemImage);
+      setHasChanges(content !== phrase.itemImage);
+    } else {
+      setButtonDisabled(true);
+      setHasChanges(false);
+    }
+  }, [content, phrase]);
 
   return (
     <>
       <Topbar
-        onLeaveClick={() => setShowLeaveConfirm(true)}
+        onLeaveClick={() => {
+          if (hasChanges) {
+            setShowLeaveConfirm(true);
+          } else {
+            navigate('/phraselist');
+          }
+        }}
         executeLeaveOnClick
         title='글귀 수정'
         rightButton={
-          <Button category='basic' shape='primary' type='button' onClick={confirmUpdate}>
+          <Button
+            category='basic'
+            shape='primary'
+            type='button'
+            onClick={confirmUpdate}
+            disabled={buttonDisabled}
+          >
             수정
           </Button>
         }
@@ -83,7 +118,7 @@ const PhraseUpdate = () => {
         <EditPhraseForm>
           <Textarea
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={handleContentChange}
             placeholder='좋아하는 글귀나 문학적 표현을 공유해보세요.'
           />
           <EditPhraseInput
