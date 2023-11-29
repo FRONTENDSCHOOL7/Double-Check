@@ -13,9 +13,14 @@ export default function BookDetailPage() {
     const fetchBookDetails = async () => {
       try {
         const response = await axios.get(
-          `https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/search/?isbn=${isbn}`,
+          `https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/search/?isbn=${isbn}`
         );
-        let bookData = response.data.items || [];
+        let bookData = [];
+        if (response.data.naverData && response.data.naverData.items) {
+          bookData = response.data.naverData.items;
+        } else if (response.data.aladinData && response.data.aladinData.item) {
+          bookData = [response.data.aladinData.item[0]];
+        }
 
         if (bookData.length === 0 && location.state && location.state.product) {
           bookData = [location.state.product];

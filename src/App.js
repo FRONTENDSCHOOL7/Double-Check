@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
 import SetMyInfo from 'Pages/SetMyInfo';
@@ -16,7 +16,6 @@ import LoginPage from 'Pages/LoginPage';
 import PhraseList from 'Pages/Phrase/PhraseList';
 import PostMain from 'Pages/Post/PostMain';
 import ProfilePage from 'Pages/ProfilePage';
-
 // import TestPage from 'Pages/TestPage';
 import NavBar from 'components/Common/NavBar/NavBar';
 import { QueryClient } from 'react-query';
@@ -63,7 +62,7 @@ function App() {
             <Route path='/' element={<SplashPage />} />
             <Route path='/startloginpage' element={<StartLoginPage />} />
             <Route path='/main' element={<MainPage />} />
-            <Route path='/book*' element={<BookRoutes />} />
+            <Route path='/book/*' element={<BookRoutes />} />
             <Route path='/loginpage' element={<LoginPage />} />
             <Route path='/signupPage' element={<SignupPage />} />
             <Route
@@ -146,15 +145,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path='/profile/myinfo'
-              element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              }
-            />
-            {/* <Route path='/profile/:accountname' element={<OthersPage />} /> */}
           </Routes>
         </LayoutStyle>
         {showNavBar && <NavBar />}

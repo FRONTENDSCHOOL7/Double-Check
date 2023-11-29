@@ -10,6 +10,9 @@ import iconPostFill from '../../../assets/images/icon/icon-fill-post.svg';
 import iconProfile from '../../../assets/images/icon/icon-profile.svg';
 import iconProfileFill from '../../../assets/images/icon/icon-fill-profile.svg';
 
+import userInfoState from 'Recoil/UserInfo';
+import { useRecoilValue } from 'recoil';
+
 const navItem = [
   { id: 0, name: '홈', to: '/main', icon: iconHome, iconFill: iconHomeFill },
   {
@@ -20,7 +23,13 @@ const navItem = [
     iconFill: iconPostFill,
   },
   { id: 2, name: '책장', to: '/phraselist', icon: iconBook, iconFill: iconBookFill },
-  { id: 3, name: '프로필', to: '/profile/myinfo', icon: iconProfile, iconFill: iconProfileFill },
+  {
+    id: 3,
+    name: '프로필',
+    to: `/profile/`,
+    icon: iconProfile,
+    iconFill: iconProfileFill,
+  },
 ];
 
 const NavBarItem = ({ to, active, children }) => {
@@ -35,15 +44,23 @@ const NavBarItem = ({ to, active, children }) => {
 
 function NavBar() {
   const current = useLocation().pathname;
-
+  const UserInfo = useRecoilValue(userInfoState);
   useEffect(() => {
     console.log(`clicked: ${current}`);
   }, [current]);
-
+  const updatedNavItem = navItem.map((item) => {
+    if (item.id === 3) {
+      return {
+        ...item,
+        to: UserInfo && UserInfo.accountname ? `/profile/${UserInfo.accountname}` : '/profile',
+      };
+    }
+    return item;
+  });
   return (
     <NavBarWrapper>
       <NavBarContents>
-        {navItem.map((item) => (
+        {updatedNavItem.map((item) => (
           <NavBarItem key={item.id} to={item.to} active={item.to === current ? 'true' : 'false'}>
             <NavItemImg
               src={item.to === current ? item.iconFill : item.icon}

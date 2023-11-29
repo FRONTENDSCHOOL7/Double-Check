@@ -63,6 +63,7 @@ export default function PostEditPage() {
       });
       console.log(res);
       setShowModal(false);
+      showToast('해당 피드가 수정되었습니다.');
       navigate(`/post/${post_id}`);
     } catch (error) {
       console.error('Update error:', error);

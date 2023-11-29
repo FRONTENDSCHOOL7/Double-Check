@@ -23,8 +23,6 @@ import { postDetailsState } from 'Recoil/PostDetail';
 import userInfoState from 'Recoil/UserInfo';
 
 export default function PostItem({ post, color, id }) {
-  console.log(post.id);
-  console.log(id);
   const timeSincePosted = useTimeSince(post.createdAt);
   const [showModal, setShowModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
@@ -37,12 +35,11 @@ export default function PostItem({ post, color, id }) {
   const commentCounts = useRecoilValue(commentCount);
   const [likedPosts, setLikedPosts] = useRecoilState(likedState);
   const navigate = useNavigate();
-  // console.log(likedPosts);
-  // console.log(post.heartCount);
+
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
 
-  const accountname = userInfo[0].accountname;
-
+  const accountname = userInfo && userInfo[0] ? userInfo[0].accountname : '';
+  console.log(accountname);
   const handleShowMoreClick = () => {
     if (post.author.accountname === accountname) {
       setShowEditDeleteModal(true);
@@ -117,10 +114,7 @@ export default function PostItem({ post, color, id }) {
       showToast('피드 신고에 실패했습니다. ');
     }
   };
-  // 65486b5eb2cb2056630b8d8a
-  console.log(post);
-  console.log(id); // post id
-  console.log(post.id);
+
   return (
     <SPostArticle>
       <SPostHeader>
@@ -144,13 +138,13 @@ export default function PostItem({ post, color, id }) {
       </SPostSection>
       <SPostFooter>
         <SButtonGroup>
-          <SPostbutton>
+          <>
             <LikeButton
               postId={id}
               liked={likedPosts[id]}
               heartCount={post.heartCount}
             ></LikeButton>
-          </SPostbutton>
+          </>
           <Link to={`/post/${id}`}>
             <SPostbutton>
               <img src={comment} alt='댓글 버튼' />
@@ -283,16 +277,20 @@ const SPostFooter = styled.footer`
   padding: 8px 21px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: var(--gray-400);
   font-family: 'Pretendard-regular', sans-serif;
   border-top: 1px solid var(--gray-200);
 `;
 
-const SButtonGroup = styled.div``;
+const SButtonGroup = styled.div`
+  display: flex;
+  gap: 10px;
+`;
 
 const SPostbutton = styled.button`
-  margin-right: 10px;
-
+  display: flex;
+  align-items: center;
   img {
     margin-right: 4px;
   }

@@ -1,62 +1,72 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import BannerSlideShow from 'components/Banner/BannerSlideEffect';
-import BookSlide from 'components/BookSlide/BookSlide';
-import Topbar from 'components/Common/Topbar/Topbar';
-import TopBarBtn from 'components/Common/Topbar/TopBarBtn';
-
-import { useNavigate } from 'react-router-dom';
-import { BiSearch } from 'react-icons/bi';
-import Button from 'components/Common/Button/Button';
-import { Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { profileAPI } from 'API/Profile';
+import { useRecoilState } from 'recoil';
 import loginToken from 'Recoil/LoginToken';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { loginCheck } from 'Recoil/LoginCheck';
-import HamSideYesLogin from 'components/Common/HamSideBar/HamSideYesLogin';
-import HamSideNoLogin from 'components/Common/HamSideBar/HamSideNoLogin';
-import MainSkeleton from 'assets/Skeleton/MainSkeleton';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { navBar } from '../Recoil/Navbar';
+import userInfoState from 'Recoil/UserInfo';
+import ImageCheck from 'components/Common/ImageCheck';
+
 export default function MainPage() {
-  const navigate = useNavigate();
-  const token = localStorage.getItem('token');
-  const [showNavBar, setShowNavBar] = useRecoilState(navBar);
-  setShowNavBar(true);
+  const [token] = useRecoilState(loginToken);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+      const fetchUserInfo = async () => {
+      try {
+        const response = await profileAPI(token);
+        if (response && response.user) {
+          const checkedImage = ImageCheck(response.user.image, 'profile');
+          setUserInfo({
+            name: response.user.username,
+            id: response.user._id,
+            image: checkedImage,
+            accountname: response.user.accountname,
+          });
+        }
+      } catch (error) {
+        console.error('유저 정보 불러오기 실패:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, [token, setUserInfo]);
+
+  const userImage = userInfo ? ImageCheck(userInfo.image, 'profile') : null;
 
   return (
     <>
-      <Topbar
-        leftButton={
-          <TopBarBtn
-            // 로그아웃 버튼을 눌렀을 때 token 상태가 변경됨을 인지하지 못해 key값으로 언마운트 마운트를 통해 새로 렌더링하게 함
-            key={token ? 'loggedIn' : 'loggedOut'} // key prop 추가
-            icon={token ? HamSideYesLogin : HamSideNoLogin}
-          />
-        }
-        rightButton={<TopBarBtn icon={BiSearch} onClick={() => navigate('/search')} />}
-      />
-      <BannerSlideShow />
-      <Suspense fallback={<MainSkeleton />}>
-        <BookSlide
-          title='베스트 셀러'
-          dataType='bestsellers'
-          desc='최근 1주 동안 많은 고객들이 찾은 도서 순위!!'
-          path='/book/bestseller'
-        />
-        <BookSlide
-          title='신간 도서 리스트'
-          dataType='newBooks'
-          desc='오늘의 독서, 어떤 책을 읽을까요?'
-          path='/book/newBooks'
-        />
-        <BookSlide
-          title='이번달 신간 리스트'
-          dataType='newBookSpecial'
-          desc='독서 트렌드 따라잡기'
-          path='/book/NewBookSpecial'
-        />
-      </Suspense>
+      <SMyAccount to={userInfo ? `/profile/${userInfo.accountname}` : '#'}>
+        {isLoading ? (
+          '프로필를 불러오는 중...'
+        ) : userInfo ? (
+          <>
+            <SUserImage src={userImage} alt={userInfo.name} />
+            <SUserName>{userInfo.name}님</SUserName>
+          </>
+        ) : (
+          '유저 정보를 찾을 수 없습니다.'
+        )}
+      </SMyAccount>
     </>
   );
 }
+
+const SMyAccount = styled(Link)`
+  display: flex;
+  align-items: center;
+  `;
+
+const SUserImage = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  `;
+
+const SUserName = styled.h2`
+  font-size: var(--font-xs-size);
+`;

@@ -13,10 +13,13 @@ import imgBtn from 'assets/images/icon/icon-img.png';
 import { CategoryList } from 'components/Category';
 import ImageCheck from 'components/Common/ImageCheck';
 import { useNavigate } from 'react-router-dom';
+// 상단바 로그아웃 버튼
+import { HiOutlineDotsVertical } from 'react-icons/hi';
+import ModalButton from 'components/Common/Modal/ModalButton';
 export default function SetMyInfo() {
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useRecoilState(loginCheck);
+  const [, setLoginCheck] = useRecoilState(loginCheck);
   const [token, setToken] = useRecoilState(loginToken);
   const [profileImage, setProfileImage] = useState('');
   const [categories, setCategories] = useState([]);
@@ -30,7 +33,25 @@ export default function SetMyInfo() {
       image: '',
     },
   });
+  // 모달 상태
+  const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
+  const LogoutButton = (
+    <button onClick={() => setShowEditDeleteModal(true)}>
+      <HiOutlineDotsVertical />
+    </button>
+  );
 
+  const handleCancel = () => {
+    setShowEditDeleteModal(false);
+  };
+
+  //로그아웃
+  const navigateToLoginPage = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('recoil-persist');
+    setLoginCheck(false);
+    location.reload(navigate('/startloginpage'));
+  };
   // 프로필 정보 요청
   const getMyProfile = async () => {
     try {
@@ -143,7 +164,6 @@ export default function SetMyInfo() {
   );
   return (
     <>
-      <Topbar title='프로필 수정' />
       <Wrapper>
         <Profile>
           <Rectangle />
@@ -198,6 +218,15 @@ export default function SetMyInfo() {
           </ProfileBox>
         </Profile>
       </Wrapper>
+
+      {showEditDeleteModal && (
+        <ModalButton
+          text={'로그아웃'}
+          onClick={navigateToLoginPage}
+          onCancel={handleCancel}
+          padding
+        />
+      )}
     </>
   );
 }

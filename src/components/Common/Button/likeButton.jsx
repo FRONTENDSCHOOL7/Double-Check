@@ -4,7 +4,7 @@ import heart from '../../../assets/images/icon/icon-heart.svg';
 import fillheart from '../../../assets/images/icon/icon-fill-heart.svg';
 import { useRecoilState } from 'recoil';
 import loginToken from '../../../Recoil/LoginToken';
-
+import styled from 'styled-components';
 import { likedState } from '../../../Recoil/like';
 function LikeButton({ postId, liked, heartCount }) {
   // eslint-disable-next-line no-unused-vars
@@ -66,12 +66,23 @@ function LikeButton({ postId, liked, heartCount }) {
 
   return (
     <>
-      <button onClick={handleLike}>
-        {isLiked ? <img src={fillheart} alt='Unlike' /> : <img src={heart} alt='Like' />}
+      <LikeButtonContainer onClick={handleLike}>
+        {isLiked ? <LikeIcon src={fillheart} alt='Unlike' /> : <LikeIcon src={heart} alt='Like' />}
         <span>{heartValue}</span>
-      </button>
+      </LikeButtonContainer>
     </>
   );
 }
+const LikeButtonContainer = styled.button`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  span {
+    color: var(--gray-500);
+  }
+`;
 
+const LikeIcon = styled.img`
+  margin-right: 4px;
+`;
 export default LikeButton;
