@@ -8,7 +8,7 @@ import PostDetail from 'components/Post/PostDetail';
 import Comments from 'components/Comment/Comments';
 import CommentUpload from 'components/Comment/CommentUpload';
 import PostDetailSkeleton from 'assets/Skeleton/PostDetailSkeleton';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 export default function PostDetailPage() {
   const { post_id } = useParams();
 
@@ -17,7 +17,7 @@ export default function PostDetailPage() {
   const [postInfo, setPostInfo] = useRecoilState(postDetailInfo);
   const [currentItemId, setCurrentItemId] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +49,7 @@ export default function PostDetailPage() {
     };
     fetchData();
   }, [post_id, setPostDetails, setPostInfo, setPostUser]);
-
+  console.log(postDetails);
   const navigateToMainPostPage = () => {
     navigate('/post');
   };
@@ -58,9 +58,9 @@ export default function PostDetailPage() {
   }
   return (
     <>
-      <Topbar goBack={navigateToMainPostPage}/>
+      <Topbar title goBack={navigateToMainPostPage} />
       <PostDetail
-        isbn={location.state}
+        isbn={postDetails.isbn}
         authorInfo={postUser}
         postInfo={postInfo}
         postDetails={postDetails}

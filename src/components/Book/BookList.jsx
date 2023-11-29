@@ -8,7 +8,7 @@ export default function BookList({ product }) {
 
   return (
     <Sli key={bestRank}>
-      <Link to={`/book/${isbn13}`} state={{ product }}>
+      <Link to={`/book/${isbn13}`}>
         <SImgbox>
           <img src={cover} alt={title} />
         </SImgbox>
