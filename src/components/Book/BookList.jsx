@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { FeatureBanner } from 'Styles/FeatureStyle'; // FeatureBanner 컴포넌트를 가져옵니다
+import { FeatureBanner } from 'Styles/FeatureStyle';
 
 export default function BookList({ product }) {
   const { isbn13, cover, title, author, bestRank, bestDuration } = product;
