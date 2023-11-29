@@ -79,7 +79,7 @@ export default function PostPage() {
     <>
       <Topbar
         title
-        executeLeveaOnClick={true}
+        executeLeaveOnClick
         onLeaveClick={onLeaveClick}
         rightButton={
           <Button
@@ -104,14 +104,20 @@ export default function PostPage() {
           border='none'
         />
         <Modal
-          content='해당 피드를 등록하시겠습니까??'
+          content='피드를 등록하시겠습니까?'
           btnTxt='예'
           isVisible={showModal}
           onConfirm={handlePostUpload}
           onCancel={() => setShowModal(false)}
         />
         <Modal
-          content='피드 등록을 취소하시겠습니까?'
+          content={
+            <div>
+              작성 중인 내용이 저장되지 않습니다.
+              <br />
+              정말로 나가시겠습니까?
+            </div>
+          }
           btnTxt='예'
           isVisible={showLeaveModal}
           onConfirm={handleLeavePage}
@@ -125,18 +131,3 @@ export default function PostPage() {
 const SPostContainer = styled.section`
   height: 100%;
 `;
-
-// <Topbar
-//
-// title='글귀 목록'
-// rightButton={
-//   <Button
-//     category='basic'
-//     shape='primary'
-//     type='button'
-//     onClick={() => navigate('/phraseupload')}
-//   >
-//     작성
-//   </Button>
-// }
-// />

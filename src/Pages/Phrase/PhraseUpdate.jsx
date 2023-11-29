@@ -20,18 +20,18 @@ const PhraseUpdate = () => {
   const [author, setAuthor] = useState('');
   const [content, setContent] = useRecoilState(ContentState);
   const [showModal, setShowModal] = useState(false);
+  const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
   const token = useRecoilValue(loginToken);
   const navigate = useNavigate();
 
-  // 상세 페이지
-  // id가 있을 때만 상세페이지 데이터를 불러오는 로직을 실행
+  // id가 있을 때만 상세페이지 데이터 불러오기
   const { products, loading, error } = useGetDetailPhrase(id);
   const phrase = products ? products.product : null;
 
   const { updatePhraseMutate } = useUpdatePhrase(id, token);
 
   useEffect(() => {
-    // 데이터가 로딩되었고 에러가 없는지 확인하고, 제품 데이터가 있는 경우에만 상태를 업데이트
+    // 데이터가 로딩되었고 에러가 없는지 확인하고 제품 데이터가 있는 경우에만 상태를 업데이트
     if (id && !loading && !error && phrase) {
       setTitle(phrase.itemName.replace('@cc@', ''));
       setAuthor(phrase.link);
@@ -47,10 +47,6 @@ const PhraseUpdate = () => {
       itemImage: content,
     });
     showToast('해당 글귀가 수정되었습니다.');
-  };
-
-  const handleGoToHome = () => {
-    navigate('/main');
   };
 
   const confirmUpdate = (e) => {
@@ -74,7 +70,8 @@ const PhraseUpdate = () => {
   return (
     <>
       <Topbar
-        // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
+        onLeaveClick={() => setShowLeaveConfirm(true)}
+        executeLeaveOnClick
         title='글귀 수정'
         rightButton={
           <Button category='basic' shape='primary' type='button' onClick={confirmUpdate}>
@@ -111,6 +108,22 @@ const PhraseUpdate = () => {
         isVisible={showModal}
         onConfirm={handlePhraseUpdate}
         onCancel={() => setShowModal(false)}
+      />
+      <Modal
+        content={
+          <div>
+            수정중인 내용이 저장되지 않습니다.
+            <br />
+            글귀 수정을 종료하시겠습니까?
+          </div>
+        }
+        btnTxt='나가기'
+        isVisible={showLeaveConfirm}
+        onConfirm={() => {
+          setShowLeaveConfirm(false);
+          navigate('/phraselist');
+        }}
+        onCancel={() => setShowLeaveConfirm(false)}
       />
     </>
   );
