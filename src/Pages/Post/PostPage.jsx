@@ -104,14 +104,14 @@ export default function PostPage() {
           border='none'
         />
         <Modal
-          content='등록하시겠습니까?'
+          content='해당 피드를 등록하시겠습니까??'
           btnTxt='예'
           isVisible={showModal}
           onConfirm={handlePostUpload}
           onCancel={() => setShowModal(false)}
         />
         <Modal
-          content='등록을 취소하시겠습니까?'
+          content='피드 등록을 취소하시겠습니까?'
           btnTxt='예'
           isVisible={showLeaveModal}
           onConfirm={handleLeavePage}
