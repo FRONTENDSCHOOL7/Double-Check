@@ -9,7 +9,7 @@ import {
   UserProfile,
   ProfileImage,
   EmptyList,
-  Loding,
+  Loading,
 } from './FollowListStyle';
 
 export default function FollowerList({ accountname }) {
@@ -38,7 +38,7 @@ export default function FollowerList({ accountname }) {
     }
   }, [accountname]);
 
-  if (isLoading) return <Loding>Loading...</Loding>;
+  if (isLoading) return <Loading>Loading...</Loading>;
   if (error) return <div>Error: {error}</div>;
 
   // 사용자 프로필로 이동하는 함수
