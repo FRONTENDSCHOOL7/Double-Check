@@ -50,7 +50,7 @@ export default function SetMyInfo() {
     localStorage.removeItem('token');
     localStorage.removeItem('recoil-persist');
     setLoginCheck(false);
-    navigate('/main');
+    location.reload(navigate('/startloginpage'));
   };
   // 프로필 정보 요청
   const getMyProfile = async () => {

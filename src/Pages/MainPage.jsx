@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { profileAPI } from 'API/Profile';
@@ -10,9 +10,10 @@ import ImageCheck from 'components/Common/ImageCheck';
 export default function MainPage() {
   const [token] = useRecoilState(loginToken);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
+      const fetchUserInfo = async () => {
       try {
         const response = await profileAPI(token);
         if (response && response.user) {
@@ -26,6 +27,8 @@ export default function MainPage() {
         }
       } catch (error) {
         console.error('유저 정보 불러오기 실패:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -36,14 +39,16 @@ export default function MainPage() {
 
   return (
     <>
-      <SMyAccount to={`/profile/${userInfo.accountname}`}>
-        {userInfo ? (
+      <SMyAccount to={userInfo ? `/profile/${userInfo.accountname}` : '#'}>
+        {isLoading ? (
+          '프로필를 불러오는 중...'
+        ) : userInfo ? (
           <>
             <SUserImage src={userImage} alt={userInfo.name} />
             <SUserName>{userInfo.name}님</SUserName>
           </>
         ) : (
-          '프로필를 불러오는 중...'
+          '유저 정보를 찾을 수 없습니다.'
         )}
       </SMyAccount>
     </>
@@ -53,14 +58,14 @@ export default function MainPage() {
 const SMyAccount = styled(Link)`
   display: flex;
   align-items: center;
-`;
+  `;
 
 const SUserImage = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-`;
+  `;
 
 const SUserName = styled.h2`
   font-size: var(--font-xs-size);
