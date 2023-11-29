@@ -4,7 +4,7 @@ import UserPost from 'components/Post/UserPost';
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import accountnameState from 'Recoil/Accountname';
-import { profileAPI, followAPI, unfollowAPI } from 'API/Profile';
+import { profileAPI, followAPI, unfollowAPI, accountProfileAPI } from 'API/Profile';
 import { useParams } from 'react-router-dom';
 import Topbar from 'components/Common/Topbar/Topbar';
 import FollowerList from 'components/MyProfile/FollowerList';
@@ -14,6 +14,7 @@ import { showToast } from 'Hooks/useCustomToast';
 import ViewToggleButton from 'components/Common/Button/ViewToggleButton';
 import { viewState } from 'Recoil/FeedView';
 import { navBar } from '../Recoil/Navbar';
+import { Loading } from '../components/MyProfile/FollowListStyle';
 
 export default function ProfilePage() {
   const [listToShow, setListToShow] = useState(null);
@@ -35,13 +36,27 @@ export default function ProfilePage() {
       console.log(response);
       setIsLoading(false);
     } catch (error) {
-      console.error('Profile fetch error:', error);
+      console.error('내 프로필 데이터 응답 오류: ', error);
+      setIsLoading(false);
+    }
+  };
+
+  const getAccountProfile = async () => {
+    setIsLoading(true);
+    try {
+      if (urlAccountname) {
+        const response = await accountProfileAPI(urlAccountname);
+        setIsFollowing(response.profile.isfollow);
+      }
+    } catch (error) {
+      console.error('다른 사용자 프로필 데이터 응답 오류: ', error);
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
     getMyProfile();
+    getAccountProfile();
   }, [urlAccountname]);
 
   let finalAccountname = urlAccountname || myAccountname;
@@ -128,9 +143,8 @@ export default function ProfilePage() {
       break;
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <Loading>Loading...</Loading>;
+
   return (
     <>
       <Topbar title='프로필' rightButton={showFollowButton && followButton} />

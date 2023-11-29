@@ -17,7 +17,14 @@ export default function Profile({ onShowFollowers, onShowFollowings, activeButto
       image: '',
     },
   });
+
   const [myAccountname, setMyAccountname] = useRecoilState(accountname);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [myProfile, setMyProfile] = useState(false);
+  const location = useLocation();
+  const { accountname: urlaccountname } = useParams();
+  const isFirstRender = useRef(true);
+  const navigate = useNavigate();
   console.log(myAccountname);
 
   const [profile, setProfile] = useState({
@@ -29,13 +36,6 @@ export default function Profile({ onShowFollowers, onShowFollowings, activeButto
     intro: '프로필을 설정해 자신을 소개해주세요!',
     categories: [],
   });
-  const [isFollowing, setIsFollowing] = useState(false);
-
-  const [myProfile, setMyProfile] = useState(false);
-  const location = useLocation();
-  const { accountname: urlaccountname } = useParams();
-  const isFirstRender = useRef(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -90,26 +90,6 @@ export default function Profile({ onShowFollowers, onShowFollowings, activeButto
       fetchProfileData();
     }
   }, [accountname, location.pathname]);
-
-  async function toggleFollow(accountnameToToggle) {
-    if (!accountnameToToggle) return;
-
-    const API = isFollowing ? unfollowAPI : followAPI;
-    const action = isFollowing ? '언팔로우' : '팔로우';
-
-    try {
-      const response = await API({ accountname: accountnameToToggle });
-      if (response) {
-        console.log(response);
-        console.log(response.profile.isfollow);
-        showToast(`${action}를 성공했습니다.`);
-        setIsFollowing(!isFollowing);
-      }
-    } catch (err) {
-      console.error(`${action} 요청 실패`, err);
-      showToast(`${action} 요청에 실패했습니다.`);
-    }
-  }
 
   const navigateToSetMyInfo = () => {
     navigate('/setmyinfo');
@@ -176,6 +156,8 @@ const ProfileFollow = styled.button`
       content: '';
       width: 38px;
       height: 4px;
+      position: absolute;
+      top: 129px;
       border-radius: 23px;
       background-color: var(--dark-purple);
     }
@@ -186,11 +168,12 @@ const ProfileDetails = styled.div`
   text-align: center;
   flex: 1;
 `;
+
 const ProfileImage = styled.img`
   width: 108px;
   height: 108px;
   border-radius: 50%;
-  object-fit: cover; // 이미지 비율을 유지하면서 요소에 맞추기
+  object-fit: cover;
 `;
 
 const ProfileName = styled.div`
@@ -213,13 +196,6 @@ const ProfileSetSection = styled.section`
   flex-direction: row;
   gap: 18px;
 `;
-
-// const TopBox = styled.div`
-//   width: 20px;
-//   height: 8px;
-//   border-radius: 30px;
-//   background: #d2d8fa;
-// `;
 
 const IntroWrapper = styled.div`
   display: flex;
