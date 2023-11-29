@@ -33,8 +33,8 @@ const PhraseEdit = () => {
     };
 
     const response = await phraseUpload(productData, token);
-    console.log(productData);
-    console.log(response.product.id);
+    // console.log(productData);
+    // console.log(response.product.id);
     setShowModal(false);
     if (response) {
       setContent('');
@@ -47,14 +47,13 @@ const PhraseEdit = () => {
 
   const confirmUpload = (e) => {
     e.preventDefault();
-    console.log('confirmUpload 함수 실행');
 
-    if (title === '' || title.length < 1) {
+    if (content === '' || content.length < 1) {
+      return showToast('내용을 입력해주세요.');
+    } else if (title === '' || title.length < 1) {
       return showToast('제목을 입력해주세요.');
     } else if (author === '' || author.length < 1) {
       return showToast('저자를 입력해주세요.');
-    } else if (content === '' || content.length < 1) {
-      return showToast('내용을 입력해주세요.');
     }
 
     setShowModal(true);
