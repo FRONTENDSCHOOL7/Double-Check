@@ -14,8 +14,13 @@ import { showToast } from 'Hooks/useCustomToast';
 import ViewToggleButton from 'components/Common/Button/ViewToggleButton';
 import { viewState } from 'Recoil/FeedView';
 import { navBar } from '../Recoil/Navbar';
-
+import { useNavigate } from 'react-router-dom';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
+import ModalButton from 'components/Common/Modal/ModalButton';
+import { loginCheck } from 'Recoil/LoginCheck';
+import Modal from 'components/Common/Modal/Modal';
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const [listToShow, setListToShow] = useState(null);
   const [activeButton, setActiveButton] = useState(null);
   const [myAccountname, setMyAccountname] = useState('');
@@ -25,14 +30,17 @@ export default function ProfilePage() {
   const { accountname: urlAccountname } = useParams();
   const [view, setView] = useRecoilState(viewState);
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
-  setShowNavBar(true);
+  const [, setLoginCheck] = useRecoilState(loginCheck);
 
+  // 로그아웃 모달 버튼 상태
+  const [showModalBtn, setshowModalBtn] = useState(false);
+  // 모달 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const getMyProfile = async () => {
     setIsLoading(true);
     try {
       const response = await profileAPI();
       setMyAccountname(response.user.accountname);
-      console.log(response);
       setIsLoading(false);
     } catch (error) {
       console.error('Profile fetch error:', error);
@@ -43,7 +51,9 @@ export default function ProfilePage() {
   useEffect(() => {
     getMyProfile();
   }, [urlAccountname]);
-
+  useEffect(() => {
+    setShowNavBar(true); // 렌더링 중에 상태 변경
+  }, []);
   let finalAccountname = urlAccountname || myAccountname;
 
   const handleShowFollowers = () => {
@@ -75,6 +85,37 @@ export default function ProfilePage() {
       showToast(`${action} 요청에 실패했습니다.`);
     }
   }
+  // 상단바 케밥 버튼
+  const LogoutButton = urlAccountname === myAccountname && (
+    <button onClick={() => setshowModalBtn(true)}>
+      <HiOutlineDotsVertical />
+    </button>
+  );
+  // 모달 함수
+  const handleLogout = () => {
+    navigateToLoginPage(); // 로그아웃 함수 호출
+    closeModal(); // 모달 닫기
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // 모달 닫기
+  };
+  const openModal = () => {
+    setIsModalOpen(true); // 모달 열기
+    handleCancel(false);
+  };
+  const handleCancel = () => {
+    setshowModalBtn(false);
+  };
+
+  // 로그아웃 하시겠습니까 ? 예 클릭시
+  const navigateToLoginPage = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('recoil-persist');
+    setLoginCheck(false);
+    navigate('/startloginpage');
+  };
+  // 모달 끝
 
   const handleFollowClick = () => {
     toggleFollow(urlAccountname);
@@ -118,10 +159,10 @@ export default function ProfilePage() {
     default:
       content = (
         <>
-          <FollowerTitle>
+          <FollowerHeader>
             <SSectionTitle>게시물</SSectionTitle>
             <ViewToggleButton view={view} toggleView={toggleView} />
-          </FollowerTitle>
+          </FollowerHeader>
           <UserPost accountname={finalAccountname} />
         </>
       );
@@ -133,13 +174,32 @@ export default function ProfilePage() {
   }
   return (
     <>
-      <Topbar title='프로필' rightButton={showFollowButton && followButton} />
+      <Topbar
+        title='프로필'
+        rightButton={
+          <>
+            {showFollowButton && followButton}
+            {LogoutButton}
+          </>
+        }
+      />
       <MyProfile
         onShowFollowers={handleShowFollowers}
         onShowFollowings={handleShowFollowings}
         activeButton={activeButton}
       />
       {content}
+
+      {showModalBtn && (
+        <ModalButton text={['로그아웃']} onClick={[openModal]} onCancel={handleCancel} padding />
+      )}
+      <Modal
+        content='로그아웃하시겠습니까?'
+        btnTxt='로그아웃'
+        isVisible={isModalOpen}
+        onConfirm={handleLogout}
+        onCancel={closeModal}
+      />
     </>
   );
 }
@@ -156,7 +216,7 @@ const FollowButton = styled.button`
   padding: 7px 16px;
 `;
 
-const FollowerTitle = styled.p`
+const FollowerHeader = styled.header`
   display: flex;
   text-align: center;
   margin-top: 20px;
@@ -167,7 +227,7 @@ const FollowerTitle = styled.p`
   border-bottom: ${(props) => (props.customStyle ? 'none' : 'solid 1px #e4e4e4')};
 `;
 
-const SSectionTitle = styled.h4`
+const SSectionTitle = styled.h2`
   flex: 1;
   margin-left: 30px;
 `;
