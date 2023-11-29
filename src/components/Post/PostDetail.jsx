@@ -61,7 +61,8 @@ export default function PostDetail({
   console.log(ItemId);
   console.log(likedPosts);
   // 내 계정이름
-  const accountname = userInfo[0].accountname;
+  const accountname = userInfo && userInfo[0] ? userInfo[0].accountname : '';
+
   console.log(accountname);
   console.log(postDetails.isbn);
   // 포스트 계정이름
@@ -102,10 +103,10 @@ export default function PostDetail({
   const handleDeletePost = async () => {
     try {
       await postDeleteAPI(post_id);
-      console.log('Deleted');
+      showToast('해당 피드가 삭제되었습니다.');
       navigate(`/post`);
     } catch (error) {
-      console.error('피드 삭제를 실패했습니다:', error);
+      showToast('피드 삭제에 실패했습니다. ');
     }
   };
 
