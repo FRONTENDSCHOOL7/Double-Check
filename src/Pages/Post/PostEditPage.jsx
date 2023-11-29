@@ -49,9 +49,9 @@ export default function PostEditPage() {
   console.log(post_id);
   const handleUpdatePost = async () => {
     try {
-      const res = await postPutAPI(post_id, postEdit);
-      console.log(res);
+      await postPutAPI(post_id, postEdit);
       setShowModal(true);
+      showToast('해당 피드가 수정되었습니다.');
       navigate(`/post/${post_id}`);
     } catch (error) {
       console.error('Update error:', error);
@@ -92,7 +92,7 @@ export default function PostEditPage() {
           border='none'
         />
         <Modal
-          content='수정하시겠습니까?'
+          content='해당 피드를 수정하시겠습니까?'
           btnTxt='예'
           isVisible={showModal}
           onConfirm={handleUpdatePost}
