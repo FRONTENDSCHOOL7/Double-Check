@@ -1,13 +1,19 @@
-import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
-import { IoIosArrowForward } from 'react-icons/io';
+import React, { useState } from 'react';
 import BookSlideItem from './BookSlideItem';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import styled from 'styled-components';
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 // 리코일
 import { useRecoilValue } from 'recoil';
 import { fetchBestsellersData, fetchNewBooksData, fetchNewBookSpecialData } from 'Recoil/BookData';
 
 export default function BookSlide({ title, dataType, desc, path }) {
+  const [hidePrev, setHidePrev] = useState(true);
+  const [hideNext, setHideNext] = useState(false);
+
   const bookData = useRecoilValue(
     dataType === 'bestsellers'
       ? fetchBestsellersData
@@ -17,90 +23,81 @@ export default function BookSlide({ title, dataType, desc, path }) {
       ? fetchNewBookSpecialData
       : fetchBestsellersData,
   );
-
-  const [prevPageX, setPrevPageX] = useState(null);
-  const [isDragStart, setDragStart] = useState(false);
-  const [positionDiff, setPositionDiff] = useState(0);
-  const slideRef = useRef(null);
-  const onDragStart = (e) => {
-    e.preventDefault();
-    setDragStart(true);
-    setPrevPageX(e.pageX || e.touches[0].pageX);
-  };
-
-  const onDragging = (e) => {
-    if (!isDragStart) return;
-    e.preventDefault();
-    const currentPositionX = e.pageX || e.touches[0].pageX;
-    const diff = currentPositionX - prevPageX;
-    setPositionDiff(diff);
-    const carousal = e.currentTarget;
-    carousal.scrollLeft -= diff;
-    setPrevPageX(currentPositionX);
-  };
-
-  const onDragStop = () => {
-    setDragStart(false);
-    autoSlide();
-  };
-
-  const autoSlide = () => {
-    if (slideRef.current) {
-      const carousal = slideRef.current;
-      const slideWidth = carousal.clientWidth;
-      const threshold = slideWidth / 4;
-      if (Math.abs(positionDiff) > threshold) {
-        const direction = positionDiff > 0 ? 1 : -1;
-        const targetScrollLeft = carousal.scrollLeft + direction * slideWidth;
-        carousal.scrollLeft = targetScrollLeft;
+  const settings = {
+    dots: false,
+    fade: false,
+    infinite: false,
+    speed: 800,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    nextArrow: <NextArrow hideNext={hideNext} setHidePrev={setHidePrev} />,
+    prevArrow: <PrevArrow hidePrev={hidePrev} setHideNext={setHideNext} />,
+    beforeChange: (current, next) => {
+      if (next === 0) {
+        setHidePrev(true);
+        setHideNext(false);
+      } else if (next === 6) {
+        setHidePrev(false);
+        setHideNext(true);
+      } else {
+        setHidePrev(false);
+        setHideNext(false);
       }
-    }
+    },
   };
-
   return (
     <SSliderContainer>
-      <STitleBox>
+      {/* 슬라이드 헤더부분 */}
+      <SSliderHeader>
         <STitleWrapper>
-          {title}
+          <h1>{title}</h1>
           <SLink to={path}>
-            <IoIosArrowForward />
+            <p>더보기</p>
           </SLink>
         </STitleWrapper>
         <p>{desc}</p>
-      </STitleBox>
-
-      <SWrapprer>
-        <SCarousal
-          onMouseDown={onDragStart}
-          onMouseMove={onDragging}
-          onMouseUp={onDragStop}
-          onMouseLeave={onDragStop}
-          onTouchStart={onDragStart}
-          onTouchMove={onDragging}
-        >
-          {bookData.item.slice(0, 10).map((item) => (
-            <BookSlideItem
-              key={item.isbn13}
-              title={item.title}
-              author={item.author}
-              cover={item.cover}
-              isbn={item.isbn13}
-            />
-          ))}
-        </SCarousal>
-      </SWrapprer>
+      </SSliderHeader>
+      {/* 슬라이드 아이템 */}
+      <SSliderBody {...settings}>
+        {bookData.item.slice(0, 9).map((item) => (
+          <BookSlideItem
+            key={item.isbn13}
+            title={item.title}
+            author={item.author}
+            cover={item.cover}
+            isbn={item.isbn13}
+          />
+        ))}
+      </SSliderBody>
     </SSliderContainer>
   );
 }
+const SSliderBody = styled(Slider)`
+  display: flex;
+  position: relative;
+  padding: 20px 10px;
+  .slick-prev::before,
+  .slick-next::before {
+    opacity: 0;
+    display: none;
+  }
+  .slick-list .slick-track {
+    display: flex;
+    justify-content: center;
+  }
+  .slick-list .slick-track div {
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
 const SSliderContainer = styled.section`
   margin-top: 25px;
 `;
-const STitleWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const STitleBox = styled.div`
+const SSliderHeader = styled.div`
   margin: 0px 15px;
   h2 {
     font-size: 17px;
@@ -109,32 +106,47 @@ const STitleBox = styled.div`
   p {
     font-size: small;
     color: var(--gray-500);
-    margin-top: 10px;
   }
 `;
+const STitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+
 const SLink = styled(Link)`
   display: flex;
   align-items: center;
 `;
-const SWrapprer = styled.div`
-  width: 100%;
-`;
-const SCarousal = styled.div`
-  overflow: scroll hidden;
-  white-space: nowrap;
-  display: flex;
-  margin-left: 10px;
-  overflow-x: auto;
-  font-size: 0;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
-  /* overflow: hidden;
-  white-space: nowrap;
+const NextArrow = ({ onClick, hideNext }) => {
+  return (
+    <Sbutton onClick={onClick} type='button' next='true' hide={hideNext}>
+      <IoIosArrowForward />
+    </Sbutton>
+  );
+};
+
+const PrevArrow = ({ onClick, hidePrev }) => {
+  return (
+    <Sbutton onClick={onClick} type='button' hide={hidePrev}>
+      <IoIosArrowBack />
+    </Sbutton>
+  );
+};
+const Sbutton = styled.button`
+  width: 25px;
+  height: 25px;
+  background-color: #ffffff;
+  opacity: 0.8;
   display: flex;
-  cursor: grab;
-  margin-left: 10px; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  ${(props) => (props.next ? 'right: 4px;' : 'left: 4px;')}
+  top: 36%;
+  z-index: 90;
+  display: ${(props) => (props.hide ? 'none' : 'flex')};
 `;

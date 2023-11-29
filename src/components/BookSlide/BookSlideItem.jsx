@@ -4,33 +4,35 @@ import { useNavigate } from 'react-router-dom';
 import 'react-loading-skeleton/dist/skeleton.css';
 export default function BookSlideItem({ title, author, cover, desc, isbn }) {
   const navigate = useNavigate();
-  const navigateToBook = () => {
+  const handleClick = () => {
     navigate(`/book/${isbn}`);
   };
   return (
-    <SDiv onClick={navigateToBook}>
-      <SImgWrapper>
-        <img src={cover} alt={desc} />
-      </SImgWrapper>
+    <SBookItemList onClick={handleClick}>
+      <img src={cover} alt={desc} />
       <div>
         <strong>{title}</strong>
         <p>{author}</p>
       </div>
-    </SDiv>
+    </SBookItemList>
   );
 }
-const SDiv = styled.div`
+
+const SBookItemList = styled.li`
+  cursor: pointer;
   width: 110px;
-  margin: 5px;
+  list-style: none;
   img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
+    margin: 0 auto;
+    display: block;
+    width: 110px;
+    aspect-ratio: 2/3;
+    border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     object-fit: cover;
   }
   div {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   strong,
   p {
@@ -48,8 +50,4 @@ const SDiv = styled.div`
   strong {
     font-size: 15px;
   }
-`;
-const SImgWrapper = styled.div`
-  width: 110px;
-  height: 150px;
 `;
