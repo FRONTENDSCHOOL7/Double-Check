@@ -20,7 +20,7 @@ const Button = styled.button`
 
   &:disabled {
     cursor: default;
-    opacity: 0.65;
+    opacity: 0.45;
     background-color: var(--main-purple);
   }
 `;
