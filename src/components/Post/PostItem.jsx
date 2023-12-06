@@ -12,8 +12,6 @@ import { useRecoilState } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
 import { showToast } from 'Hooks/useCustomToast';
 import { useNavigate } from 'react-router-dom';
-// import { setProfile } from 'API/Profile';
-// import accountname from '../../Recoil/Accountname';
 import { useRecoilValue } from 'recoil';
 import { likedState } from '../../Recoil/like';
 import LikeButton from 'components/Common/Button/likeButton';
@@ -39,7 +37,7 @@ export default function PostItem({ post, color, id }) {
   const [postDetails, setPostDetails] = useRecoilState(postDetailsState);
 
   const accountname = userInfo && userInfo[0] ? userInfo[0].accountname : '';
-  console.log(accountname);
+
   const handleShowMoreClick = () => {
     if (post.author.accountname === accountname) {
       setShowEditDeleteModal(true);
@@ -65,7 +63,6 @@ export default function PostItem({ post, color, id }) {
       showToast('게시글 정보를 불러올 수 없습니다.');
     }
   };
-  // console.log(isbn);
 
   const confirmDeleteReport = async () => {
     setShowEditDeleteModal(false);
@@ -78,18 +75,6 @@ export default function PostItem({ post, color, id }) {
     deletePostMutate(id);
     setShowDeleteModal(false);
   };
-
-  // const confirmDelete = async () => {
-  //   try {
-  //     await postDeleteAPI(currentItemId);
-  //     showToast('피드가 삭제되었습니다.');
-  //     setShowDeleteModal(false);
-  //     navigate('/post');
-  //   } catch (error) {
-  //     showToast('피드 삭제에 실패했습니다.');
-  //     setShowDeleteModal(false);
-  //   }
-  // };
 
   const handleCancel = () => {
     setShowModal(false);
@@ -172,7 +157,7 @@ export default function PostItem({ post, color, id }) {
           onCancel={handleCancel}
         />
       )}
-      {showModal && ( // 수정된 모달 상태 체크
+      {showModal && (
         <Modal
           content={'해당 피드를 신고하시겠습니까?'}
           btnTxt='예'
