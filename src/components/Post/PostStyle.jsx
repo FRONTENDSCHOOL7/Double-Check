@@ -63,6 +63,7 @@ const SPostImg = styled.img`
 
 const SProfileImg = styled.img`
   height: 42px;
+  width: 42px;
   border-radius: 50%;
   border: 1px solid var(--gray-300);
 `;

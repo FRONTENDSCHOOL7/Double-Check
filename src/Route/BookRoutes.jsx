@@ -15,4 +15,3 @@ export default function BookRoutes() {
     </Routes>
   );
 }
-// 책 전체페이지 -> 베스트셀러 , 신간전체도서 , 스페셜신간도서 -> 여기서 클릭하면 상세페이지로 이동

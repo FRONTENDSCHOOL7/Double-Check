@@ -1,58 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInfinitePosts, useGetInfiniteFollowingPosts } from 'API/Post';
 import styled from 'styled-components';
-import Post from 'components/Post/PostItem';
+import PostItem from 'components/Post/PostItem';
 import Topbar from 'components/Common/Topbar/Topbar';
-// import { useNavigate } from 'react-router-dom';
 import PostGallery from 'components/Post/PostGallery';
 import galleryIcon from '../../assets/images/icon/icon-gallery.svg';
 import feeddIcon from '../../assets/images/icon/icon-feed.svg';
 import PostSkeleton from 'assets/Skeleton/PostSkeleton';
-const colors = [
-  ['#FFE7FF', '#E3EEFF'],
-  '#F2F4FF',
-  '#ccf0ff',
-  ['#F1E4F1', '#F9F0DC'],
-  '#f4f4f4',
-  '#fff0f0',
-  ['#DDF6FA', '#F9F0DC'],
-  '#f9f0ff',
-  ['#E3FDF5', '#FFE6FA'],
-  '#f0f8ff',
-  ['#ffecd2', '#fcb69f'],
-  ['#fdfbfb', '#ebedee'],
-  ['#e9defa', '#fbfcdb'],
-];
+import { useRecoilValue } from 'recoil';
+import { calculatedColorState } from 'Recoil/PostColor';
 
 export default function PostMain() {
   const { allPosts, isLoadingPosts } = useInfinitePosts();
-
   const [view, setView] = useState('feed');
-  // const navigate = useNavigate();
+  const { isLoadingFollowingPosts } = useGetInfiniteFollowingPosts();
+  const getCalculatedColor = useRecoilValue(calculatedColorState);
+  const [validPosts, setValidPosts] = useState([]);
 
-  const { allFollowingPosts, isLoadingFollowingPosts } = useGetInfiniteFollowingPosts();
-  console.log(allFollowingPosts);
+  useEffect(() => {
+    if (!isLoadingPosts) {
+      const filteredPosts = allPosts.filter((post) => {
+        if (typeof post.content !== 'string') {
+          return false;
+        }
+        try {
+          post.parsedContent = JSON.parse(post.content);
+          return post.parsedContent.review;
+        } catch (error) {
+          return false;
+        }
+      });
+      setValidPosts(filteredPosts);
+    }
+  }, [allPosts, isLoadingPosts]);
 
   if (isLoadingPosts || isLoadingFollowingPosts) {
     return <PostSkeleton />;
   }
-
-  const validPosts = allPosts.filter((post) => {
-    if (typeof post.content !== 'string') {
-      return false;
-    }
-
-    try {
-      // JSON.parse()를 사용하여 post.content를 객체로 변환
-      post.parsedContent = JSON.parse(post.content);
-      return post.parsedContent.review;
-    } catch (error) {
-      return false;
-    }
-  });
-  // const navigateToHomePage = () => {
-  //   navigate('/');
-  // };
 
   const toggleView = () => {
     setView((currentView) => (currentView === 'feed' ? 'gallery' : 'feed'));
@@ -61,7 +45,6 @@ export default function PostMain() {
   return (
     <div>
       <Topbar
-        // leftButton={<TopBarBtn icon={HamSideNoLogin} />}
         title='전체 피드'
         rightButton={
           <button onClick={toggleView}>
@@ -76,10 +59,10 @@ export default function PostMain() {
 
       {view === 'feed' ? (
         validPosts.map((post, index) => {
-          const colorIndex = index % colors.length;
-          const color = colors[colorIndex];
           console.log(post._id);
-          return <Post key={post._id} post={post} color={color} id={post._id} />;
+          return (
+            <PostItem key={post._id} post={post} color={getCalculatedColor(index)} id={post._id} />
+          );
         })
       ) : (
         <PostGallery posts={validPosts} />

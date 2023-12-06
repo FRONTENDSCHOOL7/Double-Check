@@ -164,6 +164,7 @@ export default function SetMyInfo() {
   );
   return (
     <>
+      <Topbar title='프로필 설정' />
       <Wrapper>
         <Profile>
           <Rectangle />
@@ -256,7 +257,7 @@ const Wrapper = styled.div`
 `;
 
 const Profile = styled.div`
-  margin-top: 32px;
+  margin-top: 15px;
   width: 100%;
   /* height: 100vh; */
   padding: 10px 20px;
@@ -330,7 +331,7 @@ const InputBoxFile = styled.input`
 `;
 
 const ProfileBox = styled.div`
-  margin-top: 60px;
+  margin-top: 28px;
   cursor: pointer;
 `;
 
