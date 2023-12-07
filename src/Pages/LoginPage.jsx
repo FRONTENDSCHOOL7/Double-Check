@@ -70,7 +70,6 @@ export default function LoginPage() {
     } else {
       const errorMessage = response && response.message ? response.message : handleError();
       setErrorMessage(errorMessage);
-      console.log(response);
     }
   };
 

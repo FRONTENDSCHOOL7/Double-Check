@@ -21,7 +21,7 @@ const NavBarContents = styled.div`
 
 const NavItem = styled.li`
   text-align: center;
-  color: ${({ active }) => (active === 'false' ? 'var(--gray-500)' : 'var(--dark-purple)')};
+  color: ${({ $active }) => ($active === 'false' ? 'var(--gray-500)' : 'var(--dark-purple)')};
   display: flex;
   flex-direction: column;
   gap: ${({ to }) => (to === '/profile' ? '4px' : '6px')};

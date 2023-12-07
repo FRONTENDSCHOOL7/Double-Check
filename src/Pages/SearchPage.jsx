@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 import Topbar from 'components/Common/Topbar/Topbar';
 import axios from 'axios';
 import loginToken from 'Recoil/LoginToken';
@@ -7,9 +7,12 @@ import SearchContent from 'components/Search/SearchContent';
 import { InputBox } from 'components/Common/input';
 import styled from 'styled-components';
 import { SearchAPI } from 'API/Search';
+import UseDebounce from 'Hooks/useDebounce';
 
 export default function SearchPage() {
   const [keyword, setKeyword] = useState('');
+  const debouncedSearchValue = UseDebounce(keyword, 1000);
+  const [filter, setFilter] = useState('book');
   const [data, setData] = useState([]);
   const [bookdata, setBookData] = useState([]);
   const [token] = useRecoilState(loginToken);
@@ -17,42 +20,53 @@ export default function SearchPage() {
   const [error, setError] = useState('');
   const userButtonRef = useRef(null);
   const bookButtonRef = useRef(null);
-
-  const [filter, setFilter] = useState('book'); // 'all', 'user', or 'book'
+  const inputRef = useRef(null);
 
   const handleUserFilter = () => {
-    setFilter('user');
-    userButtonRef.current.focus();
-  };
-
-  const handleBookFilter = () => {
-    setFilter('book');
-    bookButtonRef.current.focus();
-  };
-
-  const handleInputChange = (e) => {
-    const newKeyword = e.target.value;
-    setKeyword(newKeyword);
-
-    // 검색어 입력이 변경될 때 검색 결과 초기화
-    if (newKeyword === '') {
-      // setData([]);
-      setBookData([]);
+    if (filter !== 'user') {
+      setFilter('user');
+      userButtonRef.current.focus();
     }
   };
 
+  const handleBookFilter = () => {
+    if (filter !== 'book') {
+      setFilter('book');
+      bookButtonRef.current.focus();
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setKeyword(e.target.value);
+
+    if (e.target.value === '') {
+      setBookData([]);
+      setData([]);
+    }
+  };
+
+  const uniqueData = useMemo(() => {
+    return bookdata.filter((obj, index, array) => {
+      if (obj.isbn && !obj.isbn13) {
+        const hasIdenticalIsbn13 = array.some((item) => item.isbn13 === obj.isbn);
+        return !hasIdenticalIsbn13;
+      }
+      return true;
+    });
+  }, [bookdata]);
+
   useEffect(() => {
-    const search = async () => {
-      if (keyword) {
+    const fetchData = async () => {
+      if (debouncedSearchValue) {
         setLoading(true);
         setError('');
 
         try {
-          const res = await SearchAPI(token, keyword);
+          const res = await SearchAPI(token, debouncedSearchValue);
           setData(res);
-          setLoading(false);
         } catch (error) {
           setError('검색 중 오류 발생');
+        } finally {
           setLoading(false);
         }
       } else {
@@ -60,17 +74,15 @@ export default function SearchPage() {
       }
     };
 
-    if (keyword) {
-      search();
-    }
-  }, [keyword, token]);
+    fetchData();
+  }, [debouncedSearchValue, token]);
 
   useEffect(() => {
-    if (keyword) {
+    if (debouncedSearchValue) {
       axios
         .get(
           `https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/search?searchQuery=${encodeURIComponent(
-            keyword,
+            debouncedSearchValue,
           )}`,
         )
         .then((response) => {
@@ -84,21 +96,15 @@ export default function SearchPage() {
         .catch((error) => {
           console.error('에러 발생:', error);
         });
+    } else {
+      setBookData([]);
     }
-  }, [keyword]);
+  }, [debouncedSearchValue]);
 
-  // console.log(bookdata);
-
-  const uniqueData = bookdata.filter((obj, index, array) => {
-    // isbn 속성은 있고 isbn13 속성은 없는 객체인 경우
-    if (obj.isbn && !obj.isbn13) {
-      // 현재 객체의 isbn 값과 동일한 isbn13 값을 가진 객체가 있는지 확인
-      const hasIdenticalIsbn13 = array.some((item) => item.isbn13 === obj.isbn);
-      return !hasIdenticalIsbn13; // 동일한 isbn13를 가진 객체가 없으면 유지
-    }
-    return true; // isbn13가 없는 객체가 아니면 유지
+  useEffect(() => {
+    inputRef.current.focus();
   });
-  console.log(uniqueData);
+
   return (
     <>
       <Topbar title='검색' />
@@ -107,27 +113,30 @@ export default function SearchPage() {
         <SDiv>
           <SInputWrap>
             <InputBox
+              ref={inputRef}
               type='text'
               value={keyword}
               onChange={handleInputChange}
               placeholder='검색어를 입력하세요.'
               width='100%'
               height='100%'
-              borderRadius='40px'
+              radius='40px'
+              id='searchInput'
+              name='searchInput'
             />
           </SInputWrap>
           <FilterButtons>
             <button
               ref={bookButtonRef}
               onClick={handleBookFilter}
-              className={filter === 'book' ? 'active' : ''}
+              className={filter === 'book' ? 'line' : ''}
             >
               책
             </button>
             <button
               ref={userButtonRef}
               onClick={handleUserFilter}
-              className={filter === 'user' ? 'active' : ''}
+              className={filter === 'user' ? 'line' : ''}
             >
               유저
             </button>
@@ -145,12 +154,15 @@ export default function SearchPage() {
                 : '제목, 저자, 출판사로 검색해보세요.'}
             </SNodata>
           )}
-        {!loading &&
+        {/* {!loading &&
           !error &&
           ((Array.isArray(data) && data.length > 0) ||
             (Array.isArray(uniqueData) && uniqueData.length > 0)) && (
             <SearchContent data={data} bookdata={uniqueData} filter={filter} keyword={keyword} />
-          )}
+          )} */}
+        {!loading && !error && (data.length > 0 || uniqueData.length > 0) && (
+          <SearchContent data={data} bookdata={uniqueData} filter={filter} keyword={keyword} />
+        )}
       </Ssection>
     </>
   );
@@ -168,7 +180,7 @@ const FilterButtons = styled.div`
       outline: none;
     }
   }
-  button.active {
+  button.line {
     border-bottom: 2px solid var(--dark-purple);
   }
 `;

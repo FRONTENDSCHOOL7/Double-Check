@@ -50,7 +50,6 @@ export default function Profile({ onShowFollowers, onShowFollowings, activeButto
         }
 
         if (response) {
-          console.log(response);
           const profileData = isMyProfile ? response.user : response.profile;
           setMyAccountname(profileData.accountname);
 

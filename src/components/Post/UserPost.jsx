@@ -25,7 +25,7 @@ const colors = [
 
 export default function UserPost({ accountname }) {
   const { allUserPosts, isLoading } = useGetInfiniteUserPosts(accountname);
-  console.log(allUserPosts);
+
   const [view, setView] = useRecoilState(viewState);
 
   const validUserPosts = allUserPosts.filter((post) => {
@@ -44,14 +44,14 @@ export default function UserPost({ accountname }) {
   const toggleView = () => {
     setView((currentView) => (currentView === 'feed' ? 'gallery' : 'feed'));
   };
-  console.log(view);
+
   return (
     <div>
       {view === 'feed' ? (
         validUserPosts.map((post, index) => {
           const colorIndex = index % colors.length;
           const color = colors[colorIndex];
-          console.log(post.id);
+
           return <PostItem key={post.id} post={post} id={post.id} color={color} />;
         })
       ) : (

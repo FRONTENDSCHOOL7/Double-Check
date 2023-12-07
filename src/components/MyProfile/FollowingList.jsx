@@ -22,7 +22,7 @@ export default function FollowingList({ accountname }) {
       try {
         setIsLoading(true);
         const response = await getfollowingListAPI({ accountname });
-        console.log(response);
+
         setFollowings(response);
         setIsLoading(false);
       } catch (err) {

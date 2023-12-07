@@ -91,8 +91,6 @@ export default function ProfilePage() {
     try {
       const response = await API({ accountname: accountnameToggle });
       if (response) {
-        console.log(response);
-        console.log(response.profile.isfollow);
         showToast(`${action}를 성공했습니다.`);
         setIsFollowing(!isFollowing);
       }

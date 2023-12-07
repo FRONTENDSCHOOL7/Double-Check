@@ -56,7 +56,7 @@ export default function SetMyInfo() {
   const getMyProfile = async () => {
     try {
       const response = await profileAPI(token);
-      console.log(response);
+
       setProfileData(response);
 
       const parts = response.user.intro.split('@cc@');
@@ -153,9 +153,8 @@ export default function SetMyInfo() {
   }, [categories, intro]);
 
   const updateProfile = async () => {
-    console.log('Updating profile with data:', profileData);
     const response = await setProfileAPI(profileData, token);
-    console.log(response);
+
     location.reload(navigate('/profile/myinfo'));
   };
   const userImage = ImageCheck(
