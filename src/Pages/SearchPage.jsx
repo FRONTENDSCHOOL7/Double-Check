@@ -97,15 +97,13 @@ export default function SearchPage() {
           console.error('에러 발생:', error);
         });
     } else {
-      // 검색어가 없을 때 bookdata 초기화
       setBookData([]);
     }
   }, [debouncedSearchValue]);
 
   useEffect(() => {
-    // 페이지가 로드될 때 input에 포커스를 줌
     inputRef.current.focus();
-  }); // 빈 배열을 의존성으로 넣어 한 번만 실행되도록 설정
+  });
 
   return (
     <>
