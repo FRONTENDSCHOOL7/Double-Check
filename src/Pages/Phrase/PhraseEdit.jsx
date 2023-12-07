@@ -30,8 +30,7 @@ const PhraseEdit = () => {
     };
 
     const response = await phraseAPI(productData, token);
-    console.log(productData);
-    console.log(response.product.id);
+
     setShowModal(false);
     if (response) {
       navigate('/phraselist');

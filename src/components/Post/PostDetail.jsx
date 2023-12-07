@@ -36,9 +36,7 @@ export default function PostDetail({
   const likedPosts = useRecoilValue(likedState);
   const counts = useRecoilValue(commentCount);
   const currentCount = counts[post_id] || 0;
-  console.log(likedPosts);
 
-  console.log(isbn);
   const setCommentCounts = useSetRecoilState(commentCount);
 
   // 댓글 추가 시 댓글 수 상태 업데이트
@@ -58,15 +56,8 @@ export default function PostDetail({
     setIsModalOpen(false);
   }
 
-  console.log(ItemId);
-  console.log(likedPosts);
   // 내 계정이름
   const accountname = userInfo && userInfo[0] ? userInfo[0].accountname : '';
-
-  console.log(accountname);
-
-  // 포스트 계정이름
-  console.log(authorInfo.accountname);
 
   useEffect(() => {
     setDateData(postInfo.createdAt);
@@ -130,7 +121,7 @@ export default function PostDetail({
       setShowReportModal(true);
     }
   };
-  console.log(postDetails.isbn);
+
   return (
     <SMainPostDetail>
       <SPostarticle>

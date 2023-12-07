@@ -17,7 +17,7 @@ const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeL
   const leave = executeLeaveOnClick ? (
     <TopBarBtn icon={VscChevronLeft} onClick={() => onLeaveClick()} />
   ) : null;
-  console.log(title);
+
   const defaultTitle = (
     <SLink home to='/main'>
       <SDoblechaek />
@@ -27,7 +27,7 @@ const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeL
   return (
     <SHeader>
       <SDiv>{leave || leftButton || defaultLeftButton}</SDiv>
-      <Sh1 rightButtonExists={!!rightButton}>{title || defaultTitle}</Sh1>
+      <Sh1 rightbuttonexists={!!rightButton}>{title || defaultTitle}</Sh1>
       <SDiv>{rightButton || null}</SDiv>
     </SHeader>
   );
@@ -60,7 +60,7 @@ const SDiv = styled.div`
 const Sh1 = styled.h1`
   text-align: center;
   font-size: var(--font-base-size);
-  margin-left: ${(props) => (!props.rightButtonExists ? '-27px' : '14px')};
+  margin-left: ${(props) => (!props.rightbuttonexists ? '-27px' : '14px')};
 `;
 
 const SLink = styled(Link)`

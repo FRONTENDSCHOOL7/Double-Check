@@ -112,7 +112,7 @@ export const useInfinitePosts = () => {
     queryKey: 'posts',
     queryFn: async ({ pageParam = 0 }) => {
       const response = await getPosts(pageParam);
-      console.log(response.posts.flat());
+      // console.log(response.posts.flat());
       return response.posts;
     },
     getNextPageParam: (lastPage, allPages) => {
@@ -121,7 +121,7 @@ export const useInfinitePosts = () => {
       return morePagesExist ? nextPage : undefined;
     },
     onSuccess: (newData) => {
-      console.log(newData);
+      // console.log(newData);
       setAllPosts(newData.pages.flat());
     },
   });
@@ -164,11 +164,11 @@ export const useGetInfiniteFollowingPosts = () => {
     queryKey: 'followingPosts',
     queryFn: async ({ pageParam = 0 }) => {
       const response = await getFollowingPosts(pageParam);
-      console.log(response.posts.flat());
+      // console.log(response.posts.flat());
       return response.posts;
     },
     onSuccess: (newData) => {
-      console.log(newData);
+      // console.log(newData);
       setAllFollowingPosts(newData.pages.flat());
     },
   });
