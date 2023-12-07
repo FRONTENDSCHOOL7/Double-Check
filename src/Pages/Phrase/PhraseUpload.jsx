@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { phraseUpload } from 'API/phrase';
@@ -13,7 +13,7 @@ import Modal from 'components/Common/Modal/Modal';
 import Topbar from 'components/Common/Topbar/Topbar';
 import { showToast } from 'Hooks/useCustomToast';
 
-const PhraseEdit = () => {
+const PhraseUpload = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -55,7 +55,7 @@ const PhraseEdit = () => {
     } else if (author === '' || author.length < 1) {
       return showToast('저자를 입력해주세요.');
     }
-
+    setContent('');
     setShowModal(true);
   };
 
@@ -114,6 +114,7 @@ const PhraseEdit = () => {
         isVisible={showLeaveConfirm}
         onConfirm={() => {
           setShowLeaveConfirm(false);
+          setContent('');
           navigate('/phraselist');
         }}
         onCancel={() => setShowLeaveConfirm(false)}
@@ -122,4 +123,4 @@ const PhraseEdit = () => {
   );
 };
 
-export default PhraseEdit;
+export default PhraseUpload;
