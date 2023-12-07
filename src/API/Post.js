@@ -71,8 +71,8 @@ export const useDeletePost = (postId) => {
 };
 
 const getPosts = async ({ pageParam = 0 }) => {
-  const skip = pageParam * 200;
-  const response = await authInstance.get(`/post?limit=200&skip=${skip}`);
+  const skip = pageParam * 400;
+  const response = await authInstance.get(`/post?limit=400&skip=${skip}`);
   return response.data;
 };
 
