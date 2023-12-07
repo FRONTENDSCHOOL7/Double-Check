@@ -33,12 +33,15 @@ const PhraseUpdate = () => {
   const { updatePhraseMutate } = useUpdatePhrase(id, token);
 
   useEffect(() => {
-    // 데이터가 로딩되었고 에러가 없는지 확인하고 제품 데이터가 있는 경우에만 상태를 업데이트
-    if (id && !loading && !error && phrase) {
+    if (phrase) {
       setTitle(phrase.itemName.replace('@cc@', ''));
       setAuthor(phrase.link);
       setContent(phrase.itemImage);
     }
+
+    return () => {
+      setContent('');
+    };
   }, [id, products, loading, error]);
 
   const handlePhraseUpdate = async () => {
