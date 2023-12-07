@@ -7,7 +7,7 @@ export const InputBox = styled.input`
   padding: 15px;
   box-sizing: border-box;
   background-color: ${(props) => props.backgroundColor};
-  border-radius: ${(props) => props.borderRadius};
+  border-radius: ${(props) => props.radius};
   &::placeholder {
     color: var(--gray-500);
   }
