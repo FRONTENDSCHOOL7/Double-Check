@@ -26,8 +26,14 @@ const deletePhrase = async (id, token) => {
 };
 
 const getInfinitePhrase = async ({ pageParam = 0 }) => {
-  const skip = pageParam * 200; // 200개씩 데이터 로드
+  const skip = pageParam * 200;
   const response = await authInstance.get(`/product?limit=200&skip=${skip}`);
+  return response.data;
+};
+
+const getMyPhrase = async ({ pageParam = 0, accountname }) => {
+  const skip = pageParam * 200;
+  const response = await authInstance.get(`/product/${accountname}/?limit=200&skip=${skip}`);
   return response.data;
 };
 
@@ -66,6 +72,48 @@ export const useGetInfinitePhrase = () => {
   };
 };
 
+export const useGetMyPhrase = (accountname) => {
+  const [myPhrase, setMyPhrase] = useState([]);
+  const {
+    data: phrase,
+    isLoading,
+    isError,
+    fetchNextPage: fetchNextMyPhrase,
+    hasNextPage: hasNextMyPhrase,
+    isFetchingNextPage,
+  } = useInfiniteQuery(
+    ['myPhrase', accountname],
+    async ({ pageParam = 0 }) => {
+      const response = await getMyPhrase({ pageParam, accountname });
+      if (response.error) {
+        console.error('Error fetching my phrase:', response.error);
+      }
+      return response.product.filter((item) => item.itemName.includes('@cc@'));
+    },
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        const nextPage = allPages.length;
+        const morePagesExist = lastPage.totalCount > nextPage * 200;
+        return morePagesExist ? nextPage : undefined;
+      },
+      placeholderData: [],
+      onSuccess: (newData) => {
+        setMyPhrase(newData.pages.flat());
+      },
+    },
+  );
+
+  return {
+    phrase,
+    myPhrase,
+    fetchNextMyPhrase,
+    hasNextMyPhrase,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+  };
+};
+
 export const useGetDetailPhrase = (id) => {
   const {
     data: products,
@@ -91,21 +139,11 @@ export const useUpdatePhrase = (productId, token) => {
   return { updatePhraseMutate };
 };
 
-// export const useDeletePhrase = (id, token) => {
-//   const navigate = useNavigate();
-
-//   const { mutate: deletePhraseMutate } = useMutation({
-//     mutationFn: () => deletePhrase(id, token),
-//     onSuccess: () => navigate(`/phraselist`),
-//   });
-//   return { deletePhraseMutate };
-// };
-
 export const useDeletePhrase = (id, token) => {
   const queryClient = useQueryClient();
   const { mutate: deletePhraseMutate } = useMutation(() => deletePhrase(id, token), {
     onSuccess: () => {
-      queryClient.invalidateQueries('phrase'); // 여기서 'phrases'는 글귀 목록 쿼리의 키를 말합니다. 실제 쿼리 키에 맞게 조정하세요.
+      queryClient.invalidateQueries('phrase');
     },
   });
   return { deletePhraseMutate };
