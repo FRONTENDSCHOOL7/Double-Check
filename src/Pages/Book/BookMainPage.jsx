@@ -16,15 +16,15 @@ export default function BookMainPage() {
         />
         <BookSlide
           title='신간 도서 리스트'
-          dataType='newBooks'
+          dataType='newbooks'
           desc='오늘의 독서, 어떤 책을 읽을까요?'
-          path='/book/newBooks'
+          path='/book/newbooks'
         />
         <BookSlide
           title='이번달 신간 리스트'
-          dataType='newBookSpecial'
+          dataType='special'
           desc='독서 트렌드 따라잡기'
-          path='/book/NewBookSpecial'
+          path='/book/special'
         />
       </Suspense>
     </>

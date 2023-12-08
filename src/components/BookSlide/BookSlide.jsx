@@ -17,9 +17,9 @@ export default function BookSlide({ title, dataType, desc, path }) {
   const bookData = useRecoilValue(
     dataType === 'bestsellers'
       ? fetchBestsellersData
-      : dataType === 'newBooks'
+      : dataType === 'newbooks'
       ? fetchNewBooksData
-      : dataType === 'newBookSpecial'
+      : dataType === 'special'
       ? fetchNewBookSpecialData
       : fetchBestsellersData,
   );

@@ -6,9 +6,9 @@ import styled from 'styled-components';
 import BookListSkeleton from 'assets/Skeleton/BookListSkeleton';
 const LIST_INFO_MAP = {
   bestseller: { endpoint: 'bestseller', title: '베스트 셀러' },
-  newBooks: { endpoint: 'newBooks', title: '신작 도서 리스트' },
+  newBooks: { endpoint: 'newbooks', title: '신작 도서 리스트' },
   NewBookSpecial: {
-    endpoint: 'NewBookSpecial',
+    endpoint: 'special',
     title: '이번달 신간 리스트',
   },
 };
