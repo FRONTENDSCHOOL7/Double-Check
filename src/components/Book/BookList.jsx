@@ -16,7 +16,7 @@ export default function BookList({ product }) {
           <h2>{title}</h2>
           <p> {author}</p>
         </StitleBox>
-        {bestDuration && <SInfo bestDuration={bestDuration} />}{' '}
+        {bestDuration && <SInfo bestDuration={bestDuration} />}
       </Link>
     </Sli>
   );

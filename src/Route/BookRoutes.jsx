@@ -9,8 +9,8 @@ export default function BookRoutes() {
       {/* 책 메인페이지 추가 */}
       <Route path='/main' element={<BookMainPage />} />
       <Route path='/bestseller' element={<BookListPage listType='bestseller' />} />
-      <Route path='/newBooks' element={<BookListPage listType='newBooks' />} />
-      <Route path='/NewBookSpecial' element={<BookListPage listType='NewBookSpecial' />} />
+      <Route path='/newbooks' element={<BookListPage listType='newbooks' />} />
+      <Route path='/special' element={<BookListPage listType='special' />} />
       <Route path=':isbn' element={<BookDetailPage />} />
     </Routes>
   );
