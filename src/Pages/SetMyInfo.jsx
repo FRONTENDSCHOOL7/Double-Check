@@ -37,7 +37,7 @@ export default function SetMyInfo() {
       image: '',
     },
   });
-  
+
   // 모달 상태
   const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
   const LogoutButton = (
