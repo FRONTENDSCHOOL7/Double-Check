@@ -35,7 +35,7 @@ const navItem = [
 const NavBarItem = ({ to, active, children }) => {
   return (
     <Link to={to}>
-      <NavItem active={active} to={to}>
+      <NavItem $active={active} to={to}>
         {children}
       </NavItem>
     </Link>

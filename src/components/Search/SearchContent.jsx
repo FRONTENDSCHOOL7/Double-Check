@@ -3,11 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ImageCheck from '../Common/ImageCheck';
 export default function SearchContent({ data, bookdata, filter, keyword }) {
-  console.log(bookdata);
-  const HighlightSpan = styled.span`
-    color: var(--dark-purple);
-  `;
-
   const highlightKeyword = (text) => {
     if (keyword && text) {
       const regex = new RegExp(`(${keyword})`, 'gi');
@@ -135,4 +130,7 @@ const SBookDesBox = styled.div`
     color: var(--gray-500);
     margin-top: 7px;
   }
+`;
+const HighlightSpan = styled.span`
+  color: var(--dark-purple);
 `;

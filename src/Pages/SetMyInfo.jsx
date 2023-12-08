@@ -37,6 +37,7 @@ export default function SetMyInfo() {
       image: '',
     },
   });
+  
   // 모달 상태
   const [showEditDeleteModal, setShowEditDeleteModal] = useState(false);
   const LogoutButton = (
@@ -56,11 +57,12 @@ export default function SetMyInfo() {
     setLoginCheck(false);
     location.reload(navigate('/startloginpage'));
   };
+
   // 프로필 정보 요청
   const getMyProfile = async () => {
     try {
       const response = await profileAPI(token);
-      console.log(response);
+
       setProfileData(response);
 
       const parts = response.user.intro.split('@cc@');
@@ -157,15 +159,15 @@ export default function SetMyInfo() {
   }, [categories, intro]);
 
   const updateProfile = async () => {
-    console.log('Updating profile with data:', profileData);
     const response = await setProfileAPI(profileData, token);
-    console.log(response);
     location.reload(navigate(`/profile/${UserInfo.accountname}`));
   };
+
   const userImage = ImageCheck(
     'https://api.mandarin.weniv.co.kr/' + profileData.user.image,
     'profile',
   );
+
   return (
     <>
       <Topbar title='프로필 설정' />

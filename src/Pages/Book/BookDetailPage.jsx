@@ -15,8 +15,8 @@ export default function BookDetailPage() {
         const response = await axios.get(
           `https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/search/?isbn=${isbn}`,
         );
-        console.log(response.data.naverData.items.length);
-        console.log(response.data.aladinData.item.length);
+        // console.log(response.data.naverData.items.length);
+        // console.log(response.data.aladinData.item.length);
         let bookData;
         if (response.data.naverData.items.length) {
           bookData = response.data.naverData.items[0];
@@ -33,9 +33,9 @@ export default function BookDetailPage() {
     fetchBookDetails();
   }, [isbn, location.state]);
 
-  useEffect(() => {
-    // console.log(detailInfo); // 업데이트된 값 확인
-  }, [detailInfo]);
+  // useEffect(() => {
+  //   // console.log(detailInfo); // 업데이트된 값 확인
+  // }, [detailInfo]);
 
   return (
     <>

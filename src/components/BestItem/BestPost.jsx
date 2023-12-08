@@ -7,7 +7,7 @@ import { useSortedPosts } from 'Recoil/BestPosts';
 import { calculatedColorState } from 'Recoil/PostColor';
 const BestPost = () => {
   const sortedPosts = useSortedPosts();
-  console.log(sortedPosts);
+
   const getCalculatedColor = useRecoilValue(calculatedColorState);
 
   const renderBestPostItems = React.useMemo(

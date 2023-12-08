@@ -14,12 +14,12 @@ export default function PostPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const bookData = location.state;
-  console.log(bookData.isbn);
+
   const [review, setReview] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
-  const [newInfo, setNewInfo] = useRecoilState(newinfo);
-  // console.log(bookData.isbn);
+  const [, setNewInfo] = useRecoilState(newinfo);
+
   const confirmUpload = (e) => {
     e.preventDefault();
     console.log('confirmUpload 함수 실행');
@@ -31,7 +31,7 @@ export default function PostPage() {
       setShowModal(true);
     }
   };
-  // 내가 작성한 리뷰 정보 , 업로드
+
   const postData = {
     title: bookData.title,
     author: bookData.author,
@@ -49,12 +49,9 @@ export default function PostPage() {
     try {
       const response = await postUploadAPI(post);
 
-      // post값을 리코일에 저장
       setNewInfo(response);
       setShowModal(true);
 
-      // 리뷰등록하면 상세페이지로 이동! postDetailPage
-      // navigate(`/post/${response.post.id}`);
       showToast('등록 되었습니다');
       navigate('/post');
     } catch (error) {
@@ -62,8 +59,6 @@ export default function PostPage() {
     }
   };
 
-  // 수정하기갔다오면 이상함
-  console.log(newInfo);
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.focus();

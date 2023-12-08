@@ -59,7 +59,6 @@ export default function PostMain() {
 
       {view === 'feed' ? (
         validPosts.map((post, index) => {
-          console.log(post._id);
           return (
             <PostItem key={post._id} post={post} color={getCalculatedColor(index)} id={post._id} />
           );

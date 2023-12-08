@@ -13,7 +13,7 @@ function LikeButton({ postId, liked, heartCount }) {
   const [token] = useRecoilState(loginToken);
   const [isLiked, setIsLiked] = useState(liked);
   const [heartValue, setHeartValue] = useState(heartCount);
-  console.log(heartValue);
+
   const handleLike = async () => {
     try {
       if (isLiked) {
