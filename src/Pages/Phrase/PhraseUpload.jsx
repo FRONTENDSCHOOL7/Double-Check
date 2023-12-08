@@ -55,7 +55,6 @@ const PhraseUpload = () => {
     } else if (author === '' || author.length < 1) {
       return showToast('저자를 입력해주세요.');
     }
-    setContent('');
     setShowModal(true);
   };
 
