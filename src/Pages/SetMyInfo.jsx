@@ -16,6 +16,9 @@ import { useNavigate } from 'react-router-dom';
 // 상단바 로그아웃 버튼
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ModalButton from 'components/Common/Modal/ModalButton';
+import { useRecoilValue } from 'recoil';
+import userInfoState from 'Recoil/UserInfo';
+
 export default function SetMyInfo() {
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   const navigate = useNavigate();
@@ -25,6 +28,7 @@ export default function SetMyInfo() {
   const [categories, setCategories] = useState([]);
   const isFirstRender = useRef(true); // 랜더링 컨트롤
   const [intro, setIntro] = useState('');
+  const UserInfo = useRecoilValue(userInfoState);
   const [profileData, setProfileData] = useState({
     user: {
       username: '',
@@ -156,7 +160,7 @@ export default function SetMyInfo() {
     console.log('Updating profile with data:', profileData);
     const response = await setProfileAPI(profileData, token);
     console.log(response);
-    location.reload(navigate('/profile/myinfo'));
+    location.reload(navigate(`/profile/${UserInfo.accountname}`));
   };
   const userImage = ImageCheck(
     'https://api.mandarin.weniv.co.kr/' + profileData.user.image,
