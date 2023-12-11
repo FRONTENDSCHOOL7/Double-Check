@@ -34,8 +34,9 @@ const ProfileImage = styled.img`
   height: 47px;
   border-radius: 50%;
   border: 1px solid var(--gray-300);
-  object-fit: cover;
+  object-fit: fill;
   image-rendering: -webkit-optimize-contrast;
+  aspect-ratio: 1/1;
 `;
 
 const EmptyList = styled.p`
