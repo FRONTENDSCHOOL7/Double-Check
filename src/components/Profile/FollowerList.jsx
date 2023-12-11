@@ -43,8 +43,9 @@ export default function FollowerList({ accountname }) {
 
   // 사용자 프로필로 이동하는 함수
   const goToUserProfile = (accountname) => {
-    navigate(`/profile/${accountname}`);
+    location.reload(navigate(`/profile/${accountname}`));
   };
+
   return (
     <div>
       <FollowerTitle>팔로워 목록</FollowerTitle>
