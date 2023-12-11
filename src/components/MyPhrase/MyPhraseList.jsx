@@ -10,10 +10,10 @@ import Modal from 'components/Common/Modal/Modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { itemIdState } from 'Recoil/PhraseId';
 import loginToken from 'Recoil/LoginToken';
-import Topbar from 'components/Common/Topbar/Topbar';
 import { showToast } from 'Hooks/useCustomToast';
 import PhraseListSkeleton from 'assets/Skeleton/PhraseListSkeleton';
 import userInfoState from 'Recoil/UserInfo';
+import { FollowerTitle } from 'components/Profile/FollowListStyle';
 
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
@@ -78,23 +78,10 @@ export default function MyPhraseList() {
   };
 
   const { phrase, myPhrase, fetchNextPhrase, hasNextPhrase } = useGetMyPhrase(urlaccountname);
-  console.log(myPhrase);
 
   return (
     <>
-      {/* <Topbar
-        title='글귀 목록'
-        rightButton={
-          <Button
-            category='basic'
-            shape='primary'
-            type='button'
-            onClick={() => navigate('/phrase/upload')}
-          >
-            작성
-          </Button>
-        }
-      /> */}
+      <FollowerTitle>글귀</FollowerTitle>
       <PhraseContainer>
         {myPhrase.length > 0 ? (
           <PhraseListUl>
@@ -121,8 +108,7 @@ export default function MyPhraseList() {
                       <p>{item.itemName.replace('@cc@', '')}</p>
                       <p>{item.link}</p>
                     </PhraseInfo>
-
-                    {item.author.accountname === accountname ? (
+                    {item.author.accountname === accountname && (
                       <Button
                         category='basic'
                         shape='none'
@@ -133,10 +119,6 @@ export default function MyPhraseList() {
                       >
                         <img src={showMore} alt='더보기 아이콘' />
                       </Button>
-                    ) : (
-                      <Button category='basic' shape='none'>
-                        저장
-                      </Button>
                     )}
                   </Options>
                 </PhraseListItem>
@@ -145,7 +127,7 @@ export default function MyPhraseList() {
             {hasNextPhrase && <div>로딩중</div>}
           </PhraseListUl>
         ) : (
-          <PhraseListSkeleton />
+          <>{hasNextPhrase && <PhraseListSkeleton />}</>
         )}
       </PhraseContainer>
       {isModalVisible && (
@@ -239,4 +221,15 @@ const PhraseTxt = styled.p`
     max-height: 1000px; 
     opacity: 1;
   `}
+`;
+
+const FollowerHeader = styled.header`
+  display: flex;
+  text-align: center;
+  margin-top: 20px;
+  padding: 13px 0;
+  font-family: 'Pretendard-Medium', sans-serif;
+  font-size: var(--font-sm-size);
+  border-top: ${(props) => (props.customStyle ? 'none' : 'solid 1px #e4e4e4')};
+  border-bottom: ${(props) => (props.customStyle ? 'none' : 'solid 1px #e4e4e4')};
 `;
