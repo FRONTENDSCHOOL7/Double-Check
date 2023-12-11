@@ -5,27 +5,24 @@ import ImageCheck from 'components/Common/ImageCheck';
 import { accountProfileAPI, profileAPI, followAPI, unfollowAPI } from 'API/Profile';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { showToast } from 'Hooks/useCustomToast';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import accountname from 'Recoil/Accountname';
 
-export default function Profile({ onShowFollowers, onShowFollowings, activeButton }) {
-  const [profileData, setProfileData] = useState({
-    user: {
-      username: '',
-      accountname: '',
-      intro: '',
-      image: '',
-    },
-  });
-
+export default function Profile({
+  onShowPosts,
+  onShowPhrase,
+  onShowFollowers,
+  onShowFollowings,
+  activeButton,
+  validUserPosts,
+  myPhrase,
+}) {
   const [myAccountname, setMyAccountname] = useRecoilState(accountname);
-  const [isFollowing, setIsFollowing] = useState(false);
   const [myProfile, setMyProfile] = useState(false);
   const location = useLocation();
   const { accountname: urlaccountname } = useParams();
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
-  console.log(myAccountname);
 
   const [profile, setProfile] = useState({
     username: '',
@@ -41,15 +38,17 @@ export default function Profile({ onShowFollowers, onShowFollowings, activeButto
     const fetchProfileData = async () => {
       try {
         let response;
-        let isMyProfile = location.pathname.includes('/profile/myinfo');
+        let isMyProfile = urlaccountname === myAccountname;
 
         if (isMyProfile) {
+          setMyProfile(true);
           response = await profileAPI();
         } else {
           response = await accountProfileAPI(urlaccountname);
         }
 
         if (response) {
+          console.log(response);
           const profileData = isMyProfile ? response.user : response.profile;
           setMyAccountname(profileData.accountname);
 
@@ -73,8 +72,6 @@ export default function Profile({ onShowFollowers, onShowFollowings, activeButto
             intro: introText || prevProfile.intro,
             categories: categoryArray,
           }));
-
-          setMyProfile(isMyProfile);
         } else {
           showToast('프로필 정보가 없습니다.');
         }
@@ -94,28 +91,19 @@ export default function Profile({ onShowFollowers, onShowFollowings, activeButto
     navigate('/setmyinfo');
   };
 
+  const ProfileSet = myProfile && (
+    <ProfileSetBtn onClick={navigateToSetMyInfo}>프로필 설정하기</ProfileSetBtn>
+  );
+
   return (
     <>
-      <ProfileContainer>
-        <ProfileFollow
-          onClick={onShowFollowers}
-          className={activeButton === 'followers' ? 'active' : ''}
-        >
-          <p>{profile.followerCount}</p>
-          <p>팔로워</p>
-        </ProfileFollow>
-        <ProfileDetails>
-          <ProfileImage src={profile.imageUrl} alt='Profile' />
-          <ProfileName>{profile.username} 님</ProfileName>
-        </ProfileDetails>
-        <ProfileFollow
-          onClick={onShowFollowings}
-          className={activeButton === 'followings' ? 'active' : ''}
-        >
-          <p>{profile.followingCount}</p>
-          <p>팔로잉</p>
-        </ProfileFollow>
-      </ProfileContainer>
+      <ProfileDetails>
+        <ProfileImage src={profile.imageUrl} alt='Profile' />
+        <AccountTxt>
+          <span>{profile.username} 님</span>
+          <span className='accountname'>{profile.accountname}</span>
+        </AccountTxt>
+      </ProfileDetails>
       <ProfileSetSection>
         <IntroWrapper>
           <Intro>소개</Intro>
@@ -128,57 +116,90 @@ export default function Profile({ onShowFollowers, onShowFollowings, activeButto
           </CategoryUl>
           <IntroExplain>{profile.intro}</IntroExplain>
         </CateIntroWrapper>
-        <ProfileSetBtn onClick={navigateToSetMyInfo}>프로필 설정하기</ProfileSetBtn>
+        {ProfileSet}
+        {/* <ProfileSetBtn onClick={navigateToSetMyInfo}>프로필 설정하기</ProfileSetBtn> */}
       </ProfileSetSection>
+      <ProfileContainer>
+        <ProfileTab
+          onClick={onShowPosts}
+          className={
+            activeButton === 'posts' ||
+            (activeButton !== 'followers' &&
+              activeButton !== 'followings' &&
+              activeButton !== 'phrase')
+              ? 'active'
+              : ''
+          }
+        >
+          <p>{validUserPosts.length}</p>
+          <p>피드</p>
+        </ProfileTab>
+        <ProfileTab onClick={onShowPhrase} className={activeButton === 'phrase' ? 'active' : ''}>
+          <p>{myPhrase.length}</p>
+          <p>글귀</p>
+        </ProfileTab>
+        <ProfileTab
+          onClick={onShowFollowers}
+          className={activeButton === 'followers' ? 'active' : ''}
+        >
+          <p>{profile.followerCount}</p>
+          <p>팔로워</p>
+        </ProfileTab>
+        <ProfileTab
+          onClick={onShowFollowings}
+          className={activeButton === 'followings' ? 'active' : ''}
+        >
+          <p>{profile.followingCount}</p>
+          <p>팔로잉</p>
+        </ProfileTab>
+      </ProfileContainer>
     </>
   );
 }
 
 const ProfileContainer = styled.div`
-  margin: 29px auto 25px;
+  margin: 15px auto 17px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 21px;
 `;
 
-const ProfileFollow = styled.button`
+const ProfileTab = styled.button`
+  width: 66px;
+  padding: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
   gap: 5px;
   justify-content: center;
-  font-size: var(--font-sm-size);
-  font-family: 'Pretendard-Medium', sans-serif;
+  border: 1px solid var(--gray-300);
+  border-radius: 10px;
+  color: var(--gray-500);
+  font-size: var(--font-xs-size);
+  font-family: 'Pretendard-Regular', sans-serif;
   &.active {
-    color: var(--dark-purple);
-    &::before {
-      content: '';
-      width: 38px;
-      height: 4px;
-      position: absolute;
-      top: 129px;
-      border-radius: 23px;
-      background-color: var(--dark-purple);
-    }
+    background-color: var(--gray-200);
+    color: var(--black);
   }
 `;
 
 const ProfileDetails = styled.div`
-  text-align: center;
-  flex: 1;
+  display: flex;
+  margin: 17px 31px;
+  align-items: center;
+  gap: 13px;
 `;
 
 const ProfileImage = styled.img`
-  width: 108px;
-  height: 108px;
+  width: 59px;
+  height: 59px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: fill;
+  aspect-ratio: 1/1;
 `;
 
 const ProfileName = styled.div`
-  font-family: 'Pretendard-SemiBold', sans-serif;
-  margin-top: 5px;
-  text-align: center;
+  font-family: 'Pretendard-Medium', sans-serif;
 `;
 
 const ProfileSetSection = styled.section`
@@ -254,4 +275,17 @@ const ProfileSetBtn = styled.button`
   bottom: 5px;
   padding: 3px 21px;
   font-family: 'Pretendard-regular', sans-serif;
+`;
+
+const AccountTxt = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  & > span:first-of-type {
+    font-family: 'Pretendard-SemiBold';
+  }
+  .accountname {
+    font-size: var(--font-xs-size);
+    color: var(--gray-500);
+  }
 `;

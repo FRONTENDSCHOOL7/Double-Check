@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import MyProfile from 'components/MyProfile/Profile';
+import MyProfile from 'components/Profile/Profile';
 import UserPost from 'components/Post/UserPost';
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
@@ -7,8 +7,8 @@ import accountnameState from 'Recoil/Accountname';
 import { profileAPI, followAPI, unfollowAPI, accountProfileAPI } from 'API/Profile';
 import { useParams } from 'react-router-dom';
 import Topbar from 'components/Common/Topbar/Topbar';
-import FollowerList from 'components/MyProfile/FollowerList';
-import FollowingList from 'components/MyProfile/FollowingList';
+import FollowerList from 'components/Profile/FollowerList';
+import FollowingList from 'components/Profile/FollowingList';
 import styled from 'styled-components';
 import { showToast } from 'Hooks/useCustomToast';
 import ViewToggleButton from 'components/Common/Button/ViewToggleButton';
@@ -19,11 +19,14 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import { loginCheck } from 'Recoil/LoginCheck';
 import Modal from 'components/Common/Modal/Modal';
-import { Loading } from '../components/MyProfile/FollowListStyle';
+import { Loading } from '../components/Profile/FollowListStyle';
+import MyPhraseList from 'components/MyPhrase/MyPhraseList';
+import { useGetInfiniteUserPosts } from 'API/Post';
+import { useGetMyPhrase } from 'Hooks/usePhrase';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const [listToShow, setListToShow] = useState(null);
+  const [listToShow, setListToShow] = useState('posts');
   const [activeButton, setActiveButton] = useState(null);
   const [myAccountname, setMyAccountname] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -33,11 +36,24 @@ export default function ProfilePage() {
   const [view, setView] = useRecoilState(viewState);
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   const [, setLoginCheck] = useRecoilState(loginCheck);
+  const { allUserPosts } = useGetInfiniteUserPosts(accountname);
+
+  const validUserPosts = allUserPosts.filter((post) => {
+    try {
+      post.parsedContent = JSON.parse(post.content);
+      return post.parsedContent.review;
+    } catch (error) {
+      return false;
+    }
+  });
+
+  const { phrase, myPhrase, fetchNextPhrase, hasNextPhrase } = useGetMyPhrase(accountname);
+  console.log(myPhrase);
 
   // 로그아웃 모달 버튼 상태
   const [showModalBtn, setshowModalBtn] = useState(false);
-  // 모달 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const getMyProfile = async () => {
     setIsLoading(true);
     try {
@@ -82,6 +98,16 @@ export default function ProfilePage() {
     setActiveButton('followings');
   };
 
+  const handleShowPosts = () => {
+    setListToShow('posts');
+    setActiveButton('posts');
+  };
+
+  const handleShowPhrase = () => {
+    setListToShow('phrase');
+    setActiveButton('phrase');
+  };
+
   async function toggleFollow(accountnameToggle) {
     if (!accountnameToggle) return;
 
@@ -99,37 +125,37 @@ export default function ProfilePage() {
       showToast(`${action} 요청에 실패했습니다.`);
     }
   }
+
   // 상단바 케밥 버튼
   const LogoutButton = urlAccountname === myAccountname && (
     <button onClick={() => setshowModalBtn(true)}>
       <HiOutlineDotsVertical />
     </button>
   );
-  // 모달 함수
+
   const handleLogout = () => {
-    navigateToLoginPage(); // 로그아웃 함수 호출
-    closeModal(); // 모달 닫기
+    navigateToLoginPage();
+    closeModal();
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // 모달 닫기
+    setIsModalOpen(false);
   };
+
   const openModal = () => {
-    setIsModalOpen(true); // 모달 열기
+    setIsModalOpen(true);
     handleCancel(false);
   };
   const handleCancel = () => {
     setshowModalBtn(false);
   };
 
-  // 로그아웃 하시겠습니까 ? 예 클릭시
   const navigateToLoginPage = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('recoil-persist');
     setLoginCheck(false);
     navigate('/startloginpage');
   };
-  // 모달 끝
 
   const handleFollowClick = () => {
     toggleFollow(urlAccountname);
@@ -170,11 +196,15 @@ export default function ProfilePage() {
     case 'followings':
       content = <FollowingList accountname={finalAccountname} />;
       break;
+    case 'phrase':
+      content = <MyPhraseList />;
+      break;
+    case 'posts':
     default:
       content = (
         <>
           <FollowerHeader>
-            <SSectionTitle>게시물</SSectionTitle>
+            <SSectionTitle>피드</SSectionTitle>
             <ViewToggleButton view={view} toggleView={toggleView} />
           </FollowerHeader>
           <UserPost accountname={finalAccountname} />
@@ -197,9 +227,13 @@ export default function ProfilePage() {
         }
       />
       <MyProfile
+        onShowPosts={handleShowPosts}
+        onShowPhrase={handleShowPhrase}
         onShowFollowers={handleShowFollowers}
         onShowFollowings={handleShowFollowings}
         activeButton={activeButton}
+        validUserPosts={validUserPosts}
+        myPhrase={myPhrase}
       />
       {content}
 
@@ -243,4 +277,5 @@ const FollowerHeader = styled.header`
 const SSectionTitle = styled.h2`
   flex: 1;
   margin-left: 30px;
+  line-height: 1.3;
 `;
