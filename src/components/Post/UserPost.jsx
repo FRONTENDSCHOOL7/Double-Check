@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGetInfiniteUserPosts } from 'API/Post';
 import PostItem from 'components/Post/PostItem';
 import GalleryView from './PostGallery';

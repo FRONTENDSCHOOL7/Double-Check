@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { postGetUpdateAPI } from 'API/Post';
 import { useRecoilState } from 'recoil';
 import { postDetailsState, postDetailUser, postDetailInfo } from '../../Recoil/PostDetail';
@@ -16,7 +16,6 @@ export default function PostDetailPage() {
   const [postUser, setPostUser] = useRecoilState(postDetailUser);
   const [postInfo, setPostInfo] = useRecoilState(postDetailInfo);
   const [currentItemId, setCurrentItemId] = useState(null);
-  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -50,15 +49,12 @@ export default function PostDetailPage() {
     fetchData();
   }, [post_id, setPostDetails, setPostInfo, setPostUser]);
 
-  const navigateToMainPostPage = () => {
-    navigate('/post');
-  };
   if (isLoading) {
     return <PostDetailSkeleton />;
   }
   return (
     <>
-      <Topbar title goBack={navigateToMainPostPage} />
+      <Topbar title />
       <PostDetail
         isbn={postDetails.isbn}
         authorInfo={postUser}

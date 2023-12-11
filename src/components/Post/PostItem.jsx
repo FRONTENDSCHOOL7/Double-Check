@@ -198,7 +198,7 @@ const SPostHeader = styled.header`
 const SLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   color: var(--gray-500);
 
   & > span:first-of-type {
