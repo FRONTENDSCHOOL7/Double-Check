@@ -12,9 +12,7 @@ export default function BookDetailPage() {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(
-          `https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/search/?isbn=${isbn}`,
-        );
+        const response = await axios.get(`https://double-check.onrender.com/search/?isbn=${isbn}`);
         // console.log(response.data.naverData.items.length);
         // console.log(response.data.aladinData.item.length);
         let bookData;

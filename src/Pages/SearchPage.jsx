@@ -81,7 +81,7 @@ export default function SearchPage() {
     if (debouncedSearchValue) {
       axios
         .get(
-          `https://port-0-node-express-1igmo82clonz4u17.sel5.cloudtype.app/search?searchQuery=${encodeURIComponent(
+          `https://double-check.onrender.com/search?searchQuery=${encodeURIComponent(
             debouncedSearchValue,
           )}`,
         )
