@@ -21,7 +21,6 @@ import { loginCheck } from 'Recoil/LoginCheck';
 import Modal from 'components/Common/Modal/Modal';
 import { Loading } from '../components/Profile/FollowListStyle';
 import MyPhraseList from 'components/MyPhrase/MyPhraseList';
-import { useGetInfiniteUserPosts } from 'API/Post';
 import { useGetMyPhrase } from 'Hooks/usePhrase';
 
 export default function ProfilePage() {
@@ -36,19 +35,6 @@ export default function ProfilePage() {
   const [view, setView] = useRecoilState(viewState);
   const [showNavBar, setShowNavBar] = useRecoilState(navBar);
   const [, setLoginCheck] = useRecoilState(loginCheck);
-  const { allUserPosts } = useGetInfiniteUserPosts(accountname);
-
-  const validUserPosts = allUserPosts.filter((post) => {
-    try {
-      post.parsedContent = JSON.parse(post.content);
-      return post.parsedContent.review;
-    } catch (error) {
-      return false;
-    }
-  });
-
-  const { phrase, myPhrase, fetchNextPhrase, hasNextPhrase } = useGetMyPhrase(accountname);
-  console.log(myPhrase);
 
   // 로그아웃 모달 버튼 상태
   const [showModalBtn, setshowModalBtn] = useState(false);
@@ -232,8 +218,6 @@ export default function ProfilePage() {
         onShowFollowers={handleShowFollowers}
         onShowFollowings={handleShowFollowings}
         activeButton={activeButton}
-        validUserPosts={validUserPosts}
-        myPhrase={myPhrase}
       />
       {content}
 
@@ -277,5 +261,4 @@ const FollowerHeader = styled.header`
 const SSectionTitle = styled.h2`
   flex: 1;
   margin-left: 30px;
-  line-height: 1.3;
 `;

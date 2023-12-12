@@ -8,22 +8,32 @@ import { showToast } from 'Hooks/useCustomToast';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import accountname from 'Recoil/Accountname';
 import { Link } from 'react-router-dom';
+import { useGetInfiniteUserPosts } from 'API/Post';
+import { useGetMyPhrase } from 'Hooks/usePhrase';
 export default function Profile({
   onShowPosts,
   onShowPhrase,
   onShowFollowers,
   onShowFollowings,
   activeButton,
-  validUserPosts,
-  myPhrase,
 }) {
-  const [myAccountname, setMyAccountname] = useRecoilState(accountname);
   const [myProfile, setMyProfile] = useState(false);
-  console.log(myProfile);
-  const location = useLocation();
+  const [myAccountname, setMyAccountname] = useRecoilState(accountname);
   const { accountname: urlaccountname } = useParams();
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
+
+  const { allUserPosts } = useGetInfiniteUserPosts(urlaccountname);
+  const validUserPosts = allUserPosts.filter((post) => {
+    try {
+      post.parsedContent = JSON.parse(post.content);
+      return post.parsedContent.review;
+    } catch (error) {
+      return false;
+    }
+  });
+
+  const { phrase, myPhrase, fetchNextPhrase, hasNextPhrase } = useGetMyPhrase(urlaccountname);
 
   const [profile, setProfile] = useState({
     username: '',
@@ -31,16 +41,16 @@ export default function Profile({
     accountname: '',
     followerCount: 0,
     followingCount: 0,
-    intro: '프로필을 설정해 자신을 소개해주세요!',
+    intro: '',
     categories: [],
   });
-  console.log(profile);
+
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
         let response;
         let isMyProfile = urlaccountname === myAccountname;
-        console.log(urlaccountname, myAccountname);
+
         if (isMyProfile) {
           setMyProfile(true);
           response = await profileAPI();
@@ -49,7 +59,6 @@ export default function Profile({
         }
 
         if (response) {
-          console.log(response);
           const profileData = isMyProfile ? response.user : response.profile;
 
           const checkedImage = await ImageCheck(profileData.image, 'profile');
@@ -69,13 +78,13 @@ export default function Profile({
             ...prevProfile,
             ...profileData,
             imageUrl: checkedImage,
-            intro: introText || prevProfile.intro,
+            intro: introText || (isMyProfile ? '자신을 소개해주세요!' : ''),
             categories: categoryArray,
           }));
 
-          if (isMyProfile) {
-            setMyAccountname(profileData.accountname);
-          }
+          // if (isMyProfile) {
+          //   setMyAccountname(profileData.accountname);
+          // }
         } else {
           showToast('프로필 정보가 없습니다.');
         }
@@ -89,7 +98,7 @@ export default function Profile({
       isFirstRender.current = false;
       fetchProfileData();
     }
-  }, [urlaccountname, myAccountname, profile.intro, profile.categories, setMyAccountname]);
+  }, [urlaccountname, myAccountname]);
 
   const navigateToSetMyInfo = () => {
     navigate('/setmyinfo');
@@ -124,7 +133,6 @@ export default function Profile({
           <IntroExplain>{profile.intro}</IntroExplain>
         </CateIntroWrapper>
         {ProfileSet}
-        {/* <ProfileSetBtn onClick={navigateToSetMyInfo}>프로필 설정하기</ProfileSetBtn> */}
       </ProfileSetSection>
       <ProfileContainer>
         <ProfileTab
@@ -203,10 +211,6 @@ const ProfileImage = styled.img`
   border-radius: 50%;
   object-fit: fill;
   aspect-ratio: 1/1;
-`;
-
-const ProfileName = styled.div`
-  font-family: 'Pretendard-Medium', sans-serif;
 `;
 
 const ProfileSetSection = styled.section`
