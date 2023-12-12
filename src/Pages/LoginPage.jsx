@@ -11,9 +11,10 @@ import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
 import { navBar } from 'Recoil/Navbar';
 import { styled } from 'styled-components';
-import { ReactComponent as Doublechaek } from '../assets/images/logo/logo6.svg';
+import { ReactComponent as Doublecheck } from '../assets/images/logo/logo6.svg';
 import Bg from '../assets/images/bg/bg-white-space.svg';
 import Button from 'components/Common/Button/Button';
+import accountname from 'Recoil/Accountname';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ export default function LoginPage() {
   const [isLoginCheck, setIsLoginCheck] = useRecoilState(loginCheck);
   const [token, setToken] = useRecoilState(loginToken);
   const [valid, setValid] = useState(false);
+  const [nonMembersMode, setNonMembersMode] = useState(false);
+  const [accountName, setAccountName] = useRecoilState(accountname);
 
   const [loginData, setLoginData] = useState({
     user: {
@@ -63,8 +66,9 @@ export default function LoginPage() {
       const newToken = response.user.token;
       setIsLoginCheck(true);
       localStorage.setItem('token', newToken);
+      setAccountName(response.user.accountname);
       setToken(newToken);
-      location.reload(navigate('/main'));
+      navigate('/main');
     } else if (response.status === 422) {
       setErrorMessage('이메일또는 비밀번호가 일치하지 않습니다.');
     } else {
@@ -84,6 +88,31 @@ export default function LoginPage() {
       setValid(true);
     }
   };
+
+  const handleNonMembersMode = () => {
+    setNonMembersMode((prevNonMembersMode) => !prevNonMembersMode);
+    setValid(true);
+  };
+
+  useEffect(() => {
+    if (nonMembersMode) {
+      setLoginData((prevState) => ({
+        user: {
+          ...prevState.user,
+          email: 'developer@test.com',
+          password: '123123',
+        },
+      }));
+    } else {
+      setLoginData((prevState) => ({
+        user: {
+          ...prevState.user,
+          email: '',
+          password: '',
+        },
+      }));
+    }
+  }, [nonMembersMode]);
 
   return (
     <>
@@ -118,15 +147,19 @@ export default function LoginPage() {
               <ErrorMassage>{errorMessage}</ErrorMassage>
             )}
           </InputDiv>
-          {valid ? (
-            <Button category='basic' shape='big' type='submit' onClick={handleLogin}>
-              로그인
-            </Button>
-          ) : (
-            <DisabledButton type='button' disabled={true}>
-              로그인
-            </DisabledButton>
-          )}
+          <Label>
+            <input type='checkbox' checked={nonMembersMode} onChange={handleNonMembersMode} />
+            체험하기
+          </Label>
+          <Button
+            category='basic'
+            shape='big'
+            type='submit'
+            onClick={valid ? handleLogin : undefined}
+            disabled={!valid}
+          >
+            로그인
+          </Button>
         </form>
       </LoginBox>
     </>
@@ -136,7 +169,7 @@ export default function LoginPage() {
 const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 32px 0;
+  margin: 32px 0 21px;
 `;
 
 const LoginBox = styled.div`
@@ -145,34 +178,23 @@ const LoginBox = styled.div`
 
 const Label = styled.label`
   margin-bottom: 9px;
-  color: #471bb2;
+  color: var(--dark-purple);
   font-style: normal;
   font-weight: 400;
   line-height: 14px; /* 100% */
 `;
 
 const ErrorMassage = styled.div`
-  margin-top: 10px;
-  color: red;
+  margin: 10px 10px 0;
+  color: var(--dark-orange);
   font-size: 14px;
-`;
-
-const DisabledButton = styled.button`
-  height: 49px;
-  width: 100%;
-  font-size: 16px;
-  color: #fff;
-  border-radius: 17px;
-  background: #b29aff;
-  margin-top: 33px;
-  opacity: 0.6;
 `;
 
 const InputBox = styled.input`
   height: 40px;
   padding-left: 15px;
   border-radius: 25px;
-  border: 1px solid #d2d8fa;
+  border: 1px solid var(--medium-blue);
 `;
 
 const LogoBox = styled.div`
@@ -180,7 +202,7 @@ const LogoBox = styled.div`
   justify-content: center;
 `;
 
-const Logo = styled(Doublechaek)`
+const Logo = styled(Doublecheck)`
   width: 200px;
   height: 100px;
   padding: 0;
