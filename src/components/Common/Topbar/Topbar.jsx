@@ -5,7 +5,16 @@ import { VscChevronLeft } from 'react-icons/vsc';
 import { ReactComponent as Doblechaek } from '../../../assets/images/logo/logo6.svg';
 import TopBarBtn from './TopBarBtn';
 
-const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeLeaveOnClick }) => {
+const Topbar = ({
+  leftButton,
+  title,
+  rightButton,
+  goBack,
+  onLeaveClick,
+  executeLeaveOnClick,
+  longtitle,
+  margin,
+}) => {
   const navigate = useNavigate();
   const defaultLeftButton = (
     <TopBarBtn
@@ -27,7 +36,9 @@ const Topbar = ({ leftButton, title, rightButton, goBack, onLeaveClick, executeL
   return (
     <SHeader>
       <SDiv>{leave || leftButton || defaultLeftButton}</SDiv>
-      <Sh1 rightbuttonexists={!!rightButton}>{title || defaultTitle}</Sh1>
+      <Sh1 $margin={margin} $longtitle={longtitle}>
+        {title || defaultTitle}
+      </Sh1>
       <SDiv>{rightButton || null}</SDiv>
     </SHeader>
   );
@@ -58,9 +69,10 @@ const SDiv = styled.div`
 `;
 
 const Sh1 = styled.h1`
-  text-align: center;
+  position: absolute;
+  left: ${({ $longtitle }) => ($longtitle ? '37%' : '42%')};
+  margin: ${({ $margin }) => ($margin ? '-10px' : '0')};
   font-size: var(--font-base-size);
-  margin-left: ${(props) => (!props.rightbuttonexists ? '-27px' : '14px')};
 `;
 
 const SLink = styled(Link)`

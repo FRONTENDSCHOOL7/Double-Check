@@ -108,11 +108,11 @@ export default function PhraseList() {
               return (
                 <PhraseListItem
                   key={index}
-                  bgcolor={bgColor}
+                  $bgcolor={bgColor}
                   onClick={() => toggleExpandItem(index)}
                 >
                   <PhraseContents>
-                    <PhraseItemBox colorbox={colorBox} />
+                    <PhraseItemBox $colorbox={colorBox} />
                     <PhraseArticle>
                       <PhraseTxt {...(expandedItem[index] ? { expanded: 'true' } : {})}>
                         {item.itemImage}
@@ -180,7 +180,7 @@ const PhraseListUl = styled.ul`
 const PhraseListItem = styled.li`
   margin: 22px 0;
   padding: 23px 20px 20px 23px;
-  background-color: ${(props) => props.bgcolor};
+  background-color: ${({ $bgcolor }) => $bgcolor};
   border-radius: 12px;
   cursor: pointer;
 `;
@@ -203,7 +203,7 @@ const PhraseItemBox = styled.div`
   display: block;
   min-width: 34px;
   height: 34px;
-  background-color: ${(props) => props.colorbox};
+  background-color: ${({ $colorbox }) => $colorbox};
   border-radius: 5px;
 `;
 

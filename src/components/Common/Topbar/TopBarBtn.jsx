@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // import Button from 'components/Common/Button/Button';
 const TopBarBtn = ({ icon, onClick, txt }) => {
   return (
-    <SButton category='basic' shape='primary' type='button' onClick={onClick}>
+    <SButton onClick={onClick}>
       {icon && icon()} {txt}
     </SButton>
   );

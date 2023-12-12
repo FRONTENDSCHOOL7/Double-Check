@@ -170,16 +170,16 @@ export default function SetMyInfo() {
 
   return (
     <>
-      <Topbar title='프로필 설정' />
+      <Topbar title='프로필 설정' margin />
       <Wrapper>
         <Profile>
           <Rectangle />
           <ProfileBox>
-            <ImgInput>
+            <ImgInput onClick={handleImgBtnClick}>
               <ImageBox>
                 <Image src={userImage} alt='프로필이미지' />
               </ImageBox>
-              <ImgBtn src={imgBtn} alt='' onClick={handleImgBtnClick} />
+              <ImgBtn src={imgBtn} alt='' />
             </ImgInput>
             <InputFile>
               <InputBoxFile
@@ -263,7 +263,7 @@ const Wrapper = styled.div`
 `;
 
 const Profile = styled.div`
-  margin-top: 15px;
+  margin-top: 26px;
   width: 100%;
   /* height: 100vh; */
   padding: 10px 20px;
@@ -279,13 +279,12 @@ const Button = styled.button`
   color: #fff;
   border-radius: 17px;
   background: #b29aff;
-  margin-top: 33px;
 `;
 
 const ButtonDiv = styled.div`
-  margin-top: 20px;
   display: flex;
   justify-content: center;
+  margin: 20px 0px 10px 0px;
 `;
 
 const InputDiv = styled.div`
