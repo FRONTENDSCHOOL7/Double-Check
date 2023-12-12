@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import BestBookItem from './BestBookItem';
+// import BestBookItem from './BestBookItem';
 
+const BestBookItem = lazy(() => import('./BestBookItem'));
 const BestBook = () => {
   return (
     <SBestBookList>
@@ -13,12 +14,14 @@ const BestBook = () => {
           </h2>
         </div>
         <div>
-          <SLink>
+          <SLink to={`/book/bestseller`}>
             <p>전체보기</p>
           </SLink>
         </div>
       </SHeader>
-      <BestBookItem />
+      <Suspense>
+        <BestBookItem />
+      </Suspense>
     </SBestBookList>
   );
 };
@@ -26,7 +29,7 @@ const BestBook = () => {
 export default BestBook;
 
 const SBestBookList = styled.section`
-  margin-top: 10px;
+  margin-top: 30px;
 `;
 
 const SHeader = styled.div`
@@ -34,7 +37,7 @@ const SHeader = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   padding: 0px 15px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 
   h2 {
     font-size: var(--font-sm-size);

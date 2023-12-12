@@ -4,51 +4,38 @@ import BookList from 'components/Book/BookList';
 import Topbar from 'components/Common/Topbar/Topbar';
 import styled from 'styled-components';
 import BookListSkeleton from 'assets/Skeleton/BookListSkeleton';
-const LIST_INFO_MAP = {
-  bestseller: { endpoint: 'bestseller', title: '베스트 셀러' },
-  newBooks: { endpoint: 'newbooks', title: '신작 도서 리스트' },
-  NewBookSpecial: {
-    endpoint: 'special',
-    title: '이번달 신간 리스트',
-  },
-};
-const getListInfo = (listType) => {
-  return LIST_INFO_MAP[listType] || { title: '', endpoint: '' };
-};
 
-// eslint-disable-next-line react/prop-types
-const BookListPage = ({ listType }) => {
+const BookListPage = ({ listType, title }) => {
+  console.log(listType);
   const [productList, setProductList] = useState([]);
-  const [loading, setLoading] = useState(true); // 로딩 상태 추가
-
-  const { title, endpoint } = getListInfo(listType);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (endpoint) {
+    if (listType) {
       axios
-        .get(`https://double-check.onrender.com/${endpoint}`)
+        .get(`https://double-check.onrender.com/${listType}`)
         .then((response) => {
           const item = response.data.item;
           setProductList(item);
-          setLoading(false); // 데이터 로딩 완료 시 로딩 상태 변경
+          setLoading(false);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [listType, endpoint]);
+  }, [listType]);
 
   return (
     <>
-      <Topbar title={title} />
+      <Topbar title={title} longtitle />
       <SSection>
         <h1>{title}</h1>
-        {loading ? ( // 로딩 중일 때 Loading 컴포넌트 표시
+        {loading ? (
           <BookListSkeleton />
         ) : (
           <SBookList>
-            {productList.map((product) => (
-              <BookList key={product.isbn13} product={product} />
+            {productList.map((product, index) => (
+              <BookList key={index} product={product} />
             ))}
           </SBookList>
         )}

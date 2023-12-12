@@ -47,7 +47,6 @@ export default function PostDetail({
     }));
   }, [postInfo.commentCount, setCommentCounts]);
 
-  // {65462596b2cb205663d37692: true}
   function openModal() {
     setIsModalOpen(true);
   }
