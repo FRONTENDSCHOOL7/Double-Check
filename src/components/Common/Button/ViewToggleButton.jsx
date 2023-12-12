@@ -4,7 +4,7 @@ import galleryIcon from '../../../assets/images/icon/icon-gallery.svg';
 import feedIcon from '../../../assets/images/icon/icon-feed.svg';
 
 const StyledImage = styled.img`
-  width: 25px;
+  width: 20px;
   height: auto;
   margin: 0 10px;
 `;
