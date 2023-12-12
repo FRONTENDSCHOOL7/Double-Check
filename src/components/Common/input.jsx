@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const InputBox = styled.input`
-  border: 1px solid ${(props) => (props.hasError ? 'red' : '#d3d3d3')};
+  border: 1px solid ${(props) => (props.hasError ? 'red' : 'var(--gray-300)')};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   padding: 15px;
