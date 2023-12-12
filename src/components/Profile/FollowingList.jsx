@@ -49,7 +49,7 @@ export default function FollowingList({ accountname }) {
 
   // 사용자 프로필로 이동하는 함수
   const goToUserProfile = (accountname) => {
-    location.reload(navigate(`/profile/${accountname}`));
+    navigate(`/profile/${accountname}`);
   };
 
   return (

@@ -41,9 +41,8 @@ export default function FollowerList({ accountname }) {
   if (isLoading) return <Loading>Loading...</Loading>;
   if (error) return <div>Error: {error}</div>;
 
-  // 사용자 프로필로 이동하는 함수
   const goToUserProfile = (accountname) => {
-    location.reload(navigate(`/profile/${accountname}`));
+    navigate(`/profile/${accountname}`);
   };
 
   return (
