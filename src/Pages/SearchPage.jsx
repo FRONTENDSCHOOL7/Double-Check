@@ -4,7 +4,7 @@ import axios from 'axios';
 import loginToken from 'Recoil/LoginToken';
 import { useRecoilState } from 'recoil';
 import SearchContent from 'components/Search/SearchContent';
-import { InputBox } from 'components/Common/input';
+import { InputBox } from 'components/Common/Input';
 import styled from 'styled-components';
 import { SearchAPI } from 'API/Search';
 import UseDebounce from 'Hooks/useDebounce';
