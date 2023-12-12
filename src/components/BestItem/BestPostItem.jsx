@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import ImageCheck from 'components/Common/ImageCheck';
 import useTimeSince from 'Hooks/useTimeSince';
-import { SPostHeader, SLink, SProfileImg, SPostSpan, SShowMore } from '../Post/PostStyle';
+import { SPostHeader, SProfileImg, SPostSpan, SShowMore } from '../Post/PostStyle';
 
 const BestPostItem = ({ color, item }) => {
-  const timeSincePosted = useTimeSince(item.createdAt);
+  const author = item.parsedContent.author.replace(/\^/g, ',');
 
+  const title = item.parsedContent.title.replace(/\([^()]*\)/g, '');
+
+  const timeSincePosted = useTimeSince(item.createdAt);
+  console.log(item.parsedContent.isbn);
   if (!item) {
     return <div>Loading...</div>;
   }
@@ -26,17 +31,21 @@ const BestPostItem = ({ color, item }) => {
         </SSPostHeader>
         {/* 내용 */}
         <SBody color={color}>
-          <Desc>
-            <SPostReview>{item.parsedContent.review}</SPostReview>
-          </Desc>
+          <Link to={`/post/${item._id}`}>
+            <Desc>
+              <SPostReview>{item.parsedContent.review}</SPostReview>
+            </Desc>
+          </Link>
 
-          <SBookDesc>
-            <div>
-              <h3>{item.parsedContent.title}</h3>
-              <p>{item.parsedContent.author} 지음</p>
-            </div>
-            <Img src={item.image} />
-          </SBookDesc>
+          <Link to={`/book/${item.parsedContent.isbn}`}>
+            <SBookDesc>
+              <div>
+                <h3>{title}</h3>
+                <p>{author} 지음</p>
+              </div>
+              <Img src={item.image} />
+            </SBookDesc>
+          </Link>
         </SBody>
       </Article>
     </>
@@ -74,13 +83,25 @@ const Article = styled.article`
     color: var(--gray-500);
   }
 `;
+
+const SLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--gray-500);
+
+  & > span:first-of-type {
+    color: var(--black);
+  }
+`;
 const SBookDesc = styled.div`
   display: flex;
   backdrop-filter: blur(5px); /* 배경 흐리게 */
   background-color: rgba(255, 255, 255, 0.5); /* 투명 배경색 */
   height: 30%;
   justify-content: space-between;
-  padding: 10px 10px 0px 10px;
+  /* padding: 10px 10px 0px 10px; */
+  padding: 3px 8px 2px 20px;
   width: 100%;
   div {
     width: 190px;
@@ -95,8 +116,7 @@ const SBookDesc = styled.div`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-height: 1.3;
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 14px;
     /* height: calc(1em * 1.6 * 2); */
   }
 `;
@@ -108,7 +128,7 @@ const Img = styled.img.attrs({ alt: '책 이미지' })`
 
 const Desc = styled.div`
   line-height: 1.4;
-  padding: 20px 20px 0px 20px;
+  padding: 40px 20px 0px 20px;
   height: 70%;
 
   h2 {
@@ -119,9 +139,11 @@ const Desc = styled.div`
   }
 `;
 const SPostReview = styled.span`
-  font-size: medium;
+  font-family: 'Pretendard-regular', sans-serif;
+  font-size: var(--font-xs-size);
+  line-height: 1.6;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 5;
 `;

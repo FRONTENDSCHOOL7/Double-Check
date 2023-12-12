@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useRecoilValue } from 'recoil';
 import { fetchBestsellersData } from 'Recoil/BookData';
+
 const ArrowIcon = <IoIosArrowForward size={25} color='gray' />;
 const BestBookItem = () => {
   const bookData = useRecoilValue(fetchBestsellersData);
@@ -11,9 +13,9 @@ const BestBookItem = () => {
     <SItemListBox>
       {bookData.item.slice(0, 5).map((book, lank) => (
         <SItemList key={book.itemId}>
-          <SItemDescBox>
+          <SItemDescBox to={`/book/${book.isbn || book.isbn13}`}>
             <SBookImg>
-              <img src={book.cover} alt={book.title} loading='lazy' />
+              <img src={book.cover} alt={book.title} />
             </SBookImg>
             <strong>{lank + 1}</strong>
             <SBookDesc>
@@ -45,7 +47,7 @@ const SBookImg = styled.div`
     object-position: top;
   }
 `;
-const SItemDescBox = styled.div`
+const SItemDescBox = styled(Link)`
   display: flex;
   strong {
     font-size: var(--font-lg-size);
@@ -83,4 +85,10 @@ const SItemList = styled.li`
   border-bottom: 1px solid #dedddd;
   padding: 10px 0px;
   align-items: center;
+  &:last-child {
+    border-bottom: none;
+  }
+  &:first-child {
+    padding-top: 0;
+  }
 `;

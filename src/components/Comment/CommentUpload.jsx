@@ -50,7 +50,7 @@ export default function CommentUpload({ postId }) {
         value={commentText}
         onChange={(event) => setCommentText(event.target.value)}
       ></CommentTextarea>
-      <CommentButton category='basic' shape='none' type='submit'>
+      <CommentButton shape='none' type='submit'>
         등록
       </CommentButton>
     </CommentForm>

@@ -45,9 +45,7 @@ export default function MainTopBar() {
       <SHeader>
         <SLogoLink>
           {/* /로고넣을자리 */}
-          <h1>
-            DOUBLE <br /> CHECK
-          </h1>
+          <h1>DOUBLE CHECK</h1>
         </SLogoLink>
         <div>
           <Link to={userInfo ? `/profile/${userInfo.accountname}` : '#'}>
@@ -114,7 +112,7 @@ const SHeader = styled.header`
 
   div {
     display: flex;
-    gap: 5px;
+    gap: 7px;
   }
 `;
 
@@ -123,7 +121,7 @@ const SMyAccountSection = styled.section`
   flex-direction: column;
   text-align: start;
   line-height: 1.4;
-  margin: 30px 20px;
+  margin: 35px 20px 24px 20px;
   p {
     font-size: var(--font-sm-size);
   }

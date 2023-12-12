@@ -66,6 +66,7 @@ const SProfileImg = styled.img`
   width: 42px;
   border-radius: 50%;
   border: 1px solid var(--gray-300);
+  object-fit: cover;
 `;
 
 const SPostSpan = styled.span``;

@@ -45,6 +45,7 @@ export default function BookSlide({ title, dataType, desc, path }) {
       }
     },
   };
+
   return (
     <SSliderContainer>
       {/* 슬라이드 헤더부분 */}
@@ -121,7 +122,7 @@ const SLink = styled(Link)`
 
 const NextArrow = ({ onClick, hideNext }) => {
   return (
-    <Sbutton onClick={onClick} type='button' next='true' hide={hideNext}>
+    <Sbutton onClick={onClick} type='button' $next='true' $hide={hideNext}>
       <IoIosArrowForward />
     </Sbutton>
   );
@@ -129,7 +130,7 @@ const NextArrow = ({ onClick, hideNext }) => {
 
 const PrevArrow = ({ onClick, hidePrev }) => {
   return (
-    <Sbutton onClick={onClick} type='button' hide={hidePrev}>
+    <Sbutton onClick={onClick} type='button' $hide={hidePrev}>
       <IoIosArrowBack />
     </Sbutton>
   );
@@ -145,8 +146,8 @@ const Sbutton = styled.button`
   align-items: center;
   border-radius: 50%;
   position: absolute;
-  ${(props) => (props.next ? 'right: 4px;' : 'left: 4px;')}
+  ${({ $next }) => ($next ? 'right: 4px;' : 'left: 4px;')}
   top: 36%;
   z-index: 90;
-  display: ${(props) => (props.hide ? 'none' : 'flex')};
+  display: ${({ $hide }) => ($hide ? 'none' : 'flex')};
 `;

@@ -3,25 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-// styled-components를 사용하여 버튼 스타일을 정의합니다.
-const CategoryButton = styled.button`
-  background-color: ${(props) => (props.clicked ? 'var(--medium-blue)' : 'var(--white)')};
-  color: var(--black);
-  font-family: 'Pretendard-Regular';
-  font-size: var(--font-xs-size)
-  font-style: normal;
-  font-weight: 400;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 70px;
-  margin: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #d2d8fa;
-  }
-`;
-
 // 부모 컴포넌트에서 카테고리 버튼을 렌더링합니다.
 export function CategoryList({ categories, initialClickedCategories, onCategoryClick }) {
   const [clickedCategories, setClickedCategories] = useState(initialClickedCategories);
@@ -55,7 +36,7 @@ export function CategoryList({ categories, initialClickedCategories, onCategoryC
       {categories.map((category, index) => (
         <CategoryButton
           key={index}
-          clicked={clickedCategories.includes(category)} // 클릭된 경우 스타일 변경
+          $clicked={clickedCategories.includes(category)} // 클릭된 경우 스타일 변경
           onClick={() => handleButtonClick(category)}
         >
           {category}
@@ -64,3 +45,21 @@ export function CategoryList({ categories, initialClickedCategories, onCategoryC
     </div>
   );
 }
+
+const CategoryButton = styled.button`
+  background-color: ${(props) => (props.$clicked ? 'var(--medium-blue)' : 'var(--white)')};
+  color: var(--black);
+  font-family: 'Pretendard-Regular';
+  font-size: var(--font-xs-size);
+  font-style: normal;
+  font-weight: 400;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 70px;
+  margin: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #d2d8fa;
+  }
+`;

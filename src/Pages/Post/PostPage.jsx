@@ -96,7 +96,7 @@ export default function PostPage() {
           placeholder='읽은 부분에 대해 기억하고 싶은 내용 또는 나의 생각을 담아 공유해보세요!'
           height='100%'
           width='100%'
-          border='none'
+          $border='none'
         />
         <Modal
           content='피드를 등록하시겠습니까?'
@@ -107,11 +107,11 @@ export default function PostPage() {
         />
         <Modal
           content={
-            <div>
+            <>
               작성 중인 내용이 저장되지 않습니다.
               <br />
               정말로 나가시겠습니까?
-            </div>
+            </>
           }
           btnTxt='예'
           isVisible={showLeaveModal}

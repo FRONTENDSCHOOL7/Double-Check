@@ -7,7 +7,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { showToast } from 'Hooks/useCustomToast';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import accountname from 'Recoil/Accountname';
-
+import { Link } from 'react-router-dom';
 export default function Profile({
   onShowPosts,
   onShowPhrase,
@@ -19,6 +19,7 @@ export default function Profile({
 }) {
   const [myAccountname, setMyAccountname] = useRecoilState(accountname);
   const [myProfile, setMyProfile] = useState(false);
+  console.log(myProfile);
   const location = useLocation();
   const { accountname: urlaccountname } = useParams();
   const isFirstRender = useRef(true);
@@ -33,13 +34,13 @@ export default function Profile({
     intro: '프로필을 설정해 자신을 소개해주세요!',
     categories: [],
   });
-
+  console.log(profile);
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
         let response;
         let isMyProfile = urlaccountname === myAccountname;
-
+        console.log(urlaccountname, myAccountname);
         if (isMyProfile) {
           setMyProfile(true);
           response = await profileAPI();
@@ -50,7 +51,6 @@ export default function Profile({
         if (response) {
           console.log(response);
           const profileData = isMyProfile ? response.user : response.profile;
-          setMyAccountname(profileData.accountname);
 
           const checkedImage = await ImageCheck(profileData.image, 'profile');
 
@@ -72,6 +72,10 @@ export default function Profile({
             intro: introText || prevProfile.intro,
             categories: categoryArray,
           }));
+
+          if (isMyProfile) {
+            setMyAccountname(profileData.accountname);
+          }
         } else {
           showToast('프로필 정보가 없습니다.');
         }
@@ -85,7 +89,7 @@ export default function Profile({
       isFirstRender.current = false;
       fetchProfileData();
     }
-  }, [accountname, location.pathname]);
+  }, [urlaccountname, myAccountname, profile.intro, profile.categories, setMyAccountname]);
 
   const navigateToSetMyInfo = () => {
     navigate('/setmyinfo');
@@ -98,7 +102,10 @@ export default function Profile({
   return (
     <>
       <ProfileDetails>
-        <ProfileImage src={profile.imageUrl} alt='Profile' />
+        <Link to={'/setmyinfo'}>
+          <ProfileImage src={profile.imageUrl} alt='Profile' />
+        </Link>
+
         <AccountTxt>
           <span>{profile.username} 님</span>
           <span className='accountname'>{profile.accountname}</span>

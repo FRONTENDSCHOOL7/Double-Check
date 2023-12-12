@@ -103,11 +103,11 @@ const PhraseUpload = () => {
       />
       <Modal
         content={
-          <div>
+          <>
             작성 중인 내용이 저장되지 않습니다.
             <br />
             정말로 나가시겠습니까?
-          </div>
+          </>
         }
         btnTxt='나가기'
         isVisible={showLeaveConfirm}

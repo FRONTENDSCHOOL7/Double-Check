@@ -167,18 +167,18 @@ export default function ProfilePage() {
 
   const followButton = isFollowing ? (
     <FollowButton
-      isFollowing={isFollowing}
+      $isFollowing={isFollowing}
       onClick={handleFollowClick}
-      category='basic'
+      $category='basic'
       shape='primary'
     >
       언팔로우
     </FollowButton>
   ) : (
     <FollowButton
-      isFollowing={isFollowing}
+      $isFollowing={isFollowing}
       onClick={handleFollowClick}
-      category='basic'
+      $category='basic'
       shape='primary'
     >
       팔로우
@@ -252,9 +252,9 @@ export default function ProfilePage() {
 }
 
 const FollowButton = styled.button`
-  background-color: ${(props) => (props.isFollowing ? 'var(--gray-200)' : 'var(--white)')};
-  color: ${(props) => (props.isFollowing ? 'var(--gray-400)' : 'var(--black)')};
-  border: 1px solid ${(props) => (props.isFollowing ? 'var(--gray-300)' : 'var(--gray-400)')};
+  background-color: ${({ $isFollowing }) => ($isFollowing ? 'var(--gray-200)' : 'var(--white)')};
+  color: ${({ $isFollowing }) => ($isFollowing ? 'var(--gray-400)' : 'var(--black)')};
+  border: 1px solid ${({ $isFollowing }) => ($isFollowing ? 'var(--gray-300)' : 'var(--gray-400)')};
   border-radius: 25px;
   cursor: pointer;
   font-size: var(--font-xm-size);

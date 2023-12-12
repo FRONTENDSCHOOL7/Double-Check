@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import styled from 'styled-components';
-import BestPostItem from './BestPostItem';
+// import BestPostItem from './BestPostItem';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { useSortedPosts } from 'Recoil/BestPosts';
 import { calculatedColorState } from 'Recoil/PostColor';
+
+const BestPostItem = lazy(() => import('./BestPostItem'));
 const BestPost = () => {
   const sortedPosts = useSortedPosts();
 
@@ -12,9 +14,16 @@ const BestPost = () => {
 
   const renderBestPostItems = React.useMemo(
     () =>
-      sortedPosts.map((item, index) => (
-        <BestPostItem color={getCalculatedColor(index)} key={item._id} item={item} id={item._id} />
-      )),
+      sortedPosts
+        .slice(0, 5)
+        .map((item, index) => (
+          <BestPostItem
+            color={getCalculatedColor(index)}
+            key={item._id}
+            item={item}
+            id={item._id}
+          />
+        )),
     [sortedPosts, getCalculatedColor],
   );
   return (
@@ -26,7 +35,7 @@ const BestPost = () => {
           </h2>
         </div>
         <div>
-          <SLink>
+          <SLink to={`/post`}>
             <p>전체보기</p>
           </SLink>
         </div>
@@ -41,10 +50,10 @@ const SBestPostListItem = styled.div`
   display: flex;
   overflow: auto;
   gap: 10px;
-  padding: 10px;
+  padding: 1px 0px 1px 15px;
 `;
 const SBestPostList = styled.section`
-  margin-top: 25px;
+  margin-top: 30px;
 `;
 
 const SHeader = styled.div`
@@ -52,6 +61,8 @@ const SHeader = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   padding: 0px 15px;
+
+  margin-bottom: 20px;
 
   h2 {
     font-size: var(--font-sm-size);

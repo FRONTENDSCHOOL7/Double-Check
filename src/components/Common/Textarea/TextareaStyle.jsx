@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledTextarea = styled.textarea`
   overflow: hidden;
-  border: none;
+  $border: none;
   padding: 20px;
   outline: none;
   resize: none;
