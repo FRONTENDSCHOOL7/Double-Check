@@ -9,7 +9,7 @@ export default function BookSlideItem({ title, author, cover, desc, isbn }) {
   };
   return (
     <SBookItemList onClick={handleClick}>
-      <img src={cover} alt={desc} />
+      <img loading='lazy' src={cover} alt={desc} />
       <div>
         <strong>{title}</strong>
         <p>{author}</p>

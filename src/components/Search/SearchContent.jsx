@@ -1,7 +1,40 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ImageCheck from '../Common/ImageCheck';
+
+const LazyImage = ({ src, alt }) => {
+  const imgRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(imgRef.current);
+        }
+      });
+    });
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    const currentRef = imgRef.current;
+
+    console.log(observer);
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [imgRef]);
+
+  return <img ref={imgRef} src={isVisible ? src : ''} alt={alt} />;
+};
+
 export default function SearchContent({ data, bookdata, filter, keyword }) {
   const highlightKeyword = (text) => {
     if (keyword && text) {
@@ -23,7 +56,7 @@ export default function SearchContent({ data, bookdata, filter, keyword }) {
             <SLi key={item._id}>
               <SLink to={`/profile/${item.accountname}`} className='user-link'>
                 <SImgWrapper>
-                  <img src={ImageCheck(item.image, 'profile')} alt='유저 프로필 사진' />
+                  <LazyImage src={ImageCheck(item.image, 'profile')} alt='유저 프로필 사진' />
                 </SImgWrapper>
                 <SDiv>
                   <strong>{highlightKeyword(item.username)}</strong>
@@ -38,7 +71,7 @@ export default function SearchContent({ data, bookdata, filter, keyword }) {
             <SLi key={item.isbn || item.isbn13}>
               <SBook to={`/book/${item.isbn || item.isbn13}`} className='book-link'>
                 <BookimgWrapper>
-                  <img src={item.image || item.cover} alt={item.title} />
+                  <LazyImage src={item.image || item.cover} alt={item.title} />
                 </BookimgWrapper>
                 <SBookDesBox>
                   <strong>{highlightKeyword(item.title)}</strong>
