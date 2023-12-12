@@ -174,7 +174,7 @@ export default function PostDetail({
       {isModalOpen && (
         <ModalButton
           itemId={postid}
-          text={['수정', '삭제']}
+          text={['피드 수정', '피드 삭제']}
           onClick={[navigateToEditPage, handleOpenDeleteModal]}
           onCancel={() => setIsModalOpen(false)}
         />
