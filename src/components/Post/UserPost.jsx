@@ -41,9 +41,9 @@ export default function UserPost({ accountname }) {
     return <div>로딩 중...</div>;
   }
 
-  const toggleView = () => {
-    setView((currentView) => (currentView === 'feed' ? 'gallery' : 'feed'));
-  };
+  // const toggleView = () => {
+  //   setView((currentView) => (currentView === 'feed' ? 'gallery' : 'feed'));
+  // };
 
   return (
     <div>
@@ -60,8 +60,3 @@ export default function UserPost({ accountname }) {
     </div>
   );
 }
-
-const StyledImage = styled.img`
-  width: 25px;
-  height: auto;
-`;
