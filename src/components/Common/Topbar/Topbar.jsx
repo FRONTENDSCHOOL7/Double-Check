@@ -14,6 +14,7 @@ const Topbar = ({
   executeLeaveOnClick,
   longtitle,
   margin,
+  bg,
 }) => {
   const navigate = useNavigate();
   const defaultLeftButton = (
@@ -34,7 +35,7 @@ const Topbar = ({
   );
 
   return (
-    <SHeader>
+    <SHeader $bg={bg}>
       <SDiv>{leave || leftButton || defaultLeftButton}</SDiv>
       <Sh1 $margin={margin} $longtitle={longtitle}>
         {title || defaultTitle}
@@ -53,11 +54,11 @@ const SHeader = styled.header`
   width: 390px;
   height: 70px;
   padding: 0 16px;
-  border-bottom: ${(props) => (props.customStyle ? 'none' : 'solid 1px #e4e4e4')};
+  /* border-bottom: ${(props) => (props.customStyle ? 'none' : 'solid 1px #e4e4e4')}; */
   box-sizing: border-box;
   position: fixed;
   top: 0;
-  background-color: ${(props) => (props.customStyle ? 'var(--light-blue)' : '#fff')};
+  background-color: ${(props) => (props.$bg ? 'var(--light-blue)' : '#fff')};
   z-index: 100;
 `;
 
