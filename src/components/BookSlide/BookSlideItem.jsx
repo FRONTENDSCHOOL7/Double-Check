@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import 'react-loading-skeleton/dist/skeleton.css';
 export default function BookSlideItem({ title, author, cover, desc, isbn }) {
+  const newauthor = author.replace(/\([^)]*\)/g, '');
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/book/${isbn}`);
@@ -12,7 +13,7 @@ export default function BookSlideItem({ title, author, cover, desc, isbn }) {
       <img loading='lazy' src={cover} alt={desc} />
       <div>
         <strong>{title}</strong>
-        <p>{author}</p>
+        <p>{newauthor}</p>
       </div>
     </SBookItemList>
   );
