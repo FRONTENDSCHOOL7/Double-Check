@@ -13,7 +13,7 @@ const BookListPage = ({ listType, title }) => {
   useEffect(() => {
     if (listType) {
       axios
-        .get(`https://double-check.onrender.com/${listType}`)
+        .get(`/.netlify/functions/${listType}`)
         .then((response) => {
           const item = response.data.item;
           setProductList(item);
