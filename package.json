@@ -36,7 +36,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "serve": "serve -s build",
-    "build-and-serve": "npm run build && npm run serve"
+    "build-and-serve": "npm run build && npm run serve",
+    "dev:netlify": "netlify dev",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
