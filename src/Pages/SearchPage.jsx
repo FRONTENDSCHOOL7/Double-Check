@@ -80,11 +80,7 @@ export default function SearchPage() {
   useEffect(() => {
     if (debouncedSearchValue) {
       axios
-        .get(
-          `https://double-check.onrender.com/search?searchQuery=${encodeURIComponent(
-            debouncedSearchValue,
-          )}`,
-        )
+        .get(`/.netlify/functions/search?searchQuery=${encodeURIComponent(debouncedSearchValue)}`)
         .then((response) => {
           let naverItems = response.data.naverData.items;
           let aladinItem = response.data.aladinData.item;

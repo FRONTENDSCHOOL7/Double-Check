@@ -11,7 +11,7 @@ export default function BookDetailPage() {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(`https://double-check.onrender.com/search/?isbn=${isbn}`);
+        const response = await axios.get(`/.netlify/functions/search/?isbn=${isbn}`);
 
         let bookData;
         if (response.data.naverData.items.length) {
