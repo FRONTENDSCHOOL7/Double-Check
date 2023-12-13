@@ -11,7 +11,7 @@
 
 #### 배포 및 테스트 계정
 
-> 🏷 <b> [DOUBLE CHECK 바로가기](https://web-doublechaek-02-1igmo82clonz4u17.sel5.cloudtype.app/)</b>
+> 🏷 <b> [DOUBLE CHECK 바로가기](https://double-check.netlify.app/)</b>
 
 ```
 ID: developer@test.com
