@@ -66,7 +66,7 @@ export default function BookSlide({ title, dataType, desc, path }) {
             title={item.title}
             author={item.author}
             cover={item.cover}
-            isbn={item.isbn13}
+            isbn={item.isbn || item.isbn13}
           />
         ))}
       </SSliderBody>

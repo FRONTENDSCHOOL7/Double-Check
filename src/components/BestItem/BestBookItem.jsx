@@ -13,7 +13,7 @@ const BestBookItem = () => {
     <SItemListBox>
       {bookData.item.slice(0, 5).map((book, lank) => (
         <SItemList key={book.itemId}>
-          <SItemDescBox to={`/book/${book.isbn || book.isbn13}`}>
+          <SItemDescBox to={`/book/${book.isbn13 || book.isbn}`}>
             <SBookImg>
               <img src={book.cover} alt={book.title} />
             </SBookImg>
@@ -23,7 +23,7 @@ const BestBookItem = () => {
               <p>{book.publisher}</p>
             </SBookDesc>
           </SItemDescBox>
-          <Link to={`/book/${book.isbn || book.isbn13}`}>{ArrowIcon}</Link>
+          <Link to={`/book/${book.isbn13 || book.isbn}`}>{ArrowIcon}</Link>
         </SItemList>
       ))}
     </SItemListBox>

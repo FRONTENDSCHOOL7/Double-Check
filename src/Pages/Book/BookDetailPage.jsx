@@ -15,7 +15,11 @@ export default function BookDetailPage() {
 
         let bookData;
         if (response.data.naverData.items.length) {
-          bookData = response.data.naverData.items[0];
+          console.log(response);
+          bookData = {
+            ...response.data.naverData.items[0],
+            categoryName: response.data.aladinData.item[0].categoryName,
+          };
         } else if (response.data.aladinData.item.length) {
           bookData = response.data.aladinData.item[0];
         }
@@ -28,7 +32,7 @@ export default function BookDetailPage() {
 
     fetchBookDetails();
   }, [isbn, location.state]);
-
+  console.log(detailInfo);
   return (
     <>
       {Object.keys(detailInfo).length === 0 ? <Loading /> : <BookDetail detailInfo={detailInfo} />}

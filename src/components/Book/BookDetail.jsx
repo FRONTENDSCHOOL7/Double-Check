@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Topbar from 'components/Common/Topbar/Topbar';
-import { BsPencilSquare } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
 
-const MaxDescriptionLength = 200;
+import BookDetailDesc from './BookDetailDesc';
 
 const BookDetail = ({ detailInfo }) => {
   console.log(detailInfo);
@@ -20,95 +18,77 @@ const BookDetail = ({ detailInfo }) => {
     pubdate,
     description,
   } = detailInfo;
-  const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleExpansion = () => {
-    setIsExpanded(!isExpanded);
-  };
+  function extractTitlePublisher(title, fullPublisher) {
+    const titleRegex = /^(.*?)\((.*?)\)$/;
+    const titleMatch = titleRegex.exec(title);
+    const publisherRegex = /^(.*?)\((.*?)\)$/;
+    const publisherMatch = publisherRegex.exec(fullPublisher);
 
-  const reviewButton = (
-    <SLink to='/post/upload' state={detailInfo}>
-      <BsPencilSquare />
-    </SLink>
-  );
+    const extractedTitle =
+      titleMatch && titleMatch.length === 3 ? titleMatch[1].trim() : title.trim();
+    const subtitle = titleMatch && titleMatch.length === 3 ? titleMatch[2].trim() : null;
+    const extractedPublisher =
+      publisherMatch && publisherMatch.length === 3
+        ? publisherMatch[1].trim()
+        : fullPublisher.trim();
+    const imprint = publisherMatch && publisherMatch.length === 3 ? publisherMatch[2].trim() : null;
+
+    return {
+      extractedTitle,
+      subtitle,
+      extractedPublisher,
+      imprint,
+    };
+  }
+
+  const { extractedTitle, subtitle, extractedPublisher } = extractTitlePublisher(title, publisher);
 
   const bookImage = image || cover;
   const pubdates = pubdate || pubDate;
-  const categoryNameSplit = categoryName ? categoryName.split('>') : [];
-  const lastCategory = categoryNameSplit.length > 0 ? categoryNameSplit.pop().trim() : '';
   const modifiedAuthor = author.replace(/\^/g, ', ');
+
   return (
-    <Ssection>
-      {/* <Topbar customStyle={true} rightEl='review' book={book} /> */}
-      <Topbar title rightButton={reviewButton} />
-
-      <SBookDetail>
-        <h1>도서 상세 정보</h1>
-        <SBookImg>
-          <img src={bookImage} alt={title} />
-        </SBookImg>
-      </SBookDetail>
-      <SDescContainer>
-        <Stitle>
-          <h2>{title}</h2>
-          <p> {modifiedAuthor}</p>
-        </Stitle>
-
-        <SInfoBox>
-          {categoryName && (
-            <li>
-              카테고리 <p>{lastCategory}</p>
-            </li>
-          )}
-          <li>
-            출판사 <p> {publisher}</p>
-          </li>
-          <li>
-            ISBN<p>{isbn}</p>
-          </li>
-          <li>
-            출간일
-            <p>{pubdates}</p>
-          </li>
-        </SInfoBox>
-
-        <SDescWrapper>
-          {!description ? (
-            <Description>업데이트 중입니다. 조금만 기다려 주세요 : )</Description>
-          ) : (
-            <Description>
-              책 소개
-              <p>{isExpanded ? description : description.slice(0, MaxDescriptionLength)}</p>
-            </Description>
-          )}
-          {description && description.length >= 300 && (
-            <MoreButton onClick={toggleExpansion}>{isExpanded ? '접어보기' : '더보기'}</MoreButton>
-          )}
-        </SDescWrapper>
-      </SDescContainer>
-    </Ssection>
+    <>
+      <Topbar title bg />
+      <Ssection>
+        <SBookDetail>
+          <h1>도서 상세 정보</h1>
+          <SBookImg>
+            <img src={bookImage} alt={title} />
+          </SBookImg>
+        </SBookDetail>
+        <BookDetailDesc
+          pubdates={pubdates}
+          modifiedAuthor={modifiedAuthor}
+          extractedTitle={extractedTitle}
+          subtitle={subtitle}
+          extractedPublisher={extractedPublisher}
+          categoryName={categoryName}
+          description={description}
+          isbn={isbn}
+          publisher={publisher}
+          detailInfo={detailInfo}
+        />
+      </Ssection>
+    </>
   );
 };
 
-const Description = styled.span`
-  display: block;
-`;
 const Ssection = styled.section`
   position: relative;
-
+  background-color: var(--light-purple);
   p {
     color: var(--gray-500);
-    font-size: small;
-    line-height: 1.8;
+    font-size: 13px;
     margin-top: 10px;
   }
 `;
 
 const SBookDetail = styled.div`
-  padding: 30px 30px 45px 30px;
   display: flex;
   justify-content: center;
-  background-color: var(--light-purple);
+
   h1 {
     clip: rect(1px, 1px, 1px, 1px);
     clip-path: inset(50%);
@@ -121,65 +101,13 @@ const SBookDetail = styled.div`
   }
 `;
 
-const SDescContainer = styled.div``;
-
-const Stitle = styled.div`
-  padding: 20px;
-  h2 {
-    font-size: large;
-    margin-bottom: 10px;
-    line-height: 1.3;
-    font-weight: bold;
-  }
-`;
-
 const SBookImg = styled.div`
   width: 200px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transform: translateY(21px);
   img {
     width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
-`;
-
-const SInfoBox = styled.ul`
-  background-color: var(--light-orange);
-  text-align: center;
-  padding: 20px;
-  display: flex;
-  justify-content: space-around;
-  span {
-    font-size: medium;
-  }
-`;
-
-const SDescWrapper = styled.div`
-  padding: 20px;
-  position: relative;
-  width: 390px;
-  white-space: wrap;
-  overflow: hidden;
-  text-overflow: ellipsis; // 말줄임표를 표시
-`;
-
-const MoreButton = styled.button`
-  cursor: pointer;
-  position: absolute;
-  color: var(--dark-purple);
-  right: 30px;
-`;
-
-const SLink = styled(Link)`
-  text-decoration: none;
-  border-radius: 50%;
-  background-color: #e5daff;
-  cursor: pointer;
-  display: block;
-  width: ${(props) => (props.home ? '200px' : '50px')};
-  height: ${(props) => (props.home ? '' : '50px')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 
 export default BookDetail;
