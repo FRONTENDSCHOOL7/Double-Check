@@ -69,7 +69,7 @@ export default function SearchContent({ data, bookdata, filter, keyword }) {
       {filter === 'book'
         ? bookdata.map((item) => (
             <SLi key={item.isbn || item.isbn13}>
-              <SBook to={`/book/${item.isbn || item.isbn13}`} className='book-link'>
+              <SBook to={`/book/${item.isbn13 || item.isbn}`} className='book-link'>
                 <BookimgWrapper>
                   <LazyImage src={item.image || item.cover} alt={item.title} />
                 </BookimgWrapper>
