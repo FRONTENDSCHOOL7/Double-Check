@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { VscChevronLeft } from 'react-icons/vsc';
-import { ReactComponent as Doblechaek } from '../../../assets/images/logo/logo6.svg';
+import { ReactComponent as Doublecheck } from '../../../assets/images/logo/logo6.svg';
 import TopBarBtn from './TopBarBtn';
 
 const Topbar = ({
@@ -30,7 +30,7 @@ const Topbar = ({
 
   const defaultTitle = (
     <SLink home to='/main'>
-      <SDoblechaek />
+      <SDoublecheck />
     </SLink>
   );
 
@@ -70,8 +70,8 @@ const SDiv = styled.div`
 `;
 
 const Sh1 = styled.h1`
-  position: absolute;
-  left: ${({ $longtitle }) => ($longtitle ? '37%' : '42%')};
+  /* position: absolute; */
+  left: ${({ $longtitle }) => $longtitle && '37%'};
   margin: ${({ $margin }) => ($margin ? '-10px' : '0')};
   font-size: var(--font-base-size);
 `;
@@ -84,7 +84,7 @@ const SLink = styled(Link)`
   height: ${(props) => (props.home ? '' : '25px')};
 `;
 
-const SDoblechaek = styled(Doblechaek)`
+const SDoublecheck = styled(Doublecheck)`
   width: 100%;
   vertical-align: bottom;
 `;
