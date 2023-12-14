@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { accountnameValid, emailValid, signUpAPI } from 'API/User';
 import { useRecoilState } from 'recoil';
 import { navBar } from 'Recoil/Navbar';
+import Button from 'components/Common/Button/Button';
+import Topbar from 'components/Common/Topbar/Topbar';
 
 export default function SignUpPage() {
   const [isEmailValid, setIsEmailValid] = useState(false);
@@ -196,7 +198,8 @@ export default function SignUpPage() {
 
   return (
     <>
-      <section>
+      <Topbar />
+      <SignUpSection>
         <TopBox />
         <H1>회원가입</H1>
         <InputDiv>
@@ -250,7 +253,7 @@ export default function SignUpPage() {
             <ErrorMassage>{userErrorMessage}</ErrorMassage>
           )}
         </InputDiv>
-      </section>
+      </SignUpSection>
 
       <section>
         <InputDiv>
@@ -290,13 +293,13 @@ export default function SignUpPage() {
         </InputDiv>
         <ButtonDiv>
           {signUpCheck ? (
-            <Button type='button' onClick={handleSubmitBtn}>
+            <Button category='basic' shape='big' type='submit' onClick={handleSubmitBtn}>
               가입하기
             </Button>
           ) : (
-            <DisabledButton type='button' disabled={true}>
+            <Button category='basic' shape='big' disabled={true}>
               가입하기
-            </DisabledButton>
+            </Button>
           )}
         </ButtonDiv>
       </section>
@@ -304,13 +307,17 @@ export default function SignUpPage() {
   );
 }
 
+const SignUpSection = styled.section`
+  margin-top: 46px;
+`;
+
 const TopBox = styled.div`
   width: 48px;
   height: 11px;
   margin-left: 38px;
   margin-bottom: 12px;
   border-radius: 30px;
-  background: #d2d8fa;
+  background: var(--medium-blue);
 `;
 
 const InputDiv = styled.div`
@@ -322,7 +329,7 @@ const InputDiv = styled.div`
 const H1 = styled.h1`
   margin-left: 38px;
   margin-bottom: 63px;
-  color: #000;
+  color: var(--black);
   font-family: Pretendard-SemiBold;
   font-size: 30px;
   line-height: normal;
@@ -336,37 +343,13 @@ const Label = styled.label`
 `;
 
 const ButtonDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 70px;
+  padding: 0 32px;
 `;
 
 const ErrorMassage = styled.div`
   margin-top: 10px;
-  color: red;
+  color: var(--dark-orange);
   font-size: 14px;
-`;
-
-const Button = styled.button`
-  width: 298px;
-  height: 49px;
-  border-radius: 17px;
-  background: #b29aff;
-  color: #fff;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 800;
-`;
-const DisabledButton = styled.button`
-  width: 298px;
-  height: 49px;
-  border-radius: 17px;
-  background: #b29aff;
-  color: #fff;
-  opacity: 0.6;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 800;
 `;
 
 const InputBox = styled.input`
