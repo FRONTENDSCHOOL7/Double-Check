@@ -13,7 +13,7 @@ import loginToken from 'Recoil/LoginToken';
 import { showToast } from 'Hooks/useCustomToast';
 import PhraseListSkeleton from 'assets/Skeleton/PhraseListSkeleton';
 import userInfoState from 'Recoil/UserInfo';
-import { FollowerTitle } from 'components/Profile/FollowListStyle';
+import { EmptyList, FollowerTitle } from 'components/Profile/FollowListStyle';
 
 const colors = [
   ['#F2F6FF', '#D2D8FA'],
@@ -127,7 +127,13 @@ export default function MyPhraseList() {
             {hasNextPhrase && <div>로딩중</div>}
           </PhraseListUl>
         ) : (
-          <>{hasNextPhrase && <PhraseListSkeleton />}</>
+          <>
+            {hasNextPhrase ? (
+              <PhraseListSkeleton />
+            ) : (
+              <EmptyList>작성한 글귀가 없습니다.</EmptyList>
+            )}
+          </>
         )}
       </PhraseContainer>
       {isModalVisible && (
