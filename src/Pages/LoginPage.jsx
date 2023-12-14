@@ -5,7 +5,7 @@
 /* eslint-disable no-unused-vars */
 import { loginAPI } from 'API/User';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { loginCheck } from 'Recoil/LoginCheck';
 import loginToken from 'Recoil/LoginToken';
@@ -15,6 +15,9 @@ import { ReactComponent as Doublecheck } from '../assets/images/logo/logo6.svg';
 import Bg from '../assets/images/bg/bg-white-space.svg';
 import Button from 'components/Common/Button/Button';
 import accountname from 'Recoil/Accountname';
+import { CgCheckO } from 'react-icons/cg';
+import iconUnchecked from '../assets/images/icon/icon-unchecked.svg';
+import iconChecked from '../assets/images/icon/icon-checked.svg';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -70,7 +73,7 @@ export default function LoginPage() {
       setToken(newToken);
       navigate('/main');
     } else if (response.status === 422) {
-      setErrorMessage('이메일또는 비밀번호가 일치하지 않습니다.');
+      setErrorMessage('이메일 또는 비밀번호가 일치하지 않습니다.');
     } else {
       const errorMessage = response && response.message ? response.message : handleError();
       setErrorMessage(errorMessage);
@@ -147,10 +150,16 @@ export default function LoginPage() {
               <ErrorMassage>{errorMessage}</ErrorMassage>
             )}
           </InputDiv>
-          <Label>
-            <input type='checkbox' checked={nonMembersMode} onChange={handleNonMembersMode} />
-            체험하기
-          </Label>
+
+          <TestAccountButton type='button' onClick={handleNonMembersMode}>
+            {/* 체크박스 아이콘 */}
+            <Icon
+              src={nonMembersMode ? iconChecked : iconUnchecked}
+              alt={nonMembersMode ? '체험하기 버튼 활성화' : '체험하기 버튼 비활성화'}
+            />
+            테스트 계정으로 시작하기
+          </TestAccountButton>
+
           <Button
             category='basic'
             shape='big'
@@ -161,6 +170,7 @@ export default function LoginPage() {
             로그인
           </Button>
         </form>
+        <SignUpLink to='/signupPage'>회원가입</SignUpLink>
       </LoginBox>
     </>
   );
@@ -169,7 +179,7 @@ export default function LoginPage() {
 const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 32px 0 21px;
+  margin-top: 32px;
 `;
 
 const LoginBox = styled.div`
@@ -185,7 +195,8 @@ const Label = styled.label`
 `;
 
 const ErrorMassage = styled.div`
-  margin: 10px 10px 0;
+  padding: ${(props) => (props.isVisible ? '10px 10px 0' : '0')};
+  visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   color: var(--dark-orange);
   font-size: 14px;
 `;
@@ -218,4 +229,23 @@ const BgImg = styled.div`
   overflow: hidden;
   background-size: cover;
   background-position: center;
+`;
+
+const Icon = styled.img`
+  width: 20px;
+  margin-right: 8px;
+`;
+
+const TestAccountButton = styled.button`
+  font-family: 'Pretendard-Regular', sans-serif;
+  font-size: var(--font-xs-size);
+  margin: 13px 3px 28px;
+`;
+
+const SignUpLink = styled(Link)`
+  text-decoration: underline;
+  color: var(--gray-500);
+  display: block;
+  margin-top: 15px;
+  text-align: center;
 `;
