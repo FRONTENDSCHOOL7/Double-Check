@@ -41,8 +41,8 @@ export const postPutAPI = async (id, putData) => {
 export const postGetUpdateAPI = async (id) => {
   // eslint-disable-next-line no-useless-catch
   try {
-    const reponse = await authInstance.get(`/post/${id}`);
-    return reponse.data;
+    const response = await authInstance.get(`/post/${id}`);
+    return response.data;
   } catch (error) {
     throw error;
   }
