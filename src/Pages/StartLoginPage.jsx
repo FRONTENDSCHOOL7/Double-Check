@@ -1,19 +1,21 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import PigCharacter from 'assets/images/userimage.png';
-import bg from 'assets/images/bg.png';
+import PigCharacter from 'assets/images/logo/logo4.png';
+import Bg from '../assets/images/bg/bg-white-space.svg';
 
 function StartLoginPage() {
   return (
-    <Container>
+    <>
       {/* <BackGround /> */}
+      <BgImg />
       <SLoginWrap>
         <Icon />
         <StyledLink to='/loginpage'>이메일로 로그인</StyledLink>
         <SignUpLink to='/signupPage'>회원가입</SignUpLink>
       </SLoginWrap>
-    </Container>
+    </>
   );
 }
 const Container = styled.div`
@@ -25,15 +27,12 @@ const Container = styled.div`
 `;
 
 const SLoginWrap = styled.div`
-  background-image: url(${bg});
-  background-position: 40% -10%;
-  background-size: 400px;
-  background-repeat: no-repeat;
   margin: 0 auto;
   width: 390px;
   padding: 0;
   position: relative;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -41,8 +40,8 @@ const SLoginWrap = styled.div`
 `;
 
 const Icon = styled.div`
-  width: 160px;
-  height: 140px;
+  width: 50%;
+  height: 179px;
   background-image: url(${PigCharacter});
   background-size: cover;
 `;
@@ -54,8 +53,8 @@ const StyledLink = styled(Link)`
   width: 298px;
   height: 50px;
   margin-top: 51px;
-  background-color: #b29aff;
-  color: white;
+  background-color: var(--main-purple);
+  color: var(--white);
   text-decoration: none;
   border-radius: 15px;
   margin-bottom: 20px;
@@ -63,10 +62,19 @@ const StyledLink = styled(Link)`
 `;
 
 const SignUpLink = styled(Link)`
-  // 회원가입 링크에 대한 스타일을 추가합니다.
-
   text-decoration: underline;
-  color: black;
+  color: var(--black);
+`;
+
+const BgImg = styled.div`
+  position: absolute;
+  top: 0;
+  width: inherit;
+  height: 181px;
+  background-image: url(${Bg});
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
 `;
 
 export default StartLoginPage;
