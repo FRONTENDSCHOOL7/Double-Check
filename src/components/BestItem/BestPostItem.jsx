@@ -123,6 +123,7 @@ const SBookDesc = styled.div`
 
 const Img = styled.img.attrs({ alt: '책 이미지' })`
   width: 60px;
+  height: 85px;
   object-fit: cover;
 `;
 

@@ -2,15 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import 'react-loading-skeleton/dist/skeleton.css';
-export default function BookSlideItem({ title, author, cover, desc, isbn }) {
+export default function BookSlideItem({ title, author, cover, isbn }) {
   const newauthor = author.replace(/\([^)]*\)/g, '');
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/book/${isbn}`);
   };
+
   return (
     <SBookItemList onClick={handleClick}>
-      <img loading='lazy' src={cover} alt={desc} />
+      <img
+        src={cover}
+        srcSet={`${cover} 110w`}
+        sizes='(max-width:320px) 100px, 390px'
+        alt={title}
+        decoding='async'
+      />
       <div>
         <strong>{title}</strong>
         <p>{newauthor}</p>
@@ -19,9 +26,10 @@ export default function BookSlideItem({ title, author, cover, desc, isbn }) {
   );
 }
 
-const SBookItemList = styled.li`
+const SBookItemList = styled.div`
   cursor: pointer;
   width: 110px;
+  height: 10;
   list-style: none;
   img {
     margin: 0 auto;

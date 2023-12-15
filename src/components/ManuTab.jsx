@@ -7,17 +7,17 @@ const ManuTab = () => {
     <section>
       <ManuList>
         <li>
-          <SMaunTabs to='/#'>
+          <SMaunTabs to='/#' aria-label='읽은 책'>
             <SMaunTabBox></SMaunTabBox>
           </SMaunTabs>
         </li>
         <li>
-          <SMaunTabs to='/#'>
+          <SMaunTabs to='/#' aria-label='읽을 책'>
             <SMaunTabBox></SMaunTabBox>
           </SMaunTabs>
         </li>
         <li>
-          <SMaunTabs to='/#'>
+          <SMaunTabs to='/#' aria-label='저장한 책'>
             <SMaunTabBox></SMaunTabBox>
           </SMaunTabs>
         </li>
