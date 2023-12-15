@@ -4,11 +4,33 @@ import { Link } from 'react-router-dom';
 import { BiLike } from 'react-icons/bi';
 import styled, { css } from 'styled-components';
 import { LuBookDown } from 'react-icons/lu';
+import { updateRecommendationCount } from 'API/Firebase';
+import userInfoState from 'Recoil/UserInfo';
+import { useRecoilValue } from 'recoil';
+
 const BookButtons = ({ detailInfo }) => {
   const [liked, setLiked] = useState(false);
-  const handleLikeButtonClick = () => {
-    // 추천 버튼
-    setLiked(!liked);
+  const [recommendationCount, setRecommendationCount] = useState(0);
+  const bookId = detailInfo.isbn;
+
+  const userInfo = useRecoilValue(userInfoState);
+  const userId = userInfo ? userInfo.id : null;
+  console.log(userId);
+
+  const handleLikeButtonClick = async () => {
+    try {
+      // 추천 버튼
+      setLiked(!liked);
+
+      if (userId) {
+        await updateRecommendationCount(userId, bookId, !liked);
+        setRecommendationCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+      } else {
+        console.error('로그인한 사용자 정보를 찾을 수 없습니다.');
+      }
+    } catch (error) {
+      console.error('추천 버튼 처리 중 오류:', error);
+    }
   };
 
   const handleBookDownButtonClick = () => {
@@ -19,7 +41,7 @@ const BookButtons = ({ detailInfo }) => {
       <li>
         <SButton onClick={handleLikeButtonClick}>
           {liked ? <BiLike fill='var(--dark-purple)' /> : <BiLike />}
-          <p>0</p>
+          <p>{recommendationCount}</p>
         </SButton>
       </li>
       <li>
