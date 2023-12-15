@@ -10,6 +10,7 @@ import feedIcon from '../../assets/images/icon/icon-feed.svg';
 import { useRecoilState } from 'recoil';
 import { viewState } from '../../Recoil/FeedView';
 import { clear } from '@testing-library/user-event/dist/clear';
+import { EmptyList } from 'components/Profile/FollowListStyle';
 
 const colors = [
   ['#FFE7FF', '#E3EEFF'],
@@ -47,15 +48,19 @@ export default function UserPost({ accountname }) {
 
   return (
     <div>
-      {view === 'feed' ? (
-        validUserPosts.map((post, index) => {
-          const colorIndex = index % colors.length;
-          const color = colors[colorIndex];
+      {validUserPosts.length > 0 ? (
+        view === 'feed' ? (
+          validUserPosts.map((post, index) => {
+            const colorIndex = index % colors.length;
+            const color = colors[colorIndex];
 
-          return <PostItem key={post.id} post={post} id={post.id} color={color} />;
-        })
+            return <PostItem key={post.id} post={post} id={post.id} color={color} />;
+          })
+        ) : (
+          <GalleryView posts={validUserPosts} />
+        )
       ) : (
-        <GalleryView posts={validUserPosts} />
+        <EmptyList>작성한 피드가 없습니다.</EmptyList>
       )}
     </div>
   );

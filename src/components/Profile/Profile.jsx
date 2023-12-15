@@ -78,7 +78,7 @@ export default function Profile({
             ...prevProfile,
             ...profileData,
             imageUrl: checkedImage,
-            intro: introText || (isMyProfile ? '자신을 소개해주세요!' : ''),
+            intro: introText || (isMyProfile ? '자신을 소개해주세요!' : '소개란이 비어 있습니다.'),
             categories: categoryArray,
           }));
 
