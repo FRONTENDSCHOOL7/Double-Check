@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { BsPencilSquare } from 'react-icons/bs';
+import { BsPencilSquare } from '@react-icons/all-files/bs/BsPencilSquare';
 import { Link } from 'react-router-dom';
-import { BiLike } from 'react-icons/bi';
+import { BiLike } from '@react-icons/all-files/bi/BiLike';
 import styled, { css } from 'styled-components';
-import { LuBookDown } from 'react-icons/lu';
 import { updateRecommendationCount } from 'API/Firebase';
 import userInfoState from 'Recoil/UserInfo';
 import { useRecoilValue } from 'recoil';
+
 
 const BookButtons = ({ detailInfo }) => {
   const [liked, setLiked] = useState(false);
@@ -52,7 +52,6 @@ const BookButtons = ({ detailInfo }) => {
       </li>
       <li>
         <SButton onClick={handleBookDownButtonClick}>
-          <LuBookDown />
           <p>책장에 담기</p>
         </SButton>
       </li>

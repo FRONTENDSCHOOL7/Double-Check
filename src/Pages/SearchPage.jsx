@@ -11,7 +11,7 @@ import UseDebounce from 'Hooks/useDebounce';
 
 export default function SearchPage() {
   const [keyword, setKeyword] = useState('');
-  const debouncedSearchValue = UseDebounce(keyword, 1000);
+  const debouncedSearchValue = UseDebounce(keyword, 600);
   const [filter, setFilter] = useState('book');
   const [data, setData] = useState([]);
   const [bookdata, setBookData] = useState([]);

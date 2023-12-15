@@ -4,7 +4,8 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
-import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowForward } from '@react-icons/all-files/io/IoIosArrowForward';
+import { IoIosArrowBack } from '@react-icons/all-files/io/IoIosArrowBack';
 import { Link } from 'react-router-dom';
 // 리코일
 import { useRecoilValue } from 'recoil';
@@ -85,6 +86,7 @@ const SSliderBody = styled(Slider)`
   .slick-list .slick-track {
     display: flex;
     justify-content: center;
+    height: 208px;
   }
   .slick-list .slick-track div {
     width: 110px;
@@ -92,6 +94,7 @@ const SSliderBody = styled(Slider)`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    height: 208px;
   }
 `;
 
@@ -121,16 +124,30 @@ const SLink = styled(Link)`
 `;
 
 const NextArrow = ({ onClick, hideNext }) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onClick(e);
+  };
   return (
-    <Sbutton onClick={onClick} type='button' $next='true' $hide={hideNext}>
+    <Sbutton
+      onClick={handleClick}
+      type='button'
+      $next='true'
+      $hide={hideNext}
+      aria-label='앞으로 이동'
+    >
       <IoIosArrowForward />
     </Sbutton>
   );
 };
 
 const PrevArrow = ({ onClick, hidePrev }) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onClick(e);
+  };
   return (
-    <Sbutton onClick={onClick} type='button' $hide={hidePrev}>
+    <Sbutton onClick={handleClick} type='button' $hide={hidePrev} aria-label='뒤로이동'>
       <IoIosArrowBack />
     </Sbutton>
   );

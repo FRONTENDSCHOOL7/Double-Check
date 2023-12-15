@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 const NavBarWrapper = styled.div`
   position: fixed;
   bottom: 0;
@@ -11,7 +11,7 @@ const NavBarWrapper = styled.div`
   z-index: 30;
 `;
 
-const NavBarContents = styled.div`
+const NavBarContents = styled.ul`
   width: 100%;
   display: flex;
   gap: 65px;
@@ -20,6 +20,9 @@ const NavBarContents = styled.div`
 `;
 
 const NavItem = styled.li`
+  list-style: none;
+`;
+const NavLink = styled(Link)`
   text-align: center;
   color: ${({ $active }) => ($active === 'false' ? 'var(--gray-500)' : 'var(--dark-purple)')};
   display: flex;
@@ -27,7 +30,6 @@ const NavItem = styled.li`
   gap: ${({ to }) => (to === '/profile' ? '4px' : '6px')};
   font-size: var(--font-xs-size);
 `;
-
 const NavItemImg = styled.img`
   height: ${({ to }) => (to === '/profile' ? '33px' : '31px')};
 `;
@@ -37,4 +39,4 @@ const NavItemTxt = styled.span`
   font-size: var(--font-xxs-size);
 `;
 
-export { NavBarWrapper, NavBarContents, NavItem, NavItemImg, NavItemTxt };
+export { NavBarWrapper, NavBarContents, NavItem, NavItemImg, NavItemTxt, NavLink };

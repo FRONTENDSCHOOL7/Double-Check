@@ -7,7 +7,7 @@ import loginToken from 'Recoil/LoginToken';
 import userInfoState from 'Recoil/UserInfo';
 import ImageCheck from 'components/Common/ImageCheck';
 import { navBar } from 'Recoil/Navbar';
-import { IoSearchOutline } from 'react-icons/io5';
+import { IoSearchOutline } from '@react-icons/all-files/io5/IoSearchOutline';
 export default function MainTopBar() {
   const [token] = useRecoilState(loginToken);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -48,16 +48,21 @@ export default function MainTopBar() {
           <h1>DOUBLE CHECK</h1>
         </SLogoLink>
         <div>
-          <Link to={userInfo ? `/profile/${userInfo.accountname}` : '#'}>
+          <Link
+            to={userInfo ? `/profile/${userInfo.accountname}` : '#'}
+            aria-label='프로필 설정으로 이동'
+          >
             {isLoading ? (
               '프로필를 불러오는 중...'
             ) : userInfo?.image ? (
-              <SUserImage src={userImage} alt={userInfo.name} />
+              <div className='avatar'>
+                <SUserImage src={userImage} alt={userInfo.name} height='45px' width='45px' />
+              </div>
             ) : (
               '유저 정보를 찾을 수 없습니다.'
             )}
           </Link>
-          <SSearchLink to={'/search'}>
+          <SSearchLink to={'/search'} aria-label='검색'>
             <IoSearchOutline />
           </SSearchLink>
         </div>
@@ -113,6 +118,10 @@ const SHeader = styled.header`
   div {
     display: flex;
     gap: 7px;
+  }
+  .avatar {
+    height: auto;
+    width: 45px;
   }
 `;
 

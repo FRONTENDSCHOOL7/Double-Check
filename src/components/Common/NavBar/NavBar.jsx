@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
-import { NavBarWrapper, NavBarContents, NavItem, NavItemImg, NavItemTxt } from './NavBarStyle';
-import { useLocation, Link } from 'react-router-dom';
+import {
+  NavBarWrapper,
+  NavBarContents,
+  NavItem,
+  NavItemImg,
+  NavItemTxt,
+  NavLink,
+} from './NavBarStyle';
+import { useLocation } from 'react-router-dom';
 import iconHome from '../../../assets/images/icon/icon-home.svg';
 import iconHomeFill from '../../../assets/images/icon/icon-fill-home.svg';
 import iconBook from '../../../assets/images/icon/icon-book.svg';
@@ -34,11 +41,11 @@ const navItem = [
 
 const NavBarItem = ({ to, active, children }) => {
   return (
-    <Link to={to}>
-      <NavItem $active={active} to={to}>
+    <NavItem to={to}>
+      <NavLink $active={active} to={to}>
         {children}
-      </NavItem>
-    </Link>
+      </NavLink>
+    </NavItem>
   );
 };
 
@@ -49,10 +56,17 @@ function NavBar() {
     console.log(`clicked: ${current}`);
   }, [current]);
   const updatedNavItem = navItem.map((item) => {
+    console.log(item);
     if (item.id === 3) {
       return {
         ...item,
         to: UserInfo && UserInfo.accountname ? `/profile/${UserInfo.accountname}` : '/profile',
+      };
+    }
+    if (item.id === 0 && (current === '/search' || current === '/book/bestseller')) {
+      return {
+        ...item,
+        icon: iconHomeFill, // 여기에서 기본 이미지를 고정
       };
     }
     return item;

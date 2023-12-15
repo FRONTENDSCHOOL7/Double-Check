@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
+import { AiOutlineStar } from '@react-icons/all-files/ai/AiOutlineStar';
+import { AiFillStar } from '@react-icons/all-files/ai/AiFillStar';
 import CoustomToast from '../Toast/CustomToast';
 
 export default function Star() {

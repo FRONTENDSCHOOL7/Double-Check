@@ -15,7 +15,7 @@ import ViewToggleButton from 'components/Common/Button/ViewToggleButton';
 import { viewState } from 'Recoil/FeedView';
 import { navBar } from '../Recoil/Navbar';
 import { useNavigate } from 'react-router-dom';
-import { HiOutlineDotsVertical } from 'react-icons/hi';
+import { HiOutlineDotsVertical } from '@react-icons/all-files/hi/HiOutlineDotsVertical';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import { loginCheck } from 'Recoil/LoginCheck';
 import Modal from 'components/Common/Modal/Modal';

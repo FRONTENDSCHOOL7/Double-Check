@@ -14,7 +14,7 @@ import { CategoryList } from 'components/Category';
 import ImageCheck from 'components/Common/ImageCheck';
 import { useNavigate } from 'react-router-dom';
 // 상단바 로그아웃 버튼
-import { HiOutlineDotsVertical } from 'react-icons/hi';
+import { HiOutlineDotsVertical } from '@react-icons/all-files/hi/HiOutlineDotsVertical';
 import ModalButton from 'components/Common/Modal/ModalButton';
 import { useRecoilValue } from 'recoil';
 import userInfoState from 'Recoil/UserInfo';
