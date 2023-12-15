@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
-import { IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowForward } from '@react-icons/all-files/io/IoIosArrowForward';
 import { useRecoilValue } from 'recoil';
 import { fetchBestsellersData } from 'Recoil/BookData';
 
@@ -14,16 +14,16 @@ const BestBookItem = () => {
       {bookData.item.slice(0, 5).map((book, lank) => (
         <SItemList key={book.itemId}>
           <SItemDescBox to={`/book/${book.isbn13 || book.isbn}`}>
-            <SBookImg>
-              <img src={book.cover} alt={book.title} />
-            </SBookImg>
+            <SBookImg src={book.cover} alt={book.title} />
             <strong>{lank + 1}</strong>
             <SBookDesc>
               <h3>{book.title}</h3>
               <p>{book.publisher}</p>
             </SBookDesc>
           </SItemDescBox>
-          <Link to={`/book/${book.isbn13 || book.isbn}`}>{ArrowIcon}</Link>
+          <Link to={`/book/${book.isbn13 || book.isbn}`} aria-label='도서 상세보기'>
+            {ArrowIcon}
+          </Link>
         </SItemList>
       ))}
     </SItemListBox>
@@ -35,17 +35,12 @@ export default BestBookItem;
 const SItemListBox = styled.ul`
   padding: 0px 15px;
 `;
-const SBookImg = styled.div`
+const SBookImg = styled.img`
   width: 100px;
   height: 120px;
+  object-fit: cover;
+  object-position: top;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-  }
 `;
 const SItemDescBox = styled(Link)`
   display: flex;
