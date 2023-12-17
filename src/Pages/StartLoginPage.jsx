@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PigCharacter from 'assets/images/logo/logo4.png';
-import Bg from '../assets/images/bg/bg-white-space.svg';
+// import Bg from '../assets/images/bg/bg-white-space.svg';
 
 function StartLoginPage() {
   return (
@@ -71,7 +71,6 @@ const BgImg = styled.div`
   top: 0;
   width: inherit;
   height: 181px;
-  background-image: url(${Bg});
   overflow: hidden;
   background-size: cover;
   background-position: center;

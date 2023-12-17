@@ -12,10 +12,9 @@ import loginToken from 'Recoil/LoginToken';
 import { navBar } from 'Recoil/Navbar';
 import { styled } from 'styled-components';
 import { ReactComponent as Doublecheck } from '../assets/images/logo/logo6.svg';
-import Bg from '../assets/images/bg/bg-white-space.svg';
+// import Bg from '../assets/images/bg/bg-white-space.svg';
 import Button from 'components/Common/Button/Button';
 import accountname from 'Recoil/Accountname';
-import { CgCheckO } from 'react-icons/cg';
 import iconUnchecked from '../assets/images/icon/icon-unchecked.svg';
 import iconChecked from '../assets/images/icon/icon-checked.svg';
 
@@ -225,7 +224,6 @@ const BgImg = styled.div`
   top: 0;
   width: inherit;
   height: 161px;
-  background-image: url(${Bg});
   overflow: hidden;
   background-size: cover;
   background-position: center;
