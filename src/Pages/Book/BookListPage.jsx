@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import BookListSkeleton from 'assets/Skeleton/BookListSkeleton';
 
 const BookListPage = ({ listType, title }) => {
-  console.log(listType);
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
 
