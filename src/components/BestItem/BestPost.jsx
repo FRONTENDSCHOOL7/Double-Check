@@ -12,11 +12,9 @@ const BestPost = () => {
 
   const getCalculatedColor = useRecoilValue(calculatedColorState);
   const renderBestPostItems = React.useMemo(() => {
-    if (!sortedPosts.length) {
-      // 만약 sortedPosts에 항목이 없다면 로딩 스켈레톤을 반환합니다.
+    if (!sortedPosts || !sortedPosts.length) {
       return <MainPostSkeleton />;
     }
-
     return sortedPosts
       .slice(0, 5)
       .map((item, index) => (
