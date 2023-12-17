@@ -1,7 +1,5 @@
 import React from 'react';
-
 import 'react-loading-skeleton/dist/skeleton.css';
-// import styled from 'styled-components';
 import ContentLoader from 'react-content-loader';
 const numSkeletons = 10;
 export default function PostSkeleton(props) {

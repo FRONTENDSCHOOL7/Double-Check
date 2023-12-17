@@ -5,27 +5,24 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { useSortedPosts } from 'Recoil/BestPosts';
 import { calculatedColorState } from 'Recoil/PostColor';
-
+import MainPostSkeleton from 'assets/Skeleton/MainPostSkeleton';
 const BestPostItem = lazy(() => import('./BestPostItem'));
 const BestPost = () => {
   const sortedPosts = useSortedPosts();
 
   const getCalculatedColor = useRecoilValue(calculatedColorState);
+  const renderBestPostItems = React.useMemo(() => {
+    if (!sortedPosts.length) {
+      // 만약 sortedPosts에 항목이 없다면 로딩 스켈레톤을 반환합니다.
+      return <MainPostSkeleton />;
+    }
 
-  const renderBestPostItems = React.useMemo(
-    () =>
-      sortedPosts
-        .slice(0, 5)
-        .map((item, index) => (
-          <BestPostItem
-            color={getCalculatedColor(index)}
-            key={item._id}
-            item={item}
-            id={item._id}
-          />
-        )),
-    [sortedPosts, getCalculatedColor],
-  );
+    return sortedPosts
+      .slice(0, 5)
+      .map((item, index) => (
+        <BestPostItem color={getCalculatedColor(index)} key={item._id} item={item} id={item._id} />
+      ));
+  }, [sortedPosts, getCalculatedColor]);
   return (
     <SBestPostList>
       <SHeader>
@@ -51,6 +48,7 @@ const SBestPostListItem = styled.div`
   overflow: auto;
   gap: 10px;
   padding: 1px 0px 1px 15px;
+  height: 372px;
 `;
 const SBestPostList = styled.section`
   margin-top: 30px;

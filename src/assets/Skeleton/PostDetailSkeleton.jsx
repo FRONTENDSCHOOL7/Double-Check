@@ -24,23 +24,4 @@ const PostDetailSkeleton = (props) => (
   </>
 );
 
-// const CommentForm = styled.form``;
-
-// const CommentTextarea = styled`
-//   width: 100%;
-//   padding: 10px;
-//   background-color: var(--gray-200);
-//   border: none;
-//   border-radius: 32px;
-//   height: 41px;
-//   font-family: 'Pretendard-regular', sans-serif;
-//   font-size: var(--font-xs-size);
-//   &::placeholder {
-//     font-size: var(--font-xs-size);
-//     padding: 0 7px;
-//   }
-//   &::-webkit-scrollbar {
-//     display: none;
-//   }
-// `;
 export default PostDetailSkeleton;

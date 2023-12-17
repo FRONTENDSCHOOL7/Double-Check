@@ -8,16 +8,20 @@ import userInfoState from 'Recoil/UserInfo';
 import ImageCheck from 'components/Common/ImageCheck';
 import { navBar } from 'Recoil/Navbar';
 import { IoSearchOutline } from '@react-icons/all-files/io5/IoSearchOutline';
+import UserProfileSkeleton from 'assets/Skeleton/UserProfileSkeleton';
+
 export default function MainTopBar() {
   const [token] = useRecoilState(loginToken);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isLoading, setIsLoading] = useState(true);
   const [, setShowNavBar] = useRecoilState(navBar);
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const response = await profileAPI(token);
         if (response && response.user) {
+          setIsLoading(false);
           const { user } = response;
           const checkedImage = ImageCheck(user.image, 'profile');
           setUserInfo({
@@ -53,7 +57,7 @@ export default function MainTopBar() {
             aria-label='프로필 설정으로 이동'
           >
             {isLoading ? (
-              '프로필를 불러오는 중...'
+              <UserProfileSkeleton />
             ) : userInfo?.image ? (
               <div className='avatar'>
                 <SUserImage src={userImage} alt={userInfo.name} height='45px' width='45px' />

@@ -7,14 +7,9 @@ import { SPostHeader, SProfileImg, SPostSpan, SShowMore } from '../Post/PostStyl
 
 const BestPostItem = ({ color, item }) => {
   const author = item.parsedContent.author.replace(/\^/g, ',');
-
   const title = item.parsedContent.title.replace(/\([^()]*\)/g, '');
-
   const timeSincePosted = useTimeSince(item.createdAt);
   console.log(item.parsedContent.isbn);
-  if (!item) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>
@@ -55,7 +50,7 @@ const BestPostItem = ({ color, item }) => {
 export default BestPostItem;
 
 const SBody = styled.div`
-  height: 300px;
+  height: 80%;
   background: ${(props) =>
     Array.isArray(props.color)
       ? `linear-gradient(${props.color[0]}, ${props.color[1]})`
@@ -63,11 +58,12 @@ const SBody = styled.div`
 `;
 const SSPostHeader = styled(SPostHeader)`
   padding: 15px;
-
+  height: 20%;
   border-radius: 8px 8px 0 0;
 `;
 
 const Article = styled.article`
+  height: 100%;
   min-width: 300px;
   display: flex;
   border-radius: 8px;
