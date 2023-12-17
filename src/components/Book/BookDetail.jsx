@@ -5,7 +5,6 @@ import Topbar from 'components/Common/Topbar/Topbar';
 import BookDetailDesc from './BookDetailDesc';
 
 const BookDetail = ({ detailInfo }) => {
-  console.log(detailInfo);
   const {
     title,
     image,
@@ -41,6 +40,7 @@ const BookDetail = ({ detailInfo }) => {
       imprint,
     };
   }
+  const cleanedDesc = description.replace(/&lt;/g, '').replace(/&gt;/g, '');
 
   const { extractedTitle, subtitle, extractedPublisher } = extractTitlePublisher(title, publisher);
 
@@ -65,7 +65,7 @@ const BookDetail = ({ detailInfo }) => {
           subtitle={subtitle}
           extractedPublisher={extractedPublisher}
           categoryName={categoryName}
-          description={description}
+          description={cleanedDesc}
           isbn={isbn}
           publisher={publisher}
           detailInfo={detailInfo}
