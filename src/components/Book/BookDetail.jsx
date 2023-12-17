@@ -55,7 +55,7 @@ const BookDetail = ({ detailInfo }) => {
         <SBookDetail>
           <h1>도서 상세 정보</h1>
           <SBookImg>
-            <img src={bookImage} alt={title} />
+            <img src={bookImage} alt={title} loading='eager' />
           </SBookImg>
         </SBookDetail>
         <BookDetailDesc
@@ -106,6 +106,7 @@ const SBookImg = styled.div`
   transform: translateY(21px);
   img {
     width: 100%;
+    height: 100%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 `;

@@ -49,7 +49,9 @@ const BookDetailDesc = ({
       {/* 책 카테고리 */}
       <BookCategories categoryName={categoryName} />
       {/* 버튼 컴포넌트 */}
+
       <BookButtons detailInfo={detailInfo} />
+
       {/* 책 소개 시작 */}
       <SDescWrapper>
         {!description ? (

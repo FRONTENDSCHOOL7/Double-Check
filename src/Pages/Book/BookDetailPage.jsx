@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useLocation } from 'react-router-dom';
-import Loading from 'assets/Skeleton/BookListSkeleton'; /// 여기  스켈레톤 적용!!!
+import Loading from 'assets/Skeleton/BookDetailSkeleton';
 import BookDetail from 'components/Book/BookDetail';
 
 export default function BookDetailPage() {

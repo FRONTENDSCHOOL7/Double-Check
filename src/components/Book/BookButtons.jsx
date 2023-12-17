@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import { BsPencilSquare } from '@react-icons/all-files/bs/BsPencilSquare';
 import { Link } from 'react-router-dom';
 import { BiLike } from '@react-icons/all-files/bi/BiLike';
+import { CgSoftwareDownload } from '@react-icons/all-files/cg/CgSoftwareDownload';
 import styled, { css } from 'styled-components';
 import { updateRecommendationCount } from 'API/Firebase';
 import userInfoState from 'Recoil/UserInfo';
 import { useRecoilValue } from 'recoil';
 
-
 const BookButtons = ({ detailInfo }) => {
   const [liked, setLiked] = useState(false);
   const [recommendationCount, setRecommendationCount] = useState(0);
   const bookId = detailInfo.isbn;
-
   const userInfo = useRecoilValue(userInfoState);
   const userId = userInfo ? userInfo.id : null;
   console.log(userId);
@@ -52,6 +51,7 @@ const BookButtons = ({ detailInfo }) => {
       </li>
       <li>
         <SButton onClick={handleBookDownButtonClick}>
+          <CgSoftwareDownload />
           <p>책장에 담기</p>
         </SButton>
       </li>
