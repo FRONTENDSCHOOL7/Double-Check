@@ -1,41 +1,32 @@
-/* eslint-disable no-unused-vars */
-
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import GlobalStyles from 'Styles/GlobalStyle';
 import LayoutStyle from 'Styles/LayoutStyle';
-import SetMyInfo from 'Pages/SetMyInfo';
-import PostPage from 'Pages/Post/PostPage';
-import PostDetailPage from 'Pages/Post/PostDetailPage';
-import PostEditPage from 'Pages/Post/PostEditPage';
-// import MainPage from 'Pages/MainPage';
-// import BookRoutes from 'Route/BookRoutes';
-// import SearchPage from 'Pages/SearchPage';
-import SignupPage from 'Pages/SignupPage';
-import LoginPage from 'Pages/LoginPage';
-// import PhraseList from 'Pages/Phrase/PhraseList';
-// import PostMain from 'Pages/Post/PostMain';
-import ProfilePage from 'Pages/ProfilePage';
 import NavBar from 'components/Common/NavBar/NavBar';
+import { navBar } from './Recoil/Navbar';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRecoilValue } from 'recoil';
 import { QueryClient } from 'react-query';
 import { QueryClientProvider } from 'react-query';
-import PhraseUpdate from 'Pages/Phrase/PhraseUpdate';
-import PhraseUpload from 'Pages/Phrase/PhraseUpload';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { navBar } from './Recoil/Navbar';
-import StartLoginPage from 'Pages/StartLoginPage';
-import SplashPage from 'Pages/SplashPage';
-import ErrorPage from 'Pages/ErrorPage';
 import RouteModal from 'components/Common/ProtectedRoute/RouteModal';
-
-// lazy 적용
 const BookRoutes = lazy(() => import('Route/BookRoutes'));
 const MainPage = lazy(() => import('Pages/MainPage'));
 const SearchPage = lazy(() => import('Pages/SearchPage'));
-const PostMain = lazy(() => import('Pages/Post/PostMain'));
+const SignupPage = lazy(() => import('Pages/SignupPage'));
+const LoginPage = lazy(() => import('Pages/LoginPage'));
+const ProfilePage = lazy(() => import('Pages/ProfilePage'));
 const PhraseList = lazy(() => import('Pages/Phrase/PhraseList'));
+const PhraseUpdate = lazy(() => import('Pages/Phrase/PhraseUpdate'));
+const PhraseUpload = lazy(() => import('Pages/Phrase/PhraseUpload'));
+const StartLoginPage = lazy(() => import('Pages/StartLoginPage'));
+const SplashPage = lazy(() => import('Pages/SplashPage'));
+const ErrorPage = lazy(() => import('Pages/ErrorPage'));
+const SetMyInfo = lazy(() => import('Pages/SetMyInfo'));
+const PostMain = lazy(() => import('Pages/Post/PostMain'));
+const PostPage = lazy(() => import('Pages/Post/PostPage'));
+const PostDetailPage = lazy(() => import('Pages/Post/PostDetailPage'));
+const PostEditPage = lazy(() => import('Pages/Post/PostEditPage'));
 
 function App() {
   const token = localStorage.getItem('token');
@@ -58,10 +49,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ToastContainer />
       <BrowserRouter>
-        {/*  라우터에 영향을 받지않는 컴포넌트들*/}
         <GlobalStyles />
         <LayoutStyle>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense>
             <Routes>
               <Route path='/*' element={<ErrorPage />} />
               <Route path='/' element={<SplashPage />} />
