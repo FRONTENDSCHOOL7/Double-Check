@@ -27,6 +27,7 @@ const PostMain = lazy(() => import('Pages/Post/PostMain'));
 const PostPage = lazy(() => import('Pages/Post/PostPage'));
 const PostDetailPage = lazy(() => import('Pages/Post/PostDetailPage'));
 const PostEditPage = lazy(() => import('Pages/Post/PostEditPage'));
+const BookshelfPage = lazy(() => import('Pages/Book/BookshelfPage'));
 
 function App() {
   const token = localStorage.getItem('token');
@@ -137,6 +138,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <ProfilePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='/bookshelf'
+                element={
+                  <ProtectedRoute>
+                    <BookshelfPage />
                   </ProtectedRoute>
                 }
               />
