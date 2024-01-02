@@ -6,7 +6,7 @@ import Topbar from 'components/Common/Topbar/Topbar';
 export default function BookMainPage() {
   return (
     <>
-      <Topbar title />
+      <Topbar title='책장' />
       <Suspense fallback={<MainSkeleton />}>
         <BookSlide
           title='베스트 셀러'

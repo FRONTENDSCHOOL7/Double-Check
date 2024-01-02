@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { FeatureBanner } from 'Styles/FeatureStyle';
 
 export default function BookList({ product }) {
-  const { isbn13, isbn, cover, title, author, bestRank, bestDuration } = product;
+  const { isbn13, isbn, cover, imageURL, title, author, bestRank, bestDuration } = product;
 
   return (
     <Sli key={bestRank}>
       <Link to={`/book/${isbn13 || isbn}`}>
         <SImgbox>
-          <img src={cover} alt={title} />
+          <img src={cover || imageURL} alt={title} />
         </SImgbox>
         <StitleBox>
           <h2>{title}</h2>
