@@ -43,7 +43,7 @@ const BookListPage = ({ listType, title }) => {
   );
 };
 
-const SSection = styled.section`
+export const SSection = styled.section`
   h1 {
     clip: rect(1px, 1px, 1px, 1px);
     clip-path: inset(50%);
@@ -55,7 +55,7 @@ const SSection = styled.section`
     position: absolute;
   }
 `;
-const SBookList = styled.ul`
+export const SBookList = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 12px 18px;

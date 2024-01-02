@@ -10,6 +10,7 @@ import { QueryClient } from 'react-query';
 import { QueryClientProvider } from 'react-query';
 import { ToastContainer } from 'react-toastify';
 import RouteModal from 'components/Common/ProtectedRoute/RouteModal';
+import BookMainPage from 'Pages/Book/BookMainPage';
 const BookRoutes = lazy(() => import('Route/BookRoutes'));
 const MainPage = lazy(() => import('Pages/MainPage'));
 const SearchPage = lazy(() => import('Pages/SearchPage'));
@@ -142,10 +143,18 @@ function App() {
                 }
               />
               <Route
-                path='/bookshelf'
+                path='/book/mybookshelf'
                 element={
                   <ProtectedRoute>
                     <BookshelfPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='/bookshelf'
+                element={
+                  <ProtectedRoute>
+                    <BookMainPage />
                   </ProtectedRoute>
                 }
               />

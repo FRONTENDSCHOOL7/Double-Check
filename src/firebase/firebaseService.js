@@ -11,8 +11,11 @@ import {
   serverTimestamp,
   increment,
   updateDoc,
+  where,
 } from 'firebase/firestore';
 import appFirestore from './config';
+import { showToast } from 'Hooks/useCustomToast';
+import { redirect } from 'react-router-dom';
 
 // 도서가 존재하지 않으면 새로운 도서 추가
 const ensureBookExists = async (bookRef, bookData) => {
@@ -25,31 +28,6 @@ const ensureBookExists = async (bookRef, bookData) => {
       recommendedCount: 0,
       timestamp: serverTimestamp(),
     });
-  }
-};
-
-// 책 추가 및 독서 활동에 책 추가
-export const addBook = async (userId, isbn, bookData) => {
-  try {
-    const bookRef = doc(collection(appFirestore, 'books'), isbn);
-
-    await ensureBookExists(bookRef, bookData);
-
-    // 독서 활동에 책 추가
-    await addDoc(collection(appFirestore, 'users', userId, 'readingActivity'), {
-      bookId: isbn,
-      title: bookData.title,
-      author: bookData.author,
-      imageURL: bookData.imageURL,
-      recommended: false,
-      status: 'To Read',
-      timestamp: serverTimestamp(),
-    });
-
-    return isbn;
-  } catch (error) {
-    console.error('책 추가 중 오류:', error);
-    throw error;
   }
 };
 
@@ -82,24 +60,13 @@ export const recommendBook = async (userId, bookId, bookData) => {
       const isBookRecommended = readingActivityDocSnapshot.data().recommended;
 
       // 사용자가 이미 도서를 추천한 경우 추천 취소
-      if (isBookRecommended) {
-        await updateDoc(bookDocRef, {
-          recommendedCount: increment(-1),
-        });
+      await updateDoc(bookDocRef, {
+        recommendedCount: increment(isBookRecommended ? -1 : 1),
+      });
 
-        await updateDoc(readingActivityDocRef, {
-          recommended: false,
-        });
-      } else {
-        await updateDoc(bookDocRef, {
-          recommendedCount: increment(1),
-        });
-
-        // 독서 활동에 책 추천 상태 업데이트
-        await updateDoc(readingActivityDocRef, {
-          recommended: true,
-        });
-      }
+      await updateDoc(readingActivityDocRef, {
+        recommended: !isBookRecommended,
+      });
     }
 
     // 추천 수 업데이트 후에 서버에서 최신 데이터를 가져오기
@@ -123,7 +90,6 @@ export const getBookDetails = async (bookId) => {
     if (bookDocSnapshot.exists()) {
       return bookDocSnapshot.data();
     } else {
-      console.error('도서를 찾을 수 없습니다. ');
       return null;
     }
   } catch (error) {
@@ -138,22 +104,83 @@ export const getUserReadingList = async (userId) => {
       collection(appFirestore, 'users', userId, 'readingActivity'),
     );
 
-    if (querySnapshot !== null) {
+    if (!querySnapshot.empty) {
       const readingList = [];
 
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        // 수정: 'Id' 대신 'bookId' 사용
-        readingList.push({ ...data, bookId: doc.id });
-      });
+      // title, author, imageURL이 존재하는 하는 경우만 필터링
+      const validReadingList = querySnapshot.docs
+        .filter((doc) => {
+          const data = doc.data();
+          return data.title && data.author && data.imageURL;
+        })
+        .map((doc) => {
+          const data = doc.data();
+          return { ...data, bookId: doc.id };
+        });
+      // querySnapshot.forEach((doc) => {
+      //   const data = doc.data();
+      //   readingList.push({ ...data, bookId: doc.id });
+      // });
 
-      return readingList;
+      console.log('책 목록: ', readingList);
+
+      return validReadingList;
     } else {
       console.error('querySnapshot이 null입니다.');
       return [];
     }
   } catch (error) {
     console.error('책 목록 가져오는 중 오류:', error);
+    throw error;
+  }
+};
+
+// 도서가 이미 독서 목록에 있는지 확인
+const isBookInReadingList = async (userId, bookId) => {
+  try {
+    const querySnapshot = await getDocs(
+      query(
+        collection(appFirestore, 'users', userId, 'readingActivity'),
+        where('bookId', '==', bookId),
+      ),
+    );
+    return !querySnapshot.empty;
+  } catch (error) {
+    console.error('책장 확인 중 오류: ', error);
+    throw error;
+  }
+};
+
+// 책 추가 및 독서 활동에 책 추가
+export const addBook = async (userId, isbn, bookData) => {
+  try {
+    console.log('addBook 함수 호출 시작');
+    const bookRef = doc(collection(appFirestore, 'books'), isbn);
+
+    // 이미 책장에 있는지 확인
+    const bookAlreadyInReadingList = await isBookInReadingList(userId, isbn);
+    if (bookAlreadyInReadingList) {
+      showToast('이미 책장에 있는 책입니다.');
+      return isbn; // 이미 책장에 있는 중복 추가 방지
+    }
+    showToast('내 책장에 ');
+    await ensureBookExists(bookRef, bookData);
+
+    // 독서 활동에 책 추가
+    await addDoc(collection(appFirestore, 'users', userId, 'readingActivity'), {
+      isbn: isbn,
+      title: bookData.title,
+      author: bookData.author,
+      imageURL: bookData.imageURL,
+      recommended: false,
+      status: 'To Read',
+      timestamp: serverTimestamp(),
+    });
+
+    console.log(`책이 성공적으로 추가되었습니다. isbn: ${isbn}`);
+    return isbn;
+  } catch (error) {
+    console.error('책 추가 중 오류:', error);
     throw error;
   }
 };

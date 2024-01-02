@@ -29,7 +29,7 @@ const navItem = [
     icon: iconPost,
     iconFill: iconPostFill,
   },
-  { id: 2, name: '책장', to: '/phraselist', icon: iconBook, iconFill: iconBookFill },
+  { id: 2, name: '책장', to: '/bookshelf', icon: iconBook, iconFill: iconBookFill },
   {
     id: 3,
     name: '프로필',
