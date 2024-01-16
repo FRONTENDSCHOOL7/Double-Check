@@ -24,6 +24,7 @@ export default function BookList({ product }) {
 
 const Sli = styled.li`
   width: 150px;
+  height: 86%;
   margin: 10px auto;
   position: relative;
 `;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookList from 'components/Book/BookList';
@@ -59,5 +60,6 @@ export const SBookList = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 12px 18px;
+  grid-row-gap: ${(props) => (props.rowGap !== undefined ? '32px' : 'initial')};
 `;
 export default BookListPage;
