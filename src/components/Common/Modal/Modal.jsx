@@ -11,12 +11,6 @@ import {
 } from './ModalStyle';
 
 const Modal = ({ content, caution, btnTxt, isVisible, onConfirm, onCancel }) => {
-  // const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenAtom);
-
-  // useEffect(() => {
-  //   setModalIsOpen(isVisible);
-  // }, [isVisible]);
-
   return (
     <>
       {isVisible && (

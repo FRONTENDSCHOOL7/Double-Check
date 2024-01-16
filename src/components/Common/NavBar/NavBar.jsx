@@ -39,24 +39,33 @@ const navItem = [
   },
 ];
 
-const NavBarItem = ({ to, active, children }) => {
-  return (
-    <NavItem to={to}>
-      <NavLink $active={active} to={to}>
-        {children}
-      </NavLink>
-    </NavItem>
-  );
-};
+const NavBarItem = React.memo(
+  function NavBarItem({ to, active, children }) {
+    return (
+      <NavItem to={to}>
+        <NavLink $active={active} to={to}>
+          {children}
+        </NavLink>
+      </NavItem>
+    );
+  },
+  function areEqual(prevProps, nextProps) {
+    return prevProps.to === nextProps.to && prevProps.active === nextProps.active;
+  },
+);
 
 function NavBar() {
   const current = useLocation().pathname;
   const UserInfo = useRecoilValue(userInfoState);
+
   useEffect(() => {
-    console.log(`clicked: ${current}`);
-  }, [current]);
+    if (UserInfo && UserInfo.accountname) {
+      // UserInfo가 변경될 때 실행되는 코드
+      console.log(`Account Name: ${UserInfo.accountname}`);
+    }
+  }, [UserInfo]);
+
   const updatedNavItem = navItem.map((item) => {
-    console.log(item);
     if (item.id === 3) {
       return {
         ...item,
@@ -71,6 +80,7 @@ function NavBar() {
     }
     return item;
   });
+
   return (
     <NavBarWrapper>
       <NavBarContents>
@@ -89,4 +99,6 @@ function NavBar() {
   );
 }
 
-export default React.memo(NavBar);
+NavBar.displayName = 'NavBar';
+
+export default NavBar;
