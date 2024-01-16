@@ -59,7 +59,7 @@ const BookButtons = ({ detailInfo }) => {
       const bookData = {
         title: detailInfo.title,
         author: detailInfo.author,
-        imageURL: detailInfo.image,
+        imageURL: detailInfo.image || detailInfo.cover,
       };
       const isbn = detailInfo.isbn;
       const bookId = await addBook(userId, isbn, bookData);
