@@ -58,7 +58,7 @@ const SHeader = styled.header`
   box-sizing: border-box;
   position: fixed;
   top: 0;
-  background-color: ${(props) => (props.$bg ? 'var(--light-blue)' : '#fff')};
+  background-color: ${(props) => (props.$bg ? 'var(--light-blue)' : 'var(--white)')};
   z-index: 100;
 `;
 
